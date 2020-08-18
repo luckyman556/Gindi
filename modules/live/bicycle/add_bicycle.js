@@ -7,22 +7,22 @@ export function add_bicycle (loader) {
         initialPosition: [
             {
                 x: -75.89013459226908,
-                y: -5.070,
+                y: -5.05,
                 z: 41.15972107054229
             },
             {
-                x: -67.480,
-                y: -5.070,
-                z: -2.940
+                x: -67.48,
+                y: -5.05,
+                z: -2.94
             },
             {
-                x: -66.360,
-                y: -5.070,
-                z: -36.050
+                x: -66.36,
+                y: -5.05,
+                z: -36.05
             },
         ],
-        initialRotation: [-1.930, -2.412, 2.330],
-        scale: 0.01,
+        initialRotation: [-1.93, -2.412, 2.33],
+        scale: 0.009,
     }
 
     createModel(bicyclistOptions, loader);
@@ -34,6 +34,7 @@ function add_bicycles_animation (mesh, route, animation_counter) {
         mesh.position.y = e.position_y;
         mesh.position.z = e.position_z;
     };
+
     let on_complete_callback = () => {
         animation_counter++;
         let car_animation_points_length =  route.length;
@@ -54,10 +55,10 @@ function add_bicycles_animation (mesh, route, animation_counter) {
     let current_point = mesh.position;
     let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
     let distance_between = current_point.distanceTo(target_point);
-    let duration = distance_between * (350 / 3);
+    let speed = distance_between * (350 / 1.5);
     let easing = TWEEN.Easing.Linear.None;
     let delay = 0;
-    let animation = new TWEEN.Tween(start).to(target, duration);
+    let animation = new TWEEN.Tween(start).to(target, speed);
 
     TWEEN.add(animation);
     animation.delay(delay);
@@ -73,10 +74,6 @@ function add_bicycles_animation_rotation (mesh, route, animation_counter) {
 
     if (animation_counter === 0) {
         let rotations_amount = mesh.rotation.y / Math.PI * 2;
-
-        // console.log(mesh.name);
-        // console.log(mesh.rotation.y);
-        // console.log(rotations_amount);
 
         if (rotations_amount > 1) {
             floor_rotation_amount = Math.floor(rotations_amount);
@@ -157,9 +154,7 @@ function createModel({amount, initialPosition, initialRotation, scale}, loader) 
             window.bicyclist = bicyclist;
             scene.add(bicyclist);
 
-                add_bicycles_animation(bicyclist, bicycle_routes[i], animation_counter);
-            if (i < 2) {
-            }
+            add_bicycles_animation(bicyclist, bicycle_routes[i], animation_counter);
 
         }, onProgressCallback, onErrorCallback);
     }

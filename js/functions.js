@@ -2831,12 +2831,11 @@ function addTrees(plane_mesh, scale, tree_mesh) {
                     ray = new global_three.Raycaster(origin, direction.sub(origin).normalize());
 
                     intersects = ray.intersectObjects([plane]);
-                    if (intersects.length == 0) {
+                    if (intersects.length === 0) {
                         cross = false;
                     } else {
                         intersection_point = intersects[0].point;
-                    };
-
+                    }
                 }
             });
         }

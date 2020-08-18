@@ -73,7 +73,7 @@ export function add_humans (loader) {
                     let current_point = mesh.position;
                     let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
                     let distance_between = current_point.distanceTo(target_point);
-                    var  duration = distance_between * 350;
+                    var  duration = distance_between * 350 / 0.5;
                     var  easing = TWEEN.Easing.Linear.None;
                     var  delay = 0;
                     var animation = new TWEEN.Tween(start).to(target, duration);

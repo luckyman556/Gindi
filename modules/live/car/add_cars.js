@@ -196,7 +196,7 @@ function add_car_animation (mesh, carRoute, animation_counter) {
     let current_point = mesh.position;
     let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
     let distance_between = current_point.distanceTo(target_point);
-    let duration = distance_between * (350 / 6);
+    let duration = distance_between * (350 / 4.5);
     let easing = TWEEN.Easing.Linear.None;
     let delay = 0;
     let animation = new TWEEN.Tween(start).to(target, duration);
