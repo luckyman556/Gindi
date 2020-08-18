@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 53.2 (72643) - https://sketchapp.com -->
+    <title>36FE13BC-6EF3-446D-A4DC-22F624C789FB</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="Asset-Artboard-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Atoms-/-Icons-/-Search-/-ic_floor">
+            <rect id="body" fill="#FFFFFF" opacity="0" x="0" y="0" width="32" height="32"></rect>
+            <path d="M16.2,8 L5,13.988 L5,18.012 L16.2,24 L27.4,18.012 L27.4,13.988 L16.2,8 Z M25.1176,14.3928 L16.2,19.1608 L7.2824,14.3928 L16.2,9.6248 L25.1176,14.3928 Z M6.52,15.6104 L15.44,20.38 L15.44,21.968 L6.52,17.2 L6.52,15.6112 L6.52,15.6104 Z M16.96,21.968 L16.96,20.38 L25.88,15.6104 L25.88,17.2 L16.96,21.968 L16.96,21.968 Z" id="ic_floor-plan" fill="#A9ABB6" fill-rule="nonzero"></path>
+        </g>
+    </g>
+    <style>
+        * {
+        fill: #03233a;
+        }
+    </style>
+</svg>

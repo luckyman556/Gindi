@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iv Test</title>
+    <style>
+        .img-container {
+            width: 500px;
+            height: 500px;
+
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link href='css/imageviewer.css?ver=202008171634' rel='stylesheet'/>
+</head>
+<body>
+    <div class="img-container">
+        <img src="img/back.jpg" alt="">
+    </div>
+    <script src="js/jquery.min.js?ver=202008171634"></script>
+    <script src="js/imageviewerScript.js"></script>
+    <script>
+        $(document).ready(function(){
+            const image = document.querySelector('.img-container img');
+            window.img_viewer = new ImageViewer(image);
+        });
+    </script>
+</body>
+</html>

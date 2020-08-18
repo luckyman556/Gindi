@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_drop down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="3.2---View-&gt;-Open-info-Portrait" transform="translate(-143.000000, -137.000000)" stroke="#1A2F43" stroke-width="2">
+            <g id="Info" transform="translate(0.000000, 49.000000)">
+                <g id="More-btn" transform="translate(132.000000, 75.000000)">
+                    <polyline id="ic_drop-down" transform="translate(17.000000, 16.500000) rotate(90.000000) translate(-17.000000, -16.500000) " points="14.5104163 11.5 19.5 16.5076058 14.5 21.5"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

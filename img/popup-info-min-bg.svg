@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="261" height="171" viewBox="0 0 261 171">
+    <defs>
+        <filter id="prefix__b" width="101.5%" height="102.3%" x="-.8%" y="-1.2%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"/>
+            <feOffset dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+        </filter>
+        <path id="prefix__a" d="M16 0h46.32L96.5 26.39H245c8.837 0 16 7.163 16 16V155c0 8.837-7.163 16-16 16H16c-8.837 0-16-7.163-16-16V16C0 7.163 7.163 0 16 0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <use fill="#000" fill-opacity=".1" xlink:href="#prefix__a"/>
+        <use fill="#000" filter="url(#prefix__b)" xlink:href="#prefix__a"/>
+        <path stroke="#FFF" stroke-linejoin="square" d="M62.149.5H16C7.44.5.5 7.44.5 16v139c0 8.56 6.94 15.5 15.5 15.5h229c8.56 0 15.5-6.94 15.5-15.5V42.39c0-8.56-6.94-15.5-15.5-15.5H96.33L62.148.5z"/>
+    </g>
+</svg>

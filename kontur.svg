@@ -1,0 +1,28 @@
+<svg width="380" height="205" viewBox="0 0 380 205" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<style type="text/css">
+	.st0{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;}
+
+<defs>
+<style>
+.st0{
+stroke-dasharray: 1200;
+stroke-dashoffset: 0;
+-webkit-animation: dash 2.5s linear forwards;
+-o-animation: dash 2.5s linear forwards;
+-moz-animation: dash 2.5s linear forwards;
+animation: dash 2.5s linear forwards;
+}
+
+@-webkit-keyframes dash {
+from { stroke-dashoffset: 1200; }
+to {stroke-dashoffset: 0; }
+}
+
+</style>
+</defs>
+
+</style>
+
+<path class="st0" d="M0 203.4H44V115.4H88V139.4H132V203.4H150V87.3999H190.2L190 47.3999H242V163.4H292V133.4H346V203.4H380" stroke="white" stroke-width="2"/>
+</svg>

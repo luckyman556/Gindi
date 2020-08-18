@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="67px" height="67px" viewBox="0 0 67 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_pause</title>
+    <desc>Created with Sketch.</desc>
+    <g id="One-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.00-Home-02_01" transform="translate(-657.000000, -456.000000)">
+            <g id="ic_play" transform="translate(658.000000, 457.000000)">
+                <g id="ic_pause">
+                    <circle id="Oval-Copy-7" stroke="#FFFFFF" stroke-width="2" transform="translate(32.500000, 32.500000) rotate(90.000000) translate(-32.500000, -32.500000) " cx="32.5" cy="32.5" r="32.5"></circle>
+                    <g id="pause" transform="translate(25.000000, 24.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                        <path d="M-2.15217391,0 C-2.15217391,-1.65685425 -0.809028163,-3 0.847826087,-3 C2.50468034,-3 3.84782609,-1.65685425 3.84782609,0 L3.84782609,16.3702609 C3.84782609,18.0271151 2.50468034,19.3702609 0.847826087,19.3702609 C-0.809028163,19.3702609 -2.15217391,18.0271151 -2.15217391,16.3702609 L-2.15217391,0 Z" id="Line-7"></path>
+                        <path d="M11.1521739,0 C11.1521739,-1.65685425 12.4953197,-3 14.1521739,-3 C15.8090282,-3 17.1521739,-1.65685425 17.1521739,0 L17.1521739,16.3702609 C17.1521739,18.0271151 15.8090282,19.3702609 14.1521739,19.3702609 C12.4953197,19.3702609 11.1521739,18.0271151 11.1521739,16.3702609 L11.1521739,0 Z" id="Line-7-Copy"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

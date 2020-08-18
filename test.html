@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Gindi</title>
+
+    <!-- Add scripts-->
+
+</head>
+<body class="on-white">
+<script>
+    var renderer;
+</script>
+<script type="module">
+
+    import * as THREE from  './node_modules/three/build/three.module.js';
+
+    import Stats from './node_modules/three/examples/jsm/libs/stats.module.js';
+    import { GUI } from './node_modules/three/examples/jsm/libs/dat.gui.module.js';
+    import { FBXLoader } from './node_modules/three/examples/jsm/loaders/FBXLoader.js';
+    import { TrackballControls } from './node_modules/three/examples/jsm/controls/TrackballControls.js';
+
+    var loader = new FBXLoader();
+    loader.load( 'resources/2020/04/Gindi_MainBuilding_js_7.fbx', function(loaded_obj) {
+
+        var container, stats;
+        var camera, scene, raycaster, controls;
+
+        //------------------------------------------------------------------
+        var intersectsScene, matrixArray, instanceColorArray, matrixAttributeArray, instanceColorAttribute
+        const red = [255, 0, 125]
+        const COUNT = 100;
+
+        const instanceEmissiveArray = new Uint8Array(COUNT * 3)
+        const emissiveAttribute = new THREE.InstancedBufferAttribute(instanceEmissiveArray, 3, true)
+        emissiveAttribute.dynamic = true
+
+        function setEmissiveAtIndex(index, colorArray) {
+            for (let i = 0; i < 3; i++) {
+                instanceEmissiveArray[index * 3 + i] = colorArray[i]
+            }
+            emissiveAttribute.needsUpdate = true
+        }
+
+        function getEmissiveAtIndex(index) {
+            const res = []
+            for (let i = 0; i < 3; i++) {
+                res.push(instanceEmissiveArray[index * 3 + i])
+            }
+            return res
+        }
+
+        //------------------------------------------------------------------
+
+        var mouse = new THREE.Vector2(), INTERSECTED;
+        var radius = 100, theta = 0;
+        const identity = new THREE.Matrix4()
+
+        init();
+        animate();
+
+        function init() {
+
+            container = document.createElement('div');
+            document.body.appendChild(container);
+
+            var info = document.createElement('div');
+            info.style.position = 'absolute';
+            info.style.top = '10px';
+            info.style.width = '100%';
+            info.style.textAlign = 'center';
+            info.innerHTML = '<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - interactive cubes';
+            container.appendChild(info);
+
+            camera = new THREE.PerspectiveCamera(300, window.innerWidth / window.innerHeight, 1, 10000);
+
+
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0);
+
+            var light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(1, 1, 1).normalize();
+            scene.add(light);
+
+            var flat = loaded_obj.children[0].children[4];
+            var geometry = flat.geometry;
+            var scale = 0.002;
+            geometry.scale(scale, scale,scale);
+
+
+            //------------------------------------------------------------------
+            var instancedGeometry = new THREE.InstancedBufferGeometry() //this is going to wrap both geometry and a bit of the scene graph
+            window.instancedGeometry = instancedGeometry;
+
+            //we have to copy the meat - geometry into this wrapper
+            Object.keys(geometry.attributes).forEach(attributeName => {
+                instancedGeometry.attributes[attributeName] = geometry.attributes[attributeName]
+            });
+
+            //along with the index
+            instancedGeometry.index = geometry.index
+
+            //we define the size of the buffer
+            instancedGeometry.maxInstancedCount = COUNT
+
+            //store this in a structure for easier access
+            const matArraySize = COUNT * 4
+            matrixArray = [
+                new Float32Array(matArraySize),
+                new Float32Array(matArraySize),
+                new Float32Array(matArraySize),
+                new Float32Array(matArraySize),
+            ]
+            matrixAttributeArray = [] //same for later access
+
+            //add attributes to geometry
+            for (let i = 0; i < matrixArray.length; i++) {
+                const attribute = new THREE.InstancedBufferAttribute(matrixArray[i], 4)
+                attribute.dynamic = true
+
+                matrixAttributeArray.push(attribute)
+
+                instancedGeometry.addAttribute(
+                    `aInstanceMatrix${i}`,
+                    attribute
+                )
+            }
+
+            instanceColorArray = new Uint8Array(2000 * 3);
+            instanceColorAttribute = new THREE.InstancedBufferAttribute(instanceColorArray, 3, true)
+            instancedGeometry.addAttribute(
+                'aInstanceColor',
+                instanceColorAttribute
+            )
+
+            instancedGeometry.addAttribute(
+                'aInstanceEmissive',
+                emissiveAttribute
+            )
+
+            //dummy scene
+            intersectsScene = new THREE.Scene()
+
+            //populate entire set
+            for (var i = 0; i < COUNT; i++) {
+
+                var object = new THREE.Mesh(geometry)
+
+                object.userData.index = i //keep for mapping to attribute
+
+                const color = new THREE.Color(Math.random() * 0xffffff)
+
+                //------------------------------------------------------------------
+                object.position.x = Math.random() * 300;
+                object.position.y = Math.random() * 300;
+                object.position.z = Math.random() * 300;
+
+
+                //------------------------------------------------------------------
+                intersectsScene.add(object);
+
+                object.updateMatrixWorld();
+
+                //refactor this
+                for (let r = 0; r < 4; r++)
+                    for (let c = 0; c < 4; c++)
+                        matrixArray[r][i * 4 + c] = object.matrixWorld.elements[r * 4 + c] //fetch matrix value
+
+                const colorArray = color.toArray().map(c => Math.floor(c * 255)) //remap color once
+
+                object.userData.color = colorArray //store on graph
+
+                for (let c = 0; c < 3; c++) {
+                    instanceColorArray[i * 3 + c] = colorArray[c]
+                }
+            }
+
+            intersectsScene.updateMatrixWorld(true) //without render, needed to compute matrices
+
+            const instanceMaterial_1 = flat.material[0];
+            const instanceMaterial_2 = flat.material[1];
+            console.log(flat.material[0]);
+
+            function set_material_color (shader){
+
+                shader.vertexShader = `
+
+                attribute vec4 aInstanceMatrix0;
+                attribute vec4 aInstanceMatrix1;
+                attribute vec4 aInstanceMatrix2;
+                attribute vec4 aInstanceMatrix3;
+
+                attribute vec3 aInstanceColor;
+                attribute vec3 aInstanceEmissive;
+
+                ${
+                    shader.vertexShader.replace(
+                        '#include <begin_vertex>',
+                        `
+                        mat4 aInstanceMatrix = mat4(
+                            aInstanceMatrix0,
+                            aInstanceMatrix1,
+                            aInstanceMatrix2,
+                            aInstanceMatrix3
+                        );
+
+                        vec3 transformed = (aInstanceMatrix * vec4( position , 1. )).xyz;
+                        `
+                    )
+                }
+                `
+
+                shader.vertexShader = `
+                varying vec3 vInstanceColor;
+                varying vec3 vInstanceEmissive;
+                ${
+                    shader.vertexShader.replace(
+                        `#include <color_vertex>`,
+                        `#include <color_vertex>
+                   vInstanceColor = aInstanceColor;
+                   vInstanceEmissive = aInstanceEmissive;
+                  `
+                    )}
+                `
+
+                shader.fragmentShader = `
+                varying vec3 vInstanceColor;
+                ${
+                    shader.fragmentShader.replace(
+                        'vec4 diffuseColor = vec4( diffuse, opacity );',
+                        'vec4 diffuseColor = vec4( vInstanceColor, opacity );'
+                    )}
+                `
+
+                shader.fragmentShader = `
+                varying vec3 vInstanceEmissive;
+                ${
+                    shader.fragmentShader.replace(
+                        'vec3 totalEmissiveRadiance = emissive;',
+                        'vec3 totalEmissiveRadiance = vInstanceEmissive;'
+                    )}
+                `
+
+                shader.vertexShader = shader.vertexShader.replace(
+                    `#include <beginnormal_vertex>`,
+                    `
+                  mat4 _aInstanceMatrix = mat4(
+                    aInstanceMatrix0,
+                    aInstanceMatrix1,
+                    aInstanceMatrix2,
+                    aInstanceMatrix3
+                  );
+                  vec3 objectNormal = (_aInstanceMatrix * vec4( normal, 0. ) ).xyz;
+                  `
+                )
+
+            }
+            instanceMaterial_1.onBeforeCompile = set_material_color;
+            instanceMaterial_2.onBeforeCompile = set_material_color;
+
+            //we have to add another node (Mesh), because thats how the API works,
+            scene.add(new THREE.Mesh(
+                instancedGeometry,
+                [instanceMaterial_1, instanceMaterial_2]
+            ));
+            //------------------------------------------------------------------
+
+            //
+            raycaster = new THREE.Raycaster();
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            stats = new Stats();
+            container.appendChild(stats.dom);
+
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+            //
+
+            window.addEventListener('resize', onWindowResize, false);
+
+
+
+
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+           // controls.handleResize();
+        }
+
+        function onDocumentMouseMove(event) {
+
+            event.preventDefault();
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        }
+
+        //
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+            render();
+
+
+            stats.update();
+
+        }
+
+
+        function render() {
+/*
+            theta += 0.1;
+
+            camera.position.x = radius * Math.sin(THREE.Math.degToRad(theta));
+            camera.position.y = radius * Math.sin(THREE.Math.degToRad(theta));
+            camera.position.z = radius * Math.cos(THREE.Math.degToRad(theta));
+            camera.lookAt(scene.position);*/
+
+           // camera.updateMatrixWorld();
+
+            // find intersections
+
+            raycaster.setFromCamera(mouse, camera);
+
+            var intersects = raycaster.intersectObjects(intersectsScene.children);
+
+            if (intersects.length > 0) {
+
+                if (INTERSECTED != intersects[0].object) {
+
+                    if (INTERSECTED)
+                        setEmissiveAtIndex(
+                            INTERSECTED.userData.index,
+                            INTERSECTED.currentColorArray
+                        )
+
+                    INTERSECTED = intersects[0].object;
+                    INTERSECTED.currentColorArray = getEmissiveAtIndex(INTERSECTED.userData.index)
+                    setEmissiveAtIndex(
+                        INTERSECTED.userData.index,
+                        red
+                    )
+
+                }
+
+            } else {
+
+                if (INTERSECTED) setEmissiveAtIndex(
+                    INTERSECTED.userData.index,
+                    INTERSECTED.currentColorArray
+                )
+
+                INTERSECTED = null;
+
+            }
+
+
+            //------------------------------------------------------------------
+
+            // console.log(renderer.info.render.calls)
+            renderer.render(scene, camera);
+
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+body {
+	&.en {
+		.lang-button {
+			&::before {
+				left: 20px;
+			}
+		}
+	}
+	&.he {
+		.lang-button {
+			&::before {
+				left: 20px;
+			}
+		}
+	}
+}
+
+.lang {
+	&-container {
+		position: absolute;
+		top: 50px;
+		right: 50px;
+		z-index: 999;
+	}
+	&-button {
+		position: relative;
+
+		&::before {
+			display: block;
+			position: absolute;
+			content: '';
+			width: 24px;
+			height: 24px;
+			background-image: url("../img/navigation/shevron/down.svg");
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			transition: 0.3s;
+		}
+		&.open::before {
+			transform: rotate(180deg);
+		}
+	}
+	&-button,
+	&-list {
+		font-family: Arial, sans-serif;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 25px;
+		color: #1a2f43;
+		cursor: pointer;
+	}
+	&-dropdown {
+		opacity: 0;
+		visibility: hidden;
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

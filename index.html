@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Gindi</title>
+    <!-- Add fonts -->
+    <script src="https://cdn.statically.io/gh/zenorocha/clipboard.js/v2.0.4/dist/clipboard.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Assistant:300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <!-- Add styles-->
+    <link href='css/reset.css?ver=202008171634' rel='stylesheet'/>
+    <link href='css/slick.css?ver=202008171634' rel='stylesheet'/>
+    <link href='css/slick-theme.css?ver=202008171634' rel='stylesheet'/>
+    <link href='css/imageviewer.css?ver=202008171634' rel='stylesheet'/>
+    <link href='css/main-style.css?ver=202008171634' rel='stylesheet'/>
+    <link href='css/responsive.css?ver=202008171634' rel='stylesheet'/>
+    <link rel="shortcut icon" href="./img/logo-s.png" type="image/png">
+    <!-- Add scripts-->
+    <script>
+        var theme_url = '';
+        var client_id ="bdso0plgqkmelxgkbkohua@dreams.bmby.com";
+        var client_secret = "BMjQED7dOkS29dJJ5kECNA";
+        var grant_type = "client_credentials";
+        var scope = "mbeatAPI.dreams.write";
+        var build_id = 23906;
+        var building_name = 'ooh';
+        var add_distance_animation_val = 5;
+        var emissive_name = '';
+        var min_camera_y = 3;
+        var max_camera_y = 155;
+        var min_camera_y_for_filter = 42;
+        var glass_base_opacity = 0.8;
+        var max_zoom_full = 300;
+        var max_zoom_destroy = 110;
+        var min_zoom_full = 120;
+        var min_zoom_destroy = 20;
+        var hide_lock = 61;
+        var advanced_flat_click = true;
+        var perspectiveCamera_position_z = 236;
+        var glass_name = 'glass';
+        var lobby_n_roof_hover_color = '603EF2';
+        var lobby_360 = 'https://dreamsimages.bmby.com/new/artimus117/lobby/index.htm';
+        var roof_360 = 'https://dreamsimages.bmby.com/new/artimus117/roof/index.htm';
+        var standard_flat_opacity = 0.6;
+        var hover_flat_opacity = 0.8;
+        var available_status = ['Available'];
+        var flat_statuses = {
+            0 : {
+                name : 'Unavailable',
+                slug : 'unavailable',
+                color : 'c60745', //
+                active : 'ef0853', // ef0853
+                hover : 'FF4B85',
+            },
+            1 : {
+                name : 'Available',
+                slug : 'available',
+                color : '0d61af',
+                active : '0d84f2', // 0d84f2
+                hover : '4BA8FD',
+            },
+            length : 2,
+        };
+    </script>
+
+    <script src="js/jquery.min.js?ver=202008171634"></script>
+    <script src="js/slick.min.js?ver=202008171634"></script>
+    <script src="js/tween.umd.js?ver=202008171634"></script>
+    <script src="js/jquery.mark.js?ver=202008171634"></script>
+    <script src="js/imageviewerScript.js?ver=202008171634"></script>
+    <script src="js/fullscreen.js?ver=202008171634"></script>
+    <script src="js/print.min.js?ver=202008171634"></script>
+    <script src="js/floors-selector.js?ver=202008171634"></script>
+    <script src="js/functions.js?ver=202008171634"></script>
+    <script src="js/range-slider.js?ver=202008171634"></script>
+    <script src="app.js?ver=202008171634" type="module"></script>
+    <script src="js/scripts.js?ver=202008171634"></script>
+</head>
+<body class="on-white">
+<div class="preloader">
+    <div class="center-logo">
+    </div>
+    <div class="preloader-building-box">
+        <div class="cloud1"></div>
+        <div class="cloud2"></div>
+        <div class="cloud3"></div>
+        <div class="building-bg"></div>
+        <svg width="380" height="205" viewBox="0 0 380 205" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <style type="text/css">
+                .st0{fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;}
+
+                 .st0{
+                     stroke-dasharray: 1200;
+                     stroke-dashoffset: 1200;
+/*                     -webkit-animation: dash 3s linear forwards;
+                     -o-animation: dash 3s linear forwards;
+                     -moz-animation: dash 3s linear forwards;
+                     animation: dash 3s linear forwards;*/
+                 }
+
+/*                @-webkit-keyframes dash {
+                    from { stroke-dashoffset: 1200; }
+                    to {stroke-dashoffset: 0; }
+                }*/
+
+            </style>
+            <defs>
+            </defs>
+            <path class="st0" d="M0 203.4H44V115.4H88V139.4H132V203.4H150V87.3999H190.2L190 47.3999H242V163.4H292V133.4H346V203.4H380" stroke="white" stroke-width="2"/>
+       </svg>
+        <div class="building-bg"></div>
+    </div>
+    <div class="custom-progress-bar">
+        <div class="progress-line">
+            <div class="progress-line-active">
+                <div class="custom-tooltip">
+                    <div class="text"><span class="change">0</span><span>%</span></div>
+                    <div class="corner"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-text">Loading…</div>
+    </div>
+    <div class="percents"></div>
+    <div class="to-page">
+        <div class="text">View <b>3D</b> Model</div>
+    </div>
+</div>
+<section class="three_js" id="model">
+    <div class="ui-hide">UI toggler</div>
+    <div class="click-point"></div>
+    <div class="popup-outer"></div>
+    <div class="popup popup-2d non-canvas" data-toggler="toggler-2d">
+        <div class="close-btn popup-btn"></div>
+        <div class="print-btn popup-btn"></div>
+        <div class="content">
+            <div class="loading-overlay">
+                <div class="loading-ic"></div>
+            </div>
+            <div  class="img-box">
+                <img src="" alt="">
+            </div>
+        </div>
+        <div class="popups-togglers-box">
+            <div class="toggler-2d language-string" data-popup="popup-2d" data-en="2D" data-he="2D"></div>
+            <div class="toggler-3d language-string" data-popup="popup-3d" data-en="gallery" data-he="הדמיה"></div>
+            <div class="toggler-360 language-string" data-popup="popup-360" data-en="360" data-he="360"></div>
+        </div>
+    </div>
+
+    <div class="popup not-flat-360 non-canvas" data-toggler="toggler-2d">
+        <div class="close-btn popup-btn"></div>
+        <div class="content">
+            <div class="iframe-box"></div>
+        </div>
+    </div>
+    <div class="not-flat-360-btn" data-popup="not-flat-360"></div>
+    <div class="popup popup-360  non-canvas" data-toggler="toggler-360">
+        <div class="close-btn popup-btn"></div>
+        <div class="content">
+            <template class="mobile"></template>
+            <template class="desktop"></template>
+            <div class="iframe-box"></div>
+            <div class="fullscreen-btn"><div class="icon"></div></div>
+        </div>
+        <div class="popups-togglers-box">
+            <div class="toggler-2d language-string" data-popup="popup-2d" data-en="2D" data-he="2D"></div>
+            <div class="toggler-3d language-string" data-popup="popup-3d" data-en="gallery" data-he="הדמיה"></div>
+            <div class="toggler-360 language-string" data-popup="popup-360" data-en="360" data-he="360"></div>
+        </div>
+    </div>
+    <div class="popup popup-3d  non-canvas" data-toggler="toggler-3d">
+        <div class="close-btn popup-btn"></div>
+        <div class="content">
+            <div class="loading-overlay">
+                <div class="loading-ic"></div>
+            </div>
+            <div class="iframe-box"></div>
+            <div class="slider-box"></div>
+        </div>
+        <div class="popups-togglers-box">
+            <div class="toggler-2d language-string" data-popup="popup-2d" data-en="2D" data-he="2D"></div>
+            <div class="toggler-3d language-string" data-popup="popup-3d" data-en="gallery" data-he="הדמיה"></div>
+            <div class="toggler-360 language-string" data-popup="popup-360" data-en="360" data-he="360"></div>
+        </div>
+    </div>
+    <div class="pages-box">
+        <div class="main-wrap active">
+            <div class="canvas-box">
+                <div class="floor-form">
+                    <p class="page-description">3D View</p>
+                    <div class="relative-block">
+                        <h2 class="page-title">
+                            <div class="text-box">
+                                <span>HaAlon 20</span>
+                            </div>
+                        </h2>
+                        <span class="btn circle plus">+</span>
+                        <span class="btn circle minus">-</span>
+                    </div>
+                </div>
+                <canvas id="c">
+                </canvas>
+                <div id="three_d_css">
+                </div>
+                <div class="float-line-wrap">
+                    <div class="float-line"></div>
+                </div>
+                <div class="repair-btn"></div>
+
+                <div class="floors-selector-n-back non-canvas">
+                    <div class="bomb-btn"></div>
+                    <div class="left-floors-selector-wrap">
+                        <div class="left-floors-selector track" data-position="0"></div>
+                    </div>
+                    <div class="new-floors-selector non-canvas"></div>
+                </div>
+                <div class="rotation-controller non-canvas">
+                    <div class="circle"></div>
+                    <div class="line"></div>
+                </div>
+                <div class="zoom-controls non-canvas">
+                    <div class="zoom plus" data-step="20" data-mod="-1">
+                        <div class="img-box">
+                            <img src="img/Controls_ic_plus.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="zoom minus" data-step="20" data-mod="1">
+                        <div class="img-box">
+                            <img src="img/Controls_ic_minus.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="compass"></div>
+            </div>
+            <div class="left-corner-block non-canvas">
+                <div class="top-part">
+                    <div class="zoom-by-mousewheel non-canvas">
+                        <div class="text language-string" data-he='זום ע"י גלגלת העכבר' data-en="Zoom by mouse wheel">Zoom by mouse wheel</div>
+                        <div class="box">
+                            <div class="check"></div>
+                        </div>
+                    </div>
+                    <div class="search-btn last ">
+                        <div class="current-part">
+                            <div class="text language-string" data-he="חיפוש" data-en="Search filter"></div>
+                            <div class="search-toggle-btn"></div>
+                        </div>
+                    </div>
+                    <div class="lobby-n-roof-360 pea-parent">
+                        <div class="visible-part pea-box"><div class="pea"></div><span class="icon"></span><span class="text language-string" data-he="סיור" data-en="Tours" >Tours</span><span class="dropdown-ic"></span></div>
+                        <div class="hidden-part">
+                            <ul>
+                                <li class="open-model-360-popup" data-type="roof"><span class="text language-string" data-he="סיור על הגג" data-en="360 Roof">360 Roof</span></li>
+                                <li class="open-model-360-popup" data-type="lobby"><span class="text language-string" data-he="סיור בקומת קרקע" data-en="360 Lobby">360 Lobby</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear-search-filter pea-parent pea-box">
+                        <div class="text  language-string" data-he="אפס חיפוש" data-en="Clear filters">Clear filters</div>
+                        <div class="icon"></div>
+                        <div class="pea"></div>
+                    </div>
+                </div>
+                <div class="bottom-part">
+                    <div class="mobile-tabs">
+                        <div class="tab active" data-class="status"><span class="language-string" data-he="זמינות" data-en="availability"></span></div>
+                        <div class="tab" data-class="bedrooms"><span class="language-string" data-he="חדרים" data-en="bedrooms"></span></div>
+                        <div class="tab" data-class="floor"><span class="language-string" data-he="קומות" data-en="floor"></span></div>
+                        <div class="tab" data-class="budget"><span class="language-string" data-he="תקציב" data-en="budget"></span></div>
+                    </div>
+                    <div class="search-filter">
+                        <div class="status active-tab">
+                            <div class="search-filter-title">
+                                <div class="icon">
+                                    <img src="img/gindi-filter-ic-side.svg" alt="">
+                                </div>
+                                <div class="text language-string" data-he="מצב זמינות" data-en="Status: ">Status: </div>
+                                <div class="selected"></div>
+                            </div>
+                            <div class="as-checkbox-wrap">
+                                <div class="btns-wrap status-btns radio">
+                                    <div class="search-filter-btn as-checkbox" data-status="1"></div>
+                                </div>
+                                <div class="text language-string" data-he="הצג דירות זמינות בלבד" data-en="Show only available apartments">Show only available apartments</div>
+                            </div>
+                        </div>
+                        <div class="bedrooms">
+                            <div class="search-filter-title">
+                                <div class="icon">
+                                    <img src="img/filter_bedrooms_ic.svg" alt="">
+                                </div>
+                                <div class="text language-string" data-he="חדרים:" data-en="Bedrooms:">Bedrooms:</div>
+                                <!--<div class="selected">2-4</div>-->
+                            </div>
+                            <div class="btns-wrap bedrooms-btns checkbox">
+                                <div class="search-filter-btn round active"  data-status="2">2</div>
+                                <div class="search-filter-btn round active"  data-status="3">3</div>
+                                <div class="search-filter-btn round active"  data-status="4">4</div>
+                                <div class="search-filter-btn round active"  data-status="5">5</div>
+                                <div class="search-filter-btn round"  data-status="6">6</div>
+                            </div>
+                        </div>
+                        <div class="floor">
+                            <div class="search-filter-title two-lined">
+                                <div class="icon">
+                                    <img src="img/filter_floor_ic.svg" alt="">
+                                </div>
+                                <div class="text language-string" data-status="0" data-he="קומות:" data-en="Floors:"> Floors:</div><div class="selected"><div class="min-text"></div> - <div class="max-text"></div></div>
+                            </div>
+                            <div class="floors-range range-selector" data-min="5" data-max="48">
+                                <div class="circle min" data-value="">
+                                    <div class="circle-tooltip"><span class="simbol"></span><span class="text"></span></div>
+                                </div>
+                                <div class="circle max"  data-value="">
+                                    <div class="circle-tooltip"><span class="simbol"></span><span class="text"></span></div>
+                                </div>
+                                <div class="range-line"></div>
+                                <div class="range-line-active"></div>
+                            </div>
+                            <!--                        <div class="btns-wrap floor-btns checkbox">
+                                                        <div class="search-filter-btn" data-status="0,1,2,3,">01-04</div>
+                                                        <div class="search-filter-btn"  data-status="4,5,6,7,8,9,10,11,">05-12</div>
+                                                        <div class="search-filter-btn round"  data-status="12">13</div>
+                                                    </div>-->
+                        </div>
+                        <div class="budget">
+                            <div class="search-filter-title two-lined">
+                                <div class="icon">
+                                    <img src="img/filter_budget_ic.svg" alt="">
+                                </div>
+                                <div class="text language-string"  data-he="תקציב:" data-en="Budget:">Budget:</div><div class="selected"><div class="sep-text"> &#8362; </div><div class="min-text"></div><div class="sep-text">&#8362; - </div><div class="max-text"></div></div></div>
+                            <div class="price-range range-selector" data-min="1200" data-max="5000">
+                                <div class="circle min" data-value="">
+                                    <div class="circle-tooltip"><span class="simbol">&#8362;</span><span class="text"></span></div>
+                                </div>
+                                <div class="circle max"  data-value="">
+                                    <div class="circle-tooltip"><span class="simbol">&#8362;</span><span class="text"></span></div>
+                                </div>
+                                <div class="range-line"></div>
+                                <div class="range-line-active"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-toggle-part toggle-part">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mouse-wheel-info non-canvas">
+        <h3>Use ctrl + scroll to zoom building</h3>
+    </div>
+    <div class="mini-popup"></div>
+    <div class="fullscren-toggler"></div>
+    <div class="mobile-console">Console text</div>
+    <div class="flat-bubble"></div>
+    <div class="popup-info non-canvas">
+        <div class="close-btn"></div>
+        <div class="flat-plan folder-box">
+            <div class="border-top-left"></div>
+            <div class="border-top-center"></div>
+            <div class="border-top-right"></div>
+            <div class="bottom-right"></div>
+            <div class="toggle-btn">
+                <span></span>
+                <span></span>
+            </div>
+            <div class="flat-plan-box">
+                <p class="page-description">Apt Plan</p>
+                <div class="title-with-selector">
+                    <h2 class="page-title"><span class="text">FLAT 028</span><span class="down btn circle"></span></h2>
+                    <div class="flat-selector">
+                    </div>
+                </div>
+                <div class="flat-status">
+                    <div class="circle"></div><div class="text"></div>
+                </div>
+                <div class="flat-img">
+                    <img src="img/flat-plan.svg" alt="">
+                </div>
+                <div class="price">
+                    <div class="top-part language-string" data-he="החל מ -" data-en="from"></div>
+                    <div class="bottom-part">
+                        <span class="currency">&#8362;</span><span class="text">160,000,00</span>
+                    </div>
+                </div>
+                <div class="flat-options">
+                    <div class="flat-option floor">
+                        <div class="top-part">
+                            <div class="ic"><img src="img/gindi-ic-floor.svg" alt="" class="ic-img"></div>
+                            <div class="middle-text language-string" data-he="קומה" data-en="floor">floor</div>
+                            <div class="number">4</div>
+                        </div>
+                        <div class="bottom-part"></div>
+                    </div>
+                    <div class="flat-option badroom">
+                        <div class="top-part">
+                            <div class="ic"><img src="img/gindi-ic-rooms.svg" alt="" class="ic-img"></div>
+                            <div class="middle-text language-string" data-he="חדרים" data-en="Bedrooms">Bedrooms</div>
+                            <div class="number">4</div>
+                        </div>
+                    </div>
+                    <!--
+                            <div class="flat-option bathroom">
+                                <div class="top-part">
+                                    <div class="ic"><img src="img/bathroom-ic.svg" alt="" class="ic-img"></div>
+                                    <div class="number">2</div>
+                                </div>
+                                <div class="bottom-part">Bathrooms</div>
+                            </div>-->
+
+                    <div class="flat-option type">
+                        <div class="top-part">
+                            <div class="ic"><img src="img/gindi-ic-type.svg" alt="" class="ic-img"></div>
+                            <div class="middle-text language-string" data-he="סוג הדירה" data-en="Apt. type"></div>
+                            <div class="number">4</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popups-togglers-box">
+                    <div class="non-flat-360" data-type="">360 Tour</div>
+                    <div class="toggler-2d language-string" data-he="תכנית דירה" data-en="Apt Plan" data-popup="popup-2d">Apt Plan</div>
+                    <div class="floor-plan-toggler language-string" data-he="תכנית קומה" data-en="Floor plan">Floor plan</div>
+                    <div class="toggler-3d language-string" data-popup="popup-3d" data-en="gallery" data-he="הדמיה"></div>
+                    <div class="toggler-360 language-string" data-popup="popup-360" data-en="360" data-he="360"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="compass-btn-box">
+                    <span class="n">N</span>
+                    <span class="w">W</span>
+                    <span class="s">S</span>
+                    <span class="e">E</span>
+                    <div class="compass-btn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nfm-point-1"></div>
+    <div class="nfm-point-2"></div>
+    <div class="points-line hide"></div>
+<!--    <div class="point-1"></div>
+    <div class="point-2"></div>
+    <div class="points-line hide"></div>-->
+</section>
+<div class="current-resolution">
+    <p class="width">Width: <span class="number"></span></p>
+    <p class="height">Height: <span class="number"></span></p>
+</div>
+<style>
+    .flat-status {
+        width: 200px;
+        height: 50px;
+        background-color: black;
+    }
+</style>
+</body>
+</html>

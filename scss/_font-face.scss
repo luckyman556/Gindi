@@ -1,0 +1,42 @@
+@font-face {
+	font-family: 'almoni-tzar';
+	font-weight: 300;
+	/*(light)*/
+	font-style: normal;
+	src: url("fonts/almoni-neue-tzar-aaa-300.woff") format("woff"); }
+@font-face {
+	font-family: 'almoni-tzar';
+	font-weight: 400;
+	/*(regular)*/
+	font-style: normal;
+	src: url("fonts/almoni-neue-tzar-aaa-400.woff") format("woff"); }
+@font-face {
+	font-family: 'almoni-tzar';
+	font-weight: 600;
+	/*(demi bold)*/
+	font-style: normal;
+	src: url("fonts/almoni-tzar-demibold-aaa.woff") format("woff"); }
+@font-face {
+	font-family: 'almoni-neue';
+	font-weight: 300;
+	/*(light)*/
+	font-style: normal;
+	src: url("fonts/almoni-neue-light-aaa.woff") format("woff"); }
+@font-face {
+	font-family: 'almoni-neue';
+	font-weight: 400;
+	/*(regular)*/
+	font-style: normal;
+	src: url("fonts/almoni-neue-regular-aaa.woff") format("woff"); }
+@font-face {
+	font-family: 'almoni-neue';
+	font-weight: 700;
+	/*(bold)*/
+	font-style: normal;
+	src: url("fonts/almoni-neue-bold-aaa.woff") format("woff"); }
+/* weather font */
+@font-face {
+	font-family: 'weathericons';
+	src: url("fonts/weathericons-regular-webfont.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal; }

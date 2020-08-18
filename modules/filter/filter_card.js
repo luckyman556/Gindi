@@ -1,0 +1,216 @@
+export let card_fns = {
+
+    bind_flat_cards_events : function (card) {
+        let card_html = card.html();
+        card.unbind();
+        if (card_html.length > 0) {
+            card.click(function(event){
+                $('.nfm-flat-card.active').removeClass('active');
+                $(this).addClass('active');
+                let flat_id = $(this).attr('data-bmby-id');
+                let target_flat = window.appartments_by_bmby_id[flat_id];
+                all_appartments.forEach(function(item, index){
+                    if (item == target_flat) {
+                        $('body').attr('data-current-app-index', index);
+                    }
+                });
+                var popup_info = $('.popup-info');
+                set_appartment_data_in_block (target_flat, popup_info);
+                if (!$(event.target).hasClass('.btns-row')) {
+                    if ($(event.target).parents('.btns-row').length == 0) {
+                        if (lock_mouse_rotation_x) {
+                            let target_floor = target_flat.userData.floor;
+                            new_floor_selector_obj.set_current_floor(target_floor);
+                            new_floor_selector_obj.temp_floor_index = target_floor;
+                            new_floor_selector_obj.set_building_changes(target_floor);
+                            current_floor = target_floor;
+                            flat_click(target_flat, true);
+                            last_clicked_flat = target_flat;
+                            set_floor_status_color([current_floor]);
+                            setTimeout(function(){
+                                rotation_to_flat ();
+                            },50);
+                        } else {
+                            last_clicked_flat = target_flat
+                            current_floor = last_clicked_flat.userData.floor;
+                            set_floor_status_color([current_floor]);
+                            // flat_click(target_flat);
+                            rotation_to_flat ();
+                        }
+                        function rotation_to_flat () {
+                            targetRotationX = window.camera_target.rotation.y;
+                            let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+                            flat_world_position.y = 1;
+                            let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
+                            camera_world_position.y = 1;
+                            let start_target_rotation = targetRotationX;
+                            let angle = flat_world_position.angleTo(camera_world_position);
+                            let start_distance = flat_world_position.distanceTo(camera_world_position);
+                            let modificator = global_three.Math.degToRad(1);
+                            if (!lock_mouse_rotation_x) {
+                                let floor = last_clicked_flat.userData.floor;
+                                let target_y = (max_camera_y - min_camera_y) / window.floor_obj.length * floor;
+                                if (target_y < min_camera_y_for_filter) {
+                                    // target_y = min_camera_y_for_filter;
+                                }
+                                var easing = TWEEN.Easing.Linear.None;
+                                var delay = 0;
+                                var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, 1000);
+
+                                TWEEN.add(animation);
+                                animation.delay(delay);
+                                animation.onUpdate(function (e) {
+                                    window.camera_target.position.y = e.target_y;
+                                });
+                                animation.easing(easing);
+                                animation.start();
+                            }
+
+                            if (angle > modificator * 10) {
+                                targetRotationX += modificator;
+                                setTimeout(function () {
+                                    let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+                                    flat_world_position.y = 1;
+                                    let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
+                                    camera_world_position.y = 1;
+                                    let current_distance = flat_world_position.distanceTo(camera_world_position);
+                                    if (current_distance < start_distance) {
+                                        targetRotationX = start_target_rotation + angle;
+                                    } else {
+                                        targetRotationX = start_target_rotation - angle;
+                                    }
+                                }, 100);
+                            }
+                        }
+
+                    }
+                }
+            });
+            card.find('.floor-plan-btn-back').click(function(){
+                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
+                let target_flat =  window.appartments_by_bmby_id[flat_id];
+                last_clicked_flat = target_flat
+                if ( lock_mouse_rotation_x) {
+                    setTimeout(function () {
+                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
+                    }, 500);
+                    $('.floor-plan-btn').fadeIn();
+                    $('.floor-plan-btn-back').hide();
+                }
+            });
+            card.find('.floor-plan-btn').click(function(){
+                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
+                let target_flat =  window.appartments_by_bmby_id[flat_id];
+                last_clicked_flat = target_flat;
+                current_floor = target_flat.userData.floor;
+
+                if (!lock_mouse_rotation_x) {
+                    setTimeout(function () {
+                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
+                    }, 500);
+                    $('.floor-plan-btn').hide();
+                    $('.floor-plan-btn-back').fadeIn();
+                }
+            });
+            card.find('.apt-plan').click(function(){
+                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
+                let target_flat =  window.appartments_by_bmby_id[flat_id];
+                last_clicked_flat = target_flat;
+                current_floor = target_flat.userData.floor;
+
+                $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click();
+            });
+        }
+    },
+    get_card_html_inner :  function  (flat, i, img_path) {
+        let add_hide_floor_plan_text = '';
+        let add_hide_back_text = '';
+        if (lock_mouse_rotation_x) {
+            add_hide_floor_plan_text = 'style="display: none;"';
+        } else {
+            add_hide_back_text = 'style="display: none;"';
+        }
+
+        let status_class = 'unavailable';
+        available_status.forEach(function(item){
+            if (item === flat.status) {
+                status_class = 'available';
+            }
+        });
+        let price_html = '';
+        if (status_class == 'available') {
+            price_html = `
+            <div class="price"><div class="text language-string" data-dictionary="from">${get_lang('from')}</div><div class="currency">&#8362</div><div class="number">${numberWithCommas(Math.floor(flat.salePrice))}</div></div>
+            `;
+        } else {
+            price_html = `
+            <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
+            `;
+        };
+
+        let inner_html = `
+        <div class="flat-card-box ${status_class}">
+            <div class="name"><span class="flat-name language-string" data-dictionary="Apt.">${get_lang('Apt.')}</span> <span class="number">${flat.propNum}</span></div>
+                ${price_html}
+                <div class="options">
+                    <div class="option-item">
+                        <div class="top">
+                            <div class="ic">
+                                <img src="${ img_path}card-flat-type.svg" alt="">
+                            </div>
+                            <div class="number">${flat.modelName}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="text language-string" data-dictionary="apt. type">${get_lang('apt. type')}</div>
+                        </div>
+                    </div>
+                    <div class="option-item">
+                        <div class="top">
+                            <div class="ic">
+                                <img src="${ img_path}card-flat-bedroom.svg" alt="">
+                            </div>
+                            <div class="number">${flat.roomNum}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="text language-string" data-dictionary="Bedrooms">${get_lang('Bedrooms')}</div>
+                        </div>
+                    </div>
+                    <div class="option-item">
+                        <div class="top">
+                            <div class="ic">
+                                <img src="${ img_path}card-flat-floor.svg" alt="">
+                            </div>
+                            <div class="number">${flat.floorNum}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="text language-string" data-dictionary="floor">${get_lang('floor')}</div>
+                        </div>
+                    </div>
+                </div>            
+                <div class="btns-row">
+                    <div class="new-ui-btn apt-plan">
+                        <div class="text language-string" data-dictionary="Apt. plan">${get_lang('Apt. plan')}</div>
+                        <div class="new-ui-icon">
+                            <img src="${img_path}floor-plan-white.svg" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="new-ui-btn white floor-plan-btn" ${add_hide_floor_plan_text}>
+                        <div class="text language-string" data-dictionary="Floor plan">${get_lang('Floor plan')}</div>
+                        <div class="new-ui-icon">
+                            <img src="${img_path}card-flat-floor.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="new-ui-btn white floor-plan-btn-back" ${add_hide_back_text}>
+                        <div class="text language-string" data-dictionary="Back">${get_lang('Back')}</div>
+                        <div class="new-ui-icon">
+                            <img src="${img_path}back-btn.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        return inner_html;
+    }
+}

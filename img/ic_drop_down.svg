@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="11px" viewBox="0 0 18 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>ic_drop down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="One-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.01-Home.-Filter-open-Copy" transform="translate(-145.000000, -1513.000000)" stroke="#000000" stroke-width="2">
+            <g id="3D-MODEL-&gt;" transform="translate(-1.000000, 855.000000)">
+                <g id="Search" transform="translate(0.000000, 642.000000)">
+                    <g id="Filter-open">
+                        <polyline id="ic_drop-down" transform="translate(155.000000, 21.500000) rotate(90.000000) translate(-155.000000, -21.500000) " points="151.016666 14 159 21.5114086 151 29"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

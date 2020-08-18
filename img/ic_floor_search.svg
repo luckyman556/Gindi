@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="16px" viewBox="0 0 23 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Atoms / Icons / Search / ic_floor</title>
+    <desc>Created with Sketch.</desc>
+    <g id="One-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0.01-Home.-Filter-open-Copy" transform="translate(-721.000000, -1583.000000)">
+            <g id="3D-MODEL-&gt;" transform="translate(-1.000000, 855.000000)">
+                <g id="Search" transform="translate(0.000000, 642.000000)">
+                    <g id="Floor" transform="translate(717.000000, 76.000000)">
+                        <g id="Atoms-/-Icons-/-Search-/-ic_floor" transform="translate(0.000000, 2.000000)">
+                            <rect id="body" fill="#FFFFFF" fill-rule="evenodd" opacity="0" x="0" y="0" width="32" height="32"></rect>
+                            <path d="M16.2,8 L5,13.988 L5,18.012 L16.2,24 L27.4,18.012 L27.4,13.988 L16.2,8 Z M25.1176,14.3928 L16.2,19.1608 L7.2824,14.3928 L16.2,9.6248 L25.1176,14.3928 Z M6.52,15.6104 L15.44,20.38 L15.44,21.968 L6.52,17.2 L6.52,15.6112 L6.52,15.6104 Z M16.96,21.968 L16.96,20.38 L25.88,15.6104 L25.88,17.2 L16.96,21.968 L16.96,21.968 Z" id="ic_floor-plan" fill="#A9ABB6" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
