@@ -200,7 +200,8 @@ function init() {
             side: THREE.BackSide,
         });
         material.uniforms.tEquirect.value = texture_day;
-        const plane = new THREE.SphereBufferGeometry(400, 400, 400);
+        // const plane = new THREE.SphereBufferGeometry(400, 400, 400);
+        const plane = new THREE.SphereBufferGeometry(600, 600, 600);
         bgMesh = new THREE.Mesh(plane, material);
         scene.add(bgMesh);
     }
@@ -431,9 +432,9 @@ function animate() {
                     });
                 });
 
-                let textures_percent = loaded_texture_counter / 26 * 100;
+                let textures_percent = loaded_texture_counter / 29 * 100;
                 progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
-                if (loaded_texture_counter === 26) {
+                if (loaded_texture_counter === 29) {
                     $('.to-page').addClass('active');
                     progress_bar_update(3, 100, 'Load complete');
                     $('.preloader').addClass('completed');
@@ -552,14 +553,14 @@ function animate() {
             item.visible = true;
         }
     });
-    if (window.enviroment != undefined) {
-        if (window.enviroment.children[12] != undefined) {
-            if (window.enviroment.children[12].userData.base_y == undefined) {
-                window.enviroment.children[12].userData.base_y = window.enviroment.children[12].position.y;
-            }
-            window.enviroment.children[12].position.y = window.enviroment.children[12].userData.base_y - (window.camera_target.position.y - 5) * 2892 / 10;
-        }
-    }
+    // if (window.enviroment != undefined) {
+    //     if (window.enviroment.children[12] != undefined) {
+    //         if (window.enviroment.children[12].userData.base_y == undefined) {
+    //             window.enviroment.children[12].userData.base_y = window.enviroment.children[12].position.y;
+    //         }
+    //         window.enviroment.children[12].position.y = window.enviroment.children[12].userData.base_y - (window.camera_target.position.y - 5) * 2892 / 10;
+    //     }
+    // }
     if (lock_autorotate != true) {
         if (last_interaction + 20000 < Date.now()) {
             model_autorotate = true;
@@ -602,6 +603,7 @@ function animate() {
                         let flat_position = last_clicked_flat.getWorldPosition(new global_three.Vector3())
                         let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
                         camera_world_position.y = flat_position.y + 1.5;
+
                         let ray = new global_three.Raycaster(camera_world_position, flat_world_position.sub(camera_world_position).normalize());
                         let intersects = ray.intersectObjects(all_appartments);
                         if (intersects.length > 0) {
@@ -680,7 +682,6 @@ if (!getCookie('access_token')) {
             Object.entries(data).forEach(item => {
                 setCookie(item[0], item[1], {'max-age': 3600});
             });
-
             get_json(token, build_id);
         });
 } else {
@@ -689,8 +690,6 @@ if (!getCookie('access_token')) {
 }
 
 function get_json(token, build_id) {
-
-
     // let res = 3700000;
 
     // let myHeaders = new Headers();

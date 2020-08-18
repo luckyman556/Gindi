@@ -6,7 +6,7 @@ export const langSwitcher = () => {
 
     const body = document.querySelector('body');
     const container = createHtmlLanguage('div', 'class', 'lang-container language-switch');
-    const button = createHtmlLanguage('div', 'class', `lang-button language`);
+    const button = createHtmlLanguage('div', 'class', `lang-button language active`);
     const dropdown = createHtmlLanguage('div', 'class', 'lang-dropdown');
 
     languageUserdetector(button, dropdown, currentLang, languages);
@@ -42,7 +42,6 @@ function changeContentText(currentLang) {
                 item.innerText = item.getAttribute('data-en');
             }
         }
-
     });
 }
 
@@ -66,16 +65,9 @@ function setActiveLanguage(button, dropdown, currentLang, languages) {
         if (body.classList.contains(lang.toLowerCase())) {
             body.classList.remove(lang.toLowerCase());
         }
-
-        if (button.classList.contains(lang.toLowerCase())) {
-            button.classList.remove(lang.toLowerCase());
-            button.classList.remove('active');
-        }
     });
 
     body.classList.add(currentLang.toLowerCase());
-    button.classList.add(currentLang.toLowerCase());
-    button.classList.add('active');
     html.setAttribute('lang', currentLang.toLowerCase());
     html.setAttribute('dir', (currentLang === 'HE') ? 'rtl' : 'ltr');
 

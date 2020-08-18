@@ -12,11 +12,11 @@
 	flex-direction: column;
 	align-items: center;
 
-	&.completed {
-		.custom-progress-bar {
-			display: none;
-		}
-	}
+	//&.completed {
+	//	.custom-progress-bar {
+	//		display: none;
+	//	}
+	//}
 	.preloader-building-box {
 		position: relative;
 		width: 380px;
