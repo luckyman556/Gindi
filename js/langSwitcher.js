@@ -71,7 +71,9 @@ function setActiveLanguage(button, dropdown, currentLang, languages) {
     html.setAttribute('lang', currentLang.toLowerCase());
     html.setAttribute('dir', (currentLang === 'HE') ? 'rtl' : 'ltr');
 
-    add_street_names();
+    if (!low_performance_mode) {
+        add_street_names();
+    }
     changeContentText(currentLang);
     setCookie('language', currentLang, {'max-age': 9999999});
 }

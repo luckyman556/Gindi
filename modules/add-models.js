@@ -1,10 +1,6 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import { FBXLoader } from '../node_modules/three/examples/jsm/loaders/FBXLoader.js';
-import { ColladaLoader } from '../node_modules/three/examples/jsm/loaders/ColladaLoader.js';
-import { CSS2DRenderer, CSS2DObject } from '../node_modules/three/examples/jsm/renderers/CSS2DRenderer.js';
-import { Water } from '../node_modules/three/examples/jsm/objects/Water.js';
 
-import { add_street_names } from  './street-names/add-street-names.js';
 import { add_humans } from  './live/humans/add_humans.js';
 import { add_cars } from  './live/car/add_cars.js';
 import {add_bicycle} from "./live/bicycle/add_bicycle.js";
@@ -162,9 +158,7 @@ export function add_models( scene, all_appartments) {
         }
     });
 
-    if (!low_performance_mode) {
-        add_street_names();
-    }
+
 
     langSwitcher(); //Include language button
 
@@ -216,9 +210,9 @@ function find_n_clone_material (object_to_work, object_from_clone) {
 }
 function loadEnvironment(loader, texture_loader) {
 
-    loader.load('resources/enviroment/Enviroment_14.fbx', function(enviroment) {
-        const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete.jpg');
-        const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road.jpg');
+    loader.load('resources/enviroment/Enviroment.fbx', function(enviroment) {
+        const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg');
+        const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg');
         const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png');
         const textureGrassMap = texture_loader.load('resources/enviroment/textures/grass.jpg');
         const whiteLightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg');
@@ -281,7 +275,8 @@ function loadEnvironment(loader, texture_loader) {
                     env_item.material.alphaMap = alphaMap;
                     env_item.material.transparent = true;
                     env_item.material.color.setHex('0x67EEFF');
-                    env_item.position.set(-391262.74, 0, -1038261.1312753939);
+                    env_item.position.set(-391262.74, 0, -730724.1514921772);
+                    env_item.scale.set (0.2, 0.5, 0.2);
                     break;
                 }
                 case 'Enviroment': {

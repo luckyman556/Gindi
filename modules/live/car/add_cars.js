@@ -9,7 +9,7 @@ export function add_cars (texture_loader, loader) {
                 position: {x: 0, y:1.2, z: 0},
                 rotation: {x: 0, y:0, z: 0},
                 scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/carsuv.png',
+                map: 'resources/cars/lightmap/carsuv-opt.png',
                 lightMap: 'resources/2020/04/white-lightmap.jpg',
                 wheels: {
                     modelName: 'WS1',
@@ -34,7 +34,7 @@ export function add_cars (texture_loader, loader) {
                 position: {x: 0, y:0.5, z: 0},
                 rotation: {x: 0, y:0, z: 0},
                 scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/carwag.png',
+                map: 'resources/cars/lightmap/carwag-opt.png',
                 lightMap: 'resources/2020/04/white-lightmap.jpg',
                 wheels: {
                     modelName: 'WW1',
@@ -59,7 +59,7 @@ export function add_cars (texture_loader, loader) {
                 position: {x: 0, y:0.8, z: 0},
                 rotation: {x: 0, y:0, z: 0},
                 scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/cartaxi.png',
+                map: 'resources/cars/lightmap/cartaxi-opt.png',
                 lightMap: 'resources/2020/04/white-lightmap.jpg',
                 wheels: {
                     modelName: 'WT',
