@@ -157,7 +157,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     let filter_module_container = `
         <div class="filter-module-container non-canvas clear">        
             <div class="flat-cards"></div>
-            <div class="filter-controls open"></div>
+            <div class="filter-controls"></div>
             <div class="close-btn filter-module-open-btn new-ui-circle-btn">
                 <div class="ic-img">
                     <img src="${img_path}close-ic.svg" alt="">
@@ -359,9 +359,11 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             $('.filter-module-container').toggleClass('open');
             if ($('.filter-module-container').hasClass('open')) {
                 if ($('.filter-module-container').hasClass('clear')) {
-                    $('.main-wrap')[0].set_defaults();
-                    $('.main-wrap')[0].filter_run();
-                    $('.main-wrap')[0].filter_update();
+                    setTimeout(function(){
+                        $('.main-wrap')[0].set_defaults();
+                        $('.main-wrap')[0].filter_run();
+                        $('.main-wrap')[0].filter_update();
+                    }, 600);
                 }
             }
         });
@@ -381,9 +383,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             }
         });
 
-        $('.flat-counter').click(function(){
-            replace_filters_n_cards();
-        });
+        $('.flat-counter').click(flat_counter_click);
         $('.reset-filter').click(function(){
                 if (!$('.filter-controls').hasClass('open')) {
                     replace_filters_n_cards();
@@ -474,6 +474,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     $(".flat-cards-slider").mark(word);
                 }
             });
+        } else {
+
         }
     }
     function get_max_n_min_params_from_array (array, key) {
@@ -664,7 +666,6 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let max_num = object.data('max');
                 let current_min_number = min_btn.attr('data-current-number');
                 let current_max_number = max_btn.attr('data-current-number');
-                console.log(current_min_number);
                 min_btn.attr('data-current-number', min_num);
                 max_btn.attr('data-current-number', max_num);
                 let start_min_num = Math.floor(current_min_number);
@@ -1111,6 +1112,12 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         }
 
     }
+    function flat_counter_click () {
+        if (!check_search_input()) {
+            replace_filters_n_cards();
+        }
+
+    }
     function replace_filters_n_cards (){
 
         let filter_controls = container.find('.filter-controls');
@@ -1148,5 +1155,16 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 object.css('top', '300px');
             }, 500);
         }
+    }
+    function check_search_input () {
+        let input_value = document.getElementById('input-search').value;
+        if (input_value.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function results_not_found () {
+        $('');
     }
 }
