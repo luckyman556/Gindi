@@ -12,9 +12,13 @@ export function add_street_names () {
     street_names_objs = [];
 
     var fontloader = new THREE.FontLoader();
-    fontloader.load( 'resources/font/almoni-nue.json', function ( font ) {
+
+    fontloader.load( 'resources/font/almoni-nue.json', font => {
+
         if (names_n_positions.length > 0) {
-            names_n_positions.forEach(function(street){
+            names_n_positions.forEach(street => {
+
+
 
                 var xMid, text;
                 var color = 0xffffff;
@@ -29,9 +33,8 @@ export function add_street_names () {
                     transparent: true,
                     opacity: 1,
                     side: THREE.DoubleSide
-                } );
+                });
 
-                // var message = "דרך מנחם בגין";
                 let message;
 
                 if (body.classList.contains('he')) {
@@ -45,17 +48,13 @@ export function add_street_names () {
                     message = street.name.en;
                 }
 
-                var shapes = font.generateShapes( message, 5 );
-                var geometry = new THREE.ShapeBufferGeometry( shapes );
+                const shapes = font.generateShapes( message, 5 );
+                const geometry = new THREE.ShapeBufferGeometry( shapes );
                 geometry.computeBoundingBox();
                 xMid = - 0.5 * ( geometry.boundingBox.max.x - geometry.boundingBox.min.x );
                 geometry.translate( xMid, 0, 0 );
 
-                // make shape ( N.B. edge view not visible )
-
                 text = new THREE.Mesh( geometry, matLite );
-                // text.position.z = - 150;
-                // text.rotation.x = Math.PI * 2 / 4;
 
                 text.position.set(street.position[0], street.position[1], street.position[2]);
                 text.rotation.set(street.rotation[0],  street.rotation[1],  street.rotation[2]);
@@ -64,8 +63,6 @@ export function add_street_names () {
                 text.userData.add = street.add;
                 text.name = 'street';
 
-
-                // scene.add( text );
                 street_names_objs.push(text);
                 street_names_objs.forEach(item => scene.add( item ));
 
@@ -75,16 +72,10 @@ export function add_street_names () {
 
 
                function name_fn (text) {
-                   // let text = street_names_objs[0];
-
                    let line_point_2;
                    {
                        var geometry = new global_three.BoxBufferGeometry( 1, 1, 1 );
-                       var material = new global_three.MeshBasicMaterial( {
-                           color: 0xffff00,
-                           //transparent: true,
-                           //opacity : 0
-                       } );
+                       var material = new global_three.MeshBasicMaterial({color: 0xffff00});
                        var mesh = new global_three.Mesh( geometry, material );
                        mesh.position.set(text.position.x , 0 , 0);
                        text.add( mesh );
@@ -112,9 +103,7 @@ export function add_street_names () {
                         mesh_2.position.x = mesh.position.x + new_side_b;
                         text.add( mesh_2 );
 
-
-
-/*                        let new_line_point_3 = mesh_2.getWorldPosition(new global_three.Vector3());
+/*                      let new_line_point_3 = mesh_2.getWorldPosition(new global_three.Vector3());
                         let point_4 = new global_three.Vector3(new_line_point_3.x, 5, new_line_point_3.z);
                         var points = [];
                         points.push( point_1 );

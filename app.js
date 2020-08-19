@@ -4,7 +4,7 @@ import Stats from './node_modules/three/examples/jsm/libs/stats.module.js';
 import { DragControls } from './node_modules/three/examples/jsm/controls/DragControls.js';
 import { TransformControls } from './node_modules/three/examples/jsm/controls/TransformControls.js';
 
-import {PerspectiveCamera_init, camera_keys} from './modules/camera.js?ver=202008171634';
+import {PerspectiveCamera_init} from './modules/camera.js?ver=202008171634';
 import {controls_init} from './modules/controls/controls.js?ver=202008171634';
 import {add_models} from './modules/add-models.js?ver=202008171634';
 import {animate_cylinder_floor_numbers} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008171634';
@@ -70,8 +70,13 @@ function init() {
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( width, height );
     scene = new THREE.Scene();
+
+    const colorFog = 0xFFFFFF;
+    const nearFog = 650;
+    const farFog = 1500;
+    scene.fog = new THREE.Fog(colorFog, nearFog, farFog);
+
     perspectiveCamera = PerspectiveCamera_init(perspectiveCamera);
-    camera_keys(perspectiveCamera);
 
     controls = controls_init(perspectiveCamera ,canvas, controls);
     // model
@@ -200,9 +205,22 @@ function init() {
             side: THREE.BackSide,
         });
         material.uniforms.tEquirect.value = texture_day;
-        // const plane = new THREE.SphereBufferGeometry(400, 400, 400);
-        const plane = new THREE.SphereBufferGeometry(600, 600, 600);
+        const plane = new THREE.SphereBufferGeometry(550, 550, 550);
+        // const plane2 = new THREE.SphereGeometry(700, 32, 32, 0, Math.PI, 0, Math.PI);
+
+        // var geometryGround = new THREE.CircleBufferGeometry( 710, 32 );
+        // var materialGround = new THREE.MeshBasicMaterial({
+        //     color: 0xffffff,
+        // });
+        // var circleGround = new THREE.Mesh( geometryGround, materialGround );
+
         bgMesh = new THREE.Mesh(plane, material);
+        // bgMesh = new THREE.Mesh(plane2, material);
+        // bgMesh.rotation.x = Math.PI * -0.5;
+        // circleGround.rotation.x = Math.PI * -0.5;
+        // window.bgMesh = bgMesh;
+        // window.circleGround = circleGround;
+        // scene.add(circleGround);
         scene.add(bgMesh);
     }
     // control.attach(window.ground);
