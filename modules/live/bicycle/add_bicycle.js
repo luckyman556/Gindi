@@ -28,7 +28,7 @@ export function add_bicycle (loader) {
     createModel(bicyclistOptions, loader);
 }
 
-function add_bicycles_animation (mesh, route, animation_counter) {
+/*function add_bicycles_animation (mesh, route, animation_counter) {
     let callback = (e) => {
         mesh.position.x = e.position_x;
         mesh.position.y = e.position_y;
@@ -66,8 +66,8 @@ function add_bicycles_animation (mesh, route, animation_counter) {
     animation.onComplete(on_complete_callback);
     animation.easing(easing);
     animation.start();
-}
-function add_bicycles_animation_rotation (mesh, route, animation_counter) {
+}*/
+/*function add_bicycles_animation_rotation (mesh, route, animation_counter) {
     let base_rotation_angle = global_three.Math.radToDeg(mesh.rotation.y);
     let new_rotation_angle;
     let floor_rotation_amount;
@@ -107,10 +107,10 @@ function add_bicycles_animation_rotation (mesh, route, animation_counter) {
     TWEEN.add(animation);
     animation.delay(delay);
     animation.onUpdate(callback);
-    // animation.onComplete(on_complete_callback);
     animation.easing(easing);
     animation.start();
-}
+}*/
+
 function setRandomColor(obj) {
     obj.material.forEach(item => {
         switch (item.name) {
@@ -134,6 +134,7 @@ function setRandomColor(obj) {
         }
     });
 }
+
 function createModel({amount, initialPosition, initialRotation, scale}, loader) {
     for (let i = 0; i < amount; i++) {
         let animation_counter = 0;
@@ -154,8 +155,67 @@ function createModel({amount, initialPosition, initialRotation, scale}, loader) 
             window.bicyclist = bicyclist;
             scene.add(bicyclist);
 
+
             add_bicycles_animation(bicyclist, bicycle_routes[i], animation_counter);
 
         }, onProgressCallback, onErrorCallback);
     }
+}
+
+function add_bicycles_animation (bicyclist, bicycle_routes, animation_counter) {
+        add_human_animation (bicyclist, animation_counter, bicycle_routes);
+        add_human_animation_rotation (bicyclist, animation_counter, bicycle_routes);
+}
+function add_human_animation_rotation (bicyclist, animation_counter, bicycle_routes) {
+    const bc = scene.getObjectByName("bicyclist-0")
+    let target_rotation = bicycle_routes[animation_counter]['rotation'];
+
+    bicyclist.rotation.x = target_rotation.x;
+    bicyclist.rotation.y = target_rotation.y;
+    bicyclist.rotation.z = target_rotation.z;
+
+    if (bc) {
+        // console.log(bc.rotation);
+    }
+}
+function add_human_animation (bicyclist, animation_counter, bicycle_routes) {
+    let callback =  function (e) {
+        bicyclist.position.x = e.position_x;
+        bicyclist.position.y = e.position_y;
+        bicyclist.position.z = e.position_z;
+    };
+    let on_complete_callback =  function (e) {
+
+        animation_counter++;
+
+        if (animation_counter === bicycle_routes.length) {
+            animation_counter = 0;
+            add_human_animation_rotation (bicyclist, animation_counter, bicycle_routes);
+            add_human_animation (bicyclist, animation_counter, bicycle_routes);
+
+        } else {
+            add_human_animation_rotation (bicyclist, animation_counter, bicycle_routes);
+            add_human_animation (bicyclist, animation_counter, bicycle_routes);
+        }
+    }
+
+    var  start = { position_x : bicyclist.position.x , position_y :  bicyclist.position.y, position_z :  bicyclist.position.z };
+
+    let target_position = bicycle_routes[animation_counter]['position'];
+    var target = { position_x : target_position.x , position_y :  target_position.y , position_z :  target_position.z };
+
+    let current_point = bicyclist.position;
+    let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
+    let distance_between = current_point.distanceTo(target_point);
+    var  duration = distance_between * 350 / 2;
+    var  easing = TWEEN.Easing.Linear.None;
+    var  delay = 0;
+    var animation = new TWEEN.Tween(start).to(target, duration);
+
+    TWEEN.add(animation);
+    animation.delay(delay);
+    animation.onUpdate(callback);
+    animation.onComplete(on_complete_callback);
+    animation.easing(easing);
+    animation.start();
 }

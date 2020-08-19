@@ -1,16 +1,4 @@
 @charset "UTF-8";
-body.en > .three_js .popups-togglers-box > .toggler-2d {
-  order: 1; }
-
-body.en > .three_js .popups-togglers-box > .floor-plan-toggler {
-  order: 2; }
-
-body.he > .three_js .popups-togglers-box > .toggler-2d {
-  order: 2; }
-
-body.he > .three_js .popups-togglers-box > .floor-plan-toggler {
-  order: 1; }
-
 @keyframes btn_press {
   0% {
     transform: scale(1); }
@@ -150,49 +138,84 @@ body.he > .three_js .popups-togglers-box > .floor-plan-toggler {
   font-weight: 300;
   /*(light)*/
   font-style: normal;
-  src: url("fonts/almoni-neue-tzar-aaa-300.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-neue-tzar-aaa-300.woff") format("woff"); }
 
 @font-face {
   font-family: 'almoni-tzar';
   font-weight: 400;
   /*(regular)*/
   font-style: normal;
-  src: url("fonts/almoni-neue-tzar-aaa-400.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-neue-tzar-aaa-400.woff") format("woff"); }
 
 @font-face {
   font-family: 'almoni-tzar';
   font-weight: 600;
   /*(demi bold)*/
   font-style: normal;
-  src: url("fonts/almoni-tzar-demibold-aaa.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-tzar-demibold-aaa.woff") format("woff"); }
 
 @font-face {
   font-family: 'almoni-neue';
   font-weight: 300;
   /*(light)*/
   font-style: normal;
-  src: url("fonts/almoni-neue-light-aaa.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-neue-light-aaa.woff") format("woff"); }
 
 @font-face {
   font-family: 'almoni-neue';
   font-weight: 400;
   /*(regular)*/
   font-style: normal;
-  src: url("fonts/almoni-neue-regular-aaa.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-neue-regular-aaa.woff") format("woff"); }
 
 @font-face {
   font-family: 'almoni-neue';
   font-weight: 700;
   /*(bold)*/
   font-style: normal;
-  src: url("fonts/almoni-neue-bold-aaa.woff") format("woff"); }
+  src: url("../fonts/almoni/almoni-neue-bold-aaa.woff") format("woff"); }
 
-/* weather font */
 @font-face {
   font-family: 'weathericons';
-  src: url("fonts/weathericons-regular-webfont.woff2") format("woff2");
+  src: url("../fonts/almoni/weathericons-regular-webfont.woff2") format("woff2");
   font-weight: normal;
   font-style: normal; }
+
+@font-face {
+  font-family: 'fragolino';
+  font-weight: 300;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoLight.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino';
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino';
+  font-weight: 600;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino';
+  font-weight: 700;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino-book';
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoBook.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino-book';
+  font-weight: 600;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf"); }
 
 .preloader {
   top: 0;
@@ -1421,7 +1444,6 @@ body {
       .three_js .zoom-by-mousewheel.active .box .check {
         border-color: white; }
     .three_js .zoom-by-mousewheel .text {
-      width: 130px;
       text-align: center;
       margin: auto 0;
       font-size: 16px;
@@ -1873,14 +1895,11 @@ body {
         margin: auto;
         margin-left: 0;
         margin-right: initial;
-        text-align: left;
         width: calc(100% - 34px);
         color: #000000;
         font-size: 19px;
         letter-spacing: 0.2px;
-        text-align: center;
-        font-family: almoni-neue;
-        font-size: 16px; }
+        text-align: center; }
       .three_js .search-btn .current-part .search-toggle-btn {
         background-image: url(../img/ic_drop_down.svg);
         width: 31px;
@@ -2229,7 +2248,7 @@ body {
     border-radius: 6px; }
     .three_js .popup * {
       opacity: 0;
-      transition: 0.5; }
+      transition: 0.5s; }
     .three_js .popup:after {
       position: absolute;
       width: 100%;
@@ -4881,8 +4900,7 @@ body.en .three_js .search-btn {
   left: 34px;
   width: 130px; }
   body.en .three_js .search-btn .current-part {
-    padding-left: 0;
-    height: 40px; }
+    padding-left: 0; }
     body.en .three_js .search-btn .current-part .text {
       padding-left: 11px;
       padding-right: 0; }
@@ -4890,6 +4908,8 @@ body.en .three_js .search-btn {
 body.en .three_js .zoom-by-mousewheel {
   right: initial;
   left: 170px; }
+  body.en .three_js .zoom-by-mousewheel > .text {
+    width: 90px; }
 
 body.en .three_js .compass {
   left: initial;
@@ -4902,5 +4922,8 @@ body.en .three_js .status .as-checkbox-wrap > .text {
 
 body.en .three_js .btns-wrap.bedrooms-btns .search-filter-btn.round:first-child {
   margin-right: 10px; }
+
+body.he .three_js .zoom-by-mousewheel .text {
+  width: 130px; }
 
 /*# sourceMappingURL=main-style.css.map */

@@ -167,12 +167,13 @@ export function add_models( scene, all_appartments) {
     // }
 
 
-    function on_load_texture (texture) {
+    function on_load_texture() {
         loaded_texture_counter++;
     }
 
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
-    loadSea(texture_loader);
+    loadEnvironment(loader, texture_loader, on_load_texture);
+    // loadSea(texture_loader);
 
     if (!low_performance_mode) {
         loadTrees(loader, texture_loader, white_lightmap_2);
@@ -186,13 +187,14 @@ function loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap
         white_lightmap = texture_loader.load('resources/2020/04/white-lightmap.jpg', on_load_texture);
         textures_counter++;
 
-        loadEnvironment(loader, texture_loader);
+
         loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap);
 
         // console.log(empty_model);
         return empty_model;
     });
 }
+
 function find_n_clone_material (object_to_work, object_from_clone) {
     if (object_to_work.children.length === 0) {
         var material_length = object_to_work.material.length;
@@ -208,17 +210,17 @@ function find_n_clone_material (object_to_work, object_from_clone) {
         }
     }
 }
-function loadEnvironment(loader, texture_loader) {
+function loadEnvironment(loader, texture_loader, on_load_texture) {
 
-    loader.load('resources/enviroment/Enviroment.fbx', function(enviroment) {
-        const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg');
-        const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg');
-        const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png');
-        const textureGrassMap = texture_loader.load('resources/enviroment/textures/grass.jpg');
-        const whiteLightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg');
-        const glassMap = texture_loader.load('resources/new_merged/textures/glass_map.jpg');
-        const pavingTextureMap = texture_loader.load('resources/enviroment/textures/paving.jpg');
-        const concretteMap = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg');
+    loader.load('resources/enviroment/enviroment.fbx', function(enviroment) {
+        const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg', on_load_texture);
+        const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg', on_load_texture);
+        const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png', on_load_texture);
+        const textureGrassMap = texture_loader.load('resources/enviroment/textures/grass.jpg', on_load_texture);
+        const whiteLightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', on_load_texture);
+        const glassMap = texture_loader.load('resources/new_merged/textures/glass_map.jpg', on_load_texture);
+        const pavingTextureMap = texture_loader.load('resources/enviroment/textures/paving.jpg', on_load_texture);
+        const concretteMap = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg', on_load_texture);
 
         const roadMapsTextures = ['Road_2_Material_7168_AlbedoTransparency', 'Road_2_Material_7169_AlbedoTransparency', 'Road_2_Material_7170_AlbedoTransparency'];
 
@@ -230,7 +232,7 @@ function loadEnvironment(loader, texture_loader) {
                         road.material = new THREE.MeshPhongMaterial({
                             transparent: false,
                             lightMap: roadLightMap,
-                            map: texture_loader.load(`resources/enviroment/textures/${roadMapsTextures[i]}.png`),
+                            map: texture_loader.load(`resources/enviroment/textures/${roadMapsTextures[i]}.png`, on_load_texture),
                             color: 'lightgray',
                         });
                     }
@@ -333,7 +335,7 @@ function loadEnvironment(loader, texture_loader) {
                                 break;
                             }
                             case "glass": {
-                                environmentMaterial.envMap = texture_loader.load('resources/material/textures/360_half.jpg');
+                                environmentMaterial.envMap = texture_loader.load('resources/material/textures/360_half.jpg', on_load_texture);
                                 environmentMaterial.lightMap = mainEnvironmentLightMap;
                                 environmentMaterial.envMap.mapping = THREE.EquirectangularReflectionMapping;
                                 environmentMaterial.envMap.minFilter = THREE.NearestMipmapLinearFilter;
@@ -352,7 +354,6 @@ function loadEnvironment(loader, texture_loader) {
                     break;
                 }
                 default: {
-                    loaded_texture_counter += 2;
                     break;
                 }
             }
@@ -366,6 +367,7 @@ function loadEnvironment(loader, texture_loader) {
                 if (building.name === name) {
                     object_to_opacity.push(building);
                     enviroment.getObjectByName(name).material = temp_material.clone();
+                    on_load_texture();
                 }
             });
         });
@@ -382,228 +384,6 @@ function loadEnvironment(loader, texture_loader) {
 
     }, onProgressCallback , onErrorCallback);
 }
-/*function loadEnvironment(loader, texture_loader, on_load_texture, env_grass_map, new_merged_glass_map, white_lightmap, beton_texture, reflection_material) {
-    loader.load('resources/enviroment/Enviroment_9.fbx', function(enviroment) {
-
-        //Enviroment ligthmaps start
-        let env_car_lm = texture_loader.load('resources/enviroment/lightmaps/carVRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_car_lm.encoding = THREE.LinearEncoding;
-
-        let env_circle_lm = texture_loader.load('resources/enviroment/lightmaps/circleVRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_circle_lm.encoding = THREE.LinearEncoding;
-
-        let env_city_lm = texture_loader.load('resources/enviroment/lightmaps/CityVRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_city_lm.encoding = THREE.LinearEncoding;
-
-        let env_lm = texture_loader.load('resources/enviroment/lightmaps/EnviromentVRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_lm.encoding = THREE.LinearEncoding;
-
-        let env_road_1_lm = texture_loader.load('resources/enviroment/lightmaps/Road_1VRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_road_1_lm.encoding = THREE.LinearEncoding;
-
-        let env_road_2_lm = texture_loader.load('resources/enviroment/lightmaps/Road_2VRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_road_2_lm.encoding = THREE.LinearEncoding;
-
-        let env_road_3_lm = texture_loader.load('resources/enviroment/lightmaps/Road_3VRayCompleteMap.jpg', on_load_texture);
-        textures_counter++;
-        env_road_3_lm.encoding = THREE.LinearEncoding;
-        //Enviroment ligthmaps end
-
-        //Enviroment textures start
-        let env_car_map = texture_loader.load('resources/enviroment/textures/Car2.jpg', on_load_texture);
-        textures_counter++;
-        env_car_map.encoding = THREE.LinearEncoding;
-
-        let env_alfa_map = texture_loader.load('resources/enviroment/textures/alpha.png', on_load_texture);
-        textures_counter++;
-        env_alfa_map.encoding = THREE.LinearEncoding;
-
-        env_grass_map = texture_loader.load('resources/enviroment/textures/grass.jpg', on_load_texture);
-        textures_counter++;
-        env_grass_map.encoding = THREE.LinearEncoding;
-        env_grass_map.wrapS = THREE.RepeatWrapping;
-        env_grass_map.wrapT = THREE.RepeatWrapping;
-        env_grass_map.repeat.set(0.5, 0.5);
-
-        let env_grass_map_2 = texture_loader.load('resources/enviroment/textures/grass.jpg', on_load_texture);
-        textures_counter++;
-        env_grass_map_2.encoding = THREE.LinearEncoding;
-        env_grass_map_2.wrapS = THREE.RepeatWrapping;
-        env_grass_map_2.wrapT = THREE.RepeatWrapping;
-        env_grass_map_2.repeat.set(50, 50);
-
-        let env_paving_map = texture_loader.load('resources/enviroment/textures/paving.jpg', on_load_texture);
-        textures_counter++;
-        env_paving_map.encoding = THREE.LinearEncoding;
-        env_paving_map.wrapS = THREE.RepeatWrapping;
-        env_paving_map.wrapT = THREE.RepeatWrapping;
-        env_paving_map.repeat.set(0.2, 0.2);
-
-        let env_road_1_map = texture_loader.load('resources/enviroment/textures/Road_2_Material_7168_AlbedoTransparency.png', on_load_texture);
-        textures_counter++;
-        env_road_1_map.encoding = THREE.LinearEncoding;
-
-        let env_road_2_map = texture_loader.load('resources/enviroment/textures/Road_2_Material_7169_AlbedoTransparency.png', on_load_texture);
-        textures_counter++;
-        env_road_2_map.encoding = THREE.LinearEncoding;
-
-        let env_road_3_map = texture_loader.load('resources/enviroment/textures/Road_2_Material_7170_AlbedoTransparency.png', on_load_texture);
-        textures_counter++;
-        env_road_3_map.encoding = THREE.LinearEncoding;
-        // console.log(enviroment);
-
-
-        let meshNames = ['tower_03', 'tower_02', 'tower_01', 'tower_t', 'Nei_buildings03', 'Nei_buildings02', 'Nei_buildings01', 'Nei_buildings00', 'Nei_buildings04'];
-        enviroment.children.forEach(obj => {
-            meshNames.forEach(name => {
-                if (obj.name === name) {
-                    object_to_opacity.push(obj);
-                } else {
-
-                }
-            });
-        });
-
-        // console.log(enviroment);
-
-        //Enviroment textures end
-
-        // car mesh start
-        let car_mesh = enviroment.children[0];
-        car_mesh.material.lightMap = env_car_lm;
-        car_mesh.material.map = env_car_map;
-        car_mesh.material.color.setColorName('lightgray');
-        // car mesh end
-
-        // city mesh start
-        let city_mesh = enviroment.children[1];
-        city_mesh.material.lightMap = env_city_lm;
-        city_mesh.material.alphaMap = env_alfa_map;
-        // city mesh end
-
-        // circle mesh start
-        let circle_mesh = enviroment.children[2];
-        circle_mesh.material.lightMap = env_circle_lm;
-        circle_mesh.material.color.setColorName('lightgray');
-        circle_mesh.material.map = env_grass_map_2;
-        circle_mesh.material.transparent  = true;
-        circle_mesh.material.opacity = 0.5;
-        circle_mesh.material.visible = false;
-        // circle mesh end
-
-        // roads meshes start
-        let road_1_mesh = enviroment.children[3].children[0];
-        road_1_mesh.material = new THREE.MeshPhongMaterial({
-            color: '#434448',
-            transparent: false,
-        });
-        road_1_mesh.material.lightMap = env_road_1_lm;
-        road_1_mesh.material.map = env_road_1_map;
-        road_1_mesh.material.color.setColorName('lightgray');
-
-        let road_2_mesh = enviroment.children[3].children[1];
-        road_2_mesh.material = new THREE.MeshPhongMaterial({
-            color: '#434448',
-            transparent: false,
-        });
-
-        road_2_mesh.material.lightMap = env_road_2_lm;
-        road_2_mesh.material.map = env_road_2_map;
-        road_2_mesh.material.color.setColorName('lightgray');
-
-        let road_3_mesh = enviroment.children[3].children[2];
-        road_3_mesh.material = new THREE.MeshPhongMaterial({
-            color: '#434448',
-            transparent: false,
-        });
-
-        road_3_mesh.material.lightMap = env_road_3_lm;
-        road_3_mesh.material.color.setColorName('lightgray');
-        // roads meshes end
-
-        // enviroment mesh start
-        let env_mesh = enviroment.children[4];
-        env_mesh.material.forEach(function(env_mesh_material_item) {
-            env_mesh_material_item.lightMap = env_lm;
-            let name = env_mesh_material_item.name;
-            if (name === "concrette") {
-                env_mesh_material_item.map = beton_texture;
-                env_mesh_material_item.color.setColorName('lightgray');
-            }
-            if (name === "grass") {
-                env_mesh_material_item.map = env_grass_map
-                env_mesh_material_item.color.setColorName('lightgray');
-            }
-            if (name === "tree") {
-                env_mesh_material_item.map = env_grass_map
-            }
-            if (name === "tree_1") {
-                env_mesh_material_item.map = env_grass_map
-            }
-            if (name === "floor") {
-                env_mesh_material_item.color.setColorName('lightgray');
-                env_mesh_material_item.map = env_paving_map;
-            }
-            if (name === "wood") {
-                env_mesh_material_item.color.setColorName('lightgray');
-                env_mesh_material_item.map = env_paving_map;
-            }
-            if (name === "glass") {
-                env_mesh_material_item.color.setColorName('lightgray');
-                env_mesh_material_item.envMap = reflection_material;
-                env_mesh_material_item.transparent = true;
-                env_mesh_material_item.opacity = 0.6;
-
-            }
-        });
-
-        enviroment.children[14].material.map = new_merged_glass_map;
-        enviroment.children[14].material.lightMap = white_lightmap ;
-        enviroment.children[14].material.alphaMap = env_alfa_map;
-        enviroment.children[14].material.transparent = true;
-        enviroment.children[14].material.color.setHex('0x00aeff');
-
-        let scale = 0.01;
-        enviroment.children[15].children.forEach(function(gazon){
-            gazon.material.map = env_grass_map;
-            gazon.material.lightMap = white_lightmap;
-            gazon.material.color.setColorName('white');
-        });
-
-
-        // enviroment mesh end
-
-        enviroment.scale.set(scale,scale,scale);
-        enviroment.position.set(-52.7081922533268,0,62.36794882308486);
-        window.enviroment = enviroment;
-
-
-        if (!low_performance_mode) {
-            scene.add(enviroment);
-        }
-
-
-        let temp_material = enviroment.children[6].material.clone();
-        temp_material.depthWrite = false;
-        enviroment.children[6].material = temp_material;
-        enviroment.children[7].material = temp_material.clone();
-        enviroment.children[8].material = temp_material.clone();
-        enviroment.children[9].material = temp_material.clone();
-        enviroment.children[10].material = temp_material.clone();
-        enviroment.children[11].material = temp_material.clone();
-        enviroment.children[12].material = temp_material.clone();
-        enviroment.children[13].material = temp_material.clone();
-        enviroment.children[16].material = temp_material.clone();
-        // enviroment.children[16].material.alphaMap = undefined;
-
-    }, onProgressCallback , onErrorCallback);
-}*/
 function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap) {
     loader.load('resources/2020/04/boxes_6.FBX', function(boxes_model) {
         // console.log(boxes_model);

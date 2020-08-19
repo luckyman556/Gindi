@@ -450,9 +450,9 @@ function animate() {
                     });
                 });
 
-                let textures_percent = loaded_texture_counter / 29 * 100;
+                let textures_percent = loaded_texture_counter / 32 * 100;
                 progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
-                if (loaded_texture_counter === 29) {
+                if (loaded_texture_counter === 32) {
                     $('.to-page').addClass('active');
                     progress_bar_update(3, 100, 'Load complete');
                     $('.preloader').addClass('completed');
@@ -529,13 +529,13 @@ function animate() {
                 }
             }
         }
-        if ($('body').hasClass('he') === true) {
-            window.sprite.visible = false;
-            window.sprite_2.visible = true;
-        } else {
-            window.sprite.visible = true;
-            window.sprite_2.visible = false;
-        }
+        // if ($('body').hasClass('he') === true) {
+        //     window.sprite.visible = false;
+        //     window.sprite_2.visible = true;
+        // } else {
+        //     window.sprite.visible = true;
+        //     window.sprite_2.visible = false;
+        // }
 
 
     if (show_resolution == true) {

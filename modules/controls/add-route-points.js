@@ -8,13 +8,13 @@ export function add_route_points () {
                         if (add_points_mode ) {
                             add_points_mode = false;
                             add_car_points_mode = false;
-                            lock_autorotate = false;
+                            lock_autorotate = true;
                             getArrayPointsForRoute();
                             console.log('Режим добавления точек выключен');
                         } else {
                             add_points_mode = true;
                             add_car_points_mode = false;
-                            lock_autorotate = true;
+                            lock_autorotate = false;
                             console.log('Режим добавления точек включен');
                         }
                         break;
@@ -22,7 +22,7 @@ export function add_route_points () {
                         if (add_car_points_mode ) {
                             add_points_mode = false;
                             add_car_points_mode = false;
-                            lock_autorotate = false;
+                            lock_autorotate = true;
                             getArrayPointsForRoute();
                             console.log('Режим добавления точек с плавным поворотом выключен');
                         } else {
@@ -213,6 +213,8 @@ function getArrayPointsForRoute() {
             "angle_number": (!pointRoute.userData.angle_number) ? 0 :  pointRoute.userData.angle_number
         });
     });
-    localStorage.setItem('car-route', JSON.stringify(car_route_points_array));
+    localStorage.setItem('routeC', JSON.stringify(car_route_points_array));
+    localStorage.setItem('routeP', JSON.stringify(human_route));
     console.log(car_route_points_array);
+    console.log(human_route);
 }
