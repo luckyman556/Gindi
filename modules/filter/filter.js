@@ -382,10 +382,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         });
 
         $('.flat-counter').click(function(){
-            if ($('.filter-controls').hasClass('open')) {
-                $(this).fadeOut();                
-                replace_filters_n_cards();
-            }
+            replace_filters_n_cards();
         });
         $('.reset-filter').click(function(){
                 if (!$('.filter-controls').hasClass('open')) {
