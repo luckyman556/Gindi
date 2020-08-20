@@ -1,42 +1,90 @@
+//ALMONI
 @font-face {
 	font-family: 'almoni-tzar';
 	font-weight: 300;
 	/*(light)*/
 	font-style: normal;
-	src: url("fonts/almoni-neue-tzar-aaa-300.woff") format("woff"); }
+	src: url("../fonts/almoni/almoni-neue-tzar-aaa-300.woff") format("woff"); }
 @font-face {
 	font-family: 'almoni-tzar';
 	font-weight: 400;
 	/*(regular)*/
 	font-style: normal;
-	src: url("fonts/almoni-neue-tzar-aaa-400.woff") format("woff"); }
+	src: url("../fonts/almoni/almoni-neue-tzar-aaa-400.woff") format("woff");
+}
 @font-face {
 	font-family: 'almoni-tzar';
 	font-weight: 600;
 	/*(demi bold)*/
 	font-style: normal;
-	src: url("fonts/almoni-tzar-demibold-aaa.woff") format("woff"); }
+	src: url("../fonts/almoni/almoni-tzar-demibold-aaa.woff") format("woff"); }
 @font-face {
 	font-family: 'almoni-neue';
 	font-weight: 300;
 	/*(light)*/
 	font-style: normal;
-	src: url("fonts/almoni-neue-light-aaa.woff") format("woff"); }
+	src: url("../fonts/almoni/almoni-neue-light-aaa.woff") format("woff"); }
 @font-face {
 	font-family: 'almoni-neue';
 	font-weight: 400;
 	/*(regular)*/
 	font-style: normal;
-	src: url("fonts/almoni-neue-regular-aaa.woff") format("woff"); }
+	src: url("../fonts/almoni/almoni-neue-regular-aaa.woff") format("woff"); }
 @font-face {
 	font-family: 'almoni-neue';
 	font-weight: 700;
 	/*(bold)*/
 	font-style: normal;
-	src: url("fonts/almoni-neue-bold-aaa.woff") format("woff"); }
-/* weather font */
+	src: url("../fonts/almoni/almoni-neue-bold-aaa.woff") format("woff"); }
+
+// weather font
 @font-face {
 	font-family: 'weathericons';
-	src: url("fonts/weathericons-regular-webfont.woff2") format("woff2");
+	src: url("../fonts/almoni/weathericons-regular-webfont.woff2") format("woff2");
 	font-weight: normal;
 	font-style: normal; }
+
+
+//FRAGOLINO
+//Light
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 300;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoLight.ttf") format("ttf");
+}
+//Medium
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 400;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf");
+}
+//Bold
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 600;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf");
+}
+//Cond Bold
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 700;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf");
+}
+//Book
+@font-face {
+	font-family: 'fragolino-book';
+	font-weight: 400;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoBook.ttf") format("ttf");
+}
+//Book cond
+@font-face {
+	font-family: 'fragolino-book';
+	font-weight: 600;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf");
+}

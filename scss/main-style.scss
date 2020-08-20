@@ -8,6 +8,7 @@
 
 body {
 	font-family: 'almoni-tzar';
+	//font-family: fragolino, sans-serif;
 }
 
 .three_js {
@@ -20,6 +21,7 @@ body {
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently */
 	height: 100%;
+
 	.zoom-by-mousewheel {
 		display: flex;
 		position: absolute;
@@ -50,7 +52,6 @@ body {
 			}
 		}
 		.text {
-			width: 130px;
 			text-align: center;
 			margin: auto 0;
 			font-size: 16px;
@@ -649,14 +650,14 @@ body {
 				margin: auto;
 				margin-left: 0;
 				margin-right: initial;
-				text-align: left;
+				//text-align: left;
 				width: calc(100% - 34px);
 				color: #000000;
 				font-size: 19px;
 				letter-spacing: 0.2px;
 				text-align: center;
-				font-family: almoni-neue;
-				font-size: 16px;
+				//font-family: almoni-neue;
+				//font-size: 16px;
 			}
 			.search-toggle-btn {
 				background-image: url(../img/ic_drop_down.svg);
@@ -1100,7 +1101,7 @@ body {
 		border-radius: 6px;
 		* {
 			opacity: 0;
-			transition: 0.5;
+			transition: 0.5s;
 		}
 		&:after {
 			position: absolute;
@@ -4458,7 +4459,6 @@ body.en {
 	.popup-2d,
 	.popup-3d,
 	.popup-360 {
-
 		&>.content {
 			order: 1;
 		}
@@ -4508,7 +4508,7 @@ body.en {
 
 			& .current-part {
 				padding-left: 0;
-				height: 40px;
+				//height: 40px;
 
 				& .text {
 					padding-left: 11px;
@@ -4519,6 +4519,10 @@ body.en {
 		& .zoom-by-mousewheel {
 			right: initial;
 			left: 170px;
+
+			& > .text {
+				width: 90px;
+			}
 		}
 		& .compass {
 			left: initial;
@@ -4544,4 +4548,14 @@ body.en {
 		}
 	}
 }
+body.he {
+	.three_js {
+		.zoom-by-mousewheel {
+			.text {
+				width: 130px;
+			}
+		}
+	}
+}
+
 
