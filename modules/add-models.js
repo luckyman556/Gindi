@@ -210,7 +210,7 @@ function find_n_clone_material (object_to_work, object_from_clone) {
 }
 function loadEnvironment(loader, texture_loader) {
 
-    loader.load('resources/enviroment/Enviroment.fbx', function(enviroment) {
+    loader.load('resources/enviroment/Enviroment.fbx', function(enviroment) {''
         const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg');
         const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg');
         const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png');

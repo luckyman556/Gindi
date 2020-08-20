@@ -42,6 +42,17 @@
         bottom: calc(100% + 34px);
         right: 0;
     }
+    .filter-controls.on-back ~ .flat-counter { 
+        .text {
+            display: none;
+        } 
+        .ic.short {
+            display: block;
+        }
+    }
+    .filter-controls-tabs {
+        display: none;
+    }
     .filter-controls {
         display: flex;
         min-width: 100%;
@@ -57,16 +68,16 @@
         overflow: hidden;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         &.open {
-            z-index: 3;
         }
         &.unactive {
             opacity: 0.5!important;
             filter: grayscale(0.5)
         }
         &.on-back {
-            transform: scale(0.8)   translateY(-100px);
-
+            transform: scale(0.8)   translateY(-100px);             
+            z-index: 3;
         }
+
         &.transition-off {
             transition: none;
         }
@@ -77,12 +88,13 @@
         position: absolute;
         width: 100%;
         height: auto;
-        z-index: 2;
+        z-index: 0;
         transition: 0.5s;
         display: flex;
+        opacity: 2; 
         opacity: 0;
-
         &.on-back {
+         z-index: 0;  
             transform: scale(0.8)   translateY(-100px);
 
         }
@@ -238,6 +250,11 @@
             margin-left: auto;
             margin-right: 15px;
             display: none;
+            &.white {
+                img {
+                    filter : brightness(0) invert(1);
+                }
+            }
             img {
                 display: block;
                 width: 100%;

@@ -1,7 +1,8 @@
 import { card_fns } from './filter_card.js';
 export function  add_filter (container, img_path = 'img/filter-module/') {
+
     let filter_btn = ` 
-            <div class="filter-module-open-btn new-ui-circle-btn"> 
+            <div class="filter-module-open-btn new-ui-circle-btn  m-dark"> 
                 <div class="ic-img">
                     <img src="${img_path}search-ic.svg" alt="">
                 </div>
@@ -157,7 +158,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     let filter_module_container = `
         <div class="filter-module-container non-canvas clear">        
             <div class="flat-cards"></div>
-            <div class="filter-controls"></div>
+            <div class="filter-controls-tabs">
+                <div class="sort-tab" data-key="sort-tab">Sort by</div>
+            </div>
+            <div class="filter-controls open"></div>
+            <div class="close-btn-mobile">
+                <div class="icon"></div>
+            </div>
             <div class="close-btn filter-module-open-btn new-ui-circle-btn">
                 <div class="ic-img">
                     <img src="${img_path}close-ic.svg" alt="">
@@ -166,6 +173,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             <div class="flat-counter">
                 <div class="ic">
                     <img src="${img_path}flat-counter-ic.svg" alt="">
+                </div>                
+                <div class="ic short white">
+                    <img src="${img_path}flat-counter-short-ic.svg" alt="">
                 </div>
                 <div class="count"></div>
                 <div class="text language-string" data-dictionary="apartments found">${get_lang('apartments found')}</div>
@@ -207,6 +217,26 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container.append(filter_module_container);
     add_sorting_html ();
     add_filters_html();
+    add_tabs_html();
+
+
+    function add_tabs_html() {
+        let tabs_html = ""
+        filter_controls.forEach(function(item,i) {
+
+            if (i < 2) {
+                let tab_html = `
+                    <div class="sort-tab language_string" data-dictionary="${item.options.title}" data-key="sort-item-${item.crm_name}"> ${get_lang(item.options.title)}</div>
+                `;
+                tabs_html += tab_html;
+            }
+        });
+        tabs_html += `
+            <div class="sort-tab language_string" data-dictionary="More" data-key="more">${get_lang('More')}</div>
+        `
+        container.find('.filter-controls-tabs').append(tabs_html);
+    }
+
     function add_sorting_html () {
         let sorting_html = '';
         sorting_controls.forEach(function(item, i) {
@@ -215,7 +245,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 active_class = 'active show';
             }
             let sort_btn = `
-                <div class="sort-btn-item ${item.sorting_type} ${active_class}" data-crm-name="${item.crm_name}" data-sort-type="${item.sorting_type}">
+                <div id="sort-tab" class="sort-btn-item ${item.sorting_type} ${active_class}" data-crm-name="${item.crm_name}" data-sort-type="${item.sorting_type}">
                     <div class="name language-string" data-dictionary="${item.options.title}">${get_lang(item.options.title)}</div>
                     <div class="ic">
                         <img src="${img_path}down-ic.svg" alt="">
@@ -242,7 +272,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             if (item.filter_type == 'togglers') {
                 const togglers_html = get_togglers_html (crm_array, item.crm_name, item.options.with_sep, item.options.sep, item.options.dictionary);
                 let togglers_filter_html = `
-                    <div class="nfm-togglers ${item.crm_name} ">
+                    <div id="sort-item-${item.crm_name}" class="nfm-togglers ${item.crm_name} ">
                         <div class="nfm-first-line">
                             <div class="title language-string" data-dictionary="${ item.options.title }">${get_lang (item.options.title)}</div>
                             <div class="icon-box">
@@ -263,7 +293,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     checked = 'active';
                 }
                 let toggler_html = `
-                    <div class="true-false-toggler ${item.crm_name}">
+                    <div id="sort-item-${item.crm_name}" class="true-false-toggler ${item.crm_name}">
                         <div class="nfm-first-line">
                             <div class="title language-string" data-dictionary="${ item.options.title }">${get_lang (item.options.title)}</div>
                         </div>
@@ -834,7 +864,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     function get_range_html (item) {
         const max_n_min = get_max_n_min_params_from_array (crm_array, item.crm_name);
         let range_html = `
-            <div class="nmf-range-selector-box" id="range_box_${item.crm_name}">
+            <div class="nmf-range-selector-box" id="sort-item-${item.crm_name}">
                 <div class="search-filter-title two-lined">
                     <div class="nfm-first-line">
                         <div class="title language-string" data-dictionary="${ item.options.title }">${get_lang (item.options.title)}</div>
@@ -1165,6 +1195,17 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         }
     }
     function results_not_found () {
-        $('');
+
     }
+    // mobile touch events
+    {
+        let touch_start_on_filter_close_btn = false;
+        document.addEventListener('touchstart', function(event){
+
+        });
+        document.addEventListener('touchmove', function(event){
+
+        });
+    }
+
 }

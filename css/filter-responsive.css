@@ -1,0 +1,33 @@
+@media screen and (max-width: 1024px) {
+    .filter-module-open-btn {
+        bottom: 24px;
+        right: 14px;
+    }
+    .filter-module-container {
+        width: 100%;
+        left: 0;
+    }
+
+    .filter-module-container.open {
+        bottom: 0;
+    }
+
+    .filter-module-container .close-btn {
+        display: none;
+    }
+    .filter-module-container .close-btn-mobile {
+        height: 12px;
+        background-color: white;
+        position: absolute;
+        left: 0;
+        top: -12px;
+        width: 100%;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+    .filter-module-container .filter-controls {
+        box-shadow: none;
+        border-radius: 0px;
+    }
+    .filter-module-container .close-btn-mobile .icon {position: absolute;left: calc(50% - 18px);width: 36px;height: 4px;background-color: #C0C0C0;top: 4px;border-radius: 2px;}
+}

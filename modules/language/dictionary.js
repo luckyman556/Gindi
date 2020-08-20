@@ -87,5 +87,9 @@ export let dictionary_array = {
         'he' : 'דרום',
         'en' : 'south'
     },
+    'More' : {
+        'he' : 'יותר',
+        'en' : 'More'
+    },
 
 }

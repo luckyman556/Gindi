@@ -91,19 +91,16 @@ export let card_fns = {
                 let target_flat =  window.appartments_by_bmby_id[flat_id];
                 last_clicked_flat = target_flat
                 if ( lock_mouse_rotation_x) {
-                    setTimeout(function () {
+                    setTimeout(function () { 
                         $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
+                            $('.floor-plan-btn').fadeIn();
+                            $('.floor-plan-btn-back').hide();
+
                     }, 500);
-                    $('.floor-plan-btn').fadeIn();
-                    $('.floor-plan-btn-back').hide();
+
                 }
             });
             card.find('.floor-plan-btn').click(function(){
-                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
-                let target_flat =  window.appartments_by_bmby_id[flat_id];
-                last_clicked_flat = target_flat;
-                current_floor = target_flat.userData.floor;
-
                 if (!lock_mouse_rotation_x) {
                     setTimeout(function () {
                         $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
@@ -113,12 +110,9 @@ export let card_fns = {
                 }
             });
             card.find('.apt-plan').click(function(){
-                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
-                let target_flat =  window.appartments_by_bmby_id[flat_id];
-                last_clicked_flat = target_flat;
-                current_floor = target_flat.userData.floor;
-
-                $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click();
+                    setTimeout(function(){   
+                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click(); 
+                    },100);
             });
         }
     },

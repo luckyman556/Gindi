@@ -19,7 +19,15 @@
             width: 100%;
             height: 100%;
         }
-    } 
+    }
+    @media screen and (max-width: 1024px) {
+        &.m-dark {
+            background-color: #1A2F43;
+            .ic-img {
+                filter :  brightness(0) invert(1);
+            }
+        }
+    }
     &:hover { 
         border-radius: 20px;
         background-color: #C1AC87; 
@@ -54,11 +62,13 @@
         margin: auto 0;
         margin-right: 8px;
     }
+
     &.white {
         color: #1A2F43;
         background-color: white;
     }
 }
+
 .new-ui-icon {
     width: 24px;
     height: 24px;
