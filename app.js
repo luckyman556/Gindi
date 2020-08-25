@@ -48,6 +48,7 @@ window.vector_point = new THREE.Vector3();
 window.vector_point_2 = new THREE.Vector2();
 vector_to_world_position = new THREE.Vector3();
 box = new THREE.Box3();
+
 function init() {
     container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -58,7 +59,7 @@ function init() {
         canvas,
         antialias: true,
         outputEncoding: THREE.LinearEncoding,
-        sortObjects: true,
+        // sortObjects: true,
         // powerPreference: 'high-performance',
     };
     if (detect_mobile()) {

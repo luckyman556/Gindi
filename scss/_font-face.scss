@@ -53,27 +53,7 @@
 	font-style: normal;
 	src: url("../fonts/fragolino/FragolinoLight.ttf") format("ttf");
 }
-//Medium
-@font-face {
-	font-family: 'fragolino';
-	font-weight: 400;
-	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf");
-}
-//Bold
-@font-face {
-	font-family: 'fragolino';
-	font-weight: 600;
-	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf");
-}
-//Cond Bold
-@font-face {
-	font-family: 'fragolino';
-	font-weight: 700;
-	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf");
-}
+
 //Book
 @font-face {
 	font-family: 'fragolino-book';
@@ -84,7 +64,29 @@
 //Book cond
 @font-face {
 	font-family: 'fragolino-book';
-	font-weight: 600;
+	font-weight: 400;
 	font-style: normal;
 	src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf");
+}
+
+//Medium
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 500;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf");
+}
+//Bold
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 700;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf");
+}
+//Cond Bold
+@font-face {
+	font-family: 'fragolino';
+	font-weight: 700;
+	font-style: normal;
+	src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf");
 }
