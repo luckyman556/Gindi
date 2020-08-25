@@ -6,11 +6,40 @@
     .filter-module-container {
         width: 100%;
         left: 0;
+        height: 170px;
     }
 
     .filter-module-container.open {
         bottom: 0;
+        width: 100%;
+        min-width: initial;
+        flex-wrap: wrap;
     }
+
+    .filter-module-container.open.full-window {
+        height: 100%;
+        bottom: 0;
+    }
+
+    .filter-module-container.open.full-window .mobile-full-filter-back {
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        background-image: url(../img/filter-module/mobile-full-filter-back-ic.svg);
+        background-position: left 15px center;
+        background-repeat: no-repeat;
+        position: relative;
+        z-index: 4;
+        display: flex;
+        line-height: 20px;
+    }
+
+.filter-module-container.open.full-window .mobile-full-filter-back .title {
+    text-align: center;
+    width: 100%;
+    line-height: 50px;
+    font-size: 20px;
+}
 
     .filter-module-container .close-btn {
         display: none;
@@ -28,6 +57,176 @@
     .filter-module-container .filter-controls {
         box-shadow: none;
         border-radius: 0px;
+        width: auto;
+        height: 130px;
+    }
+
+    .filter-module-container.full-window .filter-controls {
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        overflow-y: auto;
+        z-index: 4;
+    }
+
+    .filter-module-container.full-window .filter-controls > * {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+.filter-module-container.full-window .filter-controls .true-false-toggler {height: 150px;padding-left: 23px;}
+
+.filter-module-container.full-window .filter-controls .nfm-togglers {
+    padding-left: 23px;
+}
+
+.filter-module-container.full-window .filter-controls .nmf-range-selector-box {
+    padding-left: 19px;
+}
+
+    .filter-module-container .filter-controls > * {
+        position: absolute;
+        bottom: -200px;
+    }
+
+    .filter-module-container .filter-controls > *.mobile-open {
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        padding: 25px 0 0 20px;
+        /* background-color: white; */
+        color: #1A2F43;
+        font-weight: 600;
+        transition: 0.5s;
+    }
+
+.filter-module-container .filter-controls .nfm-sorting-box {
+    background-color: white;
+    color: #1a2f43;
+    padding-left: 20px;
+}
+
+    .filter-module-container.full-window .filter-controls > *.mobile-open {
+        height: auto;
+    }
+
+    .nfm-sorting-box .sort-btn-item.hide {
+        position: static;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 1;
+    }
+    .filter-module-container .filter-controls-tabs {
+        display: flex;
+        width: 100%;
+        background-color: white;
+        justify-content: space-between;
+        padding: 0 16px;
+        position: relative;
+        z-index: 4;
+    }
+
+    .filter-module-container .filter-controls-tabs.hide {
+        display: none;
+    }
+
+    .filter-module-container.full-window .filter-controls-tabs {
+        display: none;
+    }
+    .nfm-first-line {
+        display: none;
+    }
+
+    .full-window .nfm-first-line {
+        display: flex;
+    }
+
+    .filter-module-container .filter-controls-tabs .controls-tab {
+        width: auto;
+        padding: 21px 15px;
+        font-weight: 600;
+        padding-bottom: 11px;
+    }
+    .nmf-range-selector-box .nmf-range-selector {
+        margin-top: 10px;
+        width: 85%;
+    }
+
+    .filter-module-container .filter-controls-tabs .controls-tab.active {
+        border-bottom: 2px solid #020020;
+    }
+    .nfm-sorting-box .title {
+        display: none;
+    }
+
+    .full-window .nfm-sorting-box .title {
+        display: flex;
+    }
+    .nfm-sorting-box .sort-btn-item.active {
+        border-bottom: 2px solid black;
+    }
+
+    .nfm-sorting-box .sort-btn-item {
+        width: auto!important;
+        padding-bottom: 15px;
+        padding-right: 0;
+        margin-right: 20px;
+    }
+    .filter-module-container .flat-cards {
+        /* display: none; */
+    }
+    .nfm-sorting-box .sort-btn-item .ic img {
+        filter: brightness(0);
     }
     .filter-module-container .close-btn-mobile .icon {position: absolute;left: calc(50% - 18px);width: 36px;height: 4px;background-color: #C0C0C0;top: 4px;border-radius: 2px;}
+    .filter-module-container .input-search {
+        bottom: calc(100% + 83px);
+        left: 5px;
+        width: calc(100% - 10px);
+        display: none;
+    }
+    .filter-module-container .flat-counter {
+        bottom: calc(100% + 12px);
+        box-shadow: none;
+        width: 100%;
+        border-radius: 0;
+        right: 0;
+        justify-content: center;
+        background-color:  rgba(26, 47, 67, 0.3);
+        height: 64px;
+        font-weight: 400;
+        letter-spacing: 1.2px;
+    }
+
+    .filter-module-container .flat-counter .ic {
+        display: block;
+        position: absolute;
+        top: 4px;
+        left: calc(50% - 18px);
+        height: 4px;
+        width: 36px;
+        background-color: white;
+        border-radius: 2px;
+        margin-right: 0;
+    }
+    .filter-controls.on-back ~  .filter-controls-tabs    {
+        display: none;
+    }
+    .three_js .search-filter-title {
+        width: 100%;
+    }
+    .filter-module-container .flat-cards .nfm-flat-card {
+    width: 279px;
+    min-width: 279px;
+    }
+
+.filter-module-container .flat-cards .flat-cards-slider {
+    padding: 20px 0;
+}
+    .mobile-full-filter-back {
+        display: none;
+    }
 }
