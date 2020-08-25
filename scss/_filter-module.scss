@@ -18,11 +18,12 @@
     height: 144px;
     border-radius: 6px; 
     display: flex;
-    font-family: almoni-neue;  
+    font-family: 'fragolino';  
     bottom: -100%;  
     transition: 1s;
     transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1); 
     opacity: 0;
+
 
     &.flat-cards-open {
         .filter-controls {
@@ -516,8 +517,14 @@ display: flex;
                 font-weight: 500;
                 font-size: 18px;
                 color: #1A2F43;
+                transition: 0.5s;
+           
             &.active {
                 background-color : #1a2f43; 
+                color: white;
+            }
+            &:hover {
+                background-color: #C1AC87;
                 color: white;
             }
             &.unactive {

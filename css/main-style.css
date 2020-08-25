@@ -398,7 +398,7 @@
   height: 144px;
   border-radius: 6px;
   display: flex;
-  font-family: almoni-neue;
+  font-family: 'fragolino';
   bottom: -100%;
   transition: 1s;
   transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
@@ -783,9 +783,13 @@
       background-color: #F7F7F7;
       font-weight: 500;
       font-size: 18px;
-      color: #1A2F43; }
+      color: #1A2F43;
+      transition: 0.5s; }
       .nfm-togglers .togglers-row .toggler-btn.active {
         background-color: #1a2f43;
+        color: white; }
+      .nfm-togglers .togglers-row .toggler-btn:hover {
+        background-color: #C1AC87;
         color: white; }
       .nfm-togglers .togglers-row .toggler-btn.unactive {
         opacity: 0.1; }
