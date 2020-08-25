@@ -58,6 +58,7 @@ function range_init (object , options = undefined , callback = function(){}) {
     object[0].addEventListener('mousedown', object_mouse_down);
     object[0].addEventListener('touchstart', object_mouse_down);
     object[0].addEventListener('update', object_update);
+    object[0].object_update = object_update;
     document.addEventListener('mousemove', object_mouse_move);
     document.addEventListener('touchmove', object_mouse_move);
     //object[0].addEventListener('mouseleave', object_mouse_up);
@@ -67,7 +68,7 @@ function range_init (object , options = undefined , callback = function(){}) {
         range_width = object.width() - 30;
         let min_left;
         let max_left;
-        let value_mod = object.attr('data-min');
+        let value_mod = Number(object.attr('data-min'));
         let min_value = object.attr('data-min') - value_mod;
         let max_value = object.attr('data-max') - value_mod;
         if (object.find('.circle.' + min_btn_class).attr('data-current-number').length == 0) {
@@ -82,7 +83,6 @@ function range_init (object , options = undefined , callback = function(){}) {
             let data_number = object.find('.circle.' + min_btn_class).attr('data-current-number') - value_mod;
             let current_value = data_number  / max_value  * range_width;
             min_left = current_value;
-
             set_min_value_html(data_number + value_mod);
             min_btn.css({
                 left : min_left
@@ -94,13 +94,13 @@ function range_init (object , options = undefined , callback = function(){}) {
             max_btn.css({
                 left : range_width
             } );
-            set_min_value_html(current_value);
+            set_max_value_html(current_value);
         } else {
             let data_number = object.find('.circle.' + max_btn_class).attr('data-current-number') - value_mod;
             let current_value =  data_number / max_value * range_width;
             max_left = current_value;
 
-            set_min_value_html(data_number + value_mod);
+            set_max_value_html(data_number + value_mod);
             max_btn.css({
                 left : max_left
             });

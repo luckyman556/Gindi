@@ -156,10 +156,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     ]
 
     let filter_module_container = `
-        <div class="filter-module-container non-canvas clear">        
+        <div class="filter-module-container non-canvas clear">
+            <div class="mobile-full-filter-back">
+                <div class="title language-string" data-dictionary="Sort&filter">Sort&filter</div>
+            </div>        
             <div class="flat-cards"></div>
             <div class="filter-controls-tabs">
-                <div class="sort-tab" data-key="sort-tab">Sort by</div>
+                <div class="controls-tab" data-key="sort-item-sort-tab">Sort by</div>
             </div>
             <div class="filter-controls open"></div>
             <div class="close-btn-mobile">
@@ -226,13 +229,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
             if (i < 2) {
                 let tab_html = `
-                    <div class="sort-tab language_string" data-dictionary="${item.options.title}" data-key="sort-item-${item.crm_name}"> ${get_lang(item.options.title)}</div>
+                    <div class="controls-tab language_string" data-dictionary="${item.options.title}" data-key="sort-item-${item.crm_name}"> ${get_lang(item.options.title)}</div>
                 `;
                 tabs_html += tab_html;
             }
         });
         tabs_html += `
-            <div class="sort-tab language_string" data-dictionary="More" data-key="more">${get_lang('More')}</div>
+            <div class="controls-tab language_string" data-dictionary="More" data-key="more">${get_lang('More')}</div>
         `
         container.find('.filter-controls-tabs').append(tabs_html);
     }
@@ -254,7 +257,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             `;
             sorting_html += sort_btn;
         });
-        container.find('.filter-module-container .filter-controls').append(`<div class="nfm-sorting-box">
+        container.find('.filter-module-container .filter-controls').append(`<div class="nfm-sorting-box" id="sort-item-sort-tab">
             <div class="title language-string" data-dictionary="Sort by:">${get_lang('Sort by:')}</div>
             <div class="sorting-list">
             
@@ -387,7 +390,14 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         });
         $('.filter-module-open-btn').click(function(){
             $('.filter-module-container').toggleClass('open');
+
             if ($('.filter-module-container').hasClass('open')) {
+                if ($(window).width() <= 1024) {
+                    if ($('.filter-module-container .filter-controls-tabs .controls-tab.active').length == 0) {
+
+                        $('.filter-module-container .filter-controls-tabs .controls-tab').eq(0).click();
+                    }
+                }
                 if ($('.filter-module-container').hasClass('clear')) {
                     setTimeout(function(){
                         $('.main-wrap')[0].set_defaults();
@@ -1064,7 +1074,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         }
         requestAnimationFrame(animate_scroll);
         function get_card_for_screen () {
-           return  Math.floor($(window).width() / 316) + 4;
+           return  Math.floor($(window).width() / ($('.filter-module-container .flat-cards .nfm-flat-card').width() + 32)) + 4;
         }
         function animate_scroll () {
             if (flat_slider.length > 0){
@@ -1091,7 +1101,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     new_left = target_left;
                 }
                 flat_slider.css(position_side, new_left);
-                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / 316);
+                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / ($('.filter-module-container .flat-cards .nfm-flat-card').width() + 32));
 
                 let data_position = Number(flat_slider.attr('data-current-position'));
                 if (data_position) {
@@ -1152,15 +1162,18 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
         let filter_controls = container.find('.filter-controls');
         let card_div = container.find('.flat-cards');
+        let tabs_container = $('.filter-controls-tabs');
         if (!filter_controls.hasClass('open')){
             filter_controls.addClass('open');
             container_appear (filter_controls);
             container_disappear (card_div);
+            tabs_container.removeClass('hide');
             filter_controls.parent().css('height', '');
         } else {
             filter_controls.removeClass('open');
             container_disappear (filter_controls)
             container_appear (card_div);
+            tabs_container.addClass('hide');
             filter_controls.parent().css('height', card_div.height());
         };
         function container_appear (object) {
@@ -1197,14 +1210,114 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     function results_not_found () {
 
     }
+    {
+        $('.controls-tab').click(function(){
+            let key = $(this).data('key');
+            $('.controls-tab').removeClass('active');
+            $(this).addClass('active');
+            if (key !== 'more') {
+                $('.filter-module-container .filter-controls > *').removeClass('mobile-open');
+                $('#' + key).addClass('mobile-open');
+                console.log(key);
+                if ($('#' + key + ' .nmf-range-selector')[0]) {
+                     $('#' + key + ' .nmf-range-selector')[0].object_update();
+                }
+               
+                $('.filter-module-container').removeClass('full-window');
+            } else {
+                $('.filter-module-container').addClass('full-window');
+                $('.lang-container').hide();
+                resize_function ();
+            }
+        });
+        $('.mobile-full-filter-back').click(function(){
+            $('.filter-module-container').removeClass('full-window');  
+             $('.controls-tab').eq(0).click();          
+            $('.lang-container').show();
+            resize_function ();
+        });
+
+    }
     // mobile touch events
     {
         let touch_start_on_filter_close_btn = false;
-        document.addEventListener('touchstart', function(event){
+        let start_event;
+        let current_filter_box_bottom;
+        let close_btn_mobile = document.querySelector('.close-btn-mobile');
+        let filter_module_container = document.querySelector('.filter-module-container');
+        document.addEventListener('touchstart', event_start, {'passive' : false});
+        document.addEventListener('touchmove', event_move, {'passive' : false});
+        document.addEventListener('touchend', event_end, {'passive' : false});
+        function event_start (event){
+            let target_on_touch_start;
+            let target_array = event.path.filter(function (target) {
+                if (target === close_btn_mobile)
+                    return true;
+                else {
+                    return false;
+                }
+            });
+            if (target_array.length > 0) {
+                event.preventDefault();
+                touch_start_on_filter_close_btn = true;
+                start_event = event;
+                current_filter_box_bottom = Number(window.getComputedStyle(filter_module_container).bottom.replace('px',''));
+            } else {
+                touch_start_on_filter_close_btn = false;
+            }
+        };
+        function event_move (event){
+            if (start_event) {
+                if (touch_start_on_filter_close_btn) {
 
-        });
-        document.addEventListener('touchmove', function(event){
+                    event.preventDefault();
+                    let start_y;
+                    let current_y;
+                    if (event.changedTouches) {
+                        start_y = start_event.touches[0].pageY;
+                        current_y = event.touches[0].pageY;
+                    } else {
+                        start_y = start_event.pageY;
+                        current_y = event.pageY;
+                    }
+                    let difference = start_y - current_y;
+                    if (difference < 0) {
+                        console.log(current_filter_box_bottom);
+                        console.log(difference);
+                        filter_module_container.style.bottom = current_filter_box_bottom + difference + 'px';
+                        filter_module_container.style.transitionDuration = '0s';
+                    } else {
+                        // filter_module_container.style.bottom = current_filter_box_bottom + 'px';
+                    }
+                }
+            }
+        };
+        function event_end (event){
+            if (start_event) {
+                if (touch_start_on_filter_close_btn) {
 
+                    event.preventDefault();
+                    if (Number(filter_module_container.style.bottom.replace('px','')) < -60){
+                        console.log(Number(filter_module_container.style.bottom.replace('px','')));
+                        filter_module_container.style.bottom = '';
+                        filter_module_container.style.transitionDuration = '';
+                        filter_module_container.classList.remove("open");
+                    }
+                }
+            }
+            touch_start_on_filter_close_btn = false;
+            start_event = undefined;
+            filter_module_container.style.transitionDuration = '';
+            filter_module_container.style.bottom = '';
+        };
+    }
+    $(window).resize(resize_function);
+    resize_function ();
+    function resize_function () {
+        filter_controls.forEach(function(control){
+            if (control.filter_type === 'range') {
+                $('.nmf-range-selector.' + control.crm_name)[0].object_update();
+            };
         });
     }
 
