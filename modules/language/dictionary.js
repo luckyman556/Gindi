@@ -89,7 +89,11 @@ export let dictionary_array = {
     },
     'More' : {
         'he' : 'יותר',
-        'en' : 'More'
+        'en' : 'More...'
+    },
+    'Sort&filter' : {
+        'he' : 'לְסַנֵן',
+        'en' : 'Sort & filter'
     },
 
 }
