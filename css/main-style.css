@@ -188,14 +188,26 @@
   src: url("../fonts/fragolino/FragolinoLight.ttf") format("ttf"); }
 
 @font-face {
-  font-family: 'fragolino';
+  font-family: 'fragolino-book';
   font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoBook.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino-book';
+  font-weight: 400;
+  font-style: normal;
+  src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf"); }
+
+@font-face {
+  font-family: 'fragolino';
+  font-weight: 500;
   font-style: normal;
   src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf"); }
 
 @font-face {
   font-family: 'fragolino';
-  font-weight: 600;
+  font-weight: 700;
   font-style: normal;
   src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf"); }
 
@@ -204,18 +216,6 @@
   font-weight: 700;
   font-style: normal;
   src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf"); }
-
-@font-face {
-  font-family: 'fragolino-book';
-  font-weight: 400;
-  font-style: normal;
-  src: url("../fonts/fragolino/FragolinoBook.ttf") format("ttf"); }
-
-@font-face {
-  font-family: 'fragolino-book';
-  font-weight: 600;
-  font-style: normal;
-  src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf"); }
 
 .preloader {
   top: 0;

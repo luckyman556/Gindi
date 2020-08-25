@@ -39,7 +39,7 @@ $(document).ready(function(){
         if ($(this).hasClass('active')) {
             hide_all_labels();
 
-            // console.log('restore');
+            console.log('restore');
             setPositionButtonLanguage('restore');
 
             $('.floors-selector-n-back').removeClass('show');
