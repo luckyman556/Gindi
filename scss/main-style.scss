@@ -3885,8 +3885,10 @@ body {
 		position: relative;
 		z-index: 3;
 	}
-	* {
-		transition: none!important;
+	@media screen and (min-width: 1024px){
+		* {
+			transition: none!important;
+		}
 	}
 }
 

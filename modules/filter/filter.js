@@ -1,6 +1,6 @@
 import { card_fns } from './filter_card.js';
 export function  add_filter (container, img_path = 'img/filter-module/') {
-
+    container[0].filter_active = true;
     let filter_btn = ` 
             <div class="filter-module-open-btn new-ui-circle-btn  m-dark"> 
                 <div class="ic-img">
@@ -65,19 +65,6 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             }
         },
         {
-           crm_name : 'totalSpace',
-           filter_type  : 'range',
-           options : {
-               max_text_class : 'nmf-max-text',
-               min_text_class : 'nmf-min-text',
-               price_symbol : '',
-               min_btn_class : 'nmf-min',
-               max_btn_class : 'nmf-max',
-               title : 'Area',
-               ic_name : 'area-ic.svg',
-           }
-        },
-        {
             crm_name : 'facing',
             filter_type  : 'togglers',
             options : {
@@ -86,11 +73,25 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 with_sep : true,
                 sep : ',',
                 dictionary : {
-                    'צפון' :  'north',
-                    'מערב' :  'west',
-                    'מזרח' :  'east' ,
-                    'דרום' : 'south',
+                    'צפון' :  'North',
+                    'מערב' :  'West',
+                    'מזרח' :  'East' ,
+                    'דרום' : 'South',
                 }
+            }
+        },
+
+        {
+            crm_name : 'totalSpace',
+            filter_type  : 'range',
+            options : {
+                max_text_class : 'nmf-max-text',
+                min_text_class : 'nmf-min-text',
+                price_symbol : '',
+                min_btn_class : 'nmf-min',
+                max_btn_class : 'nmf-max',
+                title : 'Area',
+                ic_name : 'area-ic.svg',
             }
         },
 /*        {
@@ -141,14 +142,6 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     let sorting_controls = [
         {
             crm_name : 'salePrice',
-            sorting_type  : 'desc',
-            options : {
-                title : 'price',
-            }
-        },
-        {
-            crm_name : 'salePrice',
-            sorting_type  : 'asc',
             options : {
                 title : 'price',
             }
@@ -158,13 +151,31 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     let filter_module_container = `
         <div class="filter-module-container non-canvas clear">
             <div class="mobile-full-filter-back">
-                <div class="title language-string" data-dictionary="Sort&filter">Sort&filter</div>
+                <div class="title language-string" data-dictionary="Sort&filter">${get_lang('Sort&filter')}</div>
             </div>        
             <div class="flat-cards"></div>
             <div class="filter-controls-tabs">
-                <div class="controls-tab" data-key="sort-item-sort-tab">Sort by</div>
+                <div class="controls-tab language-string" data-key="sort-item-sort-tab" data-dictionary="Sort by">${get_lang('Sort by')}</div> 
             </div>
             <div class="filter-controls open"></div>
+            <div class="mobile-btns-row">
+                <div class="flat-counter">
+                    <div class="ic">
+                        <img src="${img_path}flat-counter-ic.svg" alt="">
+                    </div>                
+                    <div class="ic short white">
+                        <img src="${img_path}flat-counter-short-ic.svg" alt="">
+                    </div>
+                    <div class="count"></div>
+                    <div class="text language-string" data-dictionary="apartments found">${get_lang('apartments found')}</div>
+                </div>
+                <div class="reset-filter new-ui-circle-btn"> 
+                <div class="text language-string" data-dictionary="clear all filters" >${get_lang('clear all filters')}</div>
+                    <div class="ic-img">
+                        <img src="${img_path}/reset-ic.svg" alt="">
+                    </div>  
+                </div>
+            </div>
             <div class="close-btn-mobile">
                 <div class="icon"></div>
             </div>
@@ -229,13 +240,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
             if (i < 2) {
                 let tab_html = `
-                    <div class="controls-tab language_string" data-dictionary="${item.options.title}" data-key="sort-item-${item.crm_name}"> ${get_lang(item.options.title)}</div>
+                    <div class="controls-tab language-string" data-dictionary="${item.options.title}" data-key="sort-item-${item.crm_name}"> ${get_lang(item.options.title)}</div>
                 `;
                 tabs_html += tab_html;
             }
         });
         tabs_html += `
-            <div class="controls-tab language_string" data-dictionary="More" data-key="more">${get_lang('More')}</div>
+            <div class="controls-tab language-string" data-dictionary="More" data-key="more">${get_lang('More')}</div>
         `
         container.find('.filter-controls-tabs').append(tabs_html);
     }
@@ -248,17 +259,25 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 active_class = 'active show';
             }
             let sort_btn = `
-                <div id="sort-tab" class="sort-btn-item ${item.sorting_type} ${active_class}" data-crm-name="${item.crm_name}" data-sort-type="${item.sorting_type}">
-                    <div class="name language-string" data-dictionary="${item.options.title}">${get_lang(item.options.title)}</div>
-                    <div class="ic">
-                        <img src="${img_path}down-ic.svg" alt="">
+                <div class="sorting-group">                
+                    <div id="sort-tab" class="sort-btn-item asc ${active_class}" data-crm-name="${item.crm_name}" data-sort-type="asc">
+                        <div class="name language-string" data-dictionary="${item.options.title}">${get_lang(item.options.title)}</div>
+                        <div class="ic">
+                            <img src="${img_path}down-ic.svg" alt="">
+                        </div>
+                    </div>
+                    <div id="sort-tab" class="sort-btn-item desc hide" data-crm-name="${item.crm_name}" data-sort-type="desc">
+                        <div class="name language-string" data-dictionary="${item.options.title}">${get_lang(item.options.title)}</div>
+                        <div class="ic">
+                            <img src="${img_path}down-ic.svg" alt="">
+                        </div>
                     </div>
                 </div>
             `;
             sorting_html += sort_btn;
         });
         container.find('.filter-module-container .filter-controls').append(`<div class="nfm-sorting-box" id="sort-item-sort-tab">
-            <div class="title language-string" data-dictionary="Sort by:">${get_lang('Sort by:')}</div>
+            <div class="title language-string" data-dictionary="Sort by">${get_lang('Sort by')}</div>
             <div class="sorting-list">
             
             </div>
@@ -332,7 +351,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         sorting_btns.click(function(){
             sorting_btns.removeClass('active');
             $(this).addClass('active');
-            let parent = $(this).parent();
+            let parent = $(this).parents('.sorting-list');
             let list_status = parent.hasClass('open');
             if (list_status) {
                 let show_btns = [];
@@ -361,6 +380,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     }, 20 * i);
                 });
                 parent.removeClass('open');
+                container.find('.filter-module-container').removeClass('clear');
+                filter_run();
+                filter_update();
             }  else {
                 let hidden_btns = [];
                 sorting_btns.each(function(){
@@ -400,6 +422,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 }
                 if ($('.filter-module-container').hasClass('clear')) {
                     setTimeout(function(){
+                        $('.filter-module-container').addClass('filters-open');
                         $('.main-wrap')[0].set_defaults();
                         $('.main-wrap')[0].filter_run();
                         $('.main-wrap')[0].filter_update();
@@ -425,6 +448,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
         $('.flat-counter').click(flat_counter_click);
         $('.reset-filter').click(function(){
+            if (!container.find('.filter-module-container').hasClass('clear'))  {
                 if (!$('.filter-controls').hasClass('open')) {
                     replace_filters_n_cards();
                     $('#input-search').val('');
@@ -432,20 +456,20 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     $('.flat-counter').fadeOut();
                     setTimeout(function(){
                         $('.flat-cards').empty();
-                    }, 500);                               
+                    }, 500);
                     reset_filter();
                     set_defaults();
                 } else {
                     set_defaults();
                 }
-
+            }
         });
         let input_search = $('#input-search');
         input_search[0].addEventListener('input',input_change);
         function input_change (event) {
             let dom_input = $(event.target);
             let word = dom_input.val();
-            input_search_fn(word);
+                input_search_fn(word);
         };
         input_search.focusin(function(){
             $(this).parent().addClass('active');
@@ -456,6 +480,69 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             $('.filter-module-container .filter-controls').removeClass('unactive');
         });
 
+
+/*        $('.number-box').click(function(){
+            if (!$(this).hasClass('input')) {
+                $(this).addClass('input');
+                $(this).find('input').focus();
+            }
+        });*/
+        $('.filter-module-container').click(function(event){ 
+            if ($(event.target).hasClass('number-box') || $(event.target).parents('.number-box').length > 0) {
+
+                let number_box;
+                if ($(event.target).hasClass('number-box')) {
+                    number_box = $(event.target);
+                } else {
+                    number_box = $(event.target).parents('.number-box');
+                }
+                let this_has_input = number_box.hasClass('input');
+                $('.number-box').removeClass('input');
+                if (!this_has_input) {
+                    number_box.addClass('input');
+                    number_box.find('input').focus();
+                    number_box.find('input')[0].select();
+                }
+            } else {
+                $('.number-box').removeClass('input');
+            }
+        });
+
+        $('.number-box input').change(function(event){
+                let value = Number($(this).val());
+                $(this).parent().removeClass('input');
+                let start_value = value;
+                let min = Number($(this).attr('min'));
+                let max = Number($(this).attr('max'));
+                if (value < min) {
+                    value = min;
+                    $(this).val(min);
+                }
+                if (value > max) {
+                    value = max;
+                    $(this).val(max);
+                }
+                console.log(max);
+                //console.log(value);
+                let parent = $(this).parents('.nmf-range-selector-box');
+                //$(this).parent().find('.number').html(value);
+                let true_number = value;
+                if ($(this).hasClass('to-m')) {
+                    true_number = value * 1000000;
+                }
+                if ($(this).parent().hasClass('min-number-box')) {
+                    parent.find('.nmf-min').attr('data-current-number', true_number);
+                    parent.find('.max-number-box input').attr('min', value);
+                }
+                if ($(this).parent().hasClass('max-number-box')) {
+                    parent.find('.nmf-max').attr('data-current-number', true_number);
+                    parent.find('.min-number-box input').attr('max', value);
+                }
+                console.log(parent.find('.nmf-range-selector'));
+                parent.find('.nmf-range-selector')[0].object_update();
+                 $('.main-wrap')[0].filter_run();
+
+        });
 
     }
     function input_search_fn(word) {
@@ -504,7 +591,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             new_crm_array.push(crm_array_item[0]);
         });
         crm_array = new_crm_array;
-        if (crm_array.length > 0) {
+        if (crm_array.length > 0 && word.length > 0) {
             filter_update ();
             if ($('.filter-controls').hasClass('open')) {
                 replace_filters_n_cards();
@@ -515,8 +602,15 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 }
             });
         } else {
+            if ($('.filter-controls').hasClass('open')) {
+                replace_filters_n_cards();
+            }
+            container.find('.flat-cards').html(`<div class="flat-cards-slider not-found" data-current-position="0"><div class="not-found language-string" data-dictionary="The search has not given any results">${get_lang('The search has not given any results')}</div></div>`);
 
+            $('.filter-module-container .flat-counter .count').html(0);
         }
+        container.find('.filter-module-container').removeClass('clear');
+        $('.filter-module-container .flat-counter').addClass('unactive');
     }
     function get_max_n_min_params_from_array (array, key) {
         let min_num = 99999999999;
@@ -668,13 +762,34 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].reset_filter = reset_filter;
     container[0].set_defaults = set_defaults;
     container[0].filter_run = filter_run;
-    function reset_filter () {
+    container[0].set_scroll_on_card = set_scroll_on_card;
+    function set_scroll_on_card (card_id) {
+        if ($('.card-' + card_id).length > 0) {
+            let flat_slider = $('.flat-cards-slider');
+            let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
+            let card_width = $('.nfm-flat-card').outerWidth() + 32;
+            let offset  = get_card_for_screen() - 4;
+            let center_modificator = (((offset / 2) - 0.5) *  card_width);
+            let card_index = $('.card-' + card_id).index();
+            let target_left = card_width * (card_index ) * -1 + center_modificator;
+            if (target_left > 0) {
+                target_left = 0;
+            }
+            if (target_left < max_left) {
+                target_left = max_left;
+            }
+            $('.flat-cards-slider').attr('data-target-left', target_left);
+        }
+    };
+    function reset_filter() {
         crm_array = [];
         filter_update();
     }
     function set_defaults () {
         crm_array = [];
         filter_update();
+        $('.flat-counter').removeClass('unactive');
+        $('.flat-counter').fadeOut();
         container.find('.filter-module-container').addClass('clear');
         filter_controls.forEach(function(item) {
             if (item.filter_type == 'togglers') {
@@ -796,7 +911,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             flat_counter.css('display' , 'flex');
             flat_counter.find('.count').html(crm_array.length);
         } else {
-            flat_counter.fadeOut();
+            flat_counter.fadeIn();
+            flat_counter.css('display' , 'flex');
+            flat_counter.find('.count').html(0);
         };
         update_flat_cards ();
     }
@@ -873,6 +990,18 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     }
     function get_range_html (item) {
         const max_n_min = get_max_n_min_params_from_array (crm_array, item.crm_name);
+        let min_num_for_input = max_n_min.min_num;
+        if (min_num_for_input > 1000000) {
+            min_num_for_input = Math.floor(min_num_for_input / 100000) / 10;
+        }
+        let max_num_for_input = max_n_min.max_num;
+        if (max_num_for_input > 1000000) {
+            max_num_for_input = Math.floor(max_num_for_input / 100000) / 10;
+        }
+        let symbol_html = ``;
+        if (item.options.price_symbol.length > 0) {
+            symbol_html = `<span class="simbol">${item.options.price_symbol}</span> `;
+        }
         let range_html = `
             <div class="nmf-range-selector-box" id="sort-item-${item.crm_name}">
                 <div class="search-filter-title two-lined">
@@ -884,22 +1013,24 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     </div>
                      <div class="nfm-selected">
                         <div class="min-number-box number-box"> 
-                            <span class="simbol">&#8362;</span> 
+                            <input type="text" class="range-input" name="range-input" type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            ${symbol_html}
                              <div class="nmf-min-text"></div>
                         </div>
                         <div class="middle"> - </div>
                         <div class="max-number-box  number-box">
-                            <span class="simbol">&#8362;</span>
+                            <input type="text" class="range-input" name="range-input"  type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            ${symbol_html}
                             <div class="nmf-max-text"></div>
                         </div>
                     </div>
                  </div>
                 <div class="${item.crm_name} nmf-range-selector" data-min="${max_n_min.min_num}" data-max="${max_n_min.max_num}">
                     <div class="circle nmf-min" data-value="">
-                        <div class="circle-tooltip"><span class="simbol">&#8362;</span><span class="text"></span></div>
+                        <div class="circle-tooltip"><span class="simbol">${item.options.price_symbol}</span><span class="text"></span></div>
                     </div>
                     <div class="circle nmf-max"  data-value="">
-                        <div class="circle-tooltip"><span class="simbol">&#8362;</span><span class="text"></span></div>
+                        <div class="circle-tooltip"><span class="simbol">${item.options.price_symbol}</span><span class="text"></span></div>
                     </div>
                     <div class="range-line"></div>
                     <div class="range-line-active"></div>
@@ -949,27 +1080,30 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
             parent[0].dispatchEvent(event);
             flats_filter_update ();
-
         });
     }
     function update_flat_cards () {
         let flat_cards_container = container.find('.flat-cards');
+
+        flat_cards_container.html('<div class="flat-cards-slider" data-current-position="0"><div class="nfm-flat-card" ></div></div>');
+        let cards_for_screen = get_card_for_screen();
         flat_cards_container.html('<div class="flat-cards-slider" data-current-position="0"></div>');
         let flat_cards_list_html = '';
-        let cards_for_screen = get_card_for_screen();
         crm_array.forEach(function(flat, i){
             let inner_html = card_fns.get_card_html_inner (flat, i, img_path);
             if (i > cards_for_screen) {
                 inner_html = '';
             }
             let flat_card_html = `
-                <div class="nfm-flat-card" data-count="${i}"  data-bmby-id="${flat.bmbyPropID }" >
+                <div class="nfm-flat-card card-${flat.bmbyPropID }" data-count="${i}"  data-bmby-id="${flat.bmbyPropID }" >
                     ${inner_html}
                 </div>
             `;
             flat_cards_list_html += flat_card_html;
         });
         flat_cards_container.find('.flat-cards-slider').html(flat_cards_list_html);
+
+
         $('.flat-cards-slider .nfm-flat-card').each(function(i){
             let card = $(this);
             if (i <= cards_for_screen) {
@@ -1022,6 +1156,39 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 }
                 function on_mouse_up(event) {
                     mouse_press = false;
+                    if ( event.changedTouches ) {
+                        if ($(window).width() < 1024) {
+                            let flat_slider = $('.flat-cards-slider');
+                            let direction = document.querySelector('html').getAttribute('dir');
+                            let position_side = 'left';
+                            if (direction) {
+                                if (direction == 'rtl') {
+                                    position_side = 'right';
+                                }
+                            }
+                            let card_width = $('.nfm-flat-card').outerWidth() + 32;
+                            let current_left =  $('.flat-cards-slider').attr('data-target-left');
+                            current_left = Number(current_left.replace('px', ''));
+                            current_left = Math.sqrt(current_left * current_left);
+                            let current_postion = Math.floor(Math.sqrt(current_left * current_left)  / (card_width));
+                            let clear_position = current_postion * card_width;
+                            let last_direction = flat_slider.attr('data-last-direction');
+                            let difference = current_left - clear_position;
+                            let offset = 0.05;
+                            if (last_direction == '-') {
+                                if (difference / card_width < 1 - offset) {
+                                    $('.flat-cards-slider').attr('data-target-left', (clear_position) * -1);
+                                    $('.nfm-flat-card').eq(current_postion).click();
+                                }
+                            } else {
+                                if (difference / card_width > offset) {
+                                    $('.flat-cards-slider').attr('data-target-left', (clear_position + card_width) * -1);
+                                    $('.nfm-flat-card').eq(current_postion + 1).click();
+                                }
+                            };
+                            console.log(difference);
+                        }
+                    }
                 }
                 function on_mouse_move(event) {
                     event.preventDefault();
@@ -1073,12 +1240,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
         }
         requestAnimationFrame(animate_scroll);
-        function get_card_for_screen () {
-           return  Math.floor($(window).width() / ($('.filter-module-container .flat-cards .nfm-flat-card').width() + 32)) + 4;
-        }
+
         function animate_scroll () {
             if (flat_slider.length > 0){
-                let direction =document.querySelector('html').getAttribute('dir');
+                let direction = document.querySelector('html').getAttribute('dir');
                 let position_side = 'left';
                 if (direction) {
                     if (direction == 'rtl') {
@@ -1090,62 +1255,95 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 if (left === '') {
                     left = 0;
                 }
+
                 let target_left = Number(flat_slider.attr('data-target-left'));
                 let dif =  Number(left) - target_left;
                 let new_left;
                 if (Math.sqrt(dif * dif) > 1) {
                     new_left = Number(left) - dif * 0.2;
                     //flat_slider.css('left', new_left);
-
                 } else {
                     new_left = target_left;
+ /*                   if ($(window).width() < 1024) {
+
+                        let flat_card_width =  ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32);
+                        if (flat_slider.attr('data-last-direction') === '+') {
+                            let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
+                            new_left = current_postion + 1 * flat_card_width * -1;
+                        } else {
+                            let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
+                            new_left = current_postion - 1 * flat_card_width * -1;
+                        }
+                    }*/
                 }
                 flat_slider.css(position_side, new_left);
-                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / ($('.filter-module-container .flat-cards .nfm-flat-card').width() + 32));
+                if (left < target_left) {
+                    flat_slider.attr('data-last-direction', '-');
+                } else {
+                    flat_slider.attr('data-last-direction', '+');
+                }
+                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
 
-                let data_position = Number(flat_slider.attr('data-current-position'));
-                if (data_position) {
-                    if (current_postion !== data_position) {
-                        let cards_for_screen = get_card_for_screen();
-                        let max_num = data_position + cards_for_screen - 2;
+                if (!isNaN( current_postion)) {
+                    let data_position = Number(flat_slider.attr('data-current-position'));
 
-                       // console.log('cards_for_screen: ' + max_num);
-                        let min_num = data_position  - 1;
+                    if (data_position) {
+                        if (current_postion !== data_position) {
+                            let difference =  current_postion - data_position;
+                            difference = Math.sqrt(difference * difference);
+                            let cards_for_screen = get_card_for_screen();
+                            let max_num = data_position + cards_for_screen - 2;
 
-                        if (data_position < current_postion) {
-                            let last_card =  $('.flat-cards-slider .nfm-flat-card').eq(max_num);
-                            $('.flat-cards-slider .nfm-flat-card').eq(min_num).empty();
+                           // console.log('cards_for_screen: ' + max_num);
+                            let min_num = data_position  - 1;
 
-                            if (crm_array[max_num]) {
-                                const input_val = $('#input-search').val();
-                                last_card.html(card_fns.get_card_html_inner(crm_array[max_num], max_num, img_path));
-                                card_fns.bind_flat_cards_events (last_card);
-                                if ($('#input-search').val()) {
-                                    last_card.mark(input_val);
-                                }
-                            }
-                        } else {
-                            if (min_num >= 0) {
-                                if (crm_array[min_num]) {
-                                    const input_val = $('#input-search').val();
-                                    let first_card = $('.flat-cards-slider .nfm-flat-card').eq(min_num)
-                                    first_card.html(card_fns.get_card_html_inner(crm_array[min_num], min_num, img_path));
-                                    card_fns.bind_flat_cards_events(first_card);
-                                    if ($('#input-search').val()) {
-                                        first_card.mark(input_val);
+                            if (data_position < current_postion) {
+                                let counter = 0;
+                                while (counter < difference) {
+                                    max_num = current_postion + cards_for_screen - 2 - (difference - counter);
+                                    min_num = current_postion  - 1 - (difference - counter); 
+                                    let last_card =  $('.flat-cards-slider .nfm-flat-card').eq(max_num);
+                                    $('.flat-cards-slider .nfm-flat-card').eq(min_num).empty();
+
+                                    if (crm_array[max_num]) {
+                                        const input_val = $('#input-search').val();
+                                        last_card.html(card_fns.get_card_html_inner(crm_array[max_num], max_num, img_path));
+                                        card_fns.bind_flat_cards_events (last_card);
+                                        if ($('#input-search').val()) {
+                                            last_card.mark(input_val);
+                                        }
                                     }
+                                    counter++;
+                                }
+
+                            } else {
+                                let counter = 0;
+                                while (counter < difference) {
+                                    min_num = current_postion  - 1 + counter;
+                                    max_num = current_postion + cards_for_screen - 2 + counter;
+                                    if (min_num >= 0) {
+                                        if (crm_array[min_num]) {
+                                            const input_val = $('#input-search').val();
+                                            let first_card = $('.flat-cards-slider .nfm-flat-card').eq(min_num)
+                                            first_card.html(card_fns.get_card_html_inner(crm_array[min_num], min_num, img_path));
+                                            card_fns.bind_flat_cards_events(first_card);
+                                            if ($('#input-search').val()) {
+                                                first_card.mark(input_val);
+                                            }
+                                        }
+                                    }
+                                    $('.flat-cards-slider .nfm-flat-card').eq(max_num).empty();
+                                    counter++;
                                 }
                             }
-                            $('.flat-cards-slider .nfm-flat-card').eq(max_num).empty();
+
                         }
 
+                    } else {
+
                     }
-
-                } else {
-
+                    flat_slider.attr('data-current-position', current_postion);
                 }
-
-                flat_slider.attr('data-current-position', current_postion);
 
                 requestAnimationFrame(animate_scroll);
             }
@@ -1153,28 +1351,35 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
     }
     function flat_counter_click () {
-        if (!check_search_input()) {
+        if (!flat_counter_check()) {
             replace_filters_n_cards();
         }
-
     }
     function replace_filters_n_cards (){
-
         let filter_controls = container.find('.filter-controls');
+        let main_box = container.find('.filter-module-container');
         let card_div = container.find('.flat-cards');
         let tabs_container = $('.filter-controls-tabs');
         if (!filter_controls.hasClass('open')){
             filter_controls.addClass('open');
             container_appear (filter_controls);
             container_disappear (card_div);
+            main_box.addClass('filters-open');
+            main_box.removeClass('flat-cards-open');
             tabs_container.removeClass('hide');
             filter_controls.parent().css('height', '');
-        } else {
+        } else {     
             filter_controls.removeClass('open');
+            if (main_box.hasClass('full-window')) {
+                window.render_pause = false;
+                $('.mobile-full-filter-back').click();
+            }        
             container_disappear (filter_controls)
             container_appear (card_div);
+            main_box.removeClass('filters-open');
+            main_box.addClass('flat-cards-open');
             tabs_container.addClass('hide');
-            filter_controls.parent().css('height', card_div.height());
+            filter_controls.parent().css('height', card_div.outerHeight());
         };
         function container_appear (object) {
             object.addClass('transition-off');
@@ -1199,9 +1404,11 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             }, 500);
         }
     }
-    function check_search_input () {
+    function flat_counter_check () {
         let input_value = document.getElementById('input-search').value;
-        if (input_value.length > 0) {
+        if (Number($('.flat-counter .count').html()) === 0) {
+            return true;
+        } else if (input_value.length > 0) {
             return true;
         } else {
             return false;
@@ -1222,19 +1429,26 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 if ($('#' + key + ' .nmf-range-selector')[0]) {
                      $('#' + key + ' .nmf-range-selector')[0].object_update();
                 }
-               
                 $('.filter-module-container').removeClass('full-window');
+                window.render_pause = false;
             } else {
                 $('.filter-module-container').addClass('full-window');
                 $('.lang-container').hide();
-                resize_function ();
+                resize_function ();        
+                setTimeout(function(){                
+                    resize_function (); 
+                }, 500);        
+                window.render_pause = true;
             }
         });
         $('.mobile-full-filter-back').click(function(){
-            $('.filter-module-container').removeClass('full-window');  
-             $('.controls-tab').eq(0).click();          
+            $('.filter-module-container').removeClass('full-window');
+            window.render_pause = false;
+            document.querySelector('.filter-module-container .filter-controls').scrollTop = 0;
+             $('.controls-tab').eq(0).click();
             $('.lang-container').show();
             resize_function ();
+
         });
 
     }
@@ -1244,20 +1458,20 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         let start_event;
         let current_filter_box_bottom;
         let close_btn_mobile = document.querySelector('.close-btn-mobile');
+        let close_btn_mobile_icon = document.querySelector('.close-btn-mobile .icon');
         let filter_module_container = document.querySelector('.filter-module-container');
         document.addEventListener('touchstart', event_start, {'passive' : false});
         document.addEventListener('touchmove', event_move, {'passive' : false});
         document.addEventListener('touchend', event_end, {'passive' : false});
         function event_start (event){
             let target_on_touch_start;
-            let target_array = event.path.filter(function (target) {
-                if (target === close_btn_mobile)
-                    return true;
-                else {
-                    return false;
-                }
-            });
-            if (target_array.length > 0) {
+            let target_bool;
+            if (event.target === close_btn_mobile || event.target === close_btn_mobile_icon ) {
+                target_bool = true;
+            } else {
+                target_bool = false;
+            }
+            if (target_bool) {
                 event.preventDefault();
                 touch_start_on_filter_close_btn = true;
                 start_event = event;
@@ -1287,7 +1501,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         filter_module_container.style.bottom = current_filter_box_bottom + difference + 'px';
                         filter_module_container.style.transitionDuration = '0s';
                     } else {
-                        // filter_module_container.style.bottom = current_filter_box_bottom + 'px';
+                        filter_module_container.style.bottom = current_filter_box_bottom + difference + 'px';
+                        filter_module_container.style.transitionDuration = '0s';
+
                     }
                 }
             }
@@ -1302,6 +1518,12 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         filter_module_container.style.bottom = '';
                         filter_module_container.style.transitionDuration = '';
                         filter_module_container.classList.remove("open");
+                    } else if (Number(filter_module_container.style.bottom.replace('px','')) > 60) {
+                        if ($('.filter-module-container').hasClass('filters-open')) {
+                            let control_tabs = $('.filter-controls-tabs .controls-tab');
+                            let last_index = control_tabs.length - 1;
+                            control_tabs.eq(last_index).click();
+                        }
                     }
                 }
             }
@@ -1319,6 +1541,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 $('.nmf-range-selector.' + control.crm_name)[0].object_update();
             };
         });
+    }
+    function get_card_for_screen () {
+        return  Math.floor($(window).width() / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32)) + 4;
     }
 
 }

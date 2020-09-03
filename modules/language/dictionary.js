@@ -23,9 +23,9 @@ export let dictionary_array = {
         'he' : 'הצג דירות זמינות בלבד',
         'en' : 'Available only'
     },
-    'Sort by:' : {
-        'he' : 'מיין לפי:',
-        'en' : 'Sort by:'
+    'Sort by' : {
+        'he' : 'מיין לפי',
+        'en' : 'Sort by'
     },
     'price' : {
         'he' : 'מחיר',
@@ -71,19 +71,19 @@ export let dictionary_array = {
         'he' : 'דירה',
         'en' : 'Apt.'
     },
-    'north' : {
+    'North' : {
         'he' : 'צפון',
         'en' : 'north'
     },
-    'west' : {
+    'West' : {
         'he' : 'מערב',
         'en' : 'west'
     },
-    'east' : {
+    'East' : {
         'he' : 'מזרח',
         'en' : 'east'
     },
-    'south' : {
+    'South' : {
         'he' : 'דרום',
         'en' : 'south'
     },
@@ -94,6 +94,14 @@ export let dictionary_array = {
     'Sort&filter' : {
         'he' : 'לְסַנֵן',
         'en' : 'Sort & filter'
+    },
+    'The search has not given any results' : {
+        'he' : 'החיפוש לא הביא תוצאות',
+        'en' : 'The search has not given any results'
+    },
+    'clear all filters' : {
+        'he' : 'אפס חיפוש',
+        'en' : 'clear all filters'
     },
 
 }

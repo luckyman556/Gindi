@@ -130,18 +130,50 @@ export function add_mouse_n_touches () {
                 if (drag_move != true) {
                     if (e.type == 'mouseup') {
                         if (e.which == 1) {
-                            flat_click(picked_object);
+                            click_handler ();
                         }
                     }
                     if (e.type == 'touchend') {
                         picked_object.material.opacity = standard_flat_opacity;
                         if (two_touches != true) {
-                            flat_click(picked_object);
+                            click_handler ();
                         }
                     }
                 } else {
                     drag_move = false;
                 }
+
+                function click_handler () {
+                    let filter_container = document.querySelector('.main-wrap');
+                    if (filter_container.filter_active) {
+                        if (document.querySelector('.filter-module-container.open')) {
+                            console.log('filter_open');
+                            if ($('.filter-controls.on-back').length > 0) {
+                                let card_id = picked_object.userData.crm_data.bmbyPropID;
+                                // $('.card-' + card_id).click();
+                                window.card_clicked = false;
+                                trigger_card_click ();
+                                function trigger_card_click () {
+                                    $('.card-' + card_id).click();
+                                    if (!window.card_clicked) {
+                                        setTimeout(function(){
+                                            trigger_card_click ();
+                                        },100);
+                                    }
+                                }
+
+                                $('.main-wrap')[0].set_scroll_on_card(card_id);
+                            } else {
+                                flat_click(picked_object);
+                            }
+                        } else {
+                            flat_click(picked_object);
+                        }
+                    } else {
+                        flat_click(picked_object);
+                    }
+                }
+
             } else {
                 this_is_flat_click = false;
             }

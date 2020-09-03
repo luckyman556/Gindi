@@ -2,27 +2,34 @@ import * as THREE from '../../node_modules/three/build/three.module.js';
 export function floor_numbers_visibility_by_zoom (border_1, border_2) {
     if (window.text_groups) {
         let camera_zoom = perspectiveCamera.position.z;
-        if (camera_zoom > border_1) {
+        if (lock_mouse_rotation_x) {
             window.text_groups.forEach(function(text_group){
                 text_group.visible = false;
             });
         } else {
-
-            if (camera_zoom > border_2) {
+            if (camera_zoom > border_1) {
                 window.text_groups.forEach(function(text_group){
-                    const key_floor = text_group.userData.key_floor;
-                    if (key_floor) {
-                        text_group.visible = true;
-                    } else {
-                        text_group.visible = false;
-                    }
+                    text_group.visible = false;
                 });
             } else {
-                window.text_groups.forEach(function(text_group){
-                    text_group.visible = true;
-                });
+
+                if (camera_zoom > border_2) {
+                    window.text_groups.forEach(function(text_group){
+                        const key_floor = text_group.userData.key_floor;
+                        if (key_floor) {
+                            text_group.visible = true;
+                        } else {
+                            text_group.visible = false;
+                        }
+                    });
+                } else {
+                    window.text_groups.forEach(function(text_group){
+                        text_group.visible = true;
+                    });
+                }
             }
         }
+
     }
 }
 export function animate_cylinder_floor_numbers (modifier = 0) {
@@ -77,7 +84,7 @@ export function animate_cylinder_floor_numbers (modifier = 0) {
                     text_group.getObjectByName('line').visible = true;
                 }
                 if (lock_mouse_rotation_x) {
-                    if (current_floor == i) {
+                   if (current_floor == i) {
                         text_group.children[0].visible = false;
                         text_group.getObjectByName('bold_text').visible = true;
                         text_group.getObjectByName('circle').visible = true;
@@ -86,6 +93,7 @@ export function animate_cylinder_floor_numbers (modifier = 0) {
                         text_group.getObjectByName('bold_text').visible = false;
                         text_group.getObjectByName('circle').visible = false;
                     }
+                    text_group.visible = false;
                 } else {
                     text_group.children[0].visible = true;
                     text_group.getObjectByName('bold_text').visible = false;

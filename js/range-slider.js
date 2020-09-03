@@ -118,7 +118,6 @@ function range_init (object , options = undefined , callback = function(){}) {
         if (event.touches) {
             start_position_x = event.touches[0].pageX
         }
-        drag_start = true;
         min_start_position_left = min_btn.css('left').replace('px', '');
         min_start_position_left = Number(min_start_position_left);
         max_start_position_left = max_btn.css('left').replace('px', '');
@@ -129,10 +128,12 @@ function range_init (object , options = undefined , callback = function(){}) {
         if ($(event.target).hasClass(min_btn_class)) {
             draget_object = $(event.target);
             draget_object_type = 'min';
+            drag_start = true;
         }
         if ($(event.target).hasClass(max_btn_class)) {
             draget_object = $(event.target);
             draget_object_type = 'max';
+            drag_start = true;
         }
 
 
@@ -140,7 +141,6 @@ function range_init (object , options = undefined , callback = function(){}) {
     function object_mouse_move (event) {
 
         if (drag_start == true) {
-            console.log('dragged');
             var target_position = start_position_x - event.pageX;
             if (event.touches) {
                 target_position = start_position_x - event.touches[0].pageX;
@@ -187,10 +187,14 @@ function range_init (object , options = undefined , callback = function(){}) {
     }
     function set_min_value_html (value) {
         let add_text = '';
+        object.parent().find('.max-number-box input').attr('min', value);
         if (value > 1000000) {
+            object.parent().find('.min-number-box input').addClass('to-m');
             value = Math.floor(value / 100000) / 10;
+            object.parent().find('.max-number-box input').attr('min', value);
             add_text = ' m';
         }
+        object.parent().find('.min-number-box input').val(value);
         if (number_with_comas) {
             object.parent().find('.' + min_text_class).html(numberWithCommas(value) + add_text);
         } else {
@@ -198,16 +202,21 @@ function range_init (object , options = undefined , callback = function(){}) {
         }
     }
     function set_max_value_html (value) {
+        object.parent().find('.min-number-box input').attr('max', value);
         let add_text = '';
         if (value > 1000000) {
+            object.parent().find('.max-number-box input').addClass('to-m');
             value = Math.floor(value / 100000) / 10;
+            object.parent().find('.min-number-box input').attr('max', value);
             add_text = ' m';
         }
+        object.parent().find('.max-number-box input').val(value);
         if (number_with_comas) {
             object.parent().find('.' + max_text_class).html(numberWithCommas(value) + add_text);
         } else {
             object.parent().find('.' + max_text_class).html(value + add_text);
         }
+
     }
     function object_mouse_up (event) {
         if (drag_start == true) {

@@ -4,12 +4,12 @@ import Stats from './node_modules/three/examples/jsm/libs/stats.module.js';
 import { DragControls } from './node_modules/three/examples/jsm/controls/DragControls.js';
 import { TransformControls } from './node_modules/three/examples/jsm/controls/TransformControls.js';
 
-import {PerspectiveCamera_init} from './modules/camera.js?ver=202008251029';
-import {controls_init} from './modules/controls/controls.js?ver=202008251029';
-import {add_models} from './modules/add-models.js?ver=202008251029';
-import {animate_cylinder_floor_numbers} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008251029';
-import {floor_numbers_visibility_by_zoom} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008251029';
-import {add_mouse_n_touches} from './modules/controls/mouse-n-touches.js?ver=202008251029';
+import {PerspectiveCamera_init} from './modules/camera.js?ver=202008311746';
+import {controls_init} from './modules/controls/controls.js?ver=202008311746';
+import {add_models} from './modules/add-models.js?ver=202008311746';
+import {animate_cylinder_floor_numbers} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008311746';
+import {floor_numbers_visibility_by_zoom} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008311746';
+import {add_mouse_n_touches} from './modules/controls/mouse-n-touches.js?ver=202008311746';
 import {add_filter} from "./modules/filter/filter.js";
 import { GUI } from './node_modules/three/examples/jsm/libs/dat.gui.module.js';
 import { CSS2DRenderer, CSS2DObject } from './node_modules/three/examples/jsm/renderers/CSS2DRenderer.js';
@@ -62,9 +62,9 @@ function init() {
         // sortObjects: true,
         // powerPreference: 'high-performance',
     };
-    if (detect_mobile()) {
+/*    if (detect_mobile()) {
        renderer_params.antialias = false;
-    }
+    }*/
     renderer = new THREE.WebGLRenderer(renderer_params);
    // renderer.gammaOutput = true;
     renderer.autoClear = false;

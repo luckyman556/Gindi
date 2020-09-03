@@ -330,6 +330,7 @@ function flat_click (appartment, without_card = false) {
         }
         popup_info.removeClass('hide');
     }
+    rotation_to_flat ();
 /*    if (advanced_flat_click == true ) {
         flat_click_animation (appartment, 'z');
     }*/
@@ -3006,4 +3007,51 @@ function get_lang (word) {
         }
     }
     return false;
+}
+
+
+function rotation_to_flat () {
+    targetRotationX = window.camera_target.rotation.y;
+    let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+    flat_world_position.y = 1;
+    let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
+    camera_world_position.y = 1;
+    let start_target_rotation = targetRotationX;
+    let angle = flat_world_position.angleTo(camera_world_position);
+    let start_distance = flat_world_position.distanceTo(camera_world_position);
+    let modificator = global_three.Math.degToRad(1);
+    if (!lock_mouse_rotation_x) {
+        let floor = last_clicked_flat.userData.floor;
+        let target_y = (max_camera_y - min_camera_y) / window.floor_obj.length * floor;
+        if (target_y < min_camera_y_for_filter) {
+            // target_y = min_camera_y_for_filter;
+        }
+        var easing = TWEEN.Easing.Linear.None;
+        var delay = 0;
+        var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, 1000);
+
+        TWEEN.add(animation);
+        animation.delay(delay);
+        animation.onUpdate(function (e) {
+            window.camera_target.position.y = e.target_y;
+        });
+        animation.easing(easing);
+        animation.start();
+    }
+
+    if (angle > modificator * 10) {
+        targetRotationX += modificator;
+        setTimeout(function () {
+            let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+            flat_world_position.y = 1;
+            let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
+            camera_world_position.y = 1;
+            let current_distance = flat_world_position.distanceTo(camera_world_position);
+            if (current_distance < start_distance) {
+                targetRotationX = start_target_rotation + angle;
+            } else {
+                targetRotationX = start_target_rotation - angle;
+            }
+        }, 100);
+    }
 }

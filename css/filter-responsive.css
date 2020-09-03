@@ -1,3 +1,6 @@
+.mobile-btns-row {
+    display: none;
+}
 .mobile-full-filter-back {
     display: none;
 }
@@ -19,9 +22,24 @@
         flex-wrap: wrap;
     }
 
+.filter-module-container.open:after {
+    position: absolute;
+    top: 100%;
+    height: 100vh;
+    background-color: white;
+    width: 100%;
+    content: '';
+}
+
+    .filter-module-container.open.flat-cards-open {
+        bottom: 60px;
+    }
+
     .filter-module-container.open.full-window {
         height: 100%;
         bottom: 0;
+        display: flex;
+        flex-direction: column;
     }
 
     .filter-module-container.open.full-window .mobile-full-filter-back {
@@ -37,25 +55,30 @@
         line-height: 20px;
     }
 
-.filter-module-container.open.full-window .mobile-full-filter-back .title {
-    text-align: center;
-    width: 100%;
-    line-height: 50px;
-    font-size: 20px;
-}
+    .filter-module-container.open.full-window .mobile-full-filter-back .title {
+        text-align: center;
+        width: 100%;
+        line-height: 50px;
+        font-size: 20px;
+    }
 
     .filter-module-container .close-btn {
         display: none;
     }
     .filter-module-container .close-btn-mobile {
-        height: 12px;
+        height: 16px;
         background-color: white;
         position: absolute;
         left: 0;
-        top: -12px;
+        top: -16px;
         width: 100%;
         border-radius: 0px;
         box-shadow: none;
+        z-index: 20;
+    }
+
+    .filter-module-container.flat-cards-open .close-btn-mobile {
+        background-color: rgba(26, 47, 67, 0.3);
     }
     .filter-module-container .filter-controls {
         box-shadow: none;
@@ -67,9 +90,16 @@
     .filter-module-container.full-window .filter-controls {
         display: flex;
         flex-wrap: wrap;
-        height: 100%;
+        height: calc(100% - 129px);
         overflow-y: auto;
         z-index: 4;
+    }
+
+    .filter-module-container.full-window .filter-controls > div:not(:last-child) {
+        border-bottom: 1px solid silver;
+        padding-bottom: 10px;
+        margin-bottom: 0;
+        padding-top: 10px;
     }
 
     .filter-module-container.full-window .filter-controls > * {
@@ -79,19 +109,26 @@
         width: 100%;
     }
 
-.filter-module-container.full-window .filter-controls .true-false-toggler {height: 150px;padding-left: 23px;}
+    .filter-module-container.full-window .filter-controls .true-false-toggler {height: auto;padding-left: 23px;padding-bottom: 20px;}
 
-.filter-module-container.full-window .filter-controls .nfm-togglers {
-    padding-left: 23px;
-}
+    .filter-module-container.full-window .filter-controls .nfm-togglers {
+        padding-left: 23px;
+    }
 
-.filter-module-container.full-window .filter-controls .nmf-range-selector-box {
-    padding-left: 19px;
-}
+    .filter-module-container.full-window .filter-controls .nmf-range-selector-box {
+        padding-left: 19px;
+    }
 
     .filter-module-container .filter-controls > * {
         position: absolute;
         bottom: -200px;
+    }
+    .he .nfm-togglers {
+        padding-left: 0px;
+        padding-right: 20px;
+    }
+    .nfm-togglers {
+        margin-right: 0;
     }
 
     .filter-module-container .filter-controls > *.mobile-open {
@@ -105,11 +142,11 @@
         transition: 0.5s;
     }
 
-.filter-module-container .filter-controls .nfm-sorting-box {
-    background-color: white;
-    color: #1a2f43;
-    padding-left: 20px;
-}
+    .filter-module-container .filter-controls .nfm-sorting-box {
+        background-color: white;
+        color: #1a2f43;
+        padding-left: 20px;
+    }
 
     .filter-module-container.full-window .filter-controls > *.mobile-open {
         height: auto;
@@ -149,7 +186,7 @@
 
     .filter-module-container .filter-controls-tabs .controls-tab {
         width: auto;
-        padding: 21px 15px;
+        padding: 11px 8px;
         font-weight: 600;
         padding-bottom: 11px;
     }
@@ -172,6 +209,7 @@
         border-bottom: 2px solid black;
     }
 
+
     .nfm-sorting-box .sort-btn-item {
         width: auto!important;
         padding-bottom: 15px;
@@ -180,11 +218,19 @@
     }
     .filter-module-container .flat-cards {
         /* display: none; */
+        padding-left: 48px;
+        background-color: rgba(26, 47, 67, 0.3);
     }
+
+.filter-module-container.full-window .flat-cards {
+    display: none;
+}
     .nfm-sorting-box .sort-btn-item .ic img {
         filter: brightness(0);
     }
-    .filter-module-container .close-btn-mobile .icon {position: absolute;left: calc(50% - 18px);width: 36px;height: 4px;background-color: #C0C0C0;top: 4px;border-radius: 2px;}
+    .filter-module-container .close-btn-mobile .icon {position: absolute;left: calc(50% - 18px);top: -12px;border-radius: 2px;height: 40px;width: 40px;}
+
+    .filter-module-container .close-btn-mobile .icon:after {content: '';top: 50%;left: 50%;height: 4px;width: 36px;background-color: #C0C0C0;border-radius: 2px;position: absolute;transform: translate(-50%, -50%);}
     .filter-module-container .input-search {
         bottom: calc(100% + 83px);
         left: 5px;
@@ -192,7 +238,7 @@
         display: none;
     }
     .filter-module-container .flat-counter {
-        bottom: calc(100% + 12px);
+        bottom: calc(100% + 16px);
         box-shadow: none;
         width: 100%;
         border-radius: 0;
@@ -202,6 +248,14 @@
         height: 64px;
         font-weight: 400;
         letter-spacing: 1.2px;
+    }
+
+.filter-module-container.full-window > .flat-counter {
+    display: none!important;
+}
+
+    .filter-module-container.flat-cards-open > .flat-counter {
+        display: none!important;
     }
 
     .filter-module-container .flat-counter .ic {
@@ -214,6 +268,7 @@
         background-color: white;
         border-radius: 2px;
         margin-right: 0;
+        display: none;
     }
     .filter-controls.on-back ~  .filter-controls-tabs    {
         display: none;
@@ -222,14 +277,171 @@
         width: 100%;
     }
     .filter-module-container .flat-cards .nfm-flat-card {
-    width: 279px;
-    min-width: 279px;
+        width: 279px;
+        min-width: 279px;
     }
 
-.filter-module-container .flat-cards .flat-cards-slider {
-    padding: 20px 0;
+.filter-module-container .flat-cards .nfm-flat-card:hover {
+    transform: scale(1);
 }
+
+    .filter-module-container .flat-cards .flat-cards-slider {
+        padding: 20px 0;
+    }
     .mobile-full-filter-back {
         display: none;
     }
+    .safari-run * {
+    }
+
+.nmf-range-selector-box .nmf-range-selector .circle {
+    width: 40px;
+    height: 40px;
+    top: -18px;
+}
+
+.nmf-range-selector-box .nmf-range-selector .circle:after {
+    top: 12px;
+    left: 12px;
+}
+
+    .filter-module-container.full-window .reset-filter {
+        bottom: 0;
+        right: 0;
+        order: 0;
+        position: relative;
+        left: 0;
+        top: 0;
+        border-radius: 0;
+        border: 1px solid black;
+        margin: auto 0;
+    }
+
+.filter-module-container.full-window .reset-filter .text {
+    display: none;
+}
+
+    .filter-module-container > .reset-filter {
+        display: none;
+    }
+
+    .flat-cards-open .mobile-btns-row {
+        position: absolute;
+        display: flex;
+        bottom: -60px;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        height: 60px;
+        justify-content: space-between;
+        z-index: 99;
+    }
+
+    .mobile-btns-row {
+        height: 0px;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        display: block;
+        overflow: hidden;
+    }
+
+    .full-window .mobile-btns-row {
+        height: 80px;
+        width: 100%;
+        z-index: 99;
+        background-color: white;
+        display: flex;
+        padding: 0 15px;
+        border-top: 1px solid #C0C0C0;
+    }
+
+    .mobile-btns-row .flat-counter {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 212px;
+        order: 1;
+        background: #C1AC87;
+        /* button raised */
+        height: 44px;
+        box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15);
+        margin: auto 10px;
+        border-radius: 4px;
+        flex-wrap: wrap;
+    }
+
+.he .filter-module-container .mobile-btns-row .flat-counter {
+    left: initial;
+    top: 0;
+}
+
+    .full-window .mobile-btns-row .flat-counter {
+        order: 1;
+        width: calc(100% - 60px);
+        margin-left: auto;
+        margin-right: 0;
+        border-radius: 0;
+    }
+
+    .mobile-btns-row .flat-counter .count {
+        /* width: 100%; */
+        text-align: center;
+    }
+
+    .filter-module-container.flat-cards-open .mobile-btns-row .reset-filter {
+        position: relative;
+        top: 0;
+        left: 0;
+        bottom: initial;
+        right: initial;
+        order: 0;
+        width: 130px;
+        border-radius: 4px;
+        margin: auto 10px;
+        display: flex;
+        box-shadow: none;
+    }
+
+    .mobile-btns-row .reset-filter .text {
+        margin: auto 0;
+    }
+    .he .filter-module-container .filter-controls > *.mobile-open {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+    .he .filter-module-container .filter-controls .nfm-sorting-box {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+    .he  .filter-module-container.full-window .filter-controls .nmf-range-selector-box {
+        padding-left: 0;
+        padding-right: 19px;
+    }
+    .he .filter-module-container.full-window .filter-controls .true-false-toggler {
+        padding-left: 0;
+        padding-right: 23px;
+    }
+    .he .full-window .mobile-btns-row .flat-counter {
+        order: 1;
+        right: initial;
+        left: initial;
+        margin-left: 0;
+        margin-right: auto;
+    }
+    body.he .filter-module-container .flat-counter {
+        left: initial;
+    }
+    .he .filter-module-container.flat-cards-open .mobile-btns-row .reset-filter .ic-img {
+        margin-right: 10px;
+        margin-left: auto;
+    }
+    body.he .nfm-sorting-box .sort-btn-item {
+        margin-right: 0;
+        margin-left: 20px;
+    }
+    body.he .nmf-range-selector-box .nmf-range-selector {
+        right: -13px;
+    }
+
 }

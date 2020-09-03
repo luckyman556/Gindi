@@ -724,8 +724,15 @@ $(document).ready(function(){
         last_hover_object = undefined;
         if ($('.clear-search-filter.active').length > 0) {
             flats_filter_update();
-        } 
-        $('.main-wrap')[0].filter_update();
+        }
+        let filter_container = document.querySelector('.main-wrap');
+        let filter_active = filter_container.filter_active;
+        if (filter_active) {
+            if (!document.querySelector('.filter-module-container.clear')) {
+                filter_container.filter_update();
+            }
+        }
+       // $('.main-wrap')[0].filter_update();
 
     });
     document.getElementById('c').addEventListener('mousedown', mouse_down_on_three_js_element);

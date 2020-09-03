@@ -51,7 +51,8 @@
 	font-family: 'fragolino';
 	font-weight: 300;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoLight.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoLight.eot");
+	src: url("../fonts/fragolino/FragolinoLight.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoLight.woff2") format("woff2"), url("../fonts/fragolino/FragolinoLight.ttf") format("truetype");
 }
 
 //Book
@@ -59,14 +60,17 @@
 	font-family: 'fragolino-book';
 	font-weight: 400;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoBook.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoBook.eot") format("embedded-opentype");
+	src: url("../fonts/fragolino/FragolinoBook.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoBook.woff2") format("woff2"), url("../fonts/fragolino/FragolinoBook.ttf") format("truetype");
 }
 //Book cond
 @font-face {
-	font-family: 'fragolino-book';
+	font-family: 'fragolino-book-cond';
 	font-weight: 400;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoCondBook.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoCondBook.eot") format("embedded-opentype");
+	src: url("../fonts/fragolino/FragolinoCondBook.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoCondBook.woff2") format("woff2"), url("../fonts/fragolino/FragolinoCondBook.ttf") format("truetype");
+
 }
 
 //Medium
@@ -74,19 +78,25 @@
 	font-family: 'fragolino';
 	font-weight: 500;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoMedium.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoMedium.eot") format("embedded-opentype");
+	src: url("../fonts/fragolino/FragolinoMedium.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoMedium.woff2") format("woff2"), url("../fonts/fragolino/FragolinoMedium.ttf") format("truetype");
+
 }
 //Bold
 @font-face {
 	font-family: 'fragolino';
 	font-weight: 700;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoBold.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoBold.eot") format("embedded-opentype");
+	src: url("../fonts/fragolino/FragolinoBold.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoBold.woff2") format("woff2"), url("../fonts/fragolino/FragolinoBold.ttf") format("truetype");
+
 }
 //Cond Bold
 @font-face {
-	font-family: 'fragolino';
+	font-family: 'fragolino-cond';
 	font-weight: 700;
 	font-style: normal;
-	src: url("../fonts/fragolino/FragolinoCondBold.ttf") format("ttf");
+	src: url("../fonts/fragolino/FragolinoCondBold.eot") format("embedded-opentype");
+	src: url("../fonts/fragolino/FragolinoCondBold.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoCondBold.woff2") format("woff2"), url("../fonts/fragolino/FragolinoCondBold.ttf") format("truetype");
+
 }

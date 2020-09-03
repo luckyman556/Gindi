@@ -21,6 +21,8 @@ $.fn.floors_selector = function() {
     };
     floors_selector_init (container);
     function floors_selector_init (container) {
+
+
         window.floor_obj.forEach(function(item, index){
             let floor_number = index + 5;
             if (floor_number < 10) {
