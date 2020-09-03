@@ -330,7 +330,9 @@ function flat_click (appartment, without_card = false) {
         }
         popup_info.removeClass('hide');
     }
-    rotation_to_flat ();
+    if (!lock_mouse_rotation_x) {
+        rotation_to_flat ();
+    }
 /*    if (advanced_flat_click == true ) {
         flat_click_animation (appartment, 'z');
     }*/

@@ -161,7 +161,6 @@ export function add_mouse_n_touches () {
                                         },100);
                                     }
                                 }
-
                                 $('.main-wrap')[0].set_scroll_on_card(card_id);
                             } else {
                                 flat_click(picked_object);
