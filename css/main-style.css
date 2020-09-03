@@ -299,7 +299,7 @@
       position: relative;
       z-index: 2; }
       .preloader .preloader-building-box svg .st0 {
-        stroke: #c1ac87; }
+        stroke: #C1AC87; }
   .preloader .center-logo {
     position: relative;
     z-index: 99999999999;
@@ -328,7 +328,7 @@
     height: 70px;
     border-radius: 100%;
     z-index: 4;
-    color: white;
+    color: #FFFFFF;
     text-align: center;
     font-size: 0;
     display: flex;
@@ -362,7 +362,7 @@
     left: 0;
     font-size: 15px;
     margin: auto;
-    color: white;
+    color: #FFFFFF;
     font-weight: 300;
     position: absolute;
     bottom: 0;
@@ -432,7 +432,7 @@
     height: 144px;
     position: relative;
     z-index: 1;
-    background-color: white;
+    background-color: #FFFFFF;
     transform: rotateX(0deg);
     transform-style: preserve-3d;
     backface-visibility: hidden;
@@ -474,7 +474,7 @@
         flex-direction: column;
         text-align: center;
         justify-content: center;
-        background-color: white;
+        background-color: #FFFFFF;
         width: calc(100% + 16px);
         height: 198px;
         border-radius: 6px;
@@ -484,7 +484,7 @@
     .filter-module-container .flat-cards .nfm-flat-card {
       width: 284px;
       min-width: 284px;
-      background-color: white;
+      background-color: #FFFFFF;
       margin: 0 16px;
       padding: 18px 15px;
       border-radius: 6px;
@@ -551,7 +551,7 @@
     width: 226px;
     display: flex;
     border-radius: 22px;
-    background-color: white;
+    background-color: #FFFFFF;
     overflow: hidden;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 10;
@@ -582,7 +582,7 @@
     height: 42px;
     background-color: #1A2F43;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    color: white;
+    color: #FFFFFF;
     padding: 8px 16px;
     border-radius: 32px;
     cursor: pointer; }
@@ -624,7 +624,7 @@
       overflow: hidden;
       transition: 0.5s; }
       .filter-module-container .true-false-toggler .toggle.active {
-        background-color: white; }
+        background-color: #FFFFFF; }
     .filter-module-container .true-false-toggler .check {
       position: absolute;
       display: block;
@@ -652,7 +652,7 @@
       top: 2px;
       bottom: 2px;
       right: 30px;
-      background-color: white;
+      background-color: #FFFFFF;
       border-radius: 36px;
       z-index: 1;
       transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
@@ -673,7 +673,7 @@
   min-width: 164px;
   width: auto;
   background: #1A2F43;
-  color: white;
+  color: #FFFFFF;
   padding: 20px 12px 0 33px;
   flex-shrink: 0;
   font-family: fragolino-book;
@@ -775,7 +775,7 @@
       border-bottom: 1px solid gray;
       font-size: 17px;
       padding: 4px 4px 0px 4px;
-      background-color: white; }
+      background-color: #FFFFFF; }
       .nmf-range-selector-box .nfm-selected .number-box.input {
         position: relative; }
         .nmf-range-selector-box .nfm-selected .number-box.input input {
@@ -837,11 +837,11 @@
       transition: 0.5s;
       cursor: pointer; }
       .nfm-togglers .togglers-row .toggler-btn.active {
-        background-color: #1a2f43;
-        color: white; }
+        background-color: #1A2F43;
+        color: #FFFFFF; }
       .nfm-togglers .togglers-row .toggler-btn:hover {
         background-color: #C1AC87;
-        color: white; }
+        color: #FFFFFF; }
       .nfm-togglers .togglers-row .toggler-btn.unactive {
         opacity: 0.1; }
 
@@ -942,7 +942,7 @@ body.he .lang-button::before {
   font-weight: 500;
   font-size: 16px;
   line-height: 25px;
-  color: #1a2f43;
+  color: #1A2F43;
   cursor: pointer; }
 
 .lang-dropdown {
@@ -989,7 +989,7 @@ body.he .lang-button::before {
 
 .new-ui-btn {
   background: #1A2F43;
-  color: white;
+  color: #FFFFFF;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   height: 44px;
@@ -1004,7 +1004,7 @@ body.he .lang-button::before {
     margin-right: 8px; }
   .new-ui-btn.white {
     color: #1A2F43;
-    background-color: white; }
+    background-color: #FFFFFF; }
 
 .new-ui-icon {
   width: 24px;
@@ -1045,7 +1045,7 @@ body {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     overflow: hidden;
-    background-color: white;
+    background-color: #FFFFFF;
     padding: 3px 5px;
     cursor: pointer; }
     .three_js .zoom-by-mousewheel.filter-open {
@@ -1054,10 +1054,10 @@ body {
       border-radius: 0;
       padding: 5px 5px 4px 5px; }
     .three_js .zoom-by-mousewheel.active .box {
-      background-color: #1a2f43;
-      border: 1px solid #1a2f43; }
+      background-color: #1A2F43;
+      border: 1px solid #1A2F43; }
       .three_js .zoom-by-mousewheel.active .box .check {
-        border-color: white; }
+        border-color: #FFFFFF; }
     .three_js .zoom-by-mousewheel .text {
       text-align: center;
       margin: auto 0;
@@ -1145,7 +1145,7 @@ body {
     background-color: black;
     z-index: 2;
     padding: 20px;
-    color: white;
+    color: #FFFFFF;
     font-family: monospace; }
   .three_js .object-position {
     position: absolute;
@@ -1154,7 +1154,7 @@ body {
     background-color: black;
     z-index: 2;
     padding: 20px;
-    color: white;
+    color: #FFFFFF;
     font-family: monospace; }
   .three_js .input-box {
     padding: 5px; }
@@ -1196,7 +1196,7 @@ body {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    background: white;
+    background: #FFFFFF;
     justify-content: center;
     padding-left: 30px;
     padding-right: 30px;
@@ -1299,7 +1299,7 @@ body {
         fill-opacity: 1;
         cursor: pointer; }
     .three_js .floor-img .aprt-text.locked, .three_js .floor-img .aprt-text.hover {
-      fill: white; }
+      fill: #FFFFFF; }
   .three_js .flat-plan .price {
     margin-top: 0px;
     padding-top: 2px;
@@ -1314,19 +1314,19 @@ body {
     font-family: 'almoni-neue'; }
     .three_js .flat-plan .price .top-part {
       font-size: 14px;
-      color: #1a2f43;
+      color: #1A2F43;
       display: none; }
     .three_js .flat-plan .price .bottom-part {
       padding-left: 4px;
       font-weight: 400;
       font-size: 14px;
-      color: #1a2f43; }
+      color: #1A2F43; }
       .three_js .flat-plan .price .bottom-part .price-box.common .number {
         margin-left: 5px;
         margin-right: 5px; }
       .three_js .flat-plan .price .bottom-part .price-box.common .price-text {
         font-size: 14px;
-        color: #1a2f43;
+        color: #1A2F43;
         font-weight: 400; }
       .three_js .flat-plan .price .bottom-part .text {
         color: #9294a3; }
@@ -1381,7 +1381,7 @@ body {
       .three_js .flat-option .top-part .number {
         line-height: initial;
         letter-spacing: 0.0593262px;
-        color: #1a2f43;
+        color: #1A2F43;
         padding-left: 5px;
         margin: auto 0;
         order: 1;
@@ -1443,7 +1443,7 @@ body {
   .three_js .floors-list {
     position: absolute;
     display: none;
-    background-color: white;
+    background-color: #FFFFFF;
     width: 100%;
     padding: 15px; }
     .three_js .floors-list .floor-item {
@@ -1494,7 +1494,7 @@ body {
     .three_js .search-btn .current-part {
       display: flex;
       height: 31px;
-      background-color: white;
+      background-color: #FFFFFF;
       transition: 0.5s;
       padding: 0 0 0 28px;
       border-top-right-radius: 4px;
@@ -1557,7 +1557,7 @@ body {
         box-shadow: 0px 0px 2px rgba(71, 111, 192, 0.3);
         border-radius: 30px;
         height: 35px;
-        background-color: white;
+        background-color: #FFFFFF;
         transition: 0.5s;
         opacity: 1;
         transform: scale(1);
@@ -1574,7 +1574,7 @@ body {
             z-index: 1;
             transition-timing-function: ease-in; }
           .three_js .search-toggle-part ul li.active .text {
-            color: white;
+            color: #FFFFFF;
             position: relative;
             z-index: 2; }
           .three_js .search-toggle-part ul li.active .status-block {
@@ -1653,7 +1653,7 @@ body {
     left: 50px;
     width: 55px;
     height: 55px;
-    background-color: white;
+    background-color: #FFFFFF;
     border-radius: 100%;
     background-image: url(../img/repair-shop.svg);
     background-position: center;
@@ -1725,7 +1725,7 @@ body {
       font-size: 26px;
       line-height: 42px;
       margin: 0;
-      color: #03233a; }
+      color: #03233A; }
       .three_js .title-with-selector .page-title .text {
         display: flex; }
         .three_js .title-with-selector .page-title .text .title-text-row {
@@ -1744,7 +1744,7 @@ body {
             width: 131%;
             right: 0px;
             bottom: 1px;
-            background-color: #c1ac87;
+            background-color: #C1AC87;
             transition: 0.5s 0.2s; }
           .three_js .title-with-selector .page-title .text .title-text-row .type {
             margin-left: 8px;
@@ -1769,7 +1769,7 @@ body {
       left: -15px;
       width: calc(100% + 30px);
       height: auto;
-      background-color: white;
+      background-color: #FFFFFF;
       padding-top: 84px;
       padding-bottom: 30px;
       border-radius: 7px;
@@ -1809,7 +1809,7 @@ body {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        color: white;
+        color: #FFFFFF;
         font-size: 30px;
         position: absolute;
         left: 0;
@@ -1831,7 +1831,7 @@ body {
     .three_js .floor-form .text-box {
       position: relative; }
       .three_js .floor-form .text-box input {
-        color: white;
+        color: #FFFFFF;
         background-color: transparent; }
     .three_js .floor-form.floor-plan-mode .relative-block .btn {
       transform: scale(1); }
@@ -1854,7 +1854,7 @@ body {
     position: absolute;
     width: 1px;
     height: 1px;
-    background-color: white;
+    background-color: #FFFFFF;
     z-index: 99999;
     opacity: 1;
     border-radius: 100%;
@@ -1868,7 +1868,7 @@ body {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: #03233a;
+      background-color: #03233A;
       left: 13px;
       top: 13px;
       content: '';
@@ -1896,7 +1896,7 @@ body {
       overflow: hidden;
       border-bottom-right-radius: 8px;
       border-top-right-radius: 8px;
-      background-color: white; }
+      background-color: #FFFFFF; }
       .three_js .popup .content .iframe-box {
         width: 100%;
         height: calc(100% + 1px); }
@@ -1925,11 +1925,11 @@ body {
             z-index: 1;
             width: 34px;
             height: 34px;
-            background-color: #1a2f43;
+            background-color: #1A2F43;
             transition: 0.5s; }
             .three_js .popup .content .slider-box .slider .slick-next:hover {
-              background-color: #c1ac87;
-              color: white; }
+              background-color: #C1AC87;
+              color: #FFFFFF; }
             .three_js .popup .content .slider-box .slider .slick-next:before {
               position: absolute;
               content: '';
@@ -1938,7 +1938,7 @@ body {
               width: 6px;
               height: 6px;
               border-width: 0px 0px 2px 2px;
-              border-color: white;
+              border-color: #FFFFFF;
               transform: rotateZ(-135deg);
               top: 13px;
               left: 11px; }
@@ -1947,10 +1947,10 @@ body {
             z-index: 1;
             width: 34px;
             height: 34px;
-            background-color: #1a2f43; }
+            background-color: #1A2F43; }
             .three_js .popup .content .slider-box .slider .slick-prev:hover {
-              background-color: #c1ac87;
-              color: white; }
+              background-color: #C1AC87;
+              color: #FFFFFF; }
             .three_js .popup .content .slider-box .slider .slick-prev:before {
               position: absolute;
               content: '';
@@ -1959,7 +1959,7 @@ body {
               width: 6px;
               height: 6px;
               border-width: 2px 2px 0px 0px;
-              border-color: white;
+              border-color: #FFFFFF;
               transform: rotateZ(-135deg);
               top: 13px;
               left: 14px; }
@@ -1973,7 +1973,7 @@ body {
         left: 50%;
         width: 100%;
         height: 100%;
-        background-color: white;
+        background-color: #FFFFFF;
         z-index: 101;
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
@@ -2015,15 +2015,15 @@ body {
         position: absolute;
         top: 30px;
         right: 30px;
-        background-color: white;
-        border: 1px solid #1a2f43;
+        background-color: #FFFFFF;
+        border: 1px solid #1A2F43;
         opacity: 1;
         cursor: pointer; }
         .three_js .popup.popup-360 .content .fullscreen-btn.active .icon {
           background-image: url(../img/gindi-fullscreen-exit.svg);
           background-size: 24px; }
         .three_js .popup.popup-360 .content .fullscreen-btn:hover {
-          background-color: #1a2f43; }
+          background-color: #1A2F43; }
           .three_js .popup.popup-360 .content .fullscreen-btn:hover .icon {
             filter: invert(1); }
         .three_js .popup.popup-360 .content .fullscreen-btn .icon {
@@ -2049,7 +2049,7 @@ body {
         margin-top: 20px;
         margin-left: 7px;
         margin-right: 7px;
-        background-color: white; }
+        background-color: #FFFFFF; }
     .three_js .popup .popup-btn {
       position: absolute;
       top: 0;
@@ -2080,11 +2080,11 @@ body {
     color: #202E41;
     cursor: pointer; }
     .three_js .popups-togglers-box div.active {
-      color: white;
+      color: #FFFFFF;
       background-image: url(../img/right-arrow.svg);
       background-position: left center;
       background-repeat: no-repeat;
-      background-color: #1a2f43;
+      background-color: #1A2F43;
       border-width: 0px; }
   .three_js .popups-togglers-box {
     display: flex;
@@ -2107,17 +2107,17 @@ body {
       padding-left: 0;
       background-image: none !important;
       margin: 0 0 0 10px;
-      border: solid 1px #1a2f43;
+      border: solid 1px #1A2F43;
       border-radius: 0px;
       font-family: almoni-neue;
       font-size: 16px;
       font-weight: 100;
-      color: #1a2f43;
+      color: #1A2F43;
       padding-top: 3px; }
       .three_js .popups-togglers-box div:hover {
-        background-color: #c1ac87;
-        color: white;
-        border-color: #c1ac87; }
+        background-color: #C1AC87;
+        color: #FFFFFF;
+        border-color: #C1AC87; }
   .three_js .left-floors-selector {
     position: relative;
     z-index: 3;
@@ -2131,7 +2131,7 @@ body {
     .three_js .left-floors-selector.draged {
       transition: none; }
     .three_js .left-floors-selector:not(.draged) .floor-selector-item:hover .number {
-      color: white; }
+      color: #FFFFFF; }
     .three_js .left-floors-selector:not(.draged) .floor-selector-item:hover:before {
       transform: scale(1); }
     .three_js .left-floors-selector .floor-selector-item {
@@ -2230,7 +2230,7 @@ body {
           left: initial;
           position: absolute; }
         .three_js .left-floors-selector .floor-selector-item.active span.number {
-          color: white;
+          color: #FFFFFF;
           order: 2;
           font-size: 65px;
           line-height: 1; }
@@ -2242,7 +2242,7 @@ body {
           font-size: 20px;
           line-height: 1.3;
           letter-spacing: 0.384615px;
-          color: white; }
+          color: #FFFFFF; }
       .three_js .left-floors-selector .floor-selector-item span {
         position: relative;
         transition: 0.5s;
@@ -2316,7 +2316,7 @@ body {
     border: 1px solid #8996A9; }
     .three_js .tgl-ios + .tgl-btn:after {
       border-radius: 2em;
-      background: white;
+      background: #FFFFFF;
       transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08); }
     .three_js .tgl-ios + .tgl-btn:hover:after {
@@ -2429,7 +2429,7 @@ body {
     .three_js .tg-view-mode-container .mode-title {
       font-size: 16px;
       margin: auto 5px auto 10px;
-      color: white; }
+      color: #FFFFFF; }
       .three_js .tg-view-mode-container .mode-title:nth-child(3) {
         margin-left: 7px; }
   .three_js .pages-box {
@@ -2536,7 +2536,7 @@ body {
           flex-direction: column;
           justify-content: center;
           height: 100%;
-          background-color: white; }
+          background-color: #FFFFFF; }
         .three_js .building .floor-row .flat-item .flat-name {
           font-size: 14px; }
   .three_js .left-corner-block {
@@ -2557,7 +2557,7 @@ body {
     .three_js .left-corner-block .bottom-part {
       padding: 27px 37px 0 37px;
       height: 154px;
-      background-color: white; }
+      background-color: #FFFFFF; }
       .three_js .left-corner-block .bottom-part .mobile-tabs {
         display: none; }
   .three_js .clear-all-filters {
@@ -2580,7 +2580,7 @@ body {
       filter: invert(1); }
     .three_js .clear-all-filters .text {
       margin: auto 0;
-      color: white; }
+      color: #FFFFFF; }
   .three_js .floors-selector-n-back {
     position: absolute;
     right: 0;
@@ -2639,7 +2639,7 @@ body {
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: white;
+      background-color: #FFFFFF;
       content: '';
       right: -4px;
       top: 97px;
@@ -2668,7 +2668,7 @@ body {
       background-repeat: no-repeat;
       background-size: 14px;
       cursor: pointer;
-      background-color: white;
+      background-color: #FFFFFF;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
     .three_js .popup-info .flat-plan {
       display: flex;
@@ -2683,10 +2683,10 @@ body {
       padding-top: 12px;
       display: block;
       padding-right: 0px;
-      background-color: white;
+      background-color: #FFFFFF;
       padding-right: 17px;
       padding-left: 17px;
-      box-shadow: 8px 8px #1a2f43, 0px 0px 4px 0px rgba(26, 47, 67, 0.3); }
+      box-shadow: 8px 8px #1A2F43, 0px 0px 4px 0px rgba(26, 47, 67, 0.3); }
       .three_js .popup-info .flat-plan.min {
         height: 170px;
         max-height: 170px; }
@@ -2739,14 +2739,14 @@ body {
           padding: 0 10px;
           width: auto;
           background: rgba(255, 255, 255, 0.1);
-          color: white;
+          color: #FFFFFF;
           margin-left: 2px;
           font-family: almoni-neue; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.non-flat-360 {
             display: none; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
             order: 2;
-            background-color: #1a2f43;
+            background-color: #1A2F43;
             border: none;
             padding-left: 24px;
             background-image: url(../img/gindi-ic-apt-plan.svg) !important;
@@ -2766,11 +2766,11 @@ body {
             background-size: 18px;
             box-shadow: none;
             width: 107px;
-            border: 1px solid #1a2f43;
+            border: 1px solid #1A2F43;
             color: black; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.info {
             width: 48px;
-            background-color: white;
+            background-color: #FFFFFF;
             color: #202E41;
             margin-left: 0; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
@@ -2793,14 +2793,14 @@ body {
             .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:after {
               content: 'Back';
               position: absolute;
-              color: #1a2f43;
+              color: #1A2F43;
               right: -40px;
               top: -2px;
               font-size: 14px;
               line-height: 33px;
               padding-left: 20px; }
   .three_js .flat-info {
-    background-color: #f7f7f7;
+    background-color: #F7F7F7;
     width: 230px;
     min-width: 230px;
     padding-left: 29px;
@@ -2828,7 +2828,7 @@ body {
           bottom: 2px;
           right: 0;
           height: 13px;
-          background-color: #c1ac87;
+          background-color: #C1AC87;
           width: 105%;
           z-index: 0; }
       .three_js .flat-info > .title h2 {
@@ -2837,7 +2837,7 @@ body {
         font-weight: 600;
         padding-left: 2px;
         width: auto;
-        color: #03233a;
+        color: #03233A;
         position: relative;
         z-index: 1; }
       .three_js .flat-info > .title .sep {
@@ -2853,7 +2853,7 @@ body {
           font-family: almoni-neue;
           font-size: 16px;
           letter-spacing: -0.21px;
-          color: #1a2f43;
+          color: #1A2F43;
           display: none; }
         .three_js .flat-info > .title .price .price-num {
           display: flex; }
@@ -2870,12 +2870,12 @@ body {
             font-family: almoni-neue;
             font-size: 16px;
             letter-spacing: -0.21px;
-            color: #1a2f43; }
+            color: #1A2F43; }
           .three_js .flat-info > .title .price .price-num .number {
             font-family: almoni-neue;
             font-size: 16px;
             letter-spacing: -0.21px;
-            color: #1a2f43;
+            color: #1A2F43;
             margin-left: 5px;
             margin-right: 5px; }
           .three_js .flat-info > .title .price .price-num .price-text {
@@ -2884,7 +2884,7 @@ body {
             font-family: almoni-neue;
             font-size: 16px;
             letter-spacing: -0.21px;
-            color: #1a2f43; }
+            color: #1A2F43; }
     .three_js .flat-info .concessions {
       padding-top: 15px; }
       .three_js .flat-info .concessions .gift {
@@ -2892,7 +2892,7 @@ body {
       .three_js .flat-info .concessions .concessions-text {
         padding-top: 10px;
         font-size: 16px;
-        color: #ffffff;
+        color: #FFFFFF;
         padding-right: 20px; }
     .three_js .flat-info .status {
       display: flex;
@@ -2959,7 +2959,7 @@ body {
           top: -5px;
           width: 10px;
           height: 10px;
-          background-color: white;
+          background-color: #FFFFFF;
           transform: rotate(45deg); }
         .three_js .flat-info .more-info .bottom-part .info-loop {
           margin-top: 18px;
@@ -3021,7 +3021,7 @@ body {
             font-size: 16px;
             line-height: 18px;
             letter-spacing: 0.0553711px;
-            color: white;
+            color: #FFFFFF;
             text-shadow: none; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .top {
               font-family: almoni-neue;
@@ -3043,7 +3043,7 @@ body {
               line-height: 0.8;
               letter-spacing: normal;
               text-align: right;
-              color: #1a2f43; }
+              color: #1A2F43; }
   .three_js .point-1 {
     width: 8px;
     height: 8px;
@@ -3073,7 +3073,7 @@ body {
       content: '';
       width: 8px;
       height: 8px;
-      background-color: white;
+      background-color: #FFFFFF;
       border-radius: 100%;
       position: absolute;
       right: 0;
@@ -3084,7 +3084,7 @@ body {
       content: '';
       width: 8px;
       height: 8px;
-      background-color: white;
+      background-color: #FFFFFF;
       border-radius: 100%;
       position: absolute;
       left: 0;
@@ -3106,7 +3106,7 @@ body {
     color: black;
     transition-property: opacity, transform, left , top;
     opacity: 0;
-    background-color: white;
+    background-color: #FFFFFF;
     border-radius: 3px;
     box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5); }
     .three_js .flat-bubble.show {
@@ -3148,12 +3148,12 @@ body {
       line-height: 1.27;
       letter-spacing: normal;
       text-align: right;
-      color: #1a2f43; }
+      color: #1A2F43; }
     .three_js .search-filter-title .selected {
       display: flex;
       margin: auto 0; }
   .three_js .search-filter {
-    background-color: white;
+    background-color: #FFFFFF;
     display: flex;
     justify-content: space-between; }
     .three_js .search-filter .as-checkbox-wrap {
@@ -3167,7 +3167,7 @@ body {
         background-image: url(../img/approved-ic.svg);
         background-position: center;
         background-repeat: no-repeat;
-        background-color: #1a2f43;
+        background-color: #1A2F43;
         margin: auto;
         margin-left: 10px;
         margin-right: 1px; }
@@ -3187,7 +3187,7 @@ body {
         line-height: 46px;
         letter-spacing: normal;
         text-align: right;
-        color: #1a2f43;
+        color: #1A2F43;
         width: 200px; }
     .three_js .search-filter .selected {
       font-size: 18px;
@@ -3231,8 +3231,8 @@ body {
       font-weight: 600;
       line-height: 19px;
       text-align: center;
-      border: 1px solid #1a2f43;
-      background-color: white;
+      border: 1px solid #1A2F43;
+      background-color: #FFFFFF;
       transition: 0.5s;
       cursor: pointer;
       margin: 10px;
@@ -3244,8 +3244,8 @@ body {
       animation-iteration-count: 1; }
       .three_js .search-filter .search-filter-btn:hover, .three_js .search-filter .search-filter-btn.active {
         color: #FFFFFF;
-        background-color: #1a2f43;
-        border: 1px solid #1a2f43; }
+        background-color: #1A2F43;
+        border: 1px solid #1A2F43; }
       .three_js .search-filter .search-filter-btn.active {
         animation-name: btn_press;
         animation-duration: 0.5s;
@@ -3270,7 +3270,7 @@ body {
       position: absolute;
       width: 24px;
       height: 24px;
-      background-color: #1a2f43;
+      background-color: #1A2F43;
       border-radius: 0;
       z-index: 2;
       box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
@@ -3287,7 +3287,7 @@ body {
         bottom: calc(100% + 8px);
         left: 50%;
         filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
-        background-color: white;
+        background-color: #FFFFFF;
         padding: 2px 7px;
         transform: translate(-50%, 0) scale(0);
         transition: 0.5s;
@@ -3302,7 +3302,7 @@ body {
           left: calc(50% - 5px);
           width: 10px;
           height: 10px;
-          background-color: white;
+          background-color: #FFFFFF;
           transform: rotateZ(45deg); }
     .three_js .range-selector .range-line {
       position: absolute;
@@ -3318,7 +3318,7 @@ body {
       background-color: rgba(181, 171, 221, 0.6);
       left: 0;
       position: absolute;
-      border: 1px solid #1a2f43; }
+      border: 1px solid #1A2F43; }
   .three_js .rotation-controller {
     position: absolute;
     bottom: 15px;
@@ -3332,7 +3332,7 @@ body {
     .three_js .rotation-controller .line {
       width: 100%;
       height: 2px;
-      background-color: white;
+      background-color: #FFFFFF;
       margin: auto 0;
       opacity: 0.3; }
     .three_js .rotation-controller .circle {
@@ -3340,7 +3340,7 @@ body {
       top: 50%;
       width: 62px;
       height: 34px;
-      background-color: #1a2f43;
+      background-color: #1A2F43;
       border-radius: 0px;
       z-index: 2;
       transform: translateX(50%) translateY(-50%);
@@ -3358,7 +3358,7 @@ body {
         width: 6px;
         height: 6px;
         border-width: 2px 2px 0px 0px;
-        border-color: white;
+        border-color: #FFFFFF;
         transform: rotateZ(45deg);
         top: 14px;
         left: 42px; }
@@ -3370,7 +3370,7 @@ body {
         width: 6px;
         height: 6px;
         border-width: 2px 2px 0px 0px;
-        border-color: white;
+        border-color: #FFFFFF;
         transform: rotateZ(-135deg);
         top: 14px;
         left: 13px; }
@@ -3409,8 +3409,8 @@ body {
     transform: scale(0);
     margin-left: auto;
     margin-right: 40px;
-    color: white;
-    border: 1px solid white;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
     text-align: left;
     padding-left: 18px;
     font-size: 16px;
@@ -3447,7 +3447,7 @@ body {
       display: none; }
     .three_js .mouse-wheel-info h3 {
       margin: auto;
-      color: white;
+      color: #FFFFFF;
       font-size: 24px;
       text-align: center;
       font-weight: 600; }
@@ -3483,8 +3483,8 @@ body {
       font-style: normal;
       line-height: 1.4;
       letter-spacing: normal;
-      color: #ffffff;
-      border: 1px solid white;
+      color: #FFFFFF;
+      border: 1px solid #FFFFFF;
       border-radius: 22px;
       padding: 0 10px;
       height: 37px;
@@ -3514,7 +3514,7 @@ body {
         background-size: contain; }
     .three_js .lobby-n-roof-360 .hidden-part {
       position: absolute;
-      background-color: white;
+      background-color: #FFFFFF;
       border-radius: 3px;
       bottom: calc(100% + 12px);
       right: -3px;
@@ -3530,7 +3530,7 @@ body {
         right: 15px;
         width: 10px;
         height: 10px;
-        background-color: white;
+        background-color: #FFFFFF;
         transform-origin: center;
         transform: rotateZ(45deg); }
       .three_js .lobby-n-roof-360 .hidden-part li {
@@ -3607,7 +3607,7 @@ body {
         left: calc(50% - 10px);
         width: 20px;
         height: 3px;
-        background-color: #1a2f43;
+        background-color: #1A2F43;
         display: none; }
       .three_js .new-floors-selector .new-floors-selector-wrap:after {
         content: '';
@@ -3616,12 +3616,12 @@ body {
         left: calc(50% - 10px);
         width: 20px;
         height: 3px;
-        background-color: #1a2f43;
+        background-color: #1A2F43;
         display: none; }
       .three_js .new-floors-selector .new-floors-selector-wrap.draged {
         transition: none; }
       .three_js .new-floors-selector .new-floors-selector-wrap:not(.draged) .floor-btn:hover .number {
-        color: #1a2f43; }
+        color: #1A2F43; }
       .three_js .new-floors-selector .new-floors-selector-wrap:not(.draged) .floor-btn:hover:before {
         transform: scale(1); }
       .three_js .new-floors-selector .new-floors-selector-wrap .floor-btn {
@@ -3633,7 +3633,7 @@ body {
         line-height: 33px;
         /* identical to box height */
         text-align: center;
-        color: #1a2f43;
+        color: #1A2F43;
         position: relative;
         padding-top: 1px;
         cursor: pointer; }
@@ -3722,7 +3722,7 @@ body {
             left: initial;
             position: absolute; }
           .three_js .new-floors-selector .new-floors-selector-wrap .floor-btn.active span.number {
-            color: #1a2f43;
+            color: #1A2F43;
             order: 2;
             font-size: 48px;
             line-height: 1; }
@@ -3734,7 +3734,7 @@ body {
             font-size: 20px;
             line-height: 1.3;
             letter-spacing: 0.384615px;
-            color: #1a2f43;
+            color: #1A2F43;
             display: none; }
         .three_js .new-floors-selector .new-floors-selector-wrap .floor-btn span {
           position: relative;
@@ -3753,7 +3753,7 @@ body {
       .three_js .new-floors-selector .slider .slider-point {
         position: absolute;
         top: 50%;
-        background-color: white;
+        background-color: #FFFFFF;
         box-shadow: 0px 0px 2px black;
         width: 50px;
         height: 20px;
@@ -3764,7 +3764,7 @@ body {
         left: -50px;
         width: 50px;
         height: 20px;
-        color: white;
+        color: #FFFFFF;
         background-color: black; }
   .three_js .compass {
     position: absolute;
@@ -3964,7 +3964,7 @@ body {
   max-width: 95vw; }
   .game-texts .text-block {
     display: none;
-    color: white;
+    color: #FFFFFF;
     font-size: 22px;
     padding-top: 30px;
     text-align: center;
@@ -4009,7 +4009,7 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: #FFFFFF;
   z-index: 2; }
 
 .safari-run .three_js .range-selector .circle .circle-tooltip > * {
@@ -4129,7 +4129,7 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-tog
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
   content: 'חזור';
   position: absolute;
-  color: #1a2f43;
+  color: #1A2F43;
   right: 40px;
   top: -2px;
   font-size: 16px;
@@ -4183,7 +4183,7 @@ body.he .three_js .search-filter-title .selected {
   line-height: normal;
   letter-spacing: normal;
   text-align: right;
-  color: #03233a; }
+  color: #03233A; }
 
 body.he .three_js .zoom-controls {
   right: initial;
@@ -4220,7 +4220,7 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
   left: 0;
   border-width: 1px 0 0px 1px;
   border-style: solid;
-  border-color: white;
+  border-color: #FFFFFF;
   border-top-left-radius: 16px;
   background-color: rgba(0, 0, 0, 0.7); }
 
@@ -4231,7 +4231,7 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
   height: calc(100% - 39px);
   border-width: 0px 1px 1px 1px;
   border-style: solid;
-  border-color: white;
+  border-color: #FFFFFF;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -4249,7 +4249,7 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
   right: 0;
   border-width: 1px 1px 0px 0px;
   border-style: solid;
-  border-color: white;
+  border-color: #FFFFFF;
   border-top-right-radius: 16px;
   background-color: rgba(0, 0, 0, 0.7);
   transition: 0.5s; }
@@ -4261,7 +4261,7 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
   position: absolute;
   left: 62px;
   border-width: 1px;
-  border-color: white;
+  border-color: #FFFFFF;
   overflow: hidden;
   top: 0;
   transition: 0.5s; }
@@ -4274,7 +4274,7 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
   content: '';
   width: 79px;
   height: 50px;
-  border: 1px solid white;
+  border: 1px solid #FFFFFF;
   position: absolute;
   transform: rotate(39deg);
   top: 18px;
@@ -4283,8 +4283,8 @@ body.he .flat_status_2d_css .flat-card-box .price-row .price-box .number {
 
 body.on-white .three_js .clear-search-filter,
 body.on-white .three_js .lobby-n-roof-360 .visible-part {
-  background-color: #1a2f43;
-  border-color: #1a2f43; }
+  background-color: #1A2F43;
+  border-color: #1A2F43; }
 
 body.on-white .three_js .floors-selector-n-back {
   right: 0px;
@@ -4302,7 +4302,7 @@ body.on-white .three_js .floors-selector-n-back {
 body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-btn.active:before,
 body.on-white .three_js .bomb-btn:before,
 body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-btn.active:after {
-  background-color: white;
+  background-color: #FFFFFF;
   right: 3px;
   display: none; }
 
@@ -4314,7 +4314,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   padding: 5px;
   border-radius: 5px;
   background-color: black;
-  color: white;
+  color: #FFFFFF;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -4330,7 +4330,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   z-index: 999999 !important; }
 
 .flat_status_2d_css {
-  color: white; }
+  color: #FFFFFF; }
   .flat_status_2d_css.current .price-row,
   .flat_status_2d_css.current .unavailable-row {
     position: relative; }
@@ -4380,7 +4380,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   border-radius: 3px;
   color: black;
   font-size: 30px;
-  filter: drop-shadow(2px 2px 2px white); }
+  filter: drop-shadow(2px 2px 2px #FFFFFF); }
   .floor_center_2d_css .floor-center-text .number {
     margin: auto 5px;
     order: 2; }
@@ -4395,8 +4395,8 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   .price-box.common .get-price-btn {
     height: 20px;
     padding: 0 10px;
-    background-color: #1a2f43;
-    color: white;
+    background-color: #1A2F43;
+    color: #FFFFFF;
     line-height: 20px;
     cursor: pointer;
     white-space: pre; }
@@ -4417,7 +4417,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   left: 0px;
   z-index: 2;
   background-color: black;
-  color: white;
+  color: #FFFFFF;
   padding: 5px;
   font-family: sans-serif; }
 
@@ -4426,7 +4426,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   height: 20px;
 
   border-radius: 100%;
-  background-color: #c1ac87;
+  background-color: $brand-color-2;
   background-size: 25px;
   background-position: center;
   animation-name: last_click_point;
@@ -4439,7 +4439,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #FFFFFF;
   cursor: pointer;
   box-shadow: 0 0 0 rgba(193, 172, 135, 0.8);
   animation: pulse 2s infinite;
@@ -4462,7 +4462,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #c1ac87;
+    background-color: #C1AC87;
     border-radius: 100%;
     box-shadow: 0px 0px 2px #911919; }
   .pulse.run-animation {
@@ -4472,7 +4472,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   animation: none; }
 
 .street-name-block {
-  color: white; }
+  color: #FFFFFF; }
 
 body.en .popup-2d > .content,
 body.en .popup-3d > .content,

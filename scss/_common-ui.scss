@@ -1,7 +1,7 @@
 .new-ui-circle-btn {
     width: 42px;
     height: 42px;
-    background-color: #FFFFFF;
+    background-color: $white;
     transition: 0.5s;
     border-radius: 100%; 
     background-position: center;
@@ -22,7 +22,7 @@
     }
     @media screen and (max-width: 1024px) {
         &.m-dark {
-            background-color: #1A2F43;
+            background-color: $brand-color-1;
             .ic-img {
                 filter :  brightness(0) invert(1);
             }
@@ -30,7 +30,7 @@
     }
     &:hover { 
         border-radius: 20px;
-        background-color: #C1AC87; 
+        background-color: $brand-color-2; 
         .ic-img { 
             filter :  brightness(0) invert(1);
         }
@@ -38,7 +38,7 @@
     &:active{
         
         border-radius: 20px;
-        background-color: #1A2F43; 
+        background-color: $brand-color-1; 
         .ic-img { 
             filter :  brightness(0) invert(1);
         }
@@ -46,8 +46,8 @@
     }
 }
 .new-ui-btn {
-    background: #1A2F43;
-    color: white;
+    background: $brand-color-1;
+    color: $white;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     display: flex;
     height: 44px;
@@ -64,8 +64,8 @@
     }
 
     &.white {
-        color: #1A2F43;
-        background-color: white;
+        color: $brand-color-1;
+        background-color: $white;
     }
 }
 

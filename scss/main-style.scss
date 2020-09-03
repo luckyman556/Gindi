@@ -1,4 +1,5 @@
 //@import "threejs";
+@import 'var';
 @import "keyframes";
 @import "font-face";
 @import "preloader";
@@ -32,7 +33,7 @@ body {
 		border-top-left-radius: 4px;
 		border-top-right-radius: 4px;
 		overflow: hidden;
-		background-color: white;
+		background-color: $white;
 		padding: 3px 5px;
 		cursor: pointer;
 		&.filter-open {
@@ -44,10 +45,10 @@ body {
 		}
 		&.active {
 			.box {
-				background-color: #1a2f43;
-				border: 1px solid #1a2f43;
+				background-color: $brand-color-1;
+				border: 1px solid $brand-color-1;
 				.check {
-					border-color: white;
+					border-color: $white;
 				}
 			}
 		}
@@ -100,7 +101,7 @@ body {
 			/* identical to box height */
 			letter-spacing: 0.138428px;
 
-			color: #FFFFFF;
+			color: $white;
 			user-select: none;
 			&.floor {
 				h3 {
@@ -164,7 +165,7 @@ body {
 		background-color: black;
 		z-index: 2;
 		padding: 20px;
-		color: white;
+		color: $white;
 		font-family: monospace;
 	}
 	.object-position {
@@ -174,7 +175,7 @@ body {
 		background-color: black;
 		z-index: 2;
 		padding: 20px;
-		color: white;
+		color: $white;
 		font-family: monospace;
 	}
 	.input-box {
@@ -225,7 +226,7 @@ body {
 		z-index: 2;
 		display: flex;
 		flex-direction: column;
-		background: white;
+		background: $white;
 		justify-content: center;
 		padding-left: 30px;
 		padding-right: 30px;
@@ -366,7 +367,7 @@ body {
 		.aprt-text {
 			&.locked,
 			&.hover {
-				fill: white;
+				fill: $white;
 			}
 		}
 	}
@@ -385,14 +386,14 @@ body {
 			font-family: 'almoni-neue';
 			.top-part {
 				font-size: 14px;
-				color: #1a2f43;
+				color: $brand-color-1;
 				display: none;
 			}
 			.bottom-part {
 				padding-left: 4px;
 				font-weight: 400;
 				font-size: 14px;
-				color: #1a2f43;
+				color: $brand-color-1;
 				.price-box.common {
 					.number {
 						margin-left: 5px;
@@ -400,7 +401,7 @@ body {
 					}
 					.price-text {
 						font-size: 14px;
-						color: #1a2f43;
+						color: $brand-color-1;
 						font-weight: 400;
 					}
 				}
@@ -484,7 +485,7 @@ body {
 			.number {
 				line-height: initial;
 				letter-spacing: 0.0593262px;
-				color: #1a2f43;
+				color: $brand-color-1;
 				padding-left: 5px;
 				margin: auto 0;
 				order: 1;
@@ -513,7 +514,7 @@ body {
 
 			letter-spacing: 0.0593262px;
 
-			color: #FFFFFF;
+			color: $white;
 			padding-left: 6px;
 			margin: auto 0;
 		}
@@ -566,7 +567,7 @@ body {
 	.floors-list {
 		position: absolute;
 		display: none;
-		background-color: white;
+		background-color: $white;
 		width: 100%;
 		padding: 15px;
 		.floor-item {
@@ -632,7 +633,7 @@ body {
 		.current-part {
 			display: flex;
 			height: 31px;
-			background-color: white;
+			background-color: $white;
 			transition: 0.5s;
 			padding: 0 0 0 28px;
 			border-top-right-radius: 4px;
@@ -711,7 +712,7 @@ body {
 				box-shadow: 0px 0px 2px rgba(71, 111, 192, 0.3);
 				border-radius: 30px;
 				height: 35px;
-				background-color: white;
+				background-color: $white;
 				transition: 0.5s;
 				opacity: 1;
 				transform: scale(1);
@@ -730,7 +731,7 @@ body {
 						transition-timing-function: ease-in;
 					}
 					.text {
-						color: white;
+						color: $white;
 						position: relative;
 						z-index: 2;
 					}
@@ -825,7 +826,7 @@ body {
 			height: 79px;
 			opacity: 1;
 			&:hover {
-				// background-color: white;
+				// background-color: $white;
 				// background-image: url(../img/bomb-ic.svg);
 			}
 		}
@@ -837,7 +838,7 @@ body {
 		left: 50px;
 		width: 55px;
 		height: 55px;
-		background-color: white;
+		background-color: $white;
 		border-radius: 100%;
 		background-image: url(../img/repair-shop.svg);
 		background-position: center;
@@ -923,7 +924,7 @@ body {
 			font-size: 26px;
 			line-height: 42px;
 			margin: 0;
-			color:  #03233a;
+			color:  $text-color-1;
 			.text {
 				display: flex;
 				.title-text-row {
@@ -943,7 +944,7 @@ body {
 						width: 131%;
 						right: 0px;
 						bottom: 1px;
-						background-color: #c1ac87;
+						background-color: $brand-color-2;
 						transition: 0.5s 0.2s;
 
 					}
@@ -980,7 +981,7 @@ body {
 			left: -15px;
 			width: calc(100% + 30px);
 			height: auto;
-			background-color: white;
+			background-color: $white;
 			padding-top: 84px;
 			padding-bottom: 30px;
 			border-radius: 7px;
@@ -1030,7 +1031,7 @@ body {
 				flex-direction: column;
 				justify-content: center;
 				text-align: center;
-				color: white;
+				color: $white;
 				font-size: 30px;
 				position: absolute;
 				left: 0;
@@ -1059,7 +1060,7 @@ body {
 		.text-box {
 			position: relative;
 			input {
-				color: white;
+				color: $white;
 				background-color: transparent;
 			}
 		}
@@ -1092,7 +1093,7 @@ body {
 		position: absolute;
 		width: 1px;
 		height: 1px;
-		background-color: white;
+		background-color: $white;
 		z-index: 99999;
 		opacity: 1;
 		border-radius: 100%;
@@ -1107,7 +1108,7 @@ body {
 			position: absolute;
 			width: 100%;
 			height: 100%;
-			background-color: #03233a;
+			background-color: $text-color-1;
 			left: 13px;
 			top: 13px;
 			content: '';
@@ -1140,7 +1141,7 @@ body {
 			overflow: hidden;
 			border-bottom-right-radius: 8px;
 			border-top-right-radius: 8px;
-			background-color: white;
+			background-color: $white;
 			.iframe-box {
 				width: 100%;
 				height: calc(100% + 1px);
@@ -1176,11 +1177,11 @@ body {
 						z-index: 1;
 						width: 34px;
 						height: 34px;
-						background-color: #1a2f43;
+						background-color: $brand-color-1;
 						transition: 0.5s;
 						&:hover {
-							background-color: #c1ac87;
-							color: white;
+							background-color: $brand-color-2;
+							color: $white;
 
 						}
 						&:before {
@@ -1191,7 +1192,7 @@ body {
 							width: 6px;
 							height: 6px;
 							border-width:  0px 0px 2px 2px;
-							border-color: white;
+							border-color: $white;
 							transform: rotateZ(-135deg);
 							top: 13px;
 							left: 11px;
@@ -1203,10 +1204,10 @@ body {
 						z-index: 1;
 						width: 34px;
 						height: 34px;
-						background-color: #1a2f43;
+						background-color: $brand-color-1;
 						&:hover {
-							background-color: #c1ac87;
-							color: white;
+							background-color: $brand-color-2;
+							color: $white;
 
 						}
 						&:before {
@@ -1217,7 +1218,7 @@ body {
 							width: 6px;
 							height: 6px;
 							border-width:  2px 2px 0px 0px ;
-							border-color: white;
+							border-color: $white;
 							transform: rotateZ(-135deg);
 							top: 13px;
 							left: 14px;
@@ -1240,7 +1241,7 @@ body {
 				left: 50%;
 				width: 100%;
 				height: 100%;
-				background-color: white;
+				background-color: $white;
 				z-index: 101;
 				transform: translate(-50%, -50%) scale(0);
 				opacity: 0;
@@ -1302,8 +1303,8 @@ body {
 					position: absolute;
 					top: 30px;
 					right: 30px;
-					background-color: white;
-					border: 1px solid #1a2f43;
+					background-color: $white;
+					border: 1px solid $brand-color-1;
 					opacity: 1;
 					cursor: pointer;
 					&.active {
@@ -1315,7 +1316,7 @@ body {
 						}
 					}
 					&:hover {
-						background-color: #1a2f43;
+						background-color: $brand-color-1;
 						.icon {
 							filter: invert(1);
 						}
@@ -1352,7 +1353,7 @@ body {
 				margin-top: 20px;
 				margin-left: 7px;
 				margin-right: 7px;
-				background-color: white;
+				background-color: $white;
 
 			}
 		}
@@ -1395,11 +1396,11 @@ body {
 			color:   #202E41;
 			cursor: pointer;
 			&.active {
-				color: white;
+				color: $white;
 				background-image: url(../img/right-arrow.svg);
 				background-position: left center;
 				background-repeat: no-repeat;
-				background-color: #1a2f43;
+				background-color: $brand-color-1;
 				border-width: 0px;
 			}
 		}
@@ -1425,18 +1426,18 @@ body {
 			padding-left: 0;
 			background-image: none !important;
 			margin: 0 0 0 10px;
-			border: solid 1px #1a2f43;
+			border: solid 1px $brand-color-1;
 			border-radius: 0px;
 			font-family: almoni-neue;
 			font-size: 16px;
 			font-weight: 100;
-			color: #1a2f43;
+			color: $brand-color-1;
 
 			padding-top: 3px;
 			&:hover {
-				background-color: #c1ac87;
-				color: white;
-				border-color: #c1ac87;
+				background-color: $brand-color-2;
+				color: $white;
+				border-color: $brand-color-2;
 			}
 
 		}
@@ -1459,7 +1460,7 @@ body {
 			.floor-selector-item {
 				&:hover {
 					.number {
-						color: white;
+						color: $white;
 					}
 					&:before {
 						transform: scale(1);
@@ -1580,7 +1581,7 @@ body {
 					position: absolute;
 				}
 				span.number {
-					color: white;
+					color: $white;
 					order: 2;
 					font-size: 65px;
 					line-height: 1;
@@ -1593,7 +1594,7 @@ body {
 					font-size: 20px;
 					line-height:1.3;
 					letter-spacing: 0.384615px;
-					color: white;
+					color: $white;
 				}
 			}
 			span {
@@ -1696,7 +1697,7 @@ body {
 			border: 1px solid #8996A9;
 			&:after {
 				border-radius: 2em;
-				background: white;
+				background: $white;
 				transition:
 						left .3s cubic-bezier(
 										0.175, 0.885, 0.320, 1.275
@@ -1874,7 +1875,7 @@ body {
 		.mode-title {
 			font-size: 16px;
 			margin: auto 5px auto 10px;
-			color: white;
+			color: $white;
 			&:nth-child(3) {
 				margin-left: 7px;
 			}
@@ -2022,7 +2023,7 @@ body {
 					flex-direction: column;
 					justify-content: center;
 					height: 100%;
-					background-color: white;
+					background-color: $white;
 				}
 				.flat-name {
 					font-size: 14px;
@@ -2052,7 +2053,7 @@ body {
 		.bottom-part {
 			padding: 27px 37px 0 37px;
 			height: 154px;
-			background-color: white;
+			background-color: $white;
 			.mobile-tabs {
 				display: none;
 			}
@@ -2079,7 +2080,7 @@ body {
 		}
 		.text {
 			margin: auto 0;
-			color: white;
+			color: $white;
 		}
 	}
 	.floors-selector-n-back {
@@ -2159,7 +2160,7 @@ body {
 			position: absolute;
 			width: 10px;
 			height: 10px;
-			background-color: white;
+			background-color: $white;
 			content: '';
 			right: -4px;
 			top: 97px;
@@ -2197,7 +2198,7 @@ body {
 			background-repeat: no-repeat;
 			background-size: 14px;
 			cursor: pointer;
-			background-color: white;
+			background-color: $white;
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 		}
@@ -2215,10 +2216,10 @@ body {
 			padding-top: 12px;
 			display: block;
 			padding-right: 0px;
-			background-color: white;
+			background-color: $white;
 			padding-right: 17px;
 			padding-left: 17px;
-			box-shadow: 8px 8px  #1a2f43, 0px 0px 4px 0px rgba(26, 47, 67, 0.3);
+			box-shadow: 8px 8px  $brand-color-1, 0px 0px 4px 0px rgba(26, 47, 67, 0.3);
 			&.min  {
 				height: 170px;
 				max-height: 170px;
@@ -2287,7 +2288,7 @@ body {
 					padding: 0 10px;
 					width: auto;
 					background: rgba(255, 255, 255, 0.1);
-					color: white;
+					color: $white;
 					margin-left: 2px;
 					font-family: almoni-neue;
 					&.non-flat-360 {
@@ -2295,7 +2296,7 @@ body {
 					}
 					&.toggler-2d {
 						order: 2;
-						background-color: #1a2f43;
+						background-color: $brand-color-1;
 						border: none;
 						padding-left: 24px;
 						background-image: url(../img/gindi-ic-apt-plan.svg) !important;
@@ -2317,16 +2318,16 @@ body {
 						background-repeat: no-repeat;
 						background-size: 18px;
 						box-shadow: none;
-						//border: 1px solid white;
+						//border: 1px solid $white;
 						width: 107px;
 						//margin-left: auto;
 						//margin-right: 15px;
-						border: 1px solid #1a2f43;
+						border: 1px solid $brand-color-1;
 						color: black;
 					}
 					&.info {
 						width: 48px;
-						background-color: white;
+						background-color: $white;
 						color: #202E41;
 						margin-left: 0;
 					}
@@ -2336,7 +2337,7 @@ body {
 							font-size: 0;
 							width: 34px!important;
 							height: 34px!important;
-							background-color: #FFFFFF;
+							background-color: $white;
 							border-radius: 0px;
 							background-image: url(../img/back-to-floor-plan.svg) !important;
 							background-position: center;
@@ -2352,7 +2353,7 @@ body {
 							&:after {
 								content: 'Back';
 								position: absolute;
-								color: #1a2f43;
+								color: $brand-color-1;
 								right: -40px;
 								top: -2px;
 								font-size: 14px;
@@ -2366,7 +2367,7 @@ body {
 		}
 	}
 	.flat-info {
-		background-color: #f7f7f7;
+		background-color: $gray-light;
 		width: 230px;
 		min-width: 230px;
 		padding-left: 29px;
@@ -2403,7 +2404,7 @@ body {
 					bottom: 2px;
 					right: 0;
 					height: 13px;
-					background-color: #c1ac87;
+					background-color: $brand-color-2;
 					width: 105%;
 					z-index: 0;
 				}
@@ -2414,7 +2415,7 @@ body {
 				font-weight: 600;
 				padding-left: 2px;
 				width: auto;
-				color: #03233a;
+				color: $text-color-1;
 				position: relative;
 				z-index: 1;
 			}
@@ -2432,7 +2433,7 @@ body {
 					font-family: almoni-neue;
 					font-size: 16px;
 					letter-spacing: -0.21px;
-					color: #1a2f43;
+					color: $brand-color-1;
 					display: none;
 				}
 				.price-num {
@@ -2452,13 +2453,13 @@ body {
 						font-family: almoni-neue;
 						font-size: 16px;
 						letter-spacing: -0.21px;
-						color: #1a2f43;
+						color: $brand-color-1;
 					}
 					.number {
 						font-family: almoni-neue;
 						font-size: 16px;
 						letter-spacing: -0.21px;
-						color: #1a2f43;
+						color: $brand-color-1;
 						margin-left: 5px;
 						margin-right: 5px;
 					}
@@ -2470,7 +2471,7 @@ body {
 						font-family: almoni-neue;
 						font-size: 16px;
 						letter-spacing: -0.21px;
-						color: #1a2f43;
+						color: $brand-color-1;
 					}
 				}
 			}
@@ -2484,7 +2485,7 @@ body {
 			.concessions-text {
 				padding-top: 10px;
 				font-size: 16px;
-				color: #ffffff;
+				color: $white;
 				padding-right: 20px;
 			}
 		}
@@ -2564,7 +2565,7 @@ body {
 					top: -5px;
 					width: 10px;
 					height: 10px;
-					background-color: white;
+					background-color: $white;
 					transform: rotate(45deg);
 				}
 				.info-loop {
@@ -2576,7 +2577,7 @@ body {
 					margin-top: auto;
 					height: 35px;
 					width: 125px;
-					color: #FFFFFF;
+					color: $white;
 					font-size: 16px;
 					font-weight: 400;
 					line-height: 19px;
@@ -2643,7 +2644,7 @@ body {
 							font-size: 16px;
 							line-height: 18px;
 							letter-spacing: 0.0553711px;
-							color: white;
+							color: $white;
 							text-shadow: none;
 							.top {
 								font-family: almoni-neue;
@@ -2666,7 +2667,7 @@ body {
 								line-height: 0.8;
 								letter-spacing: normal;
 								text-align: right;
-								color: #1a2f43;
+								color: $brand-color-1;
 							}
 						}
 					}
@@ -2711,7 +2712,7 @@ body {
 			content: '';
 			width: 8px;
 			height: 8px;
-			background-color: white;
+			background-color: $white;
 			border-radius: 100%;
 			position: absolute;
 			right: 0;
@@ -2723,7 +2724,7 @@ body {
 			content: '';
 			width: 8px;
 			height: 8px;
-			background-color: white;
+			background-color: $white;
 			border-radius: 100%;
 			position: absolute;
 			left: 0;
@@ -2752,7 +2753,7 @@ body {
 		//transition: 0.4s;
 		transition-property: opacity, transform, left , top;
 		opacity: 0;
-		background-color: white;
+		background-color: $white;
 		border-radius: 3px;
 		box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5);
 		&.show {
@@ -2804,7 +2805,7 @@ body {
 			line-height: 1.27;
 			letter-spacing: normal;
 			text-align: right;
-			color: #1a2f43;
+			color: $brand-color-1;
 		}
 		.selected {
 			display: flex;
@@ -2814,7 +2815,7 @@ body {
 	}
 	.search-filter {
 		// max-width: 1440px;
-		background-color: white;
+		background-color: $white;
 		display: flex;
 		justify-content: space-between;
 		.bedrooms {
@@ -2831,7 +2832,7 @@ body {
 					background-image: url(../img/approved-ic.svg);
 					background-position: center;
 					background-repeat: no-repeat;
-					background-color: #1a2f43;
+					background-color: $brand-color-1;
 					margin: auto;
 					margin-left: 10px;
 					margin-right: 1px;
@@ -2856,7 +2857,7 @@ body {
 				line-height: 46px;
 				letter-spacing: normal;
 				text-align: right;
-				color: #1a2f43;
+				color: $brand-color-1;
 				width: 200px;
 			}
 
@@ -2927,8 +2928,8 @@ body {
 			font-weight: 600;
 			line-height: 19px;
 			text-align: center;
-			border: 1px solid #1a2f43;
-			background-color: white;
+			border: 1px solid $brand-color-1;
+			background-color: $white;
 			transition: 0.5s;
 			cursor: pointer;
 			margin: 10px;
@@ -2940,9 +2941,9 @@ body {
 			animation-iteration-count: 1;
 			&:hover,
 			&.active {
-				color: #FFFFFF;
-				background-color: #1a2f43;
-				border: 1px solid #1a2f43;
+				color: $white;
+				background-color: $brand-color-1;
+				border: 1px solid $brand-color-1;
 			}
 			&.active {
 				animation-name: btn_press;
@@ -2977,7 +2978,7 @@ body {
 			position: absolute;
 			width: 24px;
 			height: 24px;
-			background-color: #1a2f43;
+			background-color: $brand-color-1;
 			border-radius: 0;
 			z-index: 2;
 			box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.5);
@@ -2996,7 +2997,7 @@ body {
 				bottom: calc(100% + 8px);
 				left: 50%;
 				filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
-				background-color: white;
+				background-color: $white;
 				padding: 2px 7px;
 				transform: translate(-50%, 0) scale(0);
 				transition: 0.5s;
@@ -3012,7 +3013,7 @@ body {
 					left: calc(50% - 5px);
 					width: 10px;
 					height: 10px;
-					background-color: white;
+					background-color: $white;
 					transform: rotateZ(45deg);
 				}
 			}
@@ -3032,7 +3033,7 @@ body {
 			background-color:  rgba(181, 171, 221, 0.6);
 			left: 0;
 			position: absolute;
-			border: 1px solid #1a2f43;
+			border: 1px solid $brand-color-1;
 		}
 	}
 	.rotation-controller {
@@ -3048,7 +3049,7 @@ body {
 		.line {
 			width: 100%;
 			height: 2px;
-			background-color: white;
+			background-color: $white;
 			margin: auto 0;
 			opacity: 0.3;
 		}
@@ -3057,7 +3058,7 @@ body {
 			top: 50%;
 			width: 62px;
 			height: 34px;
-			background-color: #1a2f43;
+			background-color: $brand-color-1;
 			border-radius: 0px;
 			z-index: 2;
 			transform: translateX(50%) translateY(-50%);
@@ -3076,7 +3077,7 @@ body {
 				width: 6px;
 				height: 6px;
 				border-width: 2px 2px 0px 0px;
-				border-color: white;
+				border-color: $white;
 				transform: rotateZ(45deg);
 				top: 14px;
 				left: 42px;
@@ -3089,7 +3090,7 @@ body {
 				width: 6px;
 				height: 6px;
 				border-width: 2px 2px 0px 0px;
-				border-color: white;
+				border-color: $white;
 				transform: rotateZ(-135deg);
 				top: 14px;
 				left: 13px;
@@ -3134,8 +3135,8 @@ body {
 		transform: scale(0);
 		margin-left: auto;
 		margin-right: 40px;
-		color: white;
-		border: 1px solid white;
+		color: $white;
+		border: 1px solid $white;
 		text-align: left;
 		padding-left: 18px;
 		font-size: 16px;
@@ -3182,7 +3183,7 @@ body {
 
 		h3 {
 			margin: auto;
-			color: white;
+			color: $white;
 			font-size: 24px;
 			text-align: center;
 			font-weight: 600;
@@ -3227,8 +3228,8 @@ body {
 			font-style: normal;
 			line-height: 1.4;
 			letter-spacing: normal;
-			color: #ffffff;
-			border: 1px solid white;
+			color: $white;
+			border: 1px solid $white;
 			border-radius: 22px;
 			padding: 0 10px;
 			height: 37px;
@@ -3265,7 +3266,7 @@ body {
 		}
 		.hidden-part {
 			position: absolute;
-			background-color: white;
+			background-color: $white;
 			border-radius: 3px;
 			bottom: calc(100% + 12px);
 			right: -3px;
@@ -3281,7 +3282,7 @@ body {
 				right: 15px;
 				width: 10px;
 				height: 10px;
-				background-color: white;
+				background-color: $white;
 				transform-origin: center;
 				transform: rotateZ(45deg);
 			}
@@ -3369,7 +3370,7 @@ body {
 				left: calc(50% - 10px);
 				width: 20px;
 				height: 3px;
-				background-color: #1a2f43;
+				background-color: $brand-color-1;
 				display: none;
 			}
 			&:after {
@@ -3379,7 +3380,7 @@ body {
 				left: calc(50% - 10px);
 				width: 20px;
 				height: 3px;
-				background-color: #1a2f43;
+				background-color: $brand-color-1;
 				display: none;
 			}
 			&.draged {
@@ -3389,7 +3390,7 @@ body {
 				.floor-btn {
 					&:hover {
 						.number {
-							color: #1a2f43;
+							color: $brand-color-1;
 						}
 						&:before {
 							transform: scale(1);
@@ -3406,7 +3407,7 @@ body {
 				line-height: 33px;
 				/* identical to box height */
 				text-align: center;
-				color: #1a2f43;
+				color: $brand-color-1;
 				position: relative;
 				padding-top: 1px;
 				cursor: pointer;
@@ -3512,7 +3513,7 @@ body {
 						position: absolute;
 					}
 					span.number {
-						color: #1a2f43;
+						color: $brand-color-1;
 						order: 2;
 						font-size: 48px;
 						line-height: 1;
@@ -3526,7 +3527,7 @@ body {
 						font-size: 20px;
 						line-height:1.3;
 						letter-spacing: 0.384615px;
-						color: #1a2f43;
+						color: $brand-color-1;
 						display: none;
 					}
 				}
@@ -3550,7 +3551,7 @@ body {
 			.slider-point {
 				position: absolute;
 				top: 50%;
-				background-color: white;
+				background-color: $white;
 				box-shadow: 0px 0px 2px black;
 				width: 50px;
 				height: 20px;
@@ -3562,7 +3563,7 @@ body {
 				left: -50px;
 				width: 50px;
 				height: 20px;
-				color: white;
+				color: $white;
 				background-color: black;
 			}
 		}
@@ -3676,7 +3677,7 @@ body {
 			.left {
 				width: 585px;
 				.mini-title {
-					color: #FFFFFF;
+					color: $white;
 					font-family: Assistant;
 					font-size: 25px;
 					font-weight: 400;
@@ -3717,14 +3718,14 @@ body {
 				width: 681px;
 			}
 			.title {
-				color: #FFFFFF;
+				color: $white;
 				font-size: 50px;
 				font-weight: 600;
 				line-height: 70px;
 				margin-top: 0px;
 			}
 			.wp-text {
-				color: #FFFFFF;
+				color: $white;
 				font-size: 20px;
 				line-height: 30px;
 				margin-top: 25px;
@@ -3749,7 +3750,7 @@ body {
 			margin: auto 0;
 			&.active {
 
-				color: #FFFFFF;
+				color: $white;
 				font-family: Assistant;
 				font-size: 30px;
 				font-weight: 600;
@@ -3821,7 +3822,7 @@ body {
 	max-width: 95vw;
 	.text-block {
 		display: none;
-		color: white;
+		color: $white;
 		font-size: 22px;
 		padding-top: 30px;
 		text-align: center;
@@ -3878,7 +3879,7 @@ body {
 		top: 0;
 		width: 100%;
 		height: 100%;
-		background-color: white;
+		background-color: $white;
 		z-index: 2;
 	}
 	.three_js .range-selector .circle .circle-tooltip > * {
@@ -4025,7 +4026,7 @@ body.he {
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
 		content: 'חזור';
 		position: absolute;
-		color: #1a2f43;
+		color: $brand-color-1;
 		right: 40px;
 		top: -2px;
 		font-size: 16px;
@@ -4084,7 +4085,7 @@ body.he {
 		line-height: normal;
 		letter-spacing: normal;
 		text-align: right;
-		color: #03233a;
+		color: $text-color-1;
 	}
 	.three_js .popup .popups-togglers-box {
 
@@ -4137,7 +4138,7 @@ body.he {
 
 	border-style: solid;
 
-	border-color: white;
+	border-color: $white;
 
 	border-top-left-radius: 16px;
 
@@ -4151,7 +4152,7 @@ body.he {
 	height: calc(100% - 39px);
 	border-width: 0px 1px 1px 1px;
 	border-style: solid;
-	border-color: white;
+	border-color: $white;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -4170,7 +4171,7 @@ body.he {
 	right: 0;
 	border-width: 1px 1px 0px 0px;
 	border-style: solid;
-	border-color: white;
+	border-color: $white;
 	border-top-right-radius: 16px;
 	background-color: rgba(0, 0, 0, 0.7);
 
@@ -4184,7 +4185,7 @@ body.he {
 	position: absolute;
 	left: 62px;
 	border-width: 1px;
-	border-color: white;
+	border-color: $white;
 	overflow: hidden;
 	top: 0;
 
@@ -4198,7 +4199,7 @@ body.he {
 	content: '';
 	width: 79px;
 	height: 50px;
-	border: 1px solid white;
+	border: 1px solid $white;
 	position: absolute;
 	transform: rotate(39deg);
 	top: 18px;
@@ -4213,8 +4214,8 @@ body.on-white {
 	}
 	.three_js .clear-search-filter,
 	.three_js .lobby-n-roof-360 .visible-part {
-		background-color: #1a2f43;
-		border-color: #1a2f43;
+		background-color: $brand-color-1;
+		border-color: $brand-color-1;
 	}
 	.three_js .floors-selector-n-back {
 		right: 0px;
@@ -4239,7 +4240,7 @@ body.on-white {
 	.three_js .new-floors-selector .new-floors-selector-wrap .floor-btn.active:before,
 	.three_js .bomb-btn:before,
 	.three_js .new-floors-selector .new-floors-selector-wrap .floor-btn.active:after {
-		background-color: white;
+		background-color: $white;
 		right: 3px;
 		display: none;
 	}
@@ -4254,7 +4255,7 @@ body.on-white {
 	padding: 5px;
 	border-radius: 5px;
 	background-color: black;
-	color: white;
+	color: $white;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -4270,7 +4271,7 @@ body.on-white {
 	z-index: 999999!important;
 }
 .flat_status_2d_css {
-	color: white;
+	color: $white;
 	&.current {
 		.price-row,
 		.unavailable-row{
@@ -4344,7 +4345,7 @@ body.on-white {
 		border-radius: 3px;
 		color: black;
 		font-size: 30px;
-		filter: drop-shadow(2px 2px 2px white);
+		filter: drop-shadow(2px 2px 2px $white);
 		.number {
 			margin: auto 5px;
 			order: 2;
@@ -4362,8 +4363,8 @@ body.on-white {
 	.get-price-btn {
 		height: 20px;
 		padding: 0 10px;
-		background-color: #1a2f43;
-		color: white;
+		background-color: $brand-color-1;
+		color: $white;
 		line-height: 20px;
 		cursor: pointer;
 		white-space: pre;
@@ -4388,7 +4389,7 @@ body.on-white {
 	left: 0px;
 	z-index:  2;
 	background-color: black;
-	color: white;
+	color: $white;
 	padding: 5px;
 	font-family: sans-serif;
 }
@@ -4398,7 +4399,7 @@ body.on-white {
   height: 20px;
 
   border-radius: 100%;
-  background-color: #c1ac87;
+  background-color: $brand-color-2;
   background-size: 25px;
   background-position: center;
   animation-name: last_click_point;
@@ -4412,7 +4413,7 @@ body.on-white {
 	width: 15px;
 	height: 15px;
 	border-radius: 50%;
-	background: #ffffff;
+	background: $white;
 	cursor: pointer;
 	box-shadow: 0 0 0 rgba(193, 172, 135, 0.8);
 	animation: pulse 2s infinite;
@@ -4440,7 +4441,7 @@ body.on-white {
 		position: absolute;
 		top: 0;
 		left: 0;
-		background-color: #c1ac87;
+		background-color: $brand-color-2;
 		border-radius: 100%;
 		box-shadow: 0px 0px 2px rgb(145, 25, 25);
 	}
@@ -4454,7 +4455,7 @@ body.on-white {
 }
 
 .street-name-block {
-	color: white;
+	color: $white;
 }
 
 body.en {
