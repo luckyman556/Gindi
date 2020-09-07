@@ -4219,7 +4219,7 @@ body.on-white {
 		border-color: $brand-color-1;
 	}
 	.three_js .floors-selector-n-back {
-		right: 0px;
+		right: 5px;
 		z-index: 99;
 		&:after {
 			content: '';
@@ -4529,8 +4529,8 @@ body.en {
 			}
 		}
 		& .compass {
-			left: initial;
-			right: 0;
+			//left: initial;
+			//right: 0;
 		}
 
 		& .status {

@@ -2965,24 +2965,18 @@ function set_default_camera_position () {
         window.camera_target.position.y = hide_lock;
         window.camera_target.children[0].rotation.x = -0.1;
 }
+
 function setPositionButtonLanguage(type) {
-    const body = document.querySelector('body');
     const floorSlider = document.querySelector('.floors-selector-n-back');
     const btn = document.querySelector('.lang-container');
 
     if (type === 'move') {
-        if (window.innerWidth > 1024 && floorSlider.classList.contains('show')) {
-            btn.setAttribute('style', 'right: 100px');
-        }
-
-        if (body.classList.contains('he')) {
-            if (window.innerWidth < 450 && floorSlider.classList.contains('show')) {
-                btn.setAttribute('style', 'right: 50px');
-            }
+        if (floorSlider.classList.contains('show')) {
+            btn.classList.add('move');
         }
 
     } else if (type === 'restore') {
-        btn.removeAttribute('style');
+        btn.classList.remove('move');
     }
 }
 
