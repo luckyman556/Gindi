@@ -72,6 +72,21 @@ var allways_show_tooltip = true;
 var floors_track_animated = false;
 var last_flat_intersection_point;
 var line;
+var building = [];
+//add models variables
+let min_rooms = 999999;
+let max_rooms = 0;
+let modelNames = {};
+var svg_plans_url = 'resources/2d_plans/';
+let facings_array = [''];
+let flats_types = [''];
+var flat_count = 0;
+var json_i = 0;
+var floor_obj_length = 0;
+////
+var int_360_array = {};
+var int_360_array_imgs = {};
+var isBuildingDoneBool=false;
 var update_line_position_enabled = false;
 var click_flat_intersection_point;
 var old_back = false;
@@ -2244,7 +2259,7 @@ function reset_range (object) {
 
 function progress_bar_update (iteration, percent , text) {
     let first_iteration_edge = 5;
-    let second_iteration_edge = 90;
+    let second_iteration_edge = 50;
     let third_iteration_edge = 100;
     if (iteration == 1) {
         let current_percent = Math.floor(first_iteration_edge / 100 *  percent);
