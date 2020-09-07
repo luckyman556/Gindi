@@ -1,0 +1,129 @@
+.left-nav-bar {
+	position: absolute;
+	top: 150px;
+	left: 32px;
+	background-color: transparent;
+	transition: 0.5s ease-in-out;
+
+	&.hide {
+		left: -100%;
+	}
+}
+
+.button-switch-nav,
+.button-options,
+.button-play,
+.button-building {
+	margin: 0;
+	padding: 0;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+.button-switch-nav,
+.button-options,
+.compass,
+.button-play,
+.button-building {
+	width: 42px;
+	height: 42px;
+	background-position: center;
+	background-repeat: no-repeat;
+	border-radius: 50%;
+}
+
+.compass,
+.button-options {
+	background-color: #ffffff;
+}
+.compass,
+.button-switch-nav {
+	margin-bottom: 24px;
+}
+
+
+.button-switch-nav {
+	background-color: transparent;
+	background-image: url("../images/Navigation/switch_on_navigation_panel.svg");
+}
+.button-options {
+	background-image: url("../images/Navigation/tune.svg");
+
+}
+.compass {
+	background-image: url("../images/Navigation/compas.svg");
+}
+
+.right-nav-bar {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	padding-top: 32px;
+	padding-bottom: 32px;
+	top: 262px;
+	right: 34px;
+	height: 280px;
+	border-radius: 30px;
+	background-color: #ffffff;
+	transition: 0.5s ease-in-out;
+
+	&.hide {
+		right: -100%;
+	}
+
+}
+
+.button-building {
+	opacity: 0.4;
+	&:not(:last-child) {
+		margin-bottom: 16px;
+	}
+
+	&:first-child {
+		background-image: url("../images/Model-views/orbit_project.svg");
+
+		&:hover {
+			background-image: url("../images/Model-views/orbit_project_hover.svg");
+		}
+	}
+	&:nth-child(2) {
+		background-image: url("../images/Model-views/orbit-building.svg");
+
+		&:hover {
+			background-image: url("../images/Model-views/orbit-building_hover.svg");
+		}
+	}
+	&:nth-child(3) {
+		background-image: url("../images/Model-views/cylinder_building.svg");
+
+		&:hover {
+			background-image: url("../images/Model-views/cylinder_building_hover.svg");
+		}
+	}
+	&:last-child {
+		background-image: url("../images/Model-views/floorplan2.svg");
+
+		&:hover {
+			background-image: url("../images/Model-views/floorplan2_hover.svg");
+		}
+	}
+
+	&.active {
+		opacity: 1;
+	}
+}
+
+.button-play {
+	position: absolute;
+	top: 200px;
+	right: 34px;
+	background-color: #ffffff;
+	background-image: url("../images/Navigation/media/play.svg");
+	transition: 0.5s ease-in-out;
+
+	&.hide {
+		right: -100%;
+	}
+}
