@@ -103,5 +103,24 @@ export let dictionary_array = {
         'he' : 'אפס חיפוש',
         'en' : 'clear all filters'
     },
-
+    'environment': {
+        'he': 'סביבה',
+        'en': 'environment'
+    },
+    'birds': {
+        'he': 'ציפורים',
+        'en': 'birds'
+    },
+    'bicycles': {
+        'he': 'אופניים',
+        'en': 'bicycles'
+    },
+    'pedestrians': {
+        'he': 'הולכי רגל',
+        'en': 'pedestrians'
+    },
+    'cars': {
+        'he': 'מכוניות',
+        'en': 'cars'
+    },
 }

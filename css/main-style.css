@@ -1022,6 +1022,172 @@ body.he .lang-button::before {
     object-fit: contain;
     display: block; }
 
+.left-nav-bar {
+  position: absolute;
+  top: 262px;
+  left: 32px;
+  background-color: transparent;
+  transition: 0.5s ease-in-out;
+  z-index: 50; }
+
+.button-options {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  background-image: url("../img/navigation/left-menu/tune.svg");
+  background-color: #ffffff;
+  transition: 0.5s; }
+  .button-options:hover {
+    background-image: url("../img/navigation/left-menu/tune_white.svg");
+    background-color: #C1AC87; }
+
+.options__menu {
+  display: block;
+  position: fixed;
+  width: 412px;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  font-family: fragolino, sans-serif;
+  color: #1A2F43;
+  background-color: #fff;
+  z-index: 55;
+  transition: 0.5s ease-in-out; }
+  .options__menu.open {
+    left: 0; }
+  .options__menu-wrapper {
+    position: relative;
+    padding: 32px; }
+  .options__menu-close {
+    position: absolute;
+    display: block;
+    top: 32px;
+    right: 32px;
+    width: 42px;
+    height: 42px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("../img/filter-module/close-ic.svg");
+    z-index: 52;
+    cursor: pointer;
+    transition: 0.5s; }
+    .options__menu-close:hover {
+      background-image: url("../img/filter-module/close-ic_hover.svg"); }
+  .options__menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px; }
+  .options__menu-content {
+    padding-top: 90px; }
+  .options__menu-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    text-transform: capitalize; }
+  .options__menu-buttons {
+    display: flex;
+    flex-wrap: wrap; }
+  .options__menu-button {
+    padding-bottom: 16px; }
+    .options__menu-button:nth-child(odd) {
+      margin-right: 16px; }
+  .options__menu-label {
+    display: block;
+    position: relative;
+    padding: 7px 16px 7px 40px;
+    filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
+    background: #FFFFFF;
+    border-radius: 30px;
+    cursor: pointer;
+    text-align: right;
+    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .options__menu-label > span {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 18px;
+      color: #1A2F43;
+      opacity: 0.5; }
+    .options__menu-label::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 8px;
+      width: 24px;
+      height: 24px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.5;
+      transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .options__menu-label--pedestrians::before {
+      background-image: url("../img/navigation/left-menu/walkin.svg"); }
+    .options__menu-label--bicycles::before {
+      background-image: url("../img/navigation/left-menu/bike.svg"); }
+    .options__menu-label--cars::before {
+      background-image: url("../img/navigation/left-menu/car.svg"); }
+    .options__menu-label--birds::before {
+      background-image: url("../img/navigation/left-menu/car.svg"); }
+  .options__menu-switch {
+    display: block;
+    position: relative;
+    width: 64px;
+    height: 32px;
+    background: #6E767E;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 55;
+    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .options__menu-switch::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #F7F7F7;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 2px;
+      z-index: 56;
+      transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .options__menu-input {
+    display: none; }
+    .options__menu-input:checked + .options__menu-switch {
+      background-color: #F7F7F7; }
+      .options__menu-input:checked + .options__menu-switch::before {
+        background-color: #2FB4ED;
+        filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
+        left: 34px; }
+    .options__menu-input:checked + .options__menu-label {
+      background-color: #1A2F43;
+      color: #FFFFFF;
+      opacity: 1; }
+      .options__menu-input:checked + .options__menu-label::before {
+        opacity: 1; }
+      .options__menu-input:checked + .options__menu-label--pedestrians::before {
+        background-image: url("../img/navigation/left-menu/walkin_white.svg"); }
+      .options__menu-input:checked + .options__menu-label--bicycles::before {
+        background-image: url("../img/navigation/left-menu/bike_white.svg"); }
+      .options__menu-input:checked + .options__menu-label--cars::before {
+        background-image: url("../img/navigation/left-menu/car_white.svg"); }
+      .options__menu-input:checked + .options__menu-label--birds::before {
+        background-image: url("../img/navigation/left-menu/car_white.svg"); }
+
 body {
   font-family: 'almoni-tzar'; }
 
