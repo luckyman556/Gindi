@@ -786,6 +786,10 @@
           width: 100%;
           height: 100%;
           text-align: center; }
+          .nmf-range-selector-box .nfm-selected .number-box.input input[type=number] {
+            -moz-appearance: textfield; }
+          .nmf-range-selector-box .nfm-selected .number-box.input input::-webkit-outer-spin-button, .nmf-range-selector-box .nfm-selected .number-box.input input::-webkit-inner-spin-button {
+            -webkit-appearance: none; }
       .nmf-range-selector-box .nfm-selected .number-box .simbol {
         order: 2;
         margin: 0 5px; }
@@ -839,9 +843,10 @@
       .nfm-togglers .togglers-row .toggler-btn.active {
         background-color: #1A2F43;
         color: #FFFFFF; }
-      .nfm-togglers .togglers-row .toggler-btn:hover {
-        background-color: #C1AC87;
-        color: #FFFFFF; }
+      @media screen and (min-width: 1024px) {
+        .nfm-togglers .togglers-row .toggler-btn:hover {
+          background-color: #C1AC87;
+          color: #FFFFFF; } }
       .nfm-togglers .togglers-row .toggler-btn.unactive {
         opacity: 0.1; }
 
@@ -975,11 +980,12 @@ body.he .lang-button::before {
       background-color: #1A2F43; }
       .new-ui-circle-btn.m-dark .ic-img {
         filter: brightness(0) invert(1); } }
-  .new-ui-circle-btn:hover {
-    border-radius: 20px;
-    background-color: #C1AC87; }
-    .new-ui-circle-btn:hover .ic-img {
-      filter: brightness(0) invert(1); }
+  @media screen and (min-width: 1024px) {
+    .new-ui-circle-btn:hover {
+      border-radius: 20px;
+      background-color: #C1AC87; }
+      .new-ui-circle-btn:hover .ic-img {
+        filter: brightness(0) invert(1); } }
   .new-ui-circle-btn:active {
     border-radius: 20px;
     background-color: #1A2F43;
