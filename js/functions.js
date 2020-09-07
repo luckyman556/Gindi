@@ -2526,6 +2526,8 @@ function update_flat_labels (dynamic = false) {
                     apt_text = apt_text_he;
                     status_text = status_text_he;
                 }
+
+
                 if (flat.userData.status_index == 1) {
 
                     inner_html = `

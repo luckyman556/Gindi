@@ -1445,7 +1445,9 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
         setTimeout(function () {
             new_floor_selector_obj = $('.new-floors-selector').floors_selector();
+
             model_loaded = true;
+
             add_cylinder_floor_numbers();
             setTimeout(function(){
                 model_autorotate = true;
