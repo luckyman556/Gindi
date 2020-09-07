@@ -1,29 +1,22 @@
+import {liveToggler} from "../add-models.js";
+
+let environmentShow = true;
+
 export const optionsMenu = (optionsObject) => {
     const containerLeft = createElements('div', 'left-nav-bar', document.body);
     const containerMenu = createElements('div', 'options__menu', document.body);
-
     const options = createElements('button', 'button-options', containerLeft);
     options.setAttribute('data-type', 'options');
-
-    console.log(optionsObject);
-
-    loadHTML(containerMenu);
-
-    const btnClose = document.querySelector('.options__menu-close');
-    const menu = document.querySelector('.options__menu');
 
     containerLeft.addEventListener('click', function(event) {
         const btn = event.target;
 
         if (btn.getAttribute('data-type') === 'options') {
+            const menu = document.querySelector('.options__menu');
+            loadHTML(containerMenu, optionsObject);
+            showAndSetStatusesButtons(optionsObject);
+            setInputListener(optionsObject);
             menu.classList.add('open');
-            console.log(optionsObject);
-        }
-    });
-
-    btnClose.addEventListener('click', event => {
-        if (menu.classList.contains('open')) {
-            menu.classList.remove('open');
         }
     });
 
@@ -50,37 +43,70 @@ function loadHTML(containerMenu) {
             <div class="options__menu-content">
                 <div class="options__menu-header">
                     <h2 class="options__menu-title language-string" data-dictionary="environment">${get_lang('environment')}</h2>
-    <!--                <div id="options-toggler" class="options-toggler">-->
-    <!--                    <div class="options-toggle">-->
-    <!--                        <input type="checkbox" class="options-check">-->
-    <!--                        <b class="b options-switch"></b>-->
-    <!--                        <b class="b options-track"></b>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-                    <div class="options__menu-switcher">
-                        <input type="checkbox" class="options__menu-input" id="options-switch" checked>
-                        <label for="options-switch" class="options__menu-switch"></label>
+                    <div class="options__menu-switcher">                        
+                        <label for="optionsSwitch" class="options__menu-switch"></label>
                     </div>
                 </div>
-                <div class="options__menu-buttons">
-                    <div class="options__menu-button">
-                        <input type="checkbox" class="options__menu-input" id="optionsPedestrians">
-                        <label for="optionsPedestrians" class="language-string options__menu-label options__menu-label--pedestrians" data-dictionary="pedestrians"><span>${get_lang('pedestrians')}</span></label>
-                    </div>
-                    <div class="options__menu-button">
-                        <input type="checkbox" class="options__menu-input" id="optionsBicycles">
-                        <label for="optionsBicycles" class="language-string options__menu-label options__menu-label--bicycles" data-dictionary="bicycles"><span>${get_lang('bicycles')}</span></label>
-                    </div>
-                    <div class="options__menu-button">
-                        <input type="checkbox" class="options__menu-input" id="optionsCars">
-                        <label for="optionsCars" class="language-string options__menu-label options__menu-label--cars" data-dictionary="cars"><span>${get_lang('cars')}</span></label>
-                    </div>
-                    <div class="options__menu-button">
-                        <input type="checkbox" class="options__menu-input" id="optionsBirds">
-                        <label for="optionsBirds" class="language-string options__menu-label options__menu-label--birds" data-dictionary="birds"><span>${get_lang('cars')}</span></label>
-                    </div>
-                </div>
+                <div class="options__menu-buttons"></div>
             </div>
         </div>
     `);
+
+    const btnClose = document.querySelector('.options__menu-close');
+    const menu = document.querySelector('.options__menu');
+
+    btnClose.addEventListener('click', event => {
+        menu.classList.remove('open');
+        containerMenu.innerHTML = '';
+    });
+}
+
+function showAndSetStatusesButtons(optionsObject) {
+    const buttonSwitcher = document.querySelector('.options__menu-switcher');
+    const buttonsContainer = document.querySelector('.options__menu-buttons');
+
+    buttonsContainer.innerHTML = '';
+
+    optionsObject.forEach(item => {
+        let status = item.active;
+        (!environmentShow) ? status = false : status;
+
+        buttonsContainer.insertAdjacentHTML('beforeend', `<div class="options__menu-button">
+            <input type="checkbox" class="options__menu-input" data-input=${item.type} id="options_${item.type}" ${(status) ? 'checked' : ''} ${(!environmentShow) ? 'disabled' : ''}>
+            <label for="options_${item.type}" class="language-string options__menu-label options__menu-label--${item.type}" data-dictionary=${item.type}><span>${get_lang(item.type)}</span></label>
+        </div>`);
+    });
+
+    console.log(environmentShow);
+    const inputSwitch = document.getElementById('optionsSwitch');
+
+    if (!inputSwitch) {
+        buttonSwitcher.insertAdjacentHTML('afterbegin', `<input type="checkbox" data-input="optionsSwitch" class="options__menu-input" id="optionsSwitch" ${(environmentShow) ? 'checked' : ''}>`);
+    } else {
+
+    }
+}
+
+function setInputListener(optionsObject) {
+    const inputSwitch = document.getElementById('optionsSwitch');
+    const buttonsContainer = document.querySelector('.options__menu-buttons');
+
+    inputSwitch.addEventListener('change', handleChangeInput);
+    buttonsContainer.addEventListener('change', handleChangeInput);
+
+     function handleChangeInput(event) {
+         const targetInput = event.target.getAttribute('data-input');
+
+         if (targetInput === 'optionsSwitch') {
+             environmentShow = !environmentShow;
+         } else {
+             optionsObject.forEach(option => {
+                if (option.type === targetInput) {
+                    option.active = !option.active;
+                }
+             });
+         }
+         showAndSetStatusesButtons(optionsObject);
+         liveToggler(optionsObject);
+     }
 }

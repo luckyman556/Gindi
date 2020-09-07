@@ -28,15 +28,15 @@ const environmentDataAttribyte = {
             },
             {
                 "type": "bicycles",
-                "active": false
+                "active": true
             },
             {
                 "type": "pedestrians",
-                "active": false
+                "active": true
             },
             {
                 "type": "cars",
-                "active": false
+                "active": true
             }
         ]
     }
@@ -113,7 +113,8 @@ export function add_models( scene, all_appartments) {
         }
     }
 
-    let envAttrOptionsArray = environmentDataAttribyte.environment.movement;
+
+
     {
         const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -130,12 +131,13 @@ export function add_models( scene, all_appartments) {
         }
     }
 
+    let envAttrOptionsArray = environmentDataAttribyte.environment.movement;
     if (optionsMenuShowHide) {
         envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
     }
 
 
-    liveToggler(envAttrOptionsArray, texture_loader, loader);
+    liveToggler(envAttrOptionsArray);
     /*function liveToggler() {
         envAttrOptionsArray.forEach(({type, active}) => {
             switch (type) {
@@ -1539,7 +1541,10 @@ function loadTrees(loader, texture_loader, white_lightmap_2) {
         }
     }, onProgressCallback, onErrorCallback);
 }
-function liveToggler(envAttrOptionsArray, texture_loader, loader) {
+
+export function liveToggler(envAttrOptionsArray) {
+    const loader = new FBXLoader();
+    const texture_loader = new THREE.TextureLoader();
     envAttrOptionsArray.forEach(({type, active}) => {
         switch (type) {
             case 'cars': {

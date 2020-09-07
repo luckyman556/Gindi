@@ -216,10 +216,6 @@ function add_car_animation_rotation (mesh, carRoute, animation_counter) {
     if (animation_counter === 0) {
         let rotations_amount = mesh.rotation.y / Math.PI * 2;
 
-        // console.log(mesh.name);
-        // console.log(mesh.rotation.y);
-        // console.log(rotations_amount);
-
         if (rotations_amount > 1) {
             floor_rotation_amount = Math.floor(rotations_amount);
         }
