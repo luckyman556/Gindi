@@ -505,7 +505,14 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    text-align: center;
+                    text-align: center; 
+                    &[type=number] {
+                        -moz-appearance: textfield;
+                    }
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                      -webkit-appearance: none; 
+                    }
                 }
             }
             .simbol {
@@ -575,9 +582,11 @@
                 background-color : $brand-color-1; 
                 color: $white;
             }
-            &:hover {
-                background-color: $brand-color-2;
-                color: $white;
+            @media screen and (min-width: 1024px) {
+                &:hover {
+                    background-color: $brand-color-2;
+                    color: $white;
+                }
             }
             &.unactive {
                 opacity: 0.1;

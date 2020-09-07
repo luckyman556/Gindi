@@ -814,9 +814,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let max_text_class = item.options.max_text_class;
                 let min_btn_class = item.options.min_btn_class;
                 let max_btn_class = item.options.max_btn_class;
-                var min_btn = object.find('.' + min_btn_class);
-                var max_btn = object.find('.' + max_btn_class);
-                var range_width = object.width() - 30;
+                let min_btn = object.find('.' + min_btn_class);
+                let max_btn = object.find('.' + max_btn_class);
+                let min_input = object.parent().find('.min-number-box input');
+                let max_input = object.parent().find('.max-number-box input');
+
+
+                let range_width = object.width() - 30;
                 let min_num = object.data('min');
                 let max_num = object.data('max');
                 let current_min_number = min_btn.attr('data-current-number');
@@ -829,10 +833,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let start_max_difference = max_num - start_max_num;
                 // object.parent().find('.min-text').html(min_num);
                 // object.parent().find('.max-text').html(max_num);
-
-
                 let number_with_comas = item.options.number_with_comas;
-                console.log(number_with_comas);
                 object.find('.range-line-active').animate({
                     width: range_width + 24,
                     left : 0
@@ -848,8 +849,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             }
                             if (number_with_comas) {
                                 object.parent().find('.' + min_text_class).html(numberWithCommas(min_text) + add_text);
+                                min_input.val(min_text);
                             } else {
                                 object.parent().find('.' + min_text_class).html(min_text + add_text);
+                                min_input.val(min_text);
                             }
                         }
                         {
@@ -861,8 +864,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             }
                             if (number_with_comas) {
                                 object.parent().find('.' + max_text_class).html(numberWithCommas(max_text) + add_text);
+                                max_input.val(max_text);
                             } else {
                                 object.parent().find('.' + max_text_class).html(max_text + add_text);
+                                max_input.val(max_text);
                             }
                         }
                     }
@@ -1013,13 +1018,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     </div>
                      <div class="nfm-selected">
                         <div class="min-number-box number-box"> 
-                            <input type="text" class="range-input" name="range-input" type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            <input type="number" class="range-input" name="range-input" type="number" min="${min_num_for_input}" max="${max_num_for_input}">
                             ${symbol_html}
                              <div class="nmf-min-text"></div>
                         </div>
                         <div class="middle"> - </div>
                         <div class="max-number-box  number-box">
-                            <input type="text" class="range-input" name="range-input"  type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            <input type="number" class="range-input" name="range-input"  type="number" min="${min_num_for_input}" max="${max_num_for_input}">
                             ${symbol_html}
                             <div class="nmf-max-text"></div>
                         </div>
