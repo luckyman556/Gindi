@@ -17,6 +17,8 @@ window.floor_looring_list = [];
 var appartments_array = {};
 var svg_plans_url =  'resources/2d_plans/';
 
+const optionsMenuShowHide = false;
+
 const environmentDataAttribyte = {
     "environment": {
         "movement": [
@@ -26,15 +28,15 @@ const environmentDataAttribyte = {
             },
             {
                 "type": "bicycles",
-                "active": true
+                "active": false
             },
             {
                 "type": "pedestrians",
-                "active": true
+                "active": false
             },
             {
                 "type": "cars",
-                "active": true
+                "active": false
             }
         ]
     }
@@ -127,7 +129,12 @@ export function add_models( scene, all_appartments) {
             low_performance_mode = true;
         }
     }
-    envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+
+    if (optionsMenuShowHide) {
+        envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+    }
+
+
     liveToggler(envAttrOptionsArray, texture_loader, loader);
     /*function liveToggler() {
         envAttrOptionsArray.forEach(({type, active}) => {
