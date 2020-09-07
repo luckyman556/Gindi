@@ -1,129 +1,226 @@
 .left-nav-bar {
 	position: absolute;
-	top: 150px;
+	top: 262px;
 	left: 32px;
 	background-color: transparent;
 	transition: 0.5s ease-in-out;
-
-	&.hide {
-		left: -100%;
-	}
+	z-index: 50;
 }
-
-.button-switch-nav,
-.button-options,
-.button-play,
-.button-building {
+.button-options {
 	margin: 0;
 	padding: 0;
 	border: none;
 	outline: none;
 	cursor: pointer;
-	background-color: transparent;
-}
-
-.button-switch-nav,
-.button-options,
-.compass,
-.button-play,
-.button-building {
 	width: 42px;
 	height: 42px;
 	background-position: center;
 	background-repeat: no-repeat;
 	border-radius: 50%;
-}
-
-.compass,
-.button-options {
+	background-image: url("../img/navigation/left-menu/tune.svg");
 	background-color: #ffffff;
-}
-.compass,
-.button-switch-nav {
-	margin-bottom: 24px;
-}
+	transition: 0.5s;
 
-
-.button-switch-nav {
-	background-color: transparent;
-	background-image: url("../images/Navigation/switch_on_navigation_panel.svg");
-}
-.button-options {
-	background-image: url("../images/Navigation/tune.svg");
-
-}
-.compass {
-	background-image: url("../images/Navigation/compas.svg");
-}
-
-.right-nav-bar {
-	display: flex;
-	flex-direction: column;
-	position: absolute;
-	padding-top: 32px;
-	padding-bottom: 32px;
-	top: 262px;
-	right: 34px;
-	height: 280px;
-	border-radius: 30px;
-	background-color: #ffffff;
-	transition: 0.5s ease-in-out;
-
-	&.hide {
-		right: -100%;
+	&:hover {
+		background-image: url("../img/navigation/left-menu/tune_white.svg");
+		background-color: #C1AC87;
 	}
-
 }
 
-.button-building {
-	opacity: 0.4;
-	&:not(:last-child) {
-		margin-bottom: 16px;
-	}
+.options {
+	&__menu {
+		display: block;
+		position: fixed;
+		width: 412px;
+		height: 100%;
+		top: 0;
+		left: -100%;
+		font-family: fragolino, sans-serif;
+		color: #1A2F43;
+		background-color: #fff;
+		z-index: 55;
+		transition: 0.5s ease-in-out;
 
-	&:first-child {
-		background-image: url("../images/Model-views/orbit_project.svg");
-
-		&:hover {
-			background-image: url("../images/Model-views/orbit_project_hover.svg");
+		&.open {
+			left: 0;
 		}
-	}
-	&:nth-child(2) {
-		background-image: url("../images/Model-views/orbit-building.svg");
-
-		&:hover {
-			background-image: url("../images/Model-views/orbit-building_hover.svg");
+		&-wrapper {
+			position: relative;
+			padding: 32px;
 		}
-	}
-	&:nth-child(3) {
-		background-image: url("../images/Model-views/cylinder_building.svg");
+		&-close {
+			position: absolute;
+			display: block;
+			top: 32px;
+			right: 32px;
+			width: 42px;
+			height: 42px;
+			margin: 0;
+			padding: 0;
+			border: none;
+			outline: none;
+			background-color: transparent;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url("../img/filter-module/close-ic.svg");
+			z-index: 52;
+			cursor: pointer;
+			transition: 0.5s;
 
-		&:hover {
-			background-image: url("../images/Model-views/cylinder_building_hover.svg");
+			&:hover {
+				background-image: url("../img/filter-module/close-ic_hover.svg");
+			}
 		}
-	}
-	&:last-child {
-		background-image: url("../images/Model-views/floorplan2.svg");
-
-		&:hover {
-			background-image: url("../images/Model-views/floorplan2_hover.svg");
+		&-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-bottom: 24px;
 		}
-	}
+		&-content {
+			padding-top: 90px;
+		}
+		&-title {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 21px;
+			text-transform: capitalize;
+		}
+		&-buttons {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		&-button {
+			padding-bottom: 16px;
+			&:nth-child(odd) {
+				margin-right: 16px;
+			}
+		}
+		&-label {
+			display: block;
+			position: relative;
+			padding:  7px 16px 7px 40px;
+			filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
+			background: #FFFFFF;
+			border-radius: 30px;
+			cursor: pointer;
+			text-align: right;
+			transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 
-	&.active {
-		opacity: 1;
-	}
-}
+			& > span {
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 18px;
+				color: #1A2F43;
+				opacity: 0.5;
+			}
 
-.button-play {
-	position: absolute;
-	top: 200px;
-	right: 34px;
-	background-color: #ffffff;
-	background-image: url("../images/Navigation/media/play.svg");
-	transition: 0.5s ease-in-out;
+			&::before {
+				content: '';
+				position: absolute;
+				top: 2px;
+				left: 8px;
+				width: 24px;
+				height: 24px;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				//background-image: url("../img/navigation/left-menu/car.svg");
+				opacity: 0.5;
+				transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+			}
 
-	&.hide {
-		right: -100%;
+			&--pedestrians {
+				&::before {
+					background-image: url("../img/navigation/left-menu/walkin.svg");
+				}
+			}
+			&--bicycles {
+				&::before {
+					background-image: url("../img/navigation/left-menu/bike.svg");
+				}
+			}
+			&--cars {
+				&::before {
+					background-image: url("../img/navigation/left-menu/car.svg");
+				}
+			}
+			&--birds {
+				&::before {
+					background-image: url("../img/navigation/left-menu/car.svg");
+				}
+			}
+		}
+		&-switch {
+			display: block;
+			position: relative;
+			width: 64px;
+			height: 32px;
+			background: #6E767E;
+			border-radius: 20px;
+			cursor: pointer;
+			z-index: 55;
+			transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+
+			&::before {
+				content: '';
+				display: block;
+				position: absolute;
+				width: 28px;
+				height: 28px;
+				border-radius: 50%;
+				background-color: #F7F7F7;
+				top: 50%;
+				transform: translateY(-50%);
+				left: 2px;
+				z-index: 56;
+				transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+			}
+		}
+		&-input {
+			display: none;
+			&:checked {
+				& + .options__menu-switch {
+					background-color: #F7F7F7;
+
+					&::before {
+						background-color: #2FB4ED;
+						filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
+						left: 34px;
+					}
+				}
+				& + .options__menu-label {
+					background-color: #1A2F43;
+					color: #FFFFFF;
+					opacity: 1;
+					&::before {
+						opacity: 1;
+					}
+
+					&--pedestrians {
+						&::before {
+							background-image: url("../img/navigation/left-menu/walkin_white.svg");
+						}
+					}
+					&--bicycles {
+						&::before {
+							background-image: url("../img/navigation/left-menu/bike_white.svg");
+						}
+					}
+					&--cars {
+						&::before {
+							background-image: url("../img/navigation/left-menu/car_white.svg");
+						}
+					}
+					&--birds {
+						&::before {
+							background-image: url("../img/navigation/left-menu/car_white.svg");
+						}
+					}
+				}
+			}
+		}
 	}
 }

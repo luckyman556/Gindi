@@ -8,6 +8,7 @@ import {add_bicycle} from "./live/bicycle/add_bicycle.js";
 import { add_cylinder_floor_numbers } from  './cylinder-floor-numbers/add-cylinder-floor-numbers.js';
 import { trees_position } from  './trees/trees-positions.js';
 import {langSwitcher} from "../js/langSwitcher.js";
+import {optionsMenu} from "./navigation/optionsMenu.js";
 
 window.floor_obj = [];
 window.appartments = [];
@@ -126,39 +127,39 @@ export function add_models( scene, all_appartments) {
             low_performance_mode = true;
         }
     }
-
-
-    envAttrOptionsArray.forEach(({type, active}) => {
-        switch (type) {
-            case 'cars': {
-                if (active) {
-                    if (!low_performance_mode) {
-                        add_cars(texture_loader, loader);
+    envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+    liveToggler(envAttrOptionsArray, texture_loader, loader);
+    /*function liveToggler() {
+        envAttrOptionsArray.forEach(({type, active}) => {
+            switch (type) {
+                case 'cars': {
+                    if (active) {
+                        if (!low_performance_mode) {
+                            add_cars(texture_loader, loader);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            case 'pedestrians': {
-                if (active) {
-                    if (!low_performance_mode) {
-                        add_humans(loader);
+                case 'pedestrians': {
+                    if (active) {
+                        if (!low_performance_mode) {
+                            add_humans(loader);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
-            case 'bicycles': {
-                if (active) {
-                    if (!low_performance_mode) {
-                        add_bicycle(loader);
+                case 'bicycles': {
+                    if (active) {
+                        if (!low_performance_mode) {
+                            add_bicycle(loader);
+                        }
                     }
+                    break;
                 }
-                break;
+                default: break;
             }
-            default: break;
-        }
-    });
-
-
+        });
+    }*/
 
     langSwitcher(); //Include language button
 
@@ -1530,4 +1531,35 @@ function loadTrees(loader, texture_loader, white_lightmap_2) {
             add_instances_trees(tree_mesh, trees_position, 0.0008, options);
         }
     }, onProgressCallback, onErrorCallback);
+}
+function liveToggler(envAttrOptionsArray, texture_loader, loader) {
+    envAttrOptionsArray.forEach(({type, active}) => {
+        switch (type) {
+            case 'cars': {
+                if (active) {
+                    if (!low_performance_mode) {
+                        add_cars(texture_loader, loader);
+                    }
+                }
+                break;
+            }
+            case 'pedestrians': {
+                if (active) {
+                    if (!low_performance_mode) {
+                        add_humans(loader);
+                    }
+                }
+                break;
+            }
+            case 'bicycles': {
+                if (active) {
+                    if (!low_performance_mode) {
+                        add_bicycle(loader);
+                    }
+                }
+                break;
+            }
+            default: break;
+        }
+    });
 }

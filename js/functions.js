@@ -937,7 +937,6 @@ function destroy_building (current_floor_var , flat = null) {
                     });
 
                 }
-
         }
     });
     floor_appear_animation();
