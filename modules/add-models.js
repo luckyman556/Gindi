@@ -26,15 +26,15 @@ const environmentDataAttribyte = {
             },
             {
                 "type": "bicycles",
-                "active": true
+                "active": false
             },
             {
                 "type": "pedestrians",
-                "active": true
+                "active": false
             },
             {
                 "type": "cars",
-                "active": true
+                "active": false
             }
         ]
     }
@@ -173,7 +173,7 @@ export function add_models( scene, all_appartments) {
     }
 
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
-    loadEnvironment(loader, texture_loader, on_load_texture);
+    // loadEnvironment(loader, texture_loader, on_load_texture);
     // loadSea(texture_loader);
 
     if (!low_performance_mode) {

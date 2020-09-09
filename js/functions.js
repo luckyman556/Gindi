@@ -149,6 +149,7 @@ function set_floor_n_appartment (floor_i, flat_i) {
     // last_clicked_flat = appartment;
     window.floor_obj[current_floor].forEach(function(flat, flat_index){
         var flat_name_number = flat.userData.crm_data.propNum;
+    
         if  (flat_name_number < 10) {
             flat_name_number =   '0' + String(flat_name_number);
         }
@@ -467,14 +468,15 @@ function set_appartment_data_in_block (appartment, box) {
         $('.popup-info').removeClass('roof_n_looby');
         $('.popup-info').removeClass('roof');
 
-        let apt_title_text = 'Apartment';
+        let apt_title_text = 'Apt.';
         let apt_title_text_he =   'דירה';
         let current_apt_title = apt_title_text;
+
         if ($('body').hasClass('he') ) {
             current_apt_title = apt_title_text_he;
         }
         let apt_title = '' +
-            '<div class="title-text-row"><span class="title-text language-string" data-he="' + apt_title_text_he +'" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
+            '<div class="title-text-row"><span class="title-text language-string" data-he="' + apt_title_text_he + '" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
             '<span class="type">' +  appartment.userData.crm_data.modelName + '</span>' +
             '<span class="number">' + appartment.userData.crm_data.propNum + '</span>' +
             '</div>';
@@ -490,6 +492,7 @@ function set_appartment_data_in_block (appartment, box) {
         box.find('.flat-plan .price .bottom-part').html(flat_price);
         box.find('.badroom .number').html(appartment.userData.crm_data.roomNum);
         box.find('.type .number').html(appartment.userData.crm_data.modelName);
+        box.find('.area .number').html(appartment.userData.crm_data.totalSpace);
         box.find('.floor .number').html(appartment.userData.floor + 5);
         box.find('.sq .number').html(appartment.userData.crm_data.totalSpace);
         if (appartment.userData.svg_plan != undefined ) {
@@ -518,6 +521,11 @@ function set_appartment_data_in_block (appartment, box) {
 
         bind_price_box_btn (box.find('.flat-plan .price'), ['.number', '.price-text']);
 
+        if (appartment.userData.url_360_type === 'custom') {
+           $('.toggler-2d').addClass('icon-360');
+        } else {
+            $('.toggler-2d').removeClass('icon-360');
+        }
     } else {
 
     }
@@ -1024,7 +1032,7 @@ function set_page_descriptions () {
         if  (floor_number < 10) {
             floor_number =   '0' + String(floor_number);
         }
-        $('.flat-plan .flat-plan-box .page-description').html('Floor '+ floor_number  +' <span class="divider"></span> Apt plan view');
+        $('.title-text-rown .flat-plan-box .page-description').html('Floor '+ floor_number  +' <span class="divider"></span> Apt plan view');
         if (current_floor == 18) {
             $('.floor-form .relative-block .btn.plus').css({
                 'transform' : 'scale(0)'
@@ -1408,8 +1416,13 @@ function toggleFullScreen() {
 function flat_number_bubble (action = 'show', intersection_object = null) {
     // flat_bubble script
     var bubble = $('.flat-bubble');
+    var icon_360 = '<img src="/img/bubble-360.svg" alt="icon-360", wigth="24", height="24">';
     if (action == 'update') {
-        bubble.html(   intersection_object.parent.userData.crm_data.modelName + ' - ' +  intersection_object.parent.userData.crm_data.propNum );
+        let modelName = `<span class="model-name">${intersection_object.parent.userData.crm_data.modelName}</span>`;
+        let propNum = `<span class="prop-num">${intersection_object.parent.userData.crm_data.propNum}</span>`;
+        (intersection_object.parent.userData.url_360_type === 'custom') ?
+        bubble.html( propNum + ' &#183; ' +  modelName + '' + icon_360 ) :
+        bubble.html( propNum + ' &#183; ' +  modelName);
         bubble.attr('data-clipboard-text', intersection_object.parent.name );
         // set_flat_number_bubble_position (intersection_object);
         bubble.css({
@@ -2527,30 +2540,29 @@ function update_flat_labels (dynamic = false) {
                     status_text = status_text_he;
                 }
                 if (flat.userData.status_index == 1) {
-
+                    let icon_360 = `<img src="/img/flat-card_360.svg" alt="icon-360">`;
+                    let empty = '';
                     inner_html = `
                         <div class="flat-card-box">
                             <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
                             <div class="price-row">
-                            
                                 <span class="pulse blue"></span>
                                 <span class="circle" style="background-color: #${flat.userData.status_color}"></span>
                                     ${price_html}
                             </div>
-                        </div>
-                    `;
-                } else
-                    {
+                            ${flat.userData.url_360_type === 'custom' ? icon_360 : empty}
+                        </div>`
+                } else {
                     inner_html = `
                         <div class="flat-card-box">
-                             <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
+                        <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
                             <p class="unavailable-row">
                                 <span class="circle" style="background-color: #${flat.userData.status_color}"></span> 
                                 <span class="pulse red"></span><span class="language-string"  data-he="${status_text_he}" data-en="${status_text_en}" >${status_text}</span>
                             </p>
                         </div>
                     `;
-                   }
+                }
                 $('.float-text.flat-' + flat.userData.flat_i).addClass('active');
                 if (flat.userData.world_position == undefined) {
                     flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
@@ -2589,7 +2601,6 @@ function update_flat_labels (dynamic = false) {
                     if (flat.userData.world_position == undefined) {
                         flat.userData.world_position = flat.getWorldPosition(new global_three.Vector3());
                     }
-
 
 
 
@@ -2639,27 +2650,33 @@ function get_price_html (price_num, add_class = '') {
     let inner_html = '';
     let price = Math.floor(price_num);
     if (price > 1000000) {
-        price = Math.floor(price / 1000) / 1000;
+        price = + Math.floor(price / 1000) / 1000;
     }
-    let after_price_text_en = 'm &#8362;';
+    let after_price_text_en = 'm &#8362  ';
     let after_price_text = after_price_text_en;
     let after_price_text_he =  'מיליון ש\'\'ח';
 
-    let get_price_text_en = 'Show price';
+    let get_price_text_en = 'show price';
     let get_price_text = get_price_text_en;
     let get_price_text_he = 'הצג מחיר';
 
     if ($('body').hasClass('he') == true) {
         after_price_text = after_price_text_he;
-        get_price_text = get_price_text_he
+        $('.bottom-part').addClass('he');
+        get_price_text = get_price_text_he;
     }
        let price_html = `
             <div class="price-box ${add_class}">
-                <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
-                <div class="number">${price}</div>
+                 <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
                 <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
+            <div class="number"> ${price}</div>
             </div>
         `;
+    // let price_html = `
+
+    //     <span class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</span>
+    //     <span class="number">${price}</span>
+    //     `;
     return price_html;
 }
 function get_angle_to_camera() {

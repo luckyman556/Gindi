@@ -132,7 +132,7 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0,  0.3);
             opacity: 0.5;
             transition: 0.5s;
-            .flat-card-box {
+            .flat-card-box { 
                 &.unavailable {
                    filter: saturate(0);
                    opacity: 0.5;                         
