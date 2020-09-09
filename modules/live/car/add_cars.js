@@ -1,7 +1,9 @@
 import * as THREE from '../../../node_modules/three/build/three.module.js';
 import { cars_routes } from './cars_routes.js';
 
-export function add_cars (texture_loader, loader) {
+let allCars = [];
+
+export function add_cars (texture_loader, loader, action) {
     loader.load('resources/cars/carpack.fbx', function (carPack) {
         const cars = [
             {
@@ -81,30 +83,39 @@ export function add_cars (texture_loader, loader) {
             },
         ];
         const initialCarsRotation = [1.3004297965220035, 0.23, -3.1223535, -0.8641343586856935,  -1.823423, 1.723423425345, -0.8009263232562879, -2.88055875653077543, -1.3879574656306857];
-        let allCars = constructNewCar(carPack, cars, texture_loader, 2);
 
         // add_new_route
 
         window.allCars = allCars;
 
-        window.allCars = allCars;
-        for (let i = 0; i < allCars.length; i++) {
-            let animation_counter = 0;
-            let car = allCars[i];
-            let route = cars_routes[i];
+        if (action === 'add' && allCars.length === 0) {
+            allCars = constructNewCar(carPack, cars, texture_loader, 2);
 
-            car.position.set(route[0].position.x, route[0].position.y, route[0].position.z);
-            car.rotation.y = initialCarsRotation[i];
+            for (let i = 0; i < allCars.length; i++) {
+                let animation_counter = 0;
+                let car = allCars[i];
+                let route = cars_routes[i];
 
-            car.userData.base_y_rotation = car.rotation.y;
-            car.userData.base_position = car.rotation;
+                car.position.set(route[0].position.x, route[0].position.y, route[0].position.z);
+                car.rotation.y = initialCarsRotation[i];
 
-            scene.add(car);
-            add_car_animation(car, route, animation_counter);
+                car.userData.base_y_rotation = car.rotation.y;
+                car.userData.base_position = car.rotation;
+
+                scene.add(car);
+                add_car_animation(car, route, animation_counter);
+            }
+        } else if (action === 'remove') {
+            allCars.forEach(car => {
+                let removeCar = scene.getObjectByName(car.name);
+                removeCar.visible = false;
+                scene.remove(removeCar);
+            });
+            allCars = [];
         }
 
     //Mesh handle options START
-    //     let carClone = allCars[0].clone();
+    //     let carClone = allCars[0];
     //     let carRouteClone = cars_routes[8];
     //     carClone.position.set( carRouteClone[0].position.x, carRouteClone[0].position.y,  carRouteClone[0].position.z);
     //     carClone.rotation.y = initialCarsRotation[8];
@@ -216,10 +227,6 @@ function add_car_animation_rotation (mesh, carRoute, animation_counter) {
     if (animation_counter === 0) {
         let rotations_amount = mesh.rotation.y / Math.PI * 2;
 
-        // console.log(mesh.name);
-        // console.log(mesh.rotation.y);
-        // console.log(rotations_amount);
-
         if (rotations_amount > 1) {
             floor_rotation_amount = Math.floor(rotations_amount);
         }
@@ -256,4 +263,3 @@ function add_car_animation_rotation (mesh, carRoute, animation_counter) {
     animation.easing(easing);
     animation.start();
 }
-

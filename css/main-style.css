@@ -1053,7 +1053,6 @@ body.he .lang-button::before {
   height: 42px;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 50%;
   background-image: url("../img/navigation/left-menu/tune.svg");
   background-color: #ffffff;
   transition: 0.5s; }
@@ -1122,10 +1121,9 @@ body.he .lang-button::before {
   .options__menu-label {
     display: block;
     position: relative;
-    padding: 7px 16px 7px 40px;
+    padding: 7px 16px 7px 48px;
     filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
     background: #FFFFFF;
-    border-radius: 30px;
     cursor: pointer;
     text-align: right;
     transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
@@ -1134,12 +1132,14 @@ body.he .lang-button::before {
       font-size: 16px;
       line-height: 18px;
       color: #1A2F43;
-      opacity: 0.5; }
+      opacity: 0.5;
+      transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
     .options__menu-label::before {
       content: '';
       position: absolute;
-      top: 2px;
-      left: 8px;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
       width: 24px;
       height: 24px;
       background-repeat: no-repeat;
@@ -1154,7 +1154,7 @@ body.he .lang-button::before {
     .options__menu-label--cars::before {
       background-image: url("../img/navigation/left-menu/car.svg"); }
     .options__menu-label--birds::before {
-      background-image: url("../img/navigation/left-menu/car.svg"); }
+      background-image: url("../img/navigation/left-menu/birds.svg"); }
   .options__menu-switch {
     display: block;
     position: relative;
@@ -1187,9 +1187,10 @@ body.he .lang-button::before {
         filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
         left: 34px; }
     .options__menu-input:checked + .options__menu-label {
-      background-color: #1A2F43;
-      color: #FFFFFF;
-      opacity: 1; }
+      background-color: #1A2F43; }
+      .options__menu-input:checked + .options__menu-label > span {
+        color: #ffffff;
+        opacity: 1; }
       .options__menu-input:checked + .options__menu-label::before {
         opacity: 1; }
       .options__menu-input:checked + .options__menu-label--pedestrians::before {
@@ -1199,7 +1200,60 @@ body.he .lang-button::before {
       .options__menu-input:checked + .options__menu-label--cars::before {
         background-image: url("../img/navigation/left-menu/car_white.svg"); }
       .options__menu-input:checked + .options__menu-label--birds::before {
-        background-image: url("../img/navigation/left-menu/car_white.svg"); }
+        background-image: url("../img/navigation/left-menu/birds_white.svg"); }
+
+html[dir=rtl] .options__menu-button {
+  margin-left: 16px; }
+  html[dir=rtl] .options__menu-button:nth-child(odd) {
+    margin-right: 0; }
+
+html[dir=rtl] .options__menu-label {
+  padding: 7px 48px 7px 16px; }
+  html[dir=rtl] .options__menu-label::before {
+    left: initial;
+    right: 16px; }
+
+.floors-selector-n-back.hide,
+.zoom-controls.hide,
+.compass.hide,
+.search-btn.hide {
+  display: none !important; }
+
+@media (max-width: 450px) {
+  .left-nav-bar {
+    top: 16px; }
+  .button-options {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    .button-options.hide {
+      opacity: 0;
+      visibility: hidden; }
+  .options__menu {
+    top: initial;
+    bottom: -150%;
+    left: initial;
+    width: 100%;
+    height: auto;
+    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    z-index: 100; }
+    .options__menu-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 4px;
+      background-color: #C0C0C0;
+      border-radius: 8px; }
+    .options__menu-content {
+      padding-top: 16px; }
+    .options__menu-close {
+      display: none; }
+    .options__menu.open {
+      bottom: 0;
+      transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); } }
 
 body {
   font-family: 'almoni-tzar'; }
@@ -2928,6 +2982,7 @@ body {
         margin-top: 16px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
+          display: none;
           padding: 0;
           position: absolute;
           left: 0;

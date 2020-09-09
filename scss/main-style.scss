@@ -7,6 +7,7 @@
 @import "lang-switcher";
 @import 'common-ui';
 @import "navigations";
+//@import "navigations-newui";
 
 body {
 	font-family: 'almoni-tzar';
@@ -1406,7 +1407,7 @@ body {
 				&.floor-plan-toggler {
 					// display: none!important;
 				}
-				
+
 			}
 		}
 
@@ -2318,6 +2319,7 @@ body {
 
 				.toggler-360 ,
 				.toggler-3d {
+					display:none;
 					padding: 0;
 					position: absolute;
 					left: 0;
@@ -2418,7 +2420,7 @@ body {
 					}
 				}
 
-				
+
 			}
 			@media (max-width: 1024px) {
 				.popups-togglers-box {
@@ -2810,7 +2812,7 @@ body {
   		font-weight: normal;
 		display: flex;
 		align-items: center;
-		padding: 2px; 
+		padding: 2px;
 		z-index: 23;
 		transform: translate(0, -20px) scale(0);
 		font-size: 15px;
@@ -2836,7 +2838,7 @@ body {
 
 		& img {
 			// margin: 0 10px;
-		}	
+		}
 	}
 	.search-filter-title {
 		width: 190px;

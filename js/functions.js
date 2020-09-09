@@ -116,6 +116,10 @@ var car_route_lines = [];
 var human_route = [];
 var low_performance_mode = false;
 var dictionary;
+var crmStatusLoadBool = false;
+var progressLoaderObj = {};
+
+
 
 function animate_obj_scale(target_scale, obj, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
@@ -149,7 +153,6 @@ function set_floor_n_appartment (floor_i, flat_i) {
     // last_clicked_flat = appartment;
     window.floor_obj[current_floor].forEach(function(flat, flat_index){
         var flat_name_number = flat.userData.crm_data.propNum;
-    
         if  (flat_name_number < 10) {
             flat_name_number =   '0' + String(flat_name_number);
         }
@@ -2929,17 +2932,33 @@ function add_instances_trees(tree, positions_array, scale, options) {
         i++;
     });
     mesh.renderOrder = 1;
+    mesh.name = 'instanceTree';
     window.instance_tree = mesh;
     scene.add(mesh);
     window.positions_array = positions_array;
     return mesh;
 }
+
+let tot = 0;
+let load = 0;
 function onSuccessCallback(){}
-function onProgressCallback(){}
+function onProgressCallback(e) {
+    
+    Object.assign(progressLoaderObj, {
+        [e.currentTarget.responseURL]: {
+            loaded: e.loaded,
+            total: e.total,
+            isLoaded: Boolean(this.loaded === this.total),
+        }
+    });
+    // console.log(progressLoaderObj);
+    tot = e.total;
+    load = e.loaded;
+    // console.log(load,tot);
+}
 function onErrorCallback(e){
     console.log(e);
 }
-
 
 function get_car_routes_array () {
     let car_routes_array = [];
@@ -2974,7 +2993,6 @@ function getiPhoneModel() {
         return "10-"
     }
 }
-
 
 function get_all_params_values (array, key) {
     let array_for_return = {};
@@ -3040,7 +3058,6 @@ function get_lang (word) {
     }
     return false;
 }
-
 
 function rotation_to_flat () {
     targetRotationX = window.camera_target.rotation.y;
