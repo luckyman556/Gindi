@@ -38,12 +38,10 @@ $(document).ready(function(){
         // TWEEN.removeAll();
         if ($(this).hasClass('active')) {
             hide_all_labels();
-
-            console.log('restore');
             setPositionButtonLanguage('restore');
 
             $('.floors-selector-n-back').removeClass('show');
-            $('.popup-info .close-btn').click();
+            //$('.popup-info .close-btn').click();
             $('.floor-plan-toggler').removeClass('active');
             $(this).addClass('rotate');
             var this_el = $(this);
@@ -143,28 +141,36 @@ $(document).ready(function(){
                 'easing' : TWEEN.Easing.Quintic.In,
                 'delay' : 0
             }, function (e) {
-                perspectiveCamera.position.x =  e.camera_x;
-                perspectiveCamera.position.z = e.camera_z;
+                //perspectiveCamera.position.x =  e.camera_x;
+               // perspectiveCamera.position.z = e.camera_z;
                 target_zoom = e.camera_z;
-                window.camera_target.position.y = e.camera_target_p_y;
-                window.camera_target.position.x = e.camera_target_p_x;
-                window.camera_target.position.z = e.camera_target_p_z;
+                //window.camera_target.position.y = e.camera_target_p_y;
+                //window.camera_target.position.x = e.camera_target_p_x;
+                //window.camera_target.position.z = e.camera_target_p_z;
                 //window.camera_target.rotation.y = e.camera_target_r_y;
             }, function (e) {
-                set_page_descriptions ();
+                //set_page_descriptions ();
                 //targetRotationX = e.camera_target_r_y;
                 rotation_animated = false;
 
             });
+            rotation_to_flat ();
+            console.log(last_clicked_flat);
+            last_clicked_flat.userData.apartment_locked = true; 
             set_floor_status_color([current_floor]);
-
+            if (document.querySelector('.main-wrap').filter_active === true) {
+                document.querySelector('.main-wrap').update_cards_btns_visibility();
+            }
         } else {
             destroy_building(current_floor);
-            set_camera_on_flat (last_clicked_flat);
+           // set_camera_on_flat (last_clicked_flat);
             setTimeout(update_flat_labels, 1000);
             new_floor_selector_obj.rebuild();
             setTimeout(function(){
                 new_floor_selector_obj.rebuild();
+                if (document.querySelector('.main-wrap').filter_active === true) {
+                    document.querySelector('.main-wrap').update_cards_btns_visibility();
+                }
             },1000);
             $(this).addClass('active');
             $(this).removeClass('hide');
@@ -720,8 +726,6 @@ $(document).ready(function(){
         }
         // $('.points-line').addClass('hide');
         window.last_clicked_point_css.visible = false;
-        last_clicked_flat = undefined;
-        last_hover_object = undefined;
         if ($('.clear-search-filter.active').length > 0) {
             flats_filter_update();
         }
@@ -729,9 +733,13 @@ $(document).ready(function(){
         let filter_active = filter_container.filter_active;
         if (filter_active) {
             if (!document.querySelector('.filter-module-container.clear')) {
-                filter_container.filter_update();
+                if (!document.querySelector('.filter-module-container.flat-cards-open')) {
+                    filter_container.filter_update();
+                }
             }
         }
+        last_clicked_flat.userData.apartment_locked = false;
+        last_clicked_flat.userData.color_locked = false;
        // $('.main-wrap')[0].filter_update();
 
     });

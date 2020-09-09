@@ -1,83 +1,73 @@
-import { add_route_points  } from './add-route-points.js';
-import { mouse_wheel_events  } from './mouse-wheel.js';
+
+import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
+import {TrackballControls} from '../node_modules/three/examples/jsm/controls/TrackballControls.js';
+
 export function controls_init (camera,canvas, controls) {
 
     var canvas = document.getElementById('c');
 
     document.onmousedown = function (e) {
-        if (add_points_mode == false) {
-            if (e.which == 1 || e.which == 3) {
-                if ($(event.target).parents('.non-canvas').length == 0 || $(event.target).hasClass('points-line') == true) {
-                    camera_rotated = true;
-                    var mouse_down_x = e.pageX;
-                    var mouse_down_y = e.pageY;
-                    var windowHalfX = document.getElementById('c').offsetWidth / 2;
-                    var mouseXOnMouseDown = event.clientX - windowHalfX;
-                    targetRotationOnMouseDownX = targetRotationX;
-                    window.camera_target.userData.position_z = window.camera_target.position.z;
-                    window.camera_target.userData.position_x = window.camera_target.position.x;
-                    far_current_click_camera_x = window.camera_target.rotation.y;
-                    far_current_click_camera_position_y = window.camera_target.position.y;
-                    far_current_click_camera_rotation_x = window.camera_target.children[0].rotation.x;
+        if (e.which == 1 || e.which == 3) {
+            if ($(event.target).parents('.non-canvas').length == 0 || $(event.target).hasClass('points-line') == true) {
+                camera_rotated = true;
+                var mouse_down_x = e.pageX;
+                var mouse_down_y = e.pageY;
+                var windowHalfX = document.getElementById('c').offsetWidth / 2;
+                var mouseXOnMouseDown = event.clientX - windowHalfX;
+                targetRotationOnMouseDownX = targetRotationX;
+                far_current_click_camera_x = window.camera_target.rotation.y;
+                far_current_click_camera_position_y = window.camera_target.position.y;
+                far_current_click_camera_rotation_x = window.camera_target.children[0].rotation.x;
 
-                    document.onmousemove = function (e) {
-                        if (window.disable_drag_controls == false) {
-                            raf_divergention_x = mouse_down_x - e.pageX;
-                            raf_divergention_y = mouse_down_y - e.pageY;
-                            let drag_move_limit = 20;
-                            let raf_divergention_y_limit = Math.sqrt(raf_divergention_y * raf_divergention_y);
-                            let raf_divergention_x_limit = Math.sqrt(raf_divergention_x * raf_divergention_x);
-                            if (raf_divergention_x_limit >  drag_move_limit || raf_divergention_y_limit > drag_move_limit) {
-                                drag_move = true;
-                                //console.log('drag_move');
+                document.onmousemove = function (e) {
+                    if (window.disable_drag_controls == false) {
+                        raf_divergention_x = mouse_down_x - e.pageX;
+                        raf_divergention_y = mouse_down_y - e.pageY;
+                        let drag_move_limit = 20;
+                        let raf_divergention_y_limit = Math.sqrt(raf_divergention_y * raf_divergention_y);
+                        let raf_divergention_x_limit = Math.sqrt(raf_divergention_x * raf_divergention_x);
+                        if (raf_divergention_x_limit >  drag_move_limit || raf_divergention_y_limit > drag_move_limit) {
+                            drag_move = true;
+                            //console.log('drag_move');
+                        } else {
+
+                        };
+
+                        change_camera_rotate_x(e, mouseXOnMouseDown);
+                        if (e.ctrlKey) {
+                            change_camera_position_y();
+                        } else {
+                            if (e.which == 3) {
+                                change_camera_rotation_x(e, mouseXOnMouseDown);
                             } else {
-
-                            };
-                            if (e.altKey) {
-                                if (get_url_param('dev') === "true") {
-                                    drag_focus_target_z(e);
-                                    drag_focus_target_x(e);
-                                }
-                            } else {
-
-                                change_camera_rotate_x(e, mouseXOnMouseDown);
-                                if (e.ctrlKey) {
-                                    change_camera_position_y(e);
+                                if (lock_mouse_rotation_x == true) {
+                                    change_camera_rotation_x(e, mouseXOnMouseDown);
                                 } else {
-                                    if (e.which == 3) {
-                                        change_camera_rotation_x(e, mouseXOnMouseDown);
-                                    } else {
-                                        if (lock_mouse_rotation_x == true) {
-                                            change_camera_rotation_x(e, mouseXOnMouseDown);
-                                        } else {
-                                            change_camera_position_y(e);
-                                        }
-                                    }
-
+                                    change_camera_position_y();
                                 }
                             }
-                        }
-                    };
 
-                    document.onmouseup = function (e) {
-                        //drag_move = false;
-                        document.onmousemove = null;
-                        canvas.onmouseup = null;
-                    };
-                    canvas.onmouseup = function () {
-                        //drag_move = false;
-                        document.onmousemove = null;
-                        canvas.onmouseup = null;
-                    };
-                    canvas.onmouseout = function () {
-                        // document.onmousemove = null;
-                        // canvas.onmouseup = null;
-                    };
-                }
+                        }
+                    }
+                };
+
+                document.onmouseup = function (e) {
+                    //drag_move = false;
+                    document.onmousemove = null;
+                    canvas.onmouseup = null;
+                };
+                canvas.onmouseup = function () {
+                    //drag_move = false;
+                    document.onmousemove = null;
+                    canvas.onmouseup = null;
+                };
+                canvas.onmouseout = function () {
+                    // document.onmousemove = null;
+                    // canvas.onmouseup = null;
+                };
             }
         }
     };
-    mouse_wheel_events();
     {
         var mouse_down_x;
         var mouse_down_y;
@@ -182,7 +172,74 @@ export function controls_init (camera,canvas, controls) {
             // canvas.removeEventListener('touchmove', controls_touchmove);
         });
     }
+    var elem = document;
+    if (elem.addEventListener) {
+        if ('onwheel' in document) {
+            // IE9+, FF17+, Ch31+
+            elem.addEventListener("wheel", onWheel, { passive: false });
+        } else if ('onmousewheel' in document) {
+            // устаревший вариант события
+            elem.addEventListener("mousewheel", onWheel, { passive: false });
+        } else {
+            // Firefox < 17
+            elem.addEventListener("MozMousePixelScroll", onWheel, { passive: false });
+        }
+    } else { // IE8-
+        elem.attachEvent("onmousewheel", onWheel, { passive: false });
+    }
 
+    function onWheel(e) {
+        // event.preventDefault();
+            $(".mouse-wheel-info").removeClass('active');
+            update_line_position_enabled = true;
+            if(e.toElement == document.getElementById('c') || e.toElement == document.querySelector('.points-line') || e.toElement == document.querySelector('.mouse-wheel-info')) {
+                if (e.ctrlKey == true) {
+                    e = e || window.event;
+                    // wheelDelta не даёт возможность узнать количество пикселей
+                    var delta = e.deltaY || e.detail || e.wheelDelta;
+
+                    var in_zoom = camera.position.z + delta * 0.3;
+
+                    target_zoom = in_zoom;
+                    e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+                    setTimeout(function(){ update_line_position_enabled = false;}, 4000);
+                } else {
+                    if (zoom_by_mousewheel == true) {
+                        e = e || window.event;
+                        // wheelDelta не даёт возможность узнать количество пикселей
+                        var delta = e.deltaY || e.detail || e.wheelDelta;
+                        if ($('body').hasClass('firefox-run') == true) {
+                            delta = delta * 33;
+                        }
+                        target_zoom =  target_zoom_limit (target_zoom + delta * 0.3);
+
+                        e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+                        setTimeout(function(){ update_line_position_enabled = false;}, 4000);
+                    } else {
+                        var box = $(".mouse-wheel-info");
+                        box.addClass('active');
+                        var timeInMs = Date.now();
+                        mouse_wheel_info_time_ended = timeInMs + 3000;
+                        requestAnimationFrame(hide_mouse_wheel_info);
+                        function hide_mouse_wheel_info() {
+                            var fn_time = Date.now();
+                            if (fn_time > mouse_wheel_info_time_ended) {
+                                box.removeClass('active');
+                            } else {
+                                requestAnimationFrame(hide_mouse_wheel_info);
+                            }
+                        };
+/*                        far_current_click_camera_position_y = window.camera_target.position.y;
+                        var delta = e.deltaY || e.detail || e.wheelDelta;
+                        raf_divergention_y = delta;
+                        change_camera_position_y();*/
+                    }
+
+                }
+
+
+            }
+    }
 
     canvas.ondragstart = function() {
         return false;
@@ -265,10 +322,23 @@ export function controls_init (camera,canvas, controls) {
         }
     }
 
-    add_route_points ();
-
-
     return controls;
 
 }
 
+function target_zoom_limit (target_zoom_fn) {
+    let in_zoom_limit_m = min_zoom_full;
+    let in_zoom_limit_b = max_zoom_full;
+    if (lock_mouse_rotation_x == true) {
+        in_zoom_limit_m = min_zoom_destroy;
+        in_zoom_limit_b = max_zoom_destroy;
+    }
+    if (target_zoom_fn < in_zoom_limit_m) {
+        target_zoom_fn = in_zoom_limit_m;
+    }
+    if (target_zoom_fn > in_zoom_limit_b) {
+        target_zoom_fn = in_zoom_limit_b;
+    }
+
+    return target_zoom_fn;
+}

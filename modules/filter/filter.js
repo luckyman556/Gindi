@@ -763,6 +763,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].set_defaults = set_defaults;
     container[0].filter_run = filter_run;
     container[0].set_scroll_on_card = set_scroll_on_card;
+    container[0].update_cards_btns_visibility = card_fns.update_cards_btns_visibility;
     function set_scroll_on_card (card_id) {
         if ($('.card-' + card_id).length > 0) {
             let flat_slider = $('.flat-cards-slider');
@@ -1087,6 +1088,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             flats_filter_update ();
         });
     }
+
     function update_flat_cards () {
         let flat_cards_container = container.find('.flat-cards');
 

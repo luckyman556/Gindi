@@ -17,6 +17,8 @@ window.floor_looring_list = [];
 var appartments_array = {};
 var svg_plans_url =  'resources/2d_plans/';
 
+const optionsMenuShowHide = false;
+
 const environmentDataAttribyte = {
     "environment": {
         "movement": [
@@ -127,7 +129,12 @@ export function add_models( scene, all_appartments) {
             low_performance_mode = true;
         }
     }
-    envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+
+    if (optionsMenuShowHide) {
+        envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+    }
+
+
     liveToggler(envAttrOptionsArray, texture_loader, loader);
     /*function liveToggler() {
         envAttrOptionsArray.forEach(({type, active}) => {
@@ -1445,7 +1452,9 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
         setTimeout(function () {
             new_floor_selector_obj = $('.new-floors-selector').floors_selector();
+
             model_loaded = true;
+
             add_cylinder_floor_numbers();
             setTimeout(function(){
                 model_autorotate = true;

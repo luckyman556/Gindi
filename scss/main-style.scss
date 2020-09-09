@@ -510,6 +510,8 @@ body {
 				order: 1;
 				font-size: 18px;
 				font-weight: 600;
+				margin-left: -2px;
+				margin-top: -2px;
 			}
 			.ic {
 				width: 30px;
@@ -3945,6 +3947,10 @@ body {
 }
 
 body.he {
+	.three_js .flat-option .top-part .number {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 	.three_js .zoom-by-mousewheel .box {
 		margin-left: 0;
 	}
@@ -4268,7 +4274,7 @@ body.on-white {
 		border-color: $brand-color-1;
 	}
 	.three_js .floors-selector-n-back {
-		right: 0px;
+		right: 5px;
 		z-index: 99;
 		&:after {
 			content: '';
@@ -4583,8 +4589,8 @@ body.en {
 			}
 		}
 		& .compass {
-			left: initial;
-			right: 0;
+			//left: initial;
+			//right: 0;
 		}
 
 		& .status {

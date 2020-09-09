@@ -586,6 +586,8 @@
     padding: 8px 16px;
     border-radius: 32px;
     cursor: pointer; }
+    .filter-module-container .flat-counter.unactive {
+      filter: grayscale(1); }
     .filter-module-container .flat-counter .ic {
       width: 24px;
       height: 24px;
@@ -850,6 +852,10 @@
       .nfm-togglers .togglers-row .toggler-btn.unactive {
         opacity: 0.1; }
 
+body.he .filter-module-container .flat-counter .ic {
+  margin-left: 10px;
+  margin-right: 0; }
+
 body.he .filter-module-container .reset-filter {
   right: initial;
   left: 0; }
@@ -922,9 +928,12 @@ body.he .lang-button::before {
 
 .lang-container {
   position: absolute;
-  top: 50px;
+  top: 27px;
   right: 50px;
-  z-index: 999; }
+  z-index: 50;
+  transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .lang-container.move {
+    right: 125px; }
 
 .lang-button {
   position: relative; }
@@ -954,6 +963,10 @@ body.he .lang-button::before {
   display: none; }
   .lang-dropdown.active {
     display: block; }
+
+@media (max-width: 1024px) {
+  .lang-container.move {
+    right: 75px; } }
 
 .new-ui-circle-btn {
   width: 42px;
@@ -1024,7 +1037,7 @@ body.he .lang-button::before {
 
 .left-nav-bar {
   position: absolute;
-  top: 262px;
+  top: 27px;
   left: 32px;
   background-color: transparent;
   transition: 0.5s ease-in-out;
@@ -1054,7 +1067,7 @@ body.he .lang-button::before {
   width: 412px;
   height: 100%;
   top: 0;
-  left: -100%;
+  left: -200%;
   font-family: fragolino, sans-serif;
   color: #1A2F43;
   background-color: #fff;
@@ -4205,6 +4218,10 @@ body {
   .safari-run * {
     transition: none !important; } }
 
+body.he .three_js .flat-option .top-part .number {
+  padding-left: 0px;
+  padding-right: 0px; }
+
 body.he .three_js .zoom-by-mousewheel .box {
   margin-left: 0; }
 
@@ -4468,7 +4485,7 @@ body.on-white .three_js .lobby-n-roof-360 .visible-part {
   border-color: #1A2F43; }
 
 body.on-white .three_js .floors-selector-n-back {
-  right: 0px;
+  right: 5px;
   z-index: 99; }
   body.on-white .three_js .floors-selector-n-back:after {
     content: '';
@@ -4712,10 +4729,6 @@ body.en .three_js .zoom-by-mousewheel {
   left: 170px; }
   body.en .three_js .zoom-by-mousewheel > .text {
     width: 90px; }
-
-body.en .three_js .compass {
-  left: initial;
-  right: 0; }
 
 body.en .three_js .status .as-checkbox-wrap > .text {
   line-height: 20px;
