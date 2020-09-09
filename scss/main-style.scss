@@ -381,7 +381,7 @@ body {
 		letter-spacing: normal;
 		.price {
 			margin-top: 0px;
-			padding-top: 2px;
+			padding-top: 0;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 35px;
@@ -399,16 +399,15 @@ body {
 			}
 			.bottom-part {
 				font-weight: 400;
-				font-size: 14px;
-				
+				font-size: 16px;
+				line-height: 21px;
 				position: relative;
 				color: $brand-color-1;
+				margin-top: -2px;
 					.number {
-						// margin-left: -3px;
-						// margin-right: 5px;
+
 					}
 					.price-text {
-						font-size: 14px;
 						color: $brand-color-1;
 						font-weight: 400;
 					}
@@ -454,7 +453,7 @@ body {
 		}
 	}
 	.flat-options {
-		padding-top: 14px;
+		padding-top: 10px;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -466,15 +465,35 @@ body {
 			display: none;
 		}
 		&.badroom {
+			width: 53px;
+			.top-part {
+				display: flex;
+			}
+		}
+		&.type {
+			width: 70px;
+			//margin-right: 15px;
 			.top-part {
 				display: flex;
 
 				.ic {
-
+					right: -3px;
+					margin-left: 2px;
+				}
+				.middle-text {
+					margin-left: 4px;
 				}
 			}
+
 		}
-		&.type {
+		&.floor {
+			width: 44px;
+
+		}
+		&.area {
+			width: 49px;
+			margin-left: 7px;
+			margin-right: 7px;
 		}
 		&:last-child {
 			padding-right: 0;
@@ -493,29 +512,30 @@ body {
 			font-weight: 300;
 			.middle-text {
 				font-size: 14px;
-				line-height: 17px;
+				line-height: 18px;
 				color: #5c646b;
 				margin: auto 0;
 				width: 100%;
 				order: 2;
-				font-family: 'almoni-neue';
-				margin-top: -5px;
+				font-family: Fragolino;
+				margin-top: -2px;
+				margin-left: 2px;
 			}
 			.number {
 				line-height: initial;
+				font-family: Fragolino-Cond;
 				letter-spacing: 0.0593262px;
 				color: $brand-color-1;
 				// padding-left: 5px;
 				margin: auto 0;
 				order: 1;
-				font-size: 18px;
+				font-size: 16px;
 				font-weight: 600;
-				margin-left: -2px;
-				margin-top: -2px;
+				margin-left: 3px;
 			}
 			.ic {
-				width: 30px;
-				height: 30px;
+				width: 24px;
+				height: 24px;
 				margin: 0;
 				position: relative;
 				right: -5px;
@@ -950,11 +970,12 @@ body {
 				display: flex;
 				.title-text-row {
 					display: flex;
-					font-size: 29px;
+					font-size: 32px;
+					font-family: 'Fragolino-Cond';
 					text-align: center;
 					font-weight: 600;
 					position: relative;
-					line-height: 1;
+					line-height: 41px;
 					> * {
 						position: relative;
 						z-index:2;
@@ -964,13 +985,14 @@ body {
 						position: absolute;
 						height: 12px;
 						width: 98px;
-						right: 0px;
-						bottom: 0;
+						right: 0;
+						top: 25px;
 						background-color: $brand-color-2;
 						transition: 0.5s 0.2s;
 					}
 					.title-text {
 						margin: 0 5px;
+
 					}
 					.type {
 						margin-left: 8px;
@@ -2236,16 +2258,16 @@ body {
 		.flat-plan {
 			display: flex;
 			width: 284px;
-			height: fit-content;
-			border-radius: 6px;
+			height: 204px;
+			//border-radius: 6px;
 			overflow: hidden;
-			padding: 21px 17px 15px 17px;
+			padding: 14.5px 16px 16px 12px;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: contain;
 			display: block;
 			background-color: $white;
-			box-shadow: 0 5px 9px 0 rgba(46, 70, 81, 0.15);
+			box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15);
 			&.min  {
 				height: fit-content;
 				.popups-togglers-box  {
@@ -2291,8 +2313,8 @@ body {
 				justify-content: space-between;
 				position: relative;
 				top: 0;
-				left: 0;
-				margin-top: 13px;
+				left: 1px;
+				margin-top: 16px;
 
 				.toggler-360 ,
 				.toggler-3d {
@@ -2307,15 +2329,15 @@ body {
 				div {
 					height: 44px;
 					font-weight: bold;
-					font-size: 16px;
+					font-family: Fragolino;
+					font-size: 18px;
 					letter-spacing: 0.0553711px;
 					border-radius: 0px;
 					padding: 0 10px;
 					width: auto;
 					background: rgba(255, 255, 255, 0.1);
 					color: $white;
-					margin-left: 2px;
-					font-family: almoni-neue;
+					margin-left: 4px;
 					&.non-flat-360 {
 						display: none;
 					}
@@ -2323,11 +2345,11 @@ body {
 						order: 2;
 						background-color: $brand-color-1;
 						border: none;
-						padding-left: 36px;
+						padding-left: 33px;
 						background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-						background-position: left 10px center;
+						background-position: left 5px center;
 						background-repeat: no-repeat;
-						background-size: 28px;
+						background-size: 24px;
 						box-shadow: none;
 						//margin-right: 13px;
 						width: 122px;
@@ -2339,11 +2361,13 @@ body {
 						}
 					}
 					&.floor-plan-toggler {
+						font-family: Fragolino;
+						font-size: 18px;
 						order: 1;
 						background-color: transparent;
-						padding-left: 30px;
+						padding-left: 37px;
 						background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-						background-position: left 13px center;
+						background-position: left 7px center;
 						background-repeat: no-repeat;
 						background-size: 24px;
 
@@ -4067,10 +4091,10 @@ body.he {
 
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
-		width: 120px;
+		width: 122px;
 		background-position: right 5px center;
-		margin-left: 0;
-		margin-right: auto;
+		margin-left: 4px;
+		margin-right: 8px;
 		background-size: 25px;
 
 	}
@@ -4420,15 +4444,16 @@ body.on-white {
 .price-box.common {
 	display: flex;
 	.get-price-btn {
-		height: 20px;
+		height: 21px;
 		padding: 0 10px;
 		background-color: $brand-color-1;
 		color: $white;
-		line-height: 20px;
+		line-height: 21px;
 		cursor: pointer;
 		white-space: pre;
 		width: 98px;
 		text-align: center;
+		letter-spacing: -0.21px;
 	}
 	.number {
 		display: none;
@@ -4436,10 +4461,9 @@ body.on-white {
 	.price-text {
 
 		display: none;
-		font-size: 14px;
+		font-size: 16px;
 		color: #603ef2;
 		margin: auto 5px 0 0;
-		font-size: 20px;
 		font-weight: 600;
 	}
 }
