@@ -125,5 +125,5 @@ export function add_street_names (action) {
                 }
             });
         }
-    });
+    },onProgressCallback);
 }

@@ -2927,7 +2927,8 @@ body {
       background-size: contain;
       display: block;
       background-color: #FFFFFF;
-      box-shadow: 0 5px 9px 0 rgba(46, 70, 81, 0.15); }
+      box-shadow: 0 5px 9px 0 rgb(26 ,47 ,67, 0.5);
+      }
       .three_js .popup-info .flat-plan.min {
         height: fit-content; }
         .three_js .popup-info .flat-plan.min .popups-togglers-box {
@@ -2963,6 +2964,7 @@ body {
         margin-top: 13px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
+          display: none;
           padding: 0;
           position: absolute;
           left: 0;

@@ -741,8 +741,10 @@ $(document).ready(function(){
                 }
             }
         }
-        last_clicked_flat.userData.apartment_locked = false;
-        last_clicked_flat.userData.color_locked = false;
+        if (!lock_mouse_rotation_x) {
+            last_clicked_flat.userData.apartment_locked = false;
+            last_clicked_flat.userData.color_locked = false;
+        }
        // $('.main-wrap')[0].filter_update();
 
     });

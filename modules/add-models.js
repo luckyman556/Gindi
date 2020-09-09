@@ -160,12 +160,16 @@ function loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap
         white_lightmap = texture_loader.load('resources/2020/04/white-lightmap.jpg', on_load_texture);
         textures_counter++;
 
-
-        loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap);
+        // const crmCheckInterval = setInterval(() => { 
+        //     if (crmStatusLoadBool) {
+        //         clearInterval(crmCheckInterval);
+                loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap);
+        //     }
+        // }, 100);
 
         // console.log(empty_model);
         return empty_model;
-    });
+    },onProgressCallback);
 }
 
 function find_n_clone_material (object_to_work, object_from_clone) {
@@ -938,7 +942,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             i++;
         }
 
-        add_building(elements_array_big, building);
+        // add_building(elements_array_big, building);
 
         var flat_count = 0;
         var floor_obj_length = 0;
@@ -952,446 +956,449 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         let modelNames = {};
         //console.log(building);
 
-        building.forEach(function (element, floor_index) {
-            if (element.name === 'Roof') {
-                window.roof = element;
-                var user_data = window.roof.userData;
-                user_data.base_position_z = window.roof.position.z;
-                var flat_clone = element.clone();
+        function buildHighlights() {
 
-                find_n_clone_material(element, flat_clone);
-
-                user_data.lobby_or_roof = true;
-                user_data.status_color = lobby_n_roof_hover_color;
-                user_data.url_360 = roof_360;
-                // set_mesh_base_color (element);
-
-            } else if (element.name === 'Lobby') {
-                window.lobby = element;
-                var user_data = window.lobby.userData;
-                user_data.base_position_z = window.lobby.position.z;
-                user_data.lobby_or_roof = true;
-                user_data.status_color = lobby_n_roof_hover_color;
-                user_data.url_360 = lobby_360;
-                // set_mesh_base_color (element);
-            } else {
-                all_floors[floor_index] = element;
-                window.floor_obj[floor_index] = [];
-                var flat_number = 0;
-
-                element.children.forEach(function (flat, flat_index) {
-                    if (flat.name.search('zagluha') === -1) {
-                        objects_to_intersection.push(flat);
-                        // flat.material[2].color.setColorName('blue');
-
-                        var flat_clone = flat.clone();
-
-                        if (flat.name !== 'floor_center') {
-                            find_n_clone_material(flat, flat_clone);
-                        }
-
-                        window.floor_obj[floor_index][flat_number] = flat;
-
-                        flat.renderOrder = 0;
-
-                        var user_data = flat.userData;
-                        user_data.base_position = {x: flat.position.x, y: flat.position.y, z: flat.position.z};
-                        user_data.change_color = true;
-                        user_data.target_color = true;
-                        var random_number = Math.floor(flat_statuses.length * Math.random());
-
-                        var rooms_array = ['0', '1', '2'];
-                        var rooms_array_index = Math.floor(3 * Math.random());
-
-                        user_data.center_point = getCenterPoint(flat);
-                        var flat_name_letter = flat.name.replace('APT_', '').replace('_F_', '').replace(floor_index, '');
-                        user_data.letter = flat_name_letter;
-                        user_data.crm_data = sorted_json[4001];
-
-                        if (floor_index < 17) {
-                            flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5_22floor/index.htm';
-                            flat.userData.url_360_type = 'default';
-                        } else if (floor_index < 27) {
-                            flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/22_32floor/index.htm';
-                            flat.userData.url_360_type = 'default';
-                        } else if (floor_index < 48) {
-                            flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/32_42floor/index.htm';
-                            flat.userData.url_360_type = 'default';
-                        }
-
-                        if (floor_index < 3) {
-                            if (flat.name === 'APT_5-7_Int_4Rw_001') {
-                                let current_prop_num = 4000 + floor_index * 12 + 1;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_2A_003') {
-                                let current_prop_num = 4000 + floor_index * 12 + 2;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_2A_002') {
-                                let current_prop_num = 4000 + floor_index * 12 + 3;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-
-                            } else if (flat.name === 'APT_5-7_Int_4Re_001') {
-                                let current_prop_num = 4000 + floor_index * 12 + 4;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                                let local_scale = {x: 1.01, y: 1, z: 1.01};
-                                flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
-                            } else if (flat.name === 'APT_5-7_Int_3Ra') {
-                                let current_prop_num = 4000 + floor_index * 12 + 5;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                                let local_scale = {x: 1.01, y: 1, z: 1.01};
-                                flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
-                            } else if (flat.name === 'APT_5-7_Int_3Da_001') {
-                                let current_prop_num = 4000 + floor_index * 12 + 6;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                                let local_scale = {x: 1.01, y: 1, z: 1.01};
-                                flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
-                            } else if (flat.name === 'APT_5-7_Int_3Da') {
-                                let current_prop_num = 4000 + floor_index * 12 + 7;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                                let local_scale = {x: 1.01, y: 1, z: 1.01};
-                                flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
-                            } else if (flat.name === 'APT_5-7_Int_3Rs') {
-                                let current_prop_num = 4000 + floor_index * 12 + 8;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                let local_scale = {x: 1.01, y: 1, z: 1.01};
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_4Re') {
-                                let current_prop_num = 4000 + floor_index * 12 + 9;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_2A_001') {
-                                let current_prop_num = 4000 + floor_index * 12 + 10;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_2A') {
-                                let current_prop_num = 4000 + floor_index * 12 + 11;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
-                            } else if (flat.name === 'APT_5-7_Int_4Rw') {
-                                let current_prop_num = 4000 + floor_index * 12 + 12;
-                                let current_crm_data = sorted_json[current_prop_num];
-                                user_data.crm_data = current_crm_data;
+            building.forEach(function (element, floor_index) {
+                if (element.name === 'Roof') {
+                    window.roof = element;
+                    var user_data = window.roof.userData;
+                    user_data.base_position_z = window.roof.position.z;
+                    var flat_clone = element.clone();
+        
+                    find_n_clone_material(element, flat_clone);
+        
+                    user_data.lobby_or_roof = true;
+                    user_data.status_color = lobby_n_roof_hover_color;
+                    user_data.url_360 = roof_360;
+                    // set_mesh_base_color (element);
+        
+                } else if (element.name === 'Lobby') {
+                    window.lobby = element;
+                    var user_data = window.lobby.userData;
+                    user_data.base_position_z = window.lobby.position.z;
+                    user_data.lobby_or_roof = true;
+                    user_data.status_color = lobby_n_roof_hover_color;
+                    user_data.url_360 = lobby_360;
+                    // set_mesh_base_color (element);
+                } else {
+                    all_floors[floor_index] = element;
+                    window.floor_obj[floor_index] = [];
+                    var flat_number = 0;
+        
+                    element.children.forEach(function (flat, flat_index) {
+                        if (flat.name.search('zagluha') === -1) {
+                            objects_to_intersection.push(flat);
+                            // flat.material[2].color.setColorName('blue');
+        
+                            var flat_clone = flat.clone();
+        
+                            if (flat.name !== 'floor_center') {
+                                find_n_clone_material(flat, flat_clone);
                             }
-                        } else if (floor_index < 7) {
-                            let flats_names = [
-                                'APT_8-11_Int_4Rw',
-                                'APT_8-11_Int_2A_001',
-                                'APT_8-11_Int_2A_002',
-                                'APT_8-11_Int_4Re_001',
-                                'APT_8-11_Int_3Ra_001',
-                                'APT_8-11_Int_3Da',
-                                'APT_8-11_Int_3Da_001',
-                                'APT_8-11_Int_3Ra',
-                                'APT_8-11_Int_4Re',
-                                'APT_8-11_Int_2A',
-                                'APT_8-11_Int_2A_003',
-                                'APT_8-11_Int_4Rw_001',
-                            ];
-                            let floor_mod = floor_index - 3;
-                            let start_prop_num = 4036;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 12 + flat_number_in_floor;
+        
+                            window.floor_obj[floor_index][flat_number] = flat;
+        
+                            flat.renderOrder = 0;
+        
+                            var user_data = flat.userData;
+                            user_data.base_position = { x: flat.position.x, y: flat.position.y, z: flat.position.z };
+                            user_data.change_color = true;
+                            user_data.target_color = true;
+                            var random_number = Math.floor(flat_statuses.length * Math.random());
+        
+                            var rooms_array = ['0', '1', '2'];
+                            var rooms_array_index = Math.floor(3 * Math.random());
+        
+                            user_data.center_point = getCenterPoint(flat);
+                            var flat_name_letter = flat.name.replace('APT_', '').replace('_F_', '').replace(floor_index, '');
+                            user_data.letter = flat_name_letter;
+                            user_data.crm_data = sorted_json[4001];
+        
+                            if (floor_index < 17) {
+                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5_22floor/index.htm';
+                                flat.userData.url_360_type = 'default';
+                            } else if (floor_index < 27) {
+                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/22_32floor/index.htm';
+                                flat.userData.url_360_type = 'default';
+                            } else if (floor_index < 48) {
+                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/32_42floor/index.htm';
+                                flat.userData.url_360_type = 'default';
+                            }
+        
+                            if (floor_index < 3) {
+                                if (flat.name === 'APT_5-7_Int_4Rw_001') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 1;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_2A_003') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 2;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_2A_002') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 3;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+        
+                                } else if (flat.name === 'APT_5-7_Int_4Re_001') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 4;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                    let local_scale = { x: 1.01, y: 1, z: 1.01 };
+                                    flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
+                                } else if (flat.name === 'APT_5-7_Int_3Ra') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 5;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                    let local_scale = { x: 1.01, y: 1, z: 1.01 };
+                                    flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
+                                } else if (flat.name === 'APT_5-7_Int_3Da_001') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 6;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                    let local_scale = { x: 1.01, y: 1, z: 1.01 };
+                                    flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
+                                } else if (flat.name === 'APT_5-7_Int_3Da') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 7;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                    let local_scale = { x: 1.01, y: 1, z: 1.01 };
+                                    flat.scale.set(local_scale.x, local_scale.y, local_scale.z);
+                                } else if (flat.name === 'APT_5-7_Int_3Rs') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 8;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    let local_scale = { x: 1.01, y: 1, z: 1.01 };
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_4Re') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 9;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_2A_001') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 10;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_2A') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 11;
+                                    let current_crm_data = sorted_json[current_prop_num];
+                                    user_data.crm_data = current_crm_data;
+                                } else if (flat.name === 'APT_5-7_Int_4Rw') {
+                                    let current_prop_num = 4000 + floor_index * 12 + 12;
                                     let current_crm_data = sorted_json[current_prop_num];
                                     user_data.crm_data = current_crm_data;
                                 }
-                            });
-                            if (flat.name === 'APT_8-11_Int_3Ra_001') {
-                            }
-                            if (flat.name === 'APT_8-11_Int_3Ra') {
-                            }
-
-                        } else if (floor_index < 16) {
-                            let flats_names = [
-                                'APT_12-20_Int_4Rw',
-                                'APT_12-20_Int_4M',
-                                'APT_12-20_Int_4Re',
-                                'APT_12-20_Int_3Ra_001',
-                                'APT_12-20_Int_3Da',
-                                'APT_12-20_Int_3Da_001',
-                                'APT_12-20_Int_3Ra',
-                                'APT_12-20_Int_3Re',
-                                'APT_12-20_Int_3Ds',
-                                'APT_12-20_Int_3Ds_001',
-                                'APT_12-20_Int_3Rw',
-                            ];
-                            let floor_mod = floor_index - 7;
-                            let start_prop_num = 4084;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 11 + flat_number_in_floor;
-                                    let current_crm_data = sorted_json[current_prop_num];
-                                    user_data.crm_data = current_crm_data;
-                                }
-                            });
-                            if (flat.name === 'APT_12-20_Int_3Ds') {
-
-                            }
-                            if (flat.name === 'APT_12-20_Int_3Ds_001') {
-
-                            }
-
-                            if (flat.name === 'APT_12-20_Int_3Ra_001') {
-
-                            }
-
-                            if (flat.name === 'APT_12-20_Int_3Ra') {
-
-                            }
-
-                            if (flat.name === 'APT_12-20_Int_3Re') {
-
-                            }
-
-                        } else if (floor_index < 36) {
-                            let flats_names = [
-                                'APT_21-43_Int_5R',
-                                'APT_21-43_Int_4P_001',
-                                'APT_21-43_Int_5P',
-                                'APT_21-43_Int_3M_001',
-                                'APT_21-43_Int_3M',
-                                'APT_21-43_Int_5P_001',
-                                'APT_21-43_Int_4P',
-                                'APT_21-43_Int_5R_001',
-                            ];
-                            let floor_mod = floor_index - 16;
-                            let start_prop_num = 4183;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 8 + flat_number_in_floor;
-                                    let current_crm_data = sorted_json[current_prop_num];
-                                    user_data.crm_data = current_crm_data;
-                                }
-                            });
-                            if (flat.name === 'APT_21-43_Int_5R') {
-                                if (floor_index < 25) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_22n/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else if (floor_index < 32) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_32n/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else  {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_42n/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                }
-                            }
-                            if (flat.name === 'APT_21-43_Int_5R_001') {
-                                if (floor_index < 25) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_22/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else if (floor_index < 32) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_32/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else  {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_42/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                }
-                            }
-                            if (flat.name === 'APT_21-43_Int_5P') {
-                                if (floor_index < 25) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_22/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else if (floor_index < 32) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_32/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else  {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_42/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                }
-                            }
-                            if (flat.name === 'APT_21-43_Int_5P_001') {
-                                if (floor_index < 25) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_22ws/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else if (floor_index < 32) {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_32ws/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                } else  {
-                                    flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_42ws/index.htm';
-                                    flat.userData.url_360_type = 'custom';
-                                }
-                            }
-                        } else if (floor_index < 42) {
-                            let flats_names = [
-                                'APT_21_43_Int_6wn_4344',
-                                'APT_21_43_Int_5Pwn_4345',
-                                'APT_21_43_Int_3M_4346',
-                                'APT_21_43_Int_3M_4347',
-                                'APT_21_43_Int_5MPws_4348',
-                                'APT_21_43_Int_6ws_4349',
-                            ];
-                            let floor_mod = floor_index - 36;
-                            let start_prop_num = 4343;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 6 + flat_number_in_floor;
-                                    let current_crm_data = sorted_json[current_prop_num];
-                                    if (current_crm_data == undefined) {
-                                        debugger;
+                            } else if (floor_index < 7) {
+                                let flats_names = [
+                                    'APT_8-11_Int_4Rw',
+                                    'APT_8-11_Int_2A_001',
+                                    'APT_8-11_Int_2A_002',
+                                    'APT_8-11_Int_4Re_001',
+                                    'APT_8-11_Int_3Ra_001',
+                                    'APT_8-11_Int_3Da',
+                                    'APT_8-11_Int_3Da_001',
+                                    'APT_8-11_Int_3Ra',
+                                    'APT_8-11_Int_4Re',
+                                    'APT_8-11_Int_2A',
+                                    'APT_8-11_Int_2A_003',
+                                    'APT_8-11_Int_4Rw_001',
+                                ];
+                                let floor_mod = floor_index - 3;
+                                let start_prop_num = 4036;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 12 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        user_data.crm_data = current_crm_data;
                                     }
-                                    user_data.crm_data = current_crm_data;
+                                });
+                                if (flat.name === 'APT_8-11_Int_3Ra_001') {
                                 }
-                            });
-                        } else if (floor_index < 43) {
-                            let flats_names = [
-                                'APT_21_43_Int_6wn_4380',
-                                'APT_21_43_Int_6E_4381',
-                                'APT_21_43_Int_6E_4382',
-                                'APT_21_43_Int_6ws_4383',
-                            ];
-                            let floor_mod = floor_index - 42;
-                            let start_prop_num = 4379;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 4 + flat_number_in_floor;
-                                    let current_crm_data = sorted_json[current_prop_num];
-                                    user_data.crm_data = current_crm_data;
-                                    if (current_crm_data === undefined) {
-                                        debugger;
+                                if (flat.name === 'APT_8-11_Int_3Ra') {
+                                }
+        
+                            } else if (floor_index < 16) {
+                                let flats_names = [
+                                    'APT_12-20_Int_4Rw',
+                                    'APT_12-20_Int_4M',
+                                    'APT_12-20_Int_4Re',
+                                    'APT_12-20_Int_3Ra_001',
+                                    'APT_12-20_Int_3Da',
+                                    'APT_12-20_Int_3Da_001',
+                                    'APT_12-20_Int_3Ra',
+                                    'APT_12-20_Int_3Re',
+                                    'APT_12-20_Int_3Ds',
+                                    'APT_12-20_Int_3Ds_001',
+                                    'APT_12-20_Int_3Rw',
+                                ];
+                                let floor_mod = floor_index - 7;
+                                let start_prop_num = 4084;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 11 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        user_data.crm_data = current_crm_data;
+                                    }
+                                });
+                                if (flat.name === 'APT_12-20_Int_3Ds') {
+        
+                                }
+                                if (flat.name === 'APT_12-20_Int_3Ds_001') {
+        
+                                }
+        
+                                if (flat.name === 'APT_12-20_Int_3Ra_001') {
+        
+                                }
+        
+                                if (flat.name === 'APT_12-20_Int_3Ra') {
+        
+                                }
+        
+                                if (flat.name === 'APT_12-20_Int_3Re') {
+        
+                                }
+        
+                            } else if (floor_index < 36) {
+                                let flats_names = [
+                                    'APT_21-43_Int_5R',
+                                    'APT_21-43_Int_4P_001',
+                                    'APT_21-43_Int_5P',
+                                    'APT_21-43_Int_3M_001',
+                                    'APT_21-43_Int_3M',
+                                    'APT_21-43_Int_5P_001',
+                                    'APT_21-43_Int_4P',
+                                    'APT_21-43_Int_5R_001',
+                                ];
+                                let floor_mod = floor_index - 16;
+                                let start_prop_num = 4183;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 8 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        user_data.crm_data = current_crm_data;
+                                    }
+                                });
+                                if (flat.name === 'APT_21-43_Int_5R') {
+                                    if (floor_index < 25) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_22n/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else if (floor_index < 32) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_32n/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_42n/index.htm';
+                                        flat.userData.url_360_type = 'custom';
                                     }
                                 }
-                            });
-                        } else if (floor_index < 44) {
-                            let flats_names = [
-                                'APT_21_43_Int_6P_4384',
-                                'APT_21_43_Int_6P_4385',
-                            ];
-                            let floor_mod = floor_index - 43;
-                            let start_prop_num = 4383;
-                            flats_names.forEach(function (flat_name, i) {
-                                let flat_number_in_floor = i + 1;
-                                if (flat.name === flat_name) {
-                                    let current_prop_num = start_prop_num + floor_mod * 2 + flat_number_in_floor;
-                                    let current_crm_data = sorted_json[current_prop_num];
-                                    user_data.crm_data = current_crm_data;
-                                    if (current_crm_data === undefined) {
-                                        debugger;
+                                if (flat.name === 'APT_21-43_Int_5R_001') {
+                                    if (floor_index < 25) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_22/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else if (floor_index < 32) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_32/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5w_42/index.htm';
+                                        flat.userData.url_360_type = 'custom';
                                     }
                                 }
-                            });
-                        }
-                        flat.userData.current_color = 'color';
-
-                        let model_name = user_data.crm_data.modelName;
-
-                        if (int_360_array[model_name] !== undefined) {
-                            user_data.int_360 = int_360_array_imgs[model_name];
-                        }
-
-                        let current_apt_rooms = user_data.crm_data.roomNum;
-                        if (current_apt_rooms < min_rooms) {
-                            min_rooms = current_apt_rooms;
-                        }
-
-                        if (current_apt_rooms > max_rooms) {
-                            max_rooms = current_apt_rooms;
-                        }
-
-                        {
+                                if (flat.name === 'APT_21-43_Int_5P') {
+                                    if (floor_index < 25) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_22/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else if (floor_index < 32) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_32/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_42/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    }
+                                }
+                                if (flat.name === 'APT_21-43_Int_5P_001') {
+                                    if (floor_index < 25) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_22ws/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else if (floor_index < 32) {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_32ws/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    } else {
+                                        flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5p_42ws/index.htm';
+                                        flat.userData.url_360_type = 'custom';
+                                    }
+                                }
+                            } else if (floor_index < 42) {
+                                let flats_names = [
+                                    'APT_21_43_Int_6wn_4344',
+                                    'APT_21_43_Int_5Pwn_4345',
+                                    'APT_21_43_Int_3M_4346',
+                                    'APT_21_43_Int_3M_4347',
+                                    'APT_21_43_Int_5MPws_4348',
+                                    'APT_21_43_Int_6ws_4349',
+                                ];
+                                let floor_mod = floor_index - 36;
+                                let start_prop_num = 4343;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 6 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        if (current_crm_data == undefined) {
+                                            debugger;
+                                        }
+                                        user_data.crm_data = current_crm_data;
+                                    }
+                                });
+                            } else if (floor_index < 43) {
+                                let flats_names = [
+                                    'APT_21_43_Int_6wn_4380',
+                                    'APT_21_43_Int_6E_4381',
+                                    'APT_21_43_Int_6E_4382',
+                                    'APT_21_43_Int_6ws_4383',
+                                ];
+                                let floor_mod = floor_index - 42;
+                                let start_prop_num = 4379;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 4 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        user_data.crm_data = current_crm_data;
+                                        if (current_crm_data === undefined) {
+                                            debugger;
+                                        }
+                                    }
+                                });
+                            } else if (floor_index < 44) {
+                                let flats_names = [
+                                    'APT_21_43_Int_6P_4384',
+                                    'APT_21_43_Int_6P_4385',
+                                ];
+                                let floor_mod = floor_index - 43;
+                                let start_prop_num = 4383;
+                                flats_names.forEach(function (flat_name, i) {
+                                    let flat_number_in_floor = i + 1;
+                                    if (flat.name === flat_name) {
+                                        let current_prop_num = start_prop_num + floor_mod * 2 + flat_number_in_floor;
+                                        let current_crm_data = sorted_json[current_prop_num];
+                                        user_data.crm_data = current_crm_data;
+                                        if (current_crm_data === undefined) {
+                                            debugger;
+                                        }
+                                    }
+                                });
+                            }
+                            flat.userData.current_color = 'color';
+        
+                            let model_name = user_data.crm_data.modelName;
+        
+                            if (int_360_array[model_name] !== undefined) {
+                                user_data.int_360 = int_360_array_imgs[model_name];
+                            }
+        
+                            let current_apt_rooms = user_data.crm_data.roomNum;
+                            if (current_apt_rooms < min_rooms) {
+                                min_rooms = current_apt_rooms;
+                            }
+        
+                            if (current_apt_rooms > max_rooms) {
+                                max_rooms = current_apt_rooms;
+                            }
+        
+                            {
+                                let flat_model_name = user_data.crm_data.modelName;
+                                if (modelNames[flat_model_name] === undefined) {
+                                    modelNames[flat_model_name] = {
+                                        name: flat_model_name,
+                                        prop_num: user_data.crm_data.propNum,
+                                        floor_num: user_data.crm_data.floorNum,
+                                    }
+                                }
+                            }
+        
+                            let flat_2d_status = 'Available';
+                            if (user_data.crm_data.status === "Available") {
+                                random_number = 1;
+                            } else {
+                                random_number = 0;
+                                flat_2d_status = 'Unavailable';
+                            }
                             let flat_model_name = user_data.crm_data.modelName;
-                            if (modelNames[flat_model_name] === undefined) {
-                                modelNames[flat_model_name] = {
-                                    name: flat_model_name,
-                                    prop_num: user_data.crm_data.propNum,
-                                    floor_num: user_data.crm_data.floorNum,
-                                }
-                            }
-                        }
-
-                        let flat_2d_status = 'Available';
-                        if (user_data.crm_data.status === "Available") {
-                            random_number = 1;
-                        } else {
-                            random_number = 0;
-                            flat_2d_status = 'Unavailable';
-                        }
-                        let flat_model_name = user_data.crm_data.modelName;
-
-                        user_data.svg_plan = svg_plans_url + flat_model_name + '.jpg';
-                        user_data.status_index = random_number;
-                        user_data.status_color = flat_statuses[random_number]['color'];
-                        flat.material.color.setHex('0x' + user_data.status_color);
-
-                        user_data.status_name = flat_statuses[random_number]['name'];
-
-                        // facings array set
-                        let facing_string = user_data.crm_data.facing;
-                        let facing_string_array = facing_string.split(',');
-                        facing_string_array.forEach(function(item){
-                            let new_facing = true;
-                            facings_array.forEach(function(old_facing){
-                                if (old_facing === item) {
-                                    new_facing = false;
+        
+                            user_data.svg_plan = svg_plans_url + flat_model_name + '.jpg';
+                            user_data.status_index = random_number;
+                            user_data.status_color = flat_statuses[random_number]['color'];
+                            flat.material.color.setHex('0x' + user_data.status_color);
+        
+                            user_data.status_name = flat_statuses[random_number]['name'];
+        
+                            // facings array set
+                            let facing_string = user_data.crm_data.facing;
+                            let facing_string_array = facing_string.split(',');
+                            facing_string_array.forEach(function (item) {
+                                let new_facing = true;
+                                facings_array.forEach(function (old_facing) {
+                                    if (old_facing === item) {
+                                        new_facing = false;
+                                    }
+                                });
+                                if (new_facing === true) {
+                                    facings_array.push(item)
                                 }
                             });
-                            if (new_facing === true ) {
-                                facings_array.push(item)
+        
+                            // Flat types array set
+                            let flat_type_string = user_data.crm_data.propType;
+                            let new_flat_type_string = true;
+                            flats_types.forEach(function (flats_types_item) {
+                                if (flat_type_string === flats_types_item) {
+                                    new_flat_type_string = false;
+                                }
+                            });
+                            if (new_flat_type_string === true) {
+                                flats_types.push(flat_type_string);
                             }
-                        });
-
-                        // Flat types array set
-                        let flat_type_string = user_data.crm_data.propType;
-                        let new_flat_type_string = true;
-                        flats_types.forEach(function(flats_types_item){
-                            if (flat_type_string === flats_types_item) {
-                                new_flat_type_string = false;
+        
+                            user_data.rent_price = user_data.crm_data.salePrice;
+        
+                            var geometry = new THREE.BoxBufferGeometry(0.0001, 0.0001, 0.0001);
+                            var material = new THREE.MeshPhongMaterial({
+                                color: 'red',
+                                opacity: 1,
+                                transparent: true,
+                            });
+                            var cubeA = new THREE.Mesh(geometry, material);
+                            cubeA.position.set(user_data.center_point.x, user_data.center_point.y, user_data.center_point.z);
+                            cubeA.name = 'center';
+        
+                            flat.add(cubeA);
+        
+                            set_mesh_base_color(flat);
+        
+                            user_data.floor = floor_index;
+                            user_data.flat_i = flat_number;
+                            user_data.flat_counter = flat_count;
+                            if (flat.name !== 'floor_center') {
+                                all_appartments.push(flat);
                             }
-                        });
-                        if ( new_flat_type_string === true) {
-                            flats_types.push(flat_type_string);
+                            flat_count++;
+                            flat_number++;
+        
+                            json_i++;
+        
+                            if (json_i > 104) {
+                                json_i = 0;
+                            }
+                        } else {
+        
+                            objects_to_intersection.push(flat);
+                            flooring_obj[floor_index] = flat;
                         }
-
-                        user_data.rent_price = user_data.crm_data.salePrice;
-
-                        var geometry = new THREE.BoxBufferGeometry(0.0001, 0.0001, 0.0001);
-                        var material = new THREE.MeshPhongMaterial({
-                            color: 'red',
-                            opacity: 1,
-                            transparent: true,
-                        });
-                        var cubeA = new THREE.Mesh(geometry, material);
-                        cubeA.position.set(user_data.center_point.x, user_data.center_point.y, user_data.center_point.z);
-                        cubeA.name = 'center';
-
-                        flat.add(cubeA);
-
-                        set_mesh_base_color(flat);
-
-                        user_data.floor = floor_index;
-                        user_data.flat_i = flat_number;
-                        user_data.flat_counter = flat_count;
-                        if (flat.name !== 'floor_center') {
-                            all_appartments.push(flat);
-                        }
-                        flat_count++;
-                        flat_number++;
-
-                        json_i++;
-
-                        if (json_i > 104) {
-                            json_i = 0;
-                        }
-                    } else {
-
-                        objects_to_intersection.push(flat);
-                        flooring_obj[floor_index] = flat;
-                    }
-                });
-                floor_obj_length++;
-            }
-        });
+                    });
+                    floor_obj_length++;
+                }
+            });
+        }
 
         function set_mesh_base_color(mesh) {
             if (mesh.material.length === undefined) {
@@ -1412,6 +1419,12 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                 }
             }
         }
+
+        const crmInterval = setInterval(() => { 
+            if (crmStatusLoadBool) {
+                clearInterval(crmInterval);
+                add_building(elements_array_big, building);
+                buildHighlights();
 
         // apply_textures (window.ground, material_flat_arr);
         window.floor_obj.length = floor_obj_length;
@@ -1441,18 +1454,23 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
             $('.language.he').trigger('click');
         }, 1000);
-    },function (xhr) {
-        let loaded = xhr.loaded;
-        let total = xhr.total;
-        let progress_number = Math.round((loaded / total) * 100);
-        if ( progress_number < 101) {
-            if (progress_number > 0 ) {
-                let progress_number_text = progress_number + '%';
-                progress_bar_update(2, progress_number, 'Load model ' + progress_number + '%')
-                $('.preloader .percents').html('Load model ' + progress_number + '%');
-            }
-        }
-    }, onErrorCallback);
+    }
+        }, 100)
+    }, onProgressCallback, onErrorCallback);
+
+
+// }, function (xhr) {
+//     let loaded = xhr.loaded;
+//     let total = xhr.total;
+//     let progress_number = Math.round((loaded / total) * 100);
+//     if ( progress_number < 101) {
+//         if (progress_number > 0 ) {
+//             let progress_number_text = progress_number + '%';
+//             progress_bar_update(2, progress_number, 'Load model ' + progress_number + '%')
+//             $('.preloader .percents').html('Load model ' + progress_number + '%');
+//         }
+//     }
+// }, onErrorCallback);
 }
 function getCenterPoint(mesh) {
     var middle = new THREE.Vector3();

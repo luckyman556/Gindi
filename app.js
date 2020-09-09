@@ -823,9 +823,11 @@ function showContent(response) {
     window.actual_JSON = response;
     sorted_json = json_obj;
 
-    init();
-    animate();
-    initFullscreenAction();
+    crmStatusLoadBool = true;
+
+    // init();
+    // animate();
+    // initFullscreenAction();
 }
 
 document.addEventListener('contextmenu',function(e){
@@ -881,3 +883,7 @@ function getCenterPoint(mesh) {
 function get_triangle_angle (a,b,c) {
 
 }
+
+init();
+animate();
+initFullscreenAction();
