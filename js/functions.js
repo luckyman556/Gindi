@@ -610,10 +610,10 @@ function drag_focus_target_x () {
 function change_camera_rotation_x () {
     if (raf_divergention_y != 0) {
         var move_target_y = far_current_click_camera_rotation_x - (raf_divergention_y * 0.002 * -1);
-        let min = 0;
+        let min = -0.2;
         let max = -1.25;
-        if (lock_mouse_rotation_x == true) {
-            min = -0.4;
+        if (lock_mouse_rotation_x) {
+            min = -0.5;
             max = -1.57;
         }
         if (move_target_y > min) {
@@ -1045,8 +1045,8 @@ function set_page_descriptions () {
         }
     } else {
         $('.floor-form').removeClass('floor-plan-mode');
-        $('.floor-form .page-description').html('3D View');
-        $('.floor-form .text-box span').html('HaAlon 20');
+        //$('.floor-form .page-description').html('3D View');
+        //$('.floor-form .text-box span').html('HaAlon 20');
         var floor_number = current_floor + 1;
         if  (floor_number < 10) {
             floor_number =   '0' + String(floor_number);
@@ -3051,4 +3051,28 @@ function rotation_to_flat () {
             }
         }, 100);
     }
+}
+
+
+function target_zoom_limit (target_zoom_fn) {
+
+    let modifier = 1;
+    if ($(window).width() < 1024) {
+        modifier = 1.6;
+    }
+    let in_zoom_limit_m = min_zoom_full * modifier;
+    let in_zoom_limit_b = max_zoom_full * modifier;
+
+    if (lock_mouse_rotation_x == true) {
+        in_zoom_limit_m = min_zoom_destroy * modifier;
+        in_zoom_limit_b = max_zoom_destroy * modifier;
+    }
+    if (target_zoom_fn < in_zoom_limit_m) {
+        target_zoom_fn = in_zoom_limit_m;
+    }
+    if (target_zoom_fn > in_zoom_limit_b) {
+        target_zoom_fn = in_zoom_limit_b;
+    }
+
+    return target_zoom_fn;
 }

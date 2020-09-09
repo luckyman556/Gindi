@@ -4,27 +4,20 @@ import Stats from './node_modules/three/examples/jsm/libs/stats.module.js';
 import { DragControls } from './node_modules/three/examples/jsm/controls/DragControls.js';
 import { TransformControls } from './node_modules/three/examples/jsm/controls/TransformControls.js';
 
-import {PerspectiveCamera_init} from './modules/camera.js?ver=202008311746';
-import {controls_init} from './modules/controls/controls.js?ver=202008311746';
-import {add_models} from './modules/add-models.js?ver=202008311746';
-import {animate_cylinder_floor_numbers} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008311746';
-import {floor_numbers_visibility_by_zoom} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202008311746';
-import {add_mouse_n_touches} from './modules/controls/mouse-n-touches.js?ver=202008311746';
-import {add_filter} from "./modules/filter/filter.js";
+import {PerspectiveCamera_init, camera_keys} from './modules/camera.js?ver=202008171634';
+import {controls_init} from './modules/controls.js?ver=202008171634';
+import {add_models} from './modules/add-models.js?ver=202008171634';
 import { GUI } from './node_modules/three/examples/jsm/libs/dat.gui.module.js';
 import { CSS2DRenderer, CSS2DObject } from './node_modules/three/examples/jsm/renderers/CSS2DRenderer.js';
 import { CSS3DRenderer, CSS3DObject } from './node_modules/three/examples/jsm/renderers/CSS3DRenderer.js';
-import {dictionary_array} from "./modules/language/dictionary.js";
+
 import { EffectComposer } from './node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './node_modules/three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
 
-// street names and position angle
 
-import {street_names_n_positions_angle} from './modules/street-names/names-angle.js';
-dictionary = dictionary_array;
 global_three = THREE;
 var drag_controls;
 var container, stats;
@@ -48,7 +41,6 @@ window.vector_point = new THREE.Vector3();
 window.vector_point_2 = new THREE.Vector2();
 vector_to_world_position = new THREE.Vector3();
 box = new THREE.Box3();
-
 function init() {
     container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -59,27 +51,22 @@ function init() {
         canvas,
         antialias: true,
         outputEncoding: THREE.LinearEncoding,
-        // sortObjects: true,
+        sortObjects: true,
         // powerPreference: 'high-performance',
     };
-/*    if (detect_mobile()) {
+    if (detect_mobile()) {
        renderer_params.antialias = false;
-    }*/
+    }
     renderer = new THREE.WebGLRenderer(renderer_params);
    // renderer.gammaOutput = true;
     renderer.autoClear = false;
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( width, height );
     scene = new THREE.Scene();
-
-    const colorFog = 0xFFFFFF;
-    const nearFog = 650;
-    const farFog = 1500;
-    scene.fog = new THREE.Fog(colorFog, nearFog, farFog);
-
     perspectiveCamera = PerspectiveCamera_init(perspectiveCamera);
+    camera_keys(perspectiveCamera);
 
-    controls = controls_init(perspectiveCamera ,canvas, controls);
+    controls = controls_init(perspectiveCamera , canvas, controls);
     // model
     var manager = new THREE.LoadingManager();
     manager.onProgress = function ( item, loaded, total ) {
@@ -93,6 +80,17 @@ function init() {
     var material_2 = new THREE.MeshPhongMaterial({
         color: 'green',
     });
+    if (building_name  == 'ooh') {
+        var  light = new THREE.AmbientLight( 0x404040 ); // soft white light
+        light.intensity = 1.5;
+        scene.add( light );
+/*        var directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.x = 20;
+        directionalLight.position.z = 0;
+        directionalLight.position.y = 200;
+        window.directionalLight = directionalLight;
+        scene.add( directionalLight );*/
+    }
 
     var cubeA = new THREE.Mesh( geometry, material );
     cubeA.position.set( 0, 0, 0 );
@@ -101,10 +99,9 @@ function init() {
     var cubeB = new THREE.Mesh( geometry_2, material_2 );
     cubeB.position.set( 0, 0, 0 );
     cubeB.name = 'outer';
-    if (transform_controls) {
+    if (transform_controls == true) {
        control = new TransformControls( perspectiveCamera, renderer.domElement );
         window.addEventListener( 'keydown', function ( event ) {
-
             switch ( event.keyCode ) {
                 case 81: // Q
                     control.setSpace( control.space === "local" ? "world" : "local" );
@@ -127,30 +124,33 @@ function init() {
             }
             if (event.ctrlKey) {
 
+                console.log(event);
                 if (event.shiftKey) {
                     switch ( event.keyCode ) {
                         case 70: // F
                             document.querySelector('.three_js').appendChild( stats.dom );
                             break;
                         case 86: // V
+
                     }
                 }
+
             }
             control.addEventListener('dragging-changed', function (event) {
-            //    console.log(control.object.position);
+                console.log(control.object.position);
             });
-        });
+        } );
 
         scene.add( control );
 
         control.addEventListener( 'mouseDown', function ( event ) {
             window.disable_drag_controls = true;
-        });
+        } );
         control.addEventListener( 'mouseUp', function ( event ) {
             window.disable_drag_controls = false;
-        });
-    }
+        } );
 
+    }
     window.camera_target = new THREE.Group();
     window.camera_target.add( cubeA );
     window.camera_target.add( cubeB );
@@ -165,9 +165,87 @@ function init() {
 
     window.camera_target.children[0].add(perspectiveCamera);
 
+
     window.camera_target.children[0].rotation.x = -0.2;
 
-    add_mouse_n_touches();
+   // postprocessing
+   // composer = new EffectComposer( renderer );
+
+
+
+
+
+
+
+
+
+
+
+    document.querySelector('.three_js').addEventListener( 'mousemove', onTouchMove );
+    document.querySelector('.three_js').addEventListener( 'touchmove', onTouchMove );
+    document.querySelector('.three_js').addEventListener( 'touchstart', onTouchMove );
+    $('.non-canvas').click(function(){
+        this_is_flat_click = false;
+    });
+    document.querySelector('.three_js').addEventListener( 'mousedown', onDocumentMouseDown, false );
+    document.querySelector('.three_js').addEventListener( 'touchstart', onDocumentMouseDown, false );
+    document.addEventListener('dblclick', function (e) {
+        if (this_is_flat_click == true) {
+            let popup_info = $('.popup-info');
+            popup_info.removeClass('show');
+            popup_info.addClass('hide');
+            $('.point-1').hide();
+            $('.point-2').hide();
+            $('.points-line').addClass('hide');
+            toggler_2d_click ($('.click-point'));
+           // $('.flat-plan .popups-togglers-box div.toggler-2d').click();
+            setTimeout(function(){
+                var popup_info = $('.popup-info');
+                popup_info.addClass('show');
+                popup_info.removeClass('hide');
+                $('.point-1').fadeIn();
+                $('.point-2').fadeIn();
+                $('.points-line').removeClass('hide');
+            }, 500);
+        }
+        if (this_is_flat_click == 'roof_n_looby') {
+            let popup_info = $('.popup-info');
+            popup_info.removeClass('show');
+            popup_info.addClass('hide');
+            $('.point-1').hide();
+            $('.point-2').hide();
+            $('.points-line').addClass('hide');
+            toggler_non_flat_360_click ($('.click-point'));
+            // $('.flat-plan .popups-togglers-box div.toggler-2d').click();
+            setTimeout(function(){
+                var popup_info = $('.popup-info');
+                popup_info.addClass('show');
+                popup_info.removeClass('hide');
+                $('.point-1').fadeIn();
+                $('.point-2').fadeIn();
+                $('.points-line').removeClass('hide');
+            }, 500);
+        }
+    });
+    function onTouchMove( event ) {
+        intersection_on = true;
+        var x, y;
+        if ( event.changedTouches ) {
+            x = event.changedTouches[0].pageX;
+            y = event.changedTouches[0].pageY;
+            touch_event_runing = true;
+        } else {
+            x = event.clientX;
+            y = event.clientY;
+        }
+        current_mouse_position.x = x;
+        current_mouse_position.y = y;
+        mouse.x = ( (x - $('#c').offset().left) / document.querySelector('#c').offsetWidth ) * 2 - 1;
+        mouse.y = - ( (y - $('#c')[0].getBoundingClientRect().top) / document.querySelector('#c').offsetHeight ) * 2 + 1;
+    }
+
+
+
 
     drag_controls = new DragControls( window.drag_objects, perspectiveCamera, canvas );
     drag_controls.addEventListener( 'dragstart', function ( event ) {
@@ -178,15 +256,31 @@ function init() {
     drag_controls.addEventListener( 'dragend', function ( event ) {
         window.disable_drag_controls = false;
         last_dragged_object = event.object;
-        // console.log(last_dragged_object);
     } );
 
-    set_default_camera_position ();
 
-    var  light = new THREE.AmbientLight( 0x404040 ); // soft white light
-    light.intensity = 1.5;
-    scene.add( light );
 
+
+    perspectiveCamera.position.x = 0;
+    perspectiveCamera.position.z = perspectiveCamera_position_z;
+    window.camera_target.rotation.y = 2.124;
+    targetRotationX = 2.124;
+    window.camera_target.position.y = 4;
+    if (building_name == 'ooh') {
+        perspectiveCamera.position.x = 0;
+        perspectiveCamera.position.z = perspectiveCamera_position_z;
+        window.camera_target.rotation.y = 3.7524578917878086;
+        targetRotationX = 3.7524578917878086;
+        window.camera_target.position.y = hide_lock;
+        window.camera_target.children[0].rotation.x = -0.1;
+
+    } else {
+        perspectiveCamera.position.x = 0;
+        perspectiveCamera.position.z = perspectiveCamera_position_z;
+        window.camera_target.rotation.y = 2.124;
+        targetRotationX = 2.124;
+        window.camera_target.position.y = 4;
+    }
     let bgMesh;
     {
         const loader = new THREE.TextureLoader();
@@ -206,22 +300,8 @@ function init() {
             side: THREE.BackSide,
         });
         material.uniforms.tEquirect.value = texture_day;
-        const plane = new THREE.SphereBufferGeometry(550, 550, 550);
-        // const plane2 = new THREE.SphereGeometry(700, 32, 32, 0, Math.PI, 0, Math.PI);
-
-        // var geometryGround = new THREE.CircleBufferGeometry( 710, 32 );
-        // var materialGround = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        // });
-        // var circleGround = new THREE.Mesh( geometryGround, materialGround );
-
+        const plane = new THREE.SphereBufferGeometry(400, 400, 400);
         bgMesh = new THREE.Mesh(plane, material);
-        // bgMesh = new THREE.Mesh(plane2, material);
-        // bgMesh.rotation.x = Math.PI * -0.5;
-        // circleGround.rotation.x = Math.PI * -0.5;
-        // window.bgMesh = bgMesh;
-        // window.circleGround = circleGround;
-        // scene.add(circleGround);
         scene.add(bgMesh);
     }
     // control.attach(window.ground);
@@ -243,14 +323,10 @@ function init() {
     {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        if (urlParams !== undefined) {
+        if (urlParams != undefined) {
             let dev = urlParams.get('fps');
-            if (dev !== null) {
+            if (dev != null) {
                 document.querySelector('.three_js').appendChild( stats.dom );
-            }
-            let disable_auto_rotate = urlParams.get('disable_auto_rotate');
-            if (disable_auto_rotate != null) {
-                lock_autorotate = true;
             }
             let show_res = urlParams.get('show_res');
             if (show_res != null) {
@@ -303,6 +379,8 @@ function init() {
         }
     }
 
+
+
     labelRenderer = new CSS2DRenderer();
     labelRenderer.setSize( window.innerWidth, window.innerHeight );
     labelRenderer.domElement.style.position = 'absolute';
@@ -350,11 +428,39 @@ function init() {
 
     flat_labels_group[12] = floor_center_text_obj;
 
-    update_renderer_size ();
+/*  composer = new EffectComposer( renderer );
+    var renderPass = new RenderPass( scene, perspectiveCamera );
+    composer.addPass( renderPass );
+    outlinePass = new OutlinePass( new THREE.Vector2( renderer.domElement.offsetWidth, renderer.domElement.offsetHeight ), scene, perspectiveCamera );
+    outlinePass.selectedObjects = selectedObjects;
 
-    if (get_url_param('dev')) {
-        add_filter($('.main-wrap'), 'img/filter-module/');
+    outlinePass_2 = new OutlinePass( new THREE.Vector2( renderer.domElement.offsetWidth, renderer.domElement.offsetHeight ), scene, perspectiveCamera );
+    outlinePass_2.selectedObjects = selectedObjects_2;
+
+    composer.addPass( outlinePass );
+    composer.addPass( outlinePass_2 );
+
+    effectFXAA = new ShaderPass( FXAAShader );
+    effectFXAA.uniforms[ 'resolution' ].value.set( 1 / renderer.domElement.offsetWidth, 1 / renderer.domElement.offsetHeight );
+    composer.addPass( effectFXAA );
+    function addSelectedObject( object ) {
+        selectedObjects = [];
+        selectedObjects.push( object );
+    }*/
+
+    {
+/*        var geometry = new THREE.BoxGeometry( 40, 100, 40 );
+        var material = new THREE.MeshBasicMaterial( {color: 0x00ff00, transparent: true, opacity: 0.5} );
+        var cube = new THREE.Mesh( geometry, material );
+        cube.position.set(40,50,40);
+        scene.add(cube);
+        window.test_cube = cube;*/
+
     }
+
+
+
+    update_renderer_size ();
 }
 function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -370,293 +476,237 @@ function update_renderer_size () {
     perspectiveCamera.updateProjectionMatrix();
     renderer.setSize(width, height);
     labelRenderer.setSize(width, height);
+   // composer.setSize( width, height );
+
+    // effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
 }
+let animate_count = 0;
 let progress_bar_update_bool = true;
-window.mixer_first_time = true;
-
 function animate() {
+
     TWEEN.update();
-    if ($('.popup.open').length === 0 && window.render_pause != true) {
-        if (resizeRendererToDisplaySize(renderer)) {
-            update_renderer_size();
+    if ($('.popup.open').length == 0) {
+    // console.log('now rendering')
+    animate_count++;
+    // scene.updateMatrixWorld();
+    // console.log(get_angle_to_camera());
+    if (resizeRendererToDisplaySize(renderer)) {
+        update_renderer_size ();
+    }
+    /*    if (last_clicked_flat != undefined) {
+     control.attach(last_clicked_flat);
+     }*/
+    let target_zoom_diff = target_zoom - perspectiveCamera.position.z;
+    if (target_zoom != NaN) {
+        if (Math.sqrt(target_zoom_diff * target_zoom_diff) > 0.3) {
+            perspectiveCamera.position.z += ( target_zoom - perspectiveCamera.position.z ) * 0.1;
+        } else {
+            perspectiveCamera.position.z = target_zoom;
         }
-        let target_zoom_diff = target_zoom - perspectiveCamera.position.z;
-        if (!isNaN(target_zoom)) {
-            if (Math.sqrt(target_zoom_diff * target_zoom_diff) > 0.3) {
-                perspectiveCamera.position.z += (target_zoom - perspectiveCamera.position.z) * 0.1;
-            } else {
-                perspectiveCamera.position.z = target_zoom;
-            }
-        }
+    }
 
 
-        if (!rotation_animated) {
+    if (rotation_animated == false) {
             let rotation_diff = targetRotationX - window.camera_target.rotation.y;
             if (Math.sqrt(rotation_diff * rotation_diff) > 0.001) {
-                window.camera_target.rotation.y += (targetRotationX - window.camera_target.rotation.y) * 0.1;
-                if (!scroll_controls_dragger) {
+                window.camera_target.rotation.y += ( targetRotationX - window.camera_target.rotation.y ) * 0.1;
+                if (scroll_controls_dragger == false) {
                     var object = $('.rotation-controller');
-                    var range_width = object.width();
+                    var range_width =  object.width();
                     var degree = rotation_in_degree(window.camera_target.rotation.y);
                     var position = (degree / 360) * range_width;
                     var pointer = object.find('.circle');
                     pointer.css('right', position);
-                    $('.compass').css('transform', 'rotateZ(' + degree + 'deg)');
                 }
                 update_line_position();
 
-            } else {
-                window.camera_target.rotation.y = targetRotationX;
-                if (!scroll_controls_dragger) {
-                    var object = $('.rotation-controller');
-                    var range_width = object.width();
-                    var degree = rotation_in_degree(window.camera_target.rotation.y);
-                    var position = (degree / 360) * range_width;
-                    var pointer = object.find('.circle');
-                    pointer.css('right', position);
-                    $('.compass').css('transform', 'rotateZ(' + degree + 'deg)');
-                }
-                update_line_position();
+            }  else {
+                    window.camera_target.rotation.y = targetRotationX;
+                    if (scroll_controls_dragger == false) {
+                        var object = $('.rotation-controller');
+                        var range_width =  object.width();
+                        var degree = rotation_in_degree(window.camera_target.rotation.y);
+                        var position = (degree / 360) * range_width;
+                        var pointer = object.find('.circle');
+                        pointer.css('right', position);
+                    }
+                    update_line_position();
+
             }
+    }
+
+
+    if (lock_mouse_rotation_x == true) {
+        $('.last_click_point .pulse').hide();
+    } else {
+        $('.last_click_point .pulse').show();
+    }
+
+
+    if (update_line_position_enabled == true) {
+        if (click_flat_intersection_point != null) {
+            update_line_position ();
         }
+    }
+    flat_labels_face_to_camera ();
+    raycaster.setFromCamera( mouse, perspectiveCamera );
 
-        if (lock_mouse_rotation_x) {
-            $('.last_click_point .pulse').hide();
-        } else {
-            $('.last_click_point .pulse').show();
-        }
+    renderer.render(scene,perspectiveCamera);
+    // composer.render();
+    labelRenderer.render( scene, perspectiveCamera );
+    if (intersection_on == true) {
+        checkIntersection();
+    }
 
-
-        if (update_line_position_enabled) {
-            if (click_flat_intersection_point != null) {
-                update_line_position();
-            }
-        }
-        raycaster.setFromCamera(mouse, perspectiveCamera);
-
-        renderer.render(scene, perspectiveCamera);
-        labelRenderer.render(scene, perspectiveCamera);
-        if (intersection_on) {
-            checkIntersection();
-        }
-
-        stats.update();
-        if (progress_bar_update_bool) {
-            if (model_loaded) {
-                window.floor_obj.forEach(function (floor) {
-                    floor.forEach(function (flat) {
-                        if (!flat.userData.world_position) {
-                            flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
-                        }
-                    });
+    stats.update();
+    if (progress_bar_update_bool == true) {
+        if (model_loaded == true ) {
+            window.floor_obj.forEach(function(floor){
+                floor.forEach(function(flat){
+                    if (flat.userData.world_position == undefined) {
+                        flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
+                    }
                 });
-
-                let textures_percent = loaded_texture_counter / 32 * 100;
-                progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
-                if (loaded_texture_counter === 32) {
-                    $('.to-page').addClass('active');
-                    progress_bar_update(3, 100, 'Load complete');
-                    $('.preloader').addClass('completed');
-                    $('.preloader .to-page').trigger('click');
-                    progress_bar_update_bool = false;
-                    flat_number_bubble('hide');
-                    {
-                        const queryString = window.location.search;
-                        const urlParams = new URLSearchParams(queryString);
-                        if (urlParams) {
-                            let flat_card = urlParams.get('flat_card');
-                            if (flat_card != null) {
-                                let target_flat = null;
-                                all_appartments.forEach(function (flat) {
-                                    let prop_num = flat.userData.crm_data.propNum;
-                                    if (prop_num == flat_card) {
-                                        target_flat = flat;
-                                    }
-                                });
-                                if (target_flat != null) {
-                                    flat_click(target_flat);
-                                    last_clicked_flat = target_flat;
-                                    setTimeout(function () {
-                                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
-                                    }, 500);
+            });
+/*            console.log('loaded_texture_counter: ' + loaded_texture_counter);
+            console.log('textures_counter: ' + textures_counter);*/
+            let textures_percent = loaded_texture_counter / textures_counter * 100;
+            // console.log('material #' + loaded_texture_counter + ' loaded textures percent ' + textures_percent);
+            progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
+            // console.log(loaded_texture_counter);
+            if (loaded_texture_counter == 26) {
+                $('.to-page').addClass('active');
+                progress_bar_update(3, 100, 'Load complete');
+                $('.preloader').addClass('completed');
+                $('.preloader .to-page').trigger('click');
+                progress_bar_update_bool = false;
+                flat_number_bubble('hide');
+                {
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+                    if (urlParams != undefined) {
+                        let flat_card = urlParams.get('flat_card');
+                        if (flat_card != null) {
+                            let target_flat = null;
+                            all_appartments.forEach(function(flat){
+                                let prop_num = flat.userData.crm_data.propNum;
+                                if (prop_num == flat_card) {
+                                    target_flat = flat;
                                 }
-                            }
-                            let flat_popup = urlParams.get('flat_popup');
-                            if (flat_popup != null) {
-                                let target_flat = null;
-                                all_appartments.forEach(function (flat) {
-                                    let prop_num = flat.userData.crm_data.propNum;
-                                    if (prop_num == flat_popup) {
-                                        target_flat = flat;
-                                    }
-                                });
-                                if (target_flat != null) {
-                                    flat_click(target_flat);
-                                    setTimeout(function () {
-                                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click();
-                                    }, 500);
-                                }
+                            });
+                            if (target_flat != null) {
+                                flat_click(target_flat);
+                                last_clicked_flat = target_flat;
+                                setTimeout(function(){
+                                    $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
+                                }, 500);
                             }
                         }
-                        ;
-                    }
+                        let flat_popup = urlParams.get('flat_popup');
+                        if (flat_popup != null) {
+                            let target_flat = null;
+                            all_appartments.forEach(function(flat){
+                                let prop_num = flat.userData.crm_data.propNum;
+                                if (prop_num == flat_popup) {
+                                    target_flat = flat;
+                                }
+                            });
+                            if (target_flat != null) {
+                                flat_click(target_flat);
+                                setTimeout(function(){
+                                    $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click();
+                                }, 500);
+                            }
+                        }
+                    };
                 }
-                ;
+            };
+        }
+    };
+    if (new_floor_selector_obj != undefined) {
+        if (new_floor_selector_obj.target_top != undefined) {
+            let current_top = new_floor_selector_obj.current_top;
+            let target_top = new_floor_selector_obj.target_top;
+            let top_diff = target_top - current_top;
+            let smooth_number = floors_slider_top_mod;
+            let changed_value = top_diff * smooth_number;
+            if  (Math.sqrt(changed_value * changed_value) > 1) {
+                let local_target_top = current_top + changed_value;
+                new_floor_selector_obj.track.css('top', local_target_top);
+                new_floor_selector_obj.current_top = local_target_top;
+            } else {
+                new_floor_selector_obj.track.css('top', target_top);
+                new_floor_selector_obj.current_top = target_top;
+                if (new_floor_selector_obj.scrolled == true) {
+                    new_floor_selector_obj.scrolled = false;
+                    new_floor_selector_obj.set_building_changes(new_floor_selector_obj.temp_floor_index);
+                    new_floor_selector_obj.mouse_down_bool = false;
+                    new_floor_selector_obj.dragged = false;
+                    let target_floor_index = new_floor_selector_obj.btns.length - new_floor_selector_obj.current_track_index - 1;
+                    new_floor_selector_obj.target_top = new_floor_selector_obj.get_current_position(target_floor_index) * -1;
+                }
             }
         }
-        ;
-        if (new_floor_selector_obj != undefined) {
-            if (new_floor_selector_obj.target_top != undefined) {
-                let current_top = new_floor_selector_obj.current_top;
-                let target_top = new_floor_selector_obj.target_top;
-                let top_diff = target_top - current_top;
-                let smooth_number = floors_slider_top_mod;
-                let changed_value = top_diff * smooth_number;
-                if (Math.sqrt(changed_value * changed_value) > 1) {
-                    let local_target_top = current_top + changed_value;
-                    new_floor_selector_obj.track.css('top', local_target_top);
-                    new_floor_selector_obj.current_top = local_target_top;
-                } else {
-                    new_floor_selector_obj.track.css('top', target_top);
-                    new_floor_selector_obj.current_top = target_top;
-                    if (new_floor_selector_obj.scrolled == true) {
-                        new_floor_selector_obj.scrolled = false;
-                        new_floor_selector_obj.set_building_changes(new_floor_selector_obj.temp_floor_index);
-                        new_floor_selector_obj.mouse_down_bool = false;
-                        new_floor_selector_obj.dragged = false;
-                        let target_floor_index = new_floor_selector_obj.btns.length - new_floor_selector_obj.current_track_index - 1;
-                        new_floor_selector_obj.target_top = new_floor_selector_obj.get_current_position(target_floor_index) * -1;
-                    }
-                }
-            }
-        }
-        // if ($('body').hasClass('he') === true) {
-        //     window.sprite.visible = false;
-        //     window.sprite_2.visible = true;
-        // } else {
-        //     window.sprite.visible = true;
-        //     window.sprite_2.visible = false;
-        // }
+    }
+    if ($('body').hasClass('he') == true) {
+        window.sprite.visible = false;
+        window.sprite_2.visible = true;
+    } else {
+        window.sprite.visible = true;
+        window.sprite_2.visible = false;
+    }
 
-
+    }
     if (show_resolution == true) {
         $('.current-resolution .width .number').html($(window).width());
         $('.current-resolution .height .number').html($(window).height());
     }
-    object_to_opacity.forEach(function (item) {
-        let obj_a = perspectiveCamera.getWorldPosition(new THREE.Vector3());
-        if (item.userData.world_center == undefined) {
-            item.userData.world_center = getCenterPoint(item);
-        }
+    object_to_opacity.forEach(function(item){
+               let obj_a =  perspectiveCamera.getWorldPosition(new THREE.Vector3());
+                if (item.userData.world_center == undefined) {
+                    item.userData.world_center = getCenterPoint(item);
+                }
 
-        let obj_b = item.userData.world_center;
-        let angle_obj = get_angle_between(obj_a, obj_b)
+                let obj_b = item.userData.world_center;
+                let angle_obj = get_angle_between (obj_a, obj_b)
 
-        if (item.userData.base_opacity == undefined) {
-            item.userData.base_opacity = item.material.opacity;
-        }
-        let base_opacity = item.userData.base_opacity;
-        if (angle_obj.degs < 90) {
-            let opacity = (angle_obj.degs / 90) - 0.25;
-            if (opacity > 0.05) {
-                item.material.opacity = opacity;
-                item.visible = true;
-            } else {
-                // window.test_cube.material.opacity = opacity;
-                item.visible = false;
-
-            }
-
-        } else {
-            item.material.opacity = base_opacity;
-            item.visible = true;
-        }
-    });
-    // if (window.enviroment != undefined) {
-    //     if (window.enviroment.children[12] != undefined) {
-    //         if (window.enviroment.children[12].userData.base_y == undefined) {
-    //             window.enviroment.children[12].userData.base_y = window.enviroment.children[12].position.y;
-    //         }
-    //         window.enviroment.children[12].position.y = window.enviroment.children[12].userData.base_y - (window.camera_target.position.y - 5) * 2892 / 10;
-    //     }
-    // }
-    if (lock_autorotate != true) {
-        if (last_interaction + 20000 < Date.now()) {
-            model_autorotate = true;
-        }
-    } else {
-        model_autorotate = false;
-    }
-    if (model_autorotate == true) {
-        targetRotationX += 0.01;
-    }
-
-/*    if (window.water != undefined) {
-        window.water.material.uniforms[ 'time' ].value += 0.5 / 60.0;
-    }*/
-
-        street_names_n_positions_angle ();
-
-        if ( human_animation_array.length > 0) {
-            if (window.mixer_first_time) {
-                human_animation_array.forEach(function(mixer, i){
-                    mixer.time = 3 * Math.random();
-                });
-                window.mixer_first_time = false;
-            }
-            human_animation_array.forEach(function(mixer, i){
-                mixer.update(0.016);
-            });
-        }
-
-
-        {
-            if (last_clicked_flat) {
-                let sphere_group = scene.userData.flat_boxes_sphere;
-                if (lock_mouse_rotation_x) {
-                    scene.remove(sphere_group);
-                } else {
-                    if (last_clicked_flat.material.opacity > 0 && last_clicked_flat.userData.color_locked) {
-                        scene.add(sphere_group);
-                        let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
-                        let flat_position = last_clicked_flat.getWorldPosition(new global_three.Vector3())
-                        let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
-                        camera_world_position.y = flat_position.y + 1.5;
-
-                        let ray = new global_three.Raycaster(camera_world_position, flat_world_position.sub(camera_world_position).normalize());
-                        let intersects = ray.intersectObjects(all_appartments);
-                        if (intersects.length > 0) {
-                            if (intersects[0].object === last_clicked_flat) {
-                                let sphere_position =  intersects[0].point;
-                                sphere_group.position.set(sphere_position.x,flat_position.y + 1.5 , sphere_position.z);
-                                sphere_group.lookAt(camera_world_position);
-                            }
-                        }
+                if (item.userData.base_opacity == undefined) {
+                    item.userData.base_opacity = item.material.opacity;
+                }
+                let base_opacity = item.userData.base_opacity;
+                if (angle_obj.degs < 120) {
+                    let opacity =  (angle_obj.degs / 120 )  - 0.5;
+                    if (opacity > 0.05) {
+                        item.material.opacity = opacity;
+                        item.visible = true;
                     } else {
-                        scene.remove(sphere_group);
+                        // window.test_cube.material.opacity = opacity;
+                        item.visible = false;
+
                     }
 
+                } else {
+                    item.material.opacity = base_opacity;
+                    item.visible = true;
                 }
-            } else {
-                let sphere_group = scene.userData.flat_boxes_sphere;
-                scene.remove(sphere_group);
-            }
-        }
+    });
 
-
-        animate_cylinder_floor_numbers (Math.PI / 2 + 0.4);
-        if ($(window).width() < 1024) {
-            floor_numbers_visibility_by_zoom(200 * 1.6, 130 * 1.6);
-        } else {
-            floor_numbers_visibility_by_zoom(250, 150);
-        }
-
-    }
 
 
     requestAnimationFrame( animate );
 }
+/*loadJSON(function(response) {
+    // Parse JSON string into object
 
+    window.actual_JSON = JSON.parse(response);
+    var key;
+    var i = 0;
+    for (key in window.actual_JSON) {
+        sorted_json[window.actual_JSON[key].floorNum] = [];
+        i++;
+    }
+
+}, 'results.json');*/
 
 function setCookie(name, value, options = {}) {
     options = {
@@ -701,6 +751,7 @@ if (!getCookie('access_token')) {
             Object.entries(data).forEach(item => {
                 setCookie(item[0], item[1], {'max-age': 3600});
             });
+
             get_json(token, build_id);
         });
 } else {
@@ -709,31 +760,14 @@ if (!getCookie('access_token')) {
 }
 
 function get_json(token, build_id) {
+    const dataNow = Date.now();
+    let storeData = JSON.parse(localStorage.getItem('timeObjLoaded'));
+    let res = dataNow - storeData;
     // let res = 3700000;
 
-    // let myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-    // myHeaders.append('Authorization', 'Bearer ' + token);
-    //
-    // let envResponce = fetch('https://igorl.bmby.com/api/dreamsv2/register-app', {
-    //     method: 'GET',
-    //     headers: myHeaders,
-    //     mode: 'cors',
-    //     cache: 'default'
-    // }).then(response => {
-    //     return response;
-    // });
-    let is_mobile_safari = false;
-    {
-        const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        if (isSafari) {
-            if (isMobileApple) {
-                is_mobile_safari = true;
-            }
-        }
-    }
-    if (is_mobile_safari) {
+    if (JSON.parse(localStorage.getItem('apartments')) && res < 3600000) {
+        showContent(JSON.parse(localStorage.getItem('apartments')));
+    } else {
         $.ajax({
             type: "GET",
             url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
@@ -745,71 +779,23 @@ function get_json(token, build_id) {
             },
 
             success: function (response) {
+                // console.log('AJAX');
+                localStorage.setItem('timeObjLoaded', JSON.stringify(Date.now()));
+                localStorage.setItem('apartments', JSON.stringify(response));
                 showContent(response);
             },
 
             ajaxComplete: function () {
             }
         });
-    } else {
-        const dataNow = Date.now();
-        let storeData = JSON.parse(localStorage.getItem('timeObjLoaded'));
-        let res = dataNow - storeData;
-        if (JSON.parse(localStorage.getItem('apartments')) && res < 3600000) {
-            showContent(JSON.parse(localStorage.getItem('apartments')));
-        } else {
-            $.ajax({
-                type: "GET",
-                url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
-                beforeSend: function (request) {
-                    request.setRequestHeader('Content-Type', 'application/json');
-                    request.setRequestHeader('Authorization', 'Bearer ' + token);
-                    $('.preloader .percents').html('Update CRM data');
-                    progress_bar_update(1, 100, 'Update CRM data');
-                },
-
-                success: function (response) {
-                    // console.log('AJAX');
-                    localStorage.setItem('timeObjLoaded', JSON.stringify(Date.now()));
-                    localStorage.setItem('apartments', JSON.stringify(response));
-                    showContent(response);
-                },
-
-                ajaxComplete: function () {
-                }
-            });
-        }
     }
-
 }
-// {
-//     let xhr = new XMLHttpRequest();
-//     // xhr.open('GET', 'http://www.gindi_cms.bohdan-web.xyz/wp-admin/admin-ajax.php?action=get_actual_cms_data');
-//     xhr.open('GET', 'http://www.gindi_cms.bohdan-web.xyz/actual_apt_crm_data.json');
-//     xhr.send();
-//     xhr.onload = function() {
-//         console.log(xhr.response);
-//         showContent(JSON.parse(xhr.response));
-//     };
-//
-// }
-/*$.ajax({
-    beforeSend: function(request) {
-        request.setRequestHeader('Access-Control-Allow-Origin', '*');
-    },
-    dataType: "json",
-    url: ,
-    success: function(data) {
-       console.log(data);
-    }
-});*/
 
 function showContent(response) {
-
     let json_obj = {};
     response.forEach(item => {
         // json_obj[item['engineId']] = item;
-        if (json_obj[item.propNum] === undefined) {
+        if (json_obj[item.propNum] == undefined) {
             json_obj[item['propNum']] = {};
         }
         json_obj[item['propNum']] = item;
@@ -822,6 +808,29 @@ function showContent(response) {
     animate();
     initFullscreenAction();
 }
+/*$.ajax({
+    type: "POST",
+    url: 'server.php',
+    contentType: false,
+    processData: false,
+    beforeSend : function(){
+        $('.preloader .percents').html( 'Update CRM data');
+    },
+    success: function (response) {
+        window.actual_JSON = JSON.parse(response);
+         var key;
+         var i = 0;
+         for (key in window.actual_JSON) {
+         sorted_json[window.actual_JSON[key].floorNum] = [];
+         i++;
+         }
+        init();
+        animate();
+    },
+    ajaxComplete : function () {
+
+    }
+});*/
 
 document.addEventListener('contextmenu',function(e){
     const queryString = window.location.search;
@@ -871,8 +880,4 @@ function getCenterPoint(mesh) {
 
     mesh.localToWorld( middle );
     return middle;
-}
-
-function get_triangle_angle (a,b,c) {
-
 }

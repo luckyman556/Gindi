@@ -586,6 +586,8 @@
     padding: 8px 16px;
     border-radius: 32px;
     cursor: pointer; }
+    .filter-module-container .flat-counter.unactive {
+      filter: grayscale(1); }
     .filter-module-container .flat-counter .ic {
       width: 24px;
       height: 24px;
@@ -849,6 +851,10 @@
           color: #FFFFFF; } }
       .nfm-togglers .togglers-row .toggler-btn.unactive {
         opacity: 0.1; }
+
+body.he .filter-module-container .flat-counter .ic {
+  margin-left: 10px;
+  margin-right: 0; }
 
 body.he .filter-module-container .reset-filter {
   right: initial;
@@ -1561,11 +1567,12 @@ body {
         line-height: initial;
         letter-spacing: 0.0593262px;
         color: #1A2F43;
-        padding-left: 5px;
         margin: auto 0;
         order: 1;
         font-size: 24px;
-        font-weight: 600; }
+        font-weight: 600;
+        margin-left: -2px;
+        margin-top: -2px; }
       .three_js .flat-option .top-part .ic {
         width: 30px;
         height: 30px;
@@ -4198,6 +4205,10 @@ body {
 @media screen and (min-width: 1024px) {
   .safari-run * {
     transition: none !important; } }
+
+body.he .three_js .flat-option .top-part .number {
+  padding-left: 0px;
+  padding-right: 0px; }
 
 body.he .three_js .zoom-by-mousewheel .box {
   margin-left: 0; }

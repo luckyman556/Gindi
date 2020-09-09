@@ -43,13 +43,13 @@ export let dictionary_array = {
         'he' : 'נמכר',
         'en' : 'Sold'
     },
-    'Apt. plan' : {
-        'he' : 'תכנית דירה',
-        'en' : 'Apt. plan'
-    },
     'Floor plan' : {
-        'he' : 'תכנית קומה',
+        'he' : 'תכנית דירה',
         'en' : 'Floor plan'
+    },
+    'Key plan' : {
+        'he' : 'תכנית קומה',
+        'en' : 'Key plan'
     },
     'apt. type' : {
         'he' : 'סוג הדירה',
