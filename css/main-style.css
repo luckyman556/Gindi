@@ -1216,6 +1216,12 @@ html[dir=rtl] .options__menu-label {
     left: initial;
     right: 16px; }
 
+.floors-selector-n-back.hide,
+.zoom-controls.hide,
+.compass.hide,
+.search-btn.hide {
+  display: none !important; }
+
 @media (max-width: 450px) {
   .left-nav-bar {
     top: 16px; }
@@ -1232,7 +1238,8 @@ html[dir=rtl] .options__menu-label {
     left: initial;
     width: 100%;
     height: auto;
-    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+    transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    z-index: 100; }
     .options__menu-wrapper::before {
       content: '';
       position: absolute;
@@ -1544,7 +1551,7 @@ body {
     letter-spacing: normal; }
     .three_js .flat-plan .price {
       margin-top: 0px;
-      padding-top: 2px;
+      padding-top: 0;
       font-style: normal;
       font-weight: normal;
       font-size: 35px;
@@ -1561,11 +1568,12 @@ body {
         display: none; }
       .three_js .flat-plan .price .bottom-part {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
+        line-height: 21px;
         position: relative;
-        color: #1A2F43; }
+        color: #1A2F43;
+        margin-top: -2px; }
         .three_js .flat-plan .price .bottom-part .price-text {
-          font-size: 14px;
           color: #1A2F43;
           font-weight: 400; }
         .three_js .flat-plan .price .bottom-part .text {
@@ -1585,7 +1593,7 @@ body {
       background-position: center 15px;
       background-repeat: no-repeat; }
   .three_js .flat-options {
-    padding-top: 14px;
+    padding-top: 10px;
     display: flex;
     justify-content: space-between; }
   .three_js .flat-option {
@@ -1594,8 +1602,25 @@ body {
     max-width: 72px; }
     .three_js .flat-option.sq {
       display: none; }
-    .three_js .flat-option.badroom .top-part {
-      display: flex; }
+    .three_js .flat-option.badroom {
+      width: 53px; }
+      .three_js .flat-option.badroom .top-part {
+        display: flex; }
+    .three_js .flat-option.type {
+      width: 70px; }
+      .three_js .flat-option.type .top-part {
+        display: flex; }
+        .three_js .flat-option.type .top-part .ic {
+          right: -3px;
+          margin-left: 2px; }
+        .three_js .flat-option.type .top-part .middle-text {
+          margin-left: 4px; }
+    .three_js .flat-option.floor {
+      width: 44px; }
+    .three_js .flat-option.area {
+      width: 49px;
+      margin-left: 7px;
+      margin-right: 7px; }
     .three_js .flat-option:last-child {
       padding-right: 0; }
     .three_js .flat-option .top-part {
@@ -1611,26 +1636,27 @@ body {
       font-weight: 300; }
       .three_js .flat-option .top-part .middle-text {
         font-size: 14px;
-        line-height: 17px;
+        line-height: 18px;
         color: #5c646b;
         margin: auto 0;
         width: 100%;
         order: 2;
-        font-family: 'almoni-neue';
-        margin-top: -5px; }
+        font-family: Fragolino;
+        margin-top: -2px;
+        margin-left: 2px; }
       .three_js .flat-option .top-part .number {
         line-height: initial;
+        font-family: Fragolino-Cond;
         letter-spacing: 0.0593262px;
         color: #1A2F43;
         margin: auto 0;
         order: 1;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
-        margin-left: -2px;
-        margin-top: -2px; }
+        margin-left: 3px; }
       .three_js .flat-option .top-part .ic {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         margin: 0;
         position: relative;
         right: -5px;
@@ -1971,11 +1997,12 @@ body {
         display: flex; }
         .three_js .title-with-selector .page-title .text .title-text-row {
           display: flex;
-          font-size: 29px;
+          font-size: 32px;
+          font-family: 'Fragolino-Cond';
           text-align: center;
           font-weight: 600;
           position: relative;
-          line-height: 1; }
+          line-height: 41px; }
           .three_js .title-with-selector .page-title .text .title-text-row > * {
             position: relative;
             z-index: 2; }
@@ -1984,8 +2011,8 @@ body {
             position: absolute;
             height: 12px;
             width: 98px;
-            right: 0px;
-            bottom: 0;
+            right: 0;
+            top: 25px;
             background-color: #C1AC87;
             transition: 0.5s 0.2s; }
           .three_js .title-with-selector .page-title .text .title-text-row .title-text {
@@ -2910,21 +2937,19 @@ body {
       background-size: 14px;
       cursor: pointer;
       background-color: #FFFFFF;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
     .three_js .popup-info .flat-plan {
       display: flex;
       width: 284px;
-      height: fit-content;
-      border-radius: 6px;
+      height: 204px;
       overflow: hidden;
-      padding: 21px 17px 15px 17px;
+      padding: 14.5px 16px 16px 12px;
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
       display: block;
       background-color: #FFFFFF;
-      box-shadow: 0 5px 9px 0 rgba(46, 70, 81, 0.15); }
+      box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15); }
       .three_js .popup-info .flat-plan.min {
         height: fit-content; }
         .three_js .popup-info .flat-plan.min .popups-togglers-box {
@@ -2956,8 +2981,8 @@ body {
         justify-content: space-between;
         position: relative;
         top: 0;
-        left: 0;
-        margin-top: 13px; }
+        left: 1px;
+        margin-top: 16px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
           display: none;
@@ -2971,37 +2996,39 @@ body {
         .three_js .popup-info .flat-plan .popups-togglers-box div {
           height: 44px;
           font-weight: bold;
-          font-size: 16px;
+          font-family: Fragolino;
+          font-size: 18px;
           letter-spacing: 0.0553711px;
           border-radius: 0px;
           padding: 0 10px;
           width: auto;
           background: rgba(255, 255, 255, 0.1);
           color: #FFFFFF;
-          margin-left: 2px;
-          font-family: almoni-neue; }
+          margin-left: 4px; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.non-flat-360 {
             display: none; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
             order: 2;
             background-color: #1A2F43;
             border: none;
-            padding-left: 36px;
+            padding-left: 33px;
             background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-            background-position: left 10px center;
+            background-position: left 5px center;
             background-repeat: no-repeat;
-            background-size: 28px;
+            background-size: 24px;
             box-shadow: none;
             width: 122px;
             margin-left: 0px; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
               background-image: url(../img/popup-info-360.svg) !important; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
+            font-family: Fragolino;
+            font-size: 18px;
             order: 1;
             background-color: transparent;
-            padding-left: 30px;
+            padding-left: 37px;
             background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-            background-position: left 13px center;
+            background-position: left 7px center;
             background-repeat: no-repeat;
             background-size: 24px;
             box-shadow: none;
@@ -4366,10 +4393,10 @@ body.he .folder-box .border-top-right {
   width: calc(100% - 94px); }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
-  width: 120px;
+  width: 122px;
   background-position: right 5px center;
-  margin-left: 0;
-  margin-right: auto;
+  margin-left: 4px;
+  margin-right: 8px;
   background-size: 25px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
@@ -4648,23 +4675,23 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
 .price-box.common {
   display: flex; }
   .price-box.common .get-price-btn {
-    height: 20px;
+    height: 21px;
     padding: 0 10px;
     background-color: #1A2F43;
     color: #FFFFFF;
-    line-height: 20px;
+    line-height: 21px;
     cursor: pointer;
     white-space: pre;
     width: 98px;
-    text-align: center; }
+    text-align: center;
+    letter-spacing: -0.21px; }
   .price-box.common .number {
     display: none; }
   .price-box.common .price-text {
     display: none;
-    font-size: 14px;
+    font-size: 16px;
     color: #603ef2;
     margin: auto 5px 0 0;
-    font-size: 20px;
     font-weight: 600; }
 
 .current-resolution {

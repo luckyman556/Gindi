@@ -24,10 +24,10 @@ const optionsMenuShowHide = true;
 const environmentDataAttribyte = {
     "environment": {
         "movement": [
-            // {
-            //     "type": "birds",
-            //     "active": false
-            // },
+            {
+                "type": "birds",
+                "active": false
+            },
             {
                 "type": "bicycles",
                 "active": true
@@ -142,7 +142,7 @@ export function add_models( scene, all_appartments) {
     }
 
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
-    // loadSea(texture_loader);
+    loadSea(texture_loader);
 
     if (!low_performance_mode) {
         loadEnvironment(on_load_texture);
