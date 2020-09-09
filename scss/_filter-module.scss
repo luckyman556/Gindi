@@ -258,6 +258,9 @@
         padding: 8px 16px;
         border-radius: 32px;
         cursor: pointer;
+        &.unactive {
+            filter: grayscale(1);
+        }
         .ic {
             width: 24px;
             height: 24px;
@@ -596,6 +599,10 @@
 }
 
 body.he {
+    .filter-module-container .flat-counter .ic {
+        margin-left: 10px;
+        margin-right: 0;
+    }
     .filter-module-container .reset-filter {
         right: initial;
         left: 0;

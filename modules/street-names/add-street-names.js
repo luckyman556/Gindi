@@ -1,8 +1,18 @@
 import * as THREE from '../../node_modules/three/build/three.module.js';
 import { names_n_positions } from './names-n-positions.js';
-export function add_street_names () {
-    const body = document.querySelector('body');
 
+export function add_street_names (action) {
+    const body = document.querySelector('body');
+    const fontloader = new THREE.FontLoader();
+
+    if (!action) {
+        street_names_objs.forEach(item => {
+            if (item.name === 'street') {
+                scene.remove(item);
+            }
+        });
+        return;
+    }
 
     street_names_objs.forEach(item => {
        if (item.name === 'street') {
@@ -11,14 +21,10 @@ export function add_street_names () {
     });
     street_names_objs = [];
 
-    var fontloader = new THREE.FontLoader();
-
     fontloader.load( 'resources/font/almoni-nue.json', font => {
 
         if (names_n_positions.length > 0) {
             names_n_positions.forEach(street => {
-
-
 
                 var xMid, text;
                 var color = 0xffffff;

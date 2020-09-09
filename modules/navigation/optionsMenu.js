@@ -1,22 +1,64 @@
-import {liveToggler} from "../add-models.js";
+import { liveToggler } from "../add-models.js";
+import { add_street_names } from "../street-names/add-street-names.js";
+import { SwipeScript } from "../../js/swipe.js";
+import { loadEnvironment } from "../add-models.js";
 
 let environmentShow = true;
 
 export const optionsMenu = (optionsObject) => {
     const containerLeft = createElements('div', 'left-nav-bar', document.body);
-    const containerMenu = createElements('div', 'options__menu', document.body);
     const options = createElements('button', 'button-options', containerLeft);
+    const containerMenu = createElements('div', 'options__menu', document.body);
     options.setAttribute('data-type', 'options');
+
+    if (low_performance_mode) {
+        environmentShow = false;
+        optionsObject.forEach(item => item.active = false);
+    }
 
     containerLeft.addEventListener('click', function(event) {
         const btn = event.target;
 
+        if (containerMenu.classList.contains('open')) {
+            const wrapper = document.querySelector('.options__menu-wrapper');
+            containerMenu.classList.remove('open');
+            wrapper.remove();
+
+            return;
+        }
+
         if (btn.getAttribute('data-type') === 'options') {
-            const menu = document.querySelector('.options__menu');
             loadHTML(containerMenu, optionsObject);
             showAndSetStatusesButtons(optionsObject);
             setInputListener(optionsObject);
-            menu.classList.add('open');
+            containerMenu.classList.add('open');
+            lock_autorotate = true;
+
+            // document.addEventListener('click', (event) => {
+            //     console.log(event.target);
+            //     if (event.target === containerMenu) {
+            //         return;
+            //     } else {
+            //         containerMenu.classList.remove('open');
+            //     }
+            //
+            // });
+
+            if (window.innerWidth < 420) {
+                SwipeScript();
+                options.classList.add('hide');
+                document.addEventListener('swiped-down', function(e) {
+                    const wrapper = document.querySelector('.options__menu-wrapper');
+                    containerMenu.classList.remove('open');
+                    options.classList.remove('hide');
+
+                    setTimeout(() => {
+                        if (wrapper) {
+                            wrapper.remove();
+                        }
+                    }, 1000);
+                });
+            }
         }
     });
 
@@ -57,6 +99,7 @@ function loadHTML(containerMenu) {
 
     btnClose.addEventListener('click', event => {
         menu.classList.remove('open');
+        lock_autorotate = false;
         containerMenu.innerHTML = '';
     });
 }
@@ -73,17 +116,14 @@ function showAndSetStatusesButtons(optionsObject) {
 
         buttonsContainer.insertAdjacentHTML('beforeend', `<div class="options__menu-button">
             <input type="checkbox" class="options__menu-input" data-input=${item.type} id="options_${item.type}" ${(status) ? 'checked' : ''} ${(!environmentShow) ? 'disabled' : ''}>
-            <label for="options_${item.type}" class="language-string options__menu-label options__menu-label--${item.type}" data-dictionary=${item.type}><span>${get_lang(item.type)}</span></label>
+            <label for="options_${item.type}" class="options__menu-label options__menu-label--${item.type}"><span data-dictionary=${item.type} class="language-string">${get_lang(item.type)}</span></label>
         </div>`);
     });
 
-    console.log(environmentShow);
     const inputSwitch = document.getElementById('optionsSwitch');
 
     if (!inputSwitch) {
         buttonSwitcher.insertAdjacentHTML('afterbegin', `<input type="checkbox" data-input="optionsSwitch" class="options__menu-input" id="optionsSwitch" ${(environmentShow) ? 'checked' : ''}>`);
-    } else {
-
     }
 }
 
@@ -98,15 +138,41 @@ function setInputListener(optionsObject) {
          const targetInput = event.target.getAttribute('data-input');
 
          if (targetInput === 'optionsSwitch') {
-             environmentShow = !environmentShow;
+             turnOffAllEnvironment(optionsObject);
+
+
          } else {
              optionsObject.forEach(option => {
                 if (option.type === targetInput) {
                     option.active = !option.active;
                 }
              });
+            liveToggler(optionsObject);
          }
-         showAndSetStatusesButtons(optionsObject);
-         liveToggler(optionsObject);
+        showAndSetStatusesButtons(optionsObject);
      }
 }
+
+function turnOffAllEnvironment(optionsObject) {
+    environmentShow = !environmentShow;
+    let newOptions = [...optionsObject];
+    newOptions.forEach(item => item.active = false);
+
+    if (environmentShow) {
+        loadEnvironment(on_load_texture);
+
+        function on_load_texture() {
+            loaded_texture_counter++;
+        }
+    }
+
+    const env = scene.getObjectByName('environment');
+    const instaTree = scene.getObjectByName('instanceTree');
+    instaTree.visible = environmentShow;
+    scene.remove(env);
+
+    liveToggler(newOptions);
+    add_street_names(environmentShow);
+}
+
+// get_url_param()

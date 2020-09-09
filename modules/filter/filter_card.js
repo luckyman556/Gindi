@@ -44,27 +44,23 @@ export let card_fns = {
                 }
             });
             card.find('.floor-plan-btn-back').click(function(){
-                let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
-                let target_flat =  window.appartments_by_bmby_id[flat_id];
-                last_clicked_flat = target_flat
-                if ( lock_mouse_rotation_x) {
-                    setTimeout(function () { 
-                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
-                            $('.floor-plan-btn').fadeIn();
-                            $('.floor-plan-btn-back').hide();
-
-                    }, 500);
-
+                if (floor_plan_btn_last_click + 1100 < Date.now()) {
+                    $('.bomb-btn').click();
+                    floor_plan_btn_last_click =  Date.now();
                 }
             });
             card.find('.floor-plan-btn').click(function(){
-                if (!lock_mouse_rotation_x) {
-                    setTimeout(function () {
-                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler').click();
-                    }, 500);
-                    $('.floor-plan-btn').hide();
-                    $('.floor-plan-btn-back').fadeIn();
+                if (floor_plan_btn_last_click + 1100 < Date.now()) {
+                    document.querySelector('.floor-plan-toggler').classList.add('active');
+                    let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
+                    let target_flat =  window.appartments_by_bmby_id[flat_id];
+                    last_clicked_flat = target_flat;
+                    current_floor = last_clicked_flat.userData.floor;
+                    $('.bomb-btn').click();
+                    flat_click(last_clicked_flat, true);
+                    floor_plan_btn_last_click =  Date.now();
                 }
+
             });
             card.find('.apt-plan').click(function(){
                     setTimeout(function(){   
@@ -140,14 +136,14 @@ export let card_fns = {
                 </div>            
                 <div class="btns-row">
                     <div class="new-ui-btn apt-plan">
-                        <div class="text language-string" data-dictionary="Apt. plan">${get_lang('Apt. plan')}</div>
+                        <div class="text language-string" data-dictionary="Floor plan">${get_lang('Floor plan')}</div>
                         <div class="new-ui-icon">
                             <img src="${img_path}floor-plan-white.svg" alt="">
                         </div>
                     </div>
                     
                     <div class="new-ui-btn white floor-plan-btn" ${add_hide_floor_plan_text}>
-                        <div class="text language-string" data-dictionary="Floor plan">${get_lang('Floor plan')}</div>
+                        <div class="text language-string" data-dictionary="Key plan">${get_lang('Key plan')}</div>
                         <div class="new-ui-icon">
                             <img src="${img_path}card-flat-floor.svg" alt="">
                         </div>
@@ -163,5 +159,14 @@ export let card_fns = {
         </div>
         `;
         return inner_html;
+    },
+    update_cards_btns_visibility : function () {
+        if (lock_mouse_rotation_x) {
+            $('.floor-plan-btn').hide();
+            $('.floor-plan-btn-back').fadeIn();
+        } else {
+            $('.floor-plan-btn').fadeIn();
+            $('.floor-plan-btn-back').hide();
+        }
     }
 }

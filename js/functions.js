@@ -610,10 +610,10 @@ function drag_focus_target_x () {
 function change_camera_rotation_x () {
     if (raf_divergention_y != 0) {
         var move_target_y = far_current_click_camera_rotation_x - (raf_divergention_y * 0.002 * -1);
-        let min = 0;
+        let min = -0.2;
         let max = -1.25;
-        if (lock_mouse_rotation_x == true) {
-            min = -0.4;
+        if (lock_mouse_rotation_x) {
+            min = -0.5;
             max = -1.57;
         }
         if (move_target_y > min) {
@@ -1045,8 +1045,8 @@ function set_page_descriptions () {
         }
     } else {
         $('.floor-form').removeClass('floor-plan-mode');
-        $('.floor-form .page-description').html('3D View');
-        $('.floor-form .text-box span').html('HaAlon 20');
+        //$('.floor-form .page-description').html('3D View');
+        //$('.floor-form .text-box span').html('HaAlon 20');
         var floor_number = current_floor + 1;
         if  (floor_number < 10) {
             floor_number =   '0' + String(floor_number);
@@ -2526,6 +2526,8 @@ function update_flat_labels (dynamic = false) {
                     apt_text = apt_text_he;
                     status_text = status_text_he;
                 }
+
+
                 if (flat.userData.status_index == 1) {
 
                     inner_html = `
@@ -2743,7 +2745,6 @@ function get_angle_between (obj_a, obj_b) {
     }
     return return_obj;
 }
-
 function add_objects_on_mesh (mesh, object = undefined) {
     var geometry = new global_three.BoxGeometry( 1, 1, 1 );
     var material = new global_three.MeshBasicMaterial( {color: 0x00ff00} );
@@ -2802,19 +2803,12 @@ function addTrees(plane_mesh, scale, tree_mesh) {
     //console.log(min_x + ' ' + max_x);
     //console.log(min_z + ' ' + max_z);
 
-
     let objectsArray = [];
     const amount = 1000;
     const gap = 1;
     const date = Date.now();
     let i = 0;
     let vector;
-
-
-
-    // if (intersects) {
-    //     console.log('intersects = ', intersects);
-    // }
 
     do {
         let cross = true;
@@ -2860,11 +2854,7 @@ function addTrees(plane_mesh, scale, tree_mesh) {
 
     } while (i < amount);
 
-
-
     add_instances_trees(tree_mesh, objectsArray);
-
-
 }
 
 function add_instances_trees(tree, positions_array, scale, options) {
@@ -2892,6 +2882,7 @@ function add_instances_trees(tree, positions_array, scale, options) {
         i++;
     });
     mesh.renderOrder = 1;
+    mesh.name = 'instanceTree';
     window.instance_tree = mesh;
     scene.add(mesh);
     window.positions_array = positions_array;
@@ -2902,7 +2893,6 @@ function onProgressCallback(){}
 function onErrorCallback(e){
     console.log(e);
 }
-
 
 function get_car_routes_array () {
     let car_routes_array = [];
@@ -2937,7 +2927,6 @@ function getiPhoneModel() {
         return "10-"
     }
 }
-
 
 function get_all_params_values (array, key) {
     let array_for_return = {};
@@ -3004,7 +2993,6 @@ function get_lang (word) {
     return false;
 }
 
-
 function rotation_to_flat () {
     targetRotationX = window.camera_target.rotation.y;
     let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
@@ -3049,4 +3037,28 @@ function rotation_to_flat () {
             }
         }, 100);
     }
+}
+
+
+function target_zoom_limit (target_zoom_fn) {
+
+    let modifier = 1;
+    if ($(window).width() < 1024) {
+        modifier = 1.6;
+    }
+    let in_zoom_limit_m = min_zoom_full * modifier;
+    let in_zoom_limit_b = max_zoom_full * modifier;
+
+    if (lock_mouse_rotation_x == true) {
+        in_zoom_limit_m = min_zoom_destroy * modifier;
+        in_zoom_limit_b = max_zoom_destroy * modifier;
+    }
+    if (target_zoom_fn < in_zoom_limit_m) {
+        target_zoom_fn = in_zoom_limit_m;
+    }
+    if (target_zoom_fn > in_zoom_limit_b) {
+        target_zoom_fn = in_zoom_limit_b;
+    }
+
+    return target_zoom_fn;
 }
