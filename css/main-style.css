@@ -1532,36 +1532,41 @@ body {
         cursor: pointer; }
     .three_js .floor-img .aprt-text.locked, .three_js .floor-img .aprt-text.hover {
       fill: #FFFFFF; }
-  .three_js .flat-plan .price {
-    margin-top: 0px;
-    padding-top: 2px;
+  .three_js .flat-plan {
+    font-size: 30px;
+    font-weight: 500;
+    font-stretch: normal;
     font-style: normal;
-    font-weight: normal;
-    font-size: 35px;
-    line-height: 1.3;
-    letter-spacing: 0.138428px;
-    color: #476FC0;
-    text-align: left;
-    display: flex;
-    font-family: 'almoni-neue'; }
-    .three_js .flat-plan .price .top-part {
-      font-size: 14px;
-      color: #1A2F43;
-      display: none; }
-    .three_js .flat-plan .price .bottom-part {
-      padding-left: 4px;
-      font-weight: 400;
-      font-size: 14px;
-      color: #1A2F43; }
-      .three_js .flat-plan .price .bottom-part .price-box.common .number {
-        margin-left: 5px;
-        margin-right: 5px; }
-      .three_js .flat-plan .price .bottom-part .price-box.common .price-text {
+    line-height: normal;
+    letter-spacing: normal; }
+    .three_js .flat-plan .price {
+      margin-top: 0px;
+      padding-top: 2px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 35px;
+      line-height: 1.3;
+      letter-spacing: 0.138428px;
+      color: #476FC0;
+      text-align: left;
+      display: flex;
+      font-family: 'almoni-neue';
+      min-height: 22px; }
+      .three_js .flat-plan .price .top-part {
         font-size: 14px;
         color: #1A2F43;
-        font-weight: 400; }
-      .three_js .flat-plan .price .bottom-part .text {
-        color: #9294a3; }
+        display: none; }
+      .three_js .flat-plan .price .bottom-part {
+        font-weight: 400;
+        font-size: 14px;
+        position: relative;
+        color: #1A2F43; }
+        .three_js .flat-plan .price .bottom-part .price-text {
+          font-size: 14px;
+          color: #1A2F43;
+          font-weight: 400; }
+        .three_js .flat-plan .price .bottom-part .text {
+          color: #9294a3; }
   .three_js .btn {
     background-color: #476FC0;
     border-radius: 20px;
@@ -1577,14 +1582,13 @@ body {
       background-position: center 15px;
       background-repeat: no-repeat; }
   .three_js .flat-options {
-    padding-top: 8px;
+    padding-top: 14px;
     display: flex;
     justify-content: space-between; }
   .three_js .flat-option {
-    width: auto;
     padding-right: 0px;
     display: flex;
-    width: auto; }
+    max-width: 72px; }
     .three_js .flat-option.sq {
       display: none; }
     .three_js .flat-option.badroom .top-part {
@@ -1594,7 +1598,7 @@ body {
     .three_js .flat-option .top-part {
       display: flex;
       flex-wrap: wrap;
-      justify-content: right;
+      justify-content: flex-start;
       font-style: normal;
       font-weight: bold;
       font-size: 20px;
@@ -1603,7 +1607,8 @@ body {
       color: #202E41;
       font-weight: 300; }
       .three_js .flat-option .top-part .middle-text {
-        font-size: 15px;
+        font-size: 14px;
+        line-height: 17px;
         color: #5c646b;
         margin: auto 0;
         width: 100%;
@@ -1616,10 +1621,8 @@ body {
         color: #1A2F43;
         margin: auto 0;
         order: 1;
-        font-size: 24px;
-        font-weight: 600;
-        margin-left: -2px;
-        margin-top: -2px; }
+        font-size: 18px;
+        font-weight: 600; }
       .three_js .flat-option .top-part .ic {
         width: 30px;
         height: 30px;
@@ -1628,8 +1631,8 @@ body {
         right: -5px;
         order: 0; }
         .three_js .flat-option .top-part .ic img {
-          width: 100%;
-          height: 100%;
+          width: 24px;
+          height: 24px;
           display: block;
           object-fit: contain; }
     .three_js .flat-option .bottom-part {
@@ -1964,6 +1967,7 @@ body {
         .three_js .title-with-selector .page-title .text .title-text-row {
           display: flex;
           font-size: 29px;
+          text-align: center;
           font-weight: 600;
           position: relative;
           line-height: 1; }
@@ -1974,19 +1978,18 @@ body {
             content: '';
             position: absolute;
             height: 12px;
-            width: 131%;
+            width: 98px;
             right: 0px;
-            bottom: 1px;
+            bottom: 0;
             background-color: #C1AC87;
             transition: 0.5s 0.2s; }
+          .three_js .title-with-selector .page-title .text .title-text-row .title-text {
+            margin: 0 5px; }
           .three_js .title-with-selector .page-title .text .title-text-row .type {
             margin-left: 8px;
             margin-right: 8px;
             text-transform: uppercase;
             display: none; }
-          .three_js .title-with-selector .page-title .text .title-text-row .number {
-            margin-left: 5px;
-            margin-right: 5px; }
       .three_js .title-with-selector .page-title .down.btn {
         transition: 0.5s;
         display: none; }
@@ -2906,23 +2909,18 @@ body {
     .three_js .popup-info .flat-plan {
       display: flex;
       width: 284px;
-      height: 178px;
+      height: fit-content;
       border-radius: 6px;
       overflow: hidden;
-      padding: 15px;
+      padding: 21px 17px 15px 17px;
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-      padding-top: 12px;
       display: block;
-      padding-right: 0px;
       background-color: #FFFFFF;
-      padding-right: 17px;
-      padding-left: 17px;
-      box-shadow: 8px 8px #1A2F43, 0px 0px 4px 0px rgba(26, 47, 67, 0.3); }
+      box-shadow: 0 5px 9px 0 rgba(46, 70, 81, 0.15); }
       .three_js .popup-info .flat-plan.min {
-        height: 170px;
-        max-height: 170px; }
+        height: fit-content; }
         .three_js .popup-info .flat-plan.min .popups-togglers-box {
           margin-top: 20px; }
       .three_js .popup-info .flat-plan.unavailable .toggler-2d {
@@ -2964,8 +2962,8 @@ body {
           height: 1px;
           opacity: 0; }
         .three_js .popup-info .flat-plan .popups-togglers-box div {
-          height: 34px;
-          font-weight: 300;
+          height: 44px;
+          font-weight: bold;
           font-size: 16px;
           letter-spacing: 0.0553711px;
           border-radius: 0px;
@@ -2981,26 +2979,28 @@ body {
             order: 2;
             background-color: #1A2F43;
             border: none;
-            padding-left: 24px;
+            padding-left: 36px;
             background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-            background-position: left 5px center;
+            background-position: left 11px center;
             background-repeat: no-repeat;
             background-size: 28px;
             box-shadow: none;
-            width: 113px;
+            width: 122px;
             margin-left: 0px; }
+            .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
+              background-image: url(../img/popup-info-360.svg) !important; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
             order: 1;
             background-color: transparent;
             padding-left: 30px;
             background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-            background-position: left 10px center;
+            background-position: left 6px center;
             background-repeat: no-repeat;
-            background-size: 18px;
+            background-size: 24px;
             box-shadow: none;
-            width: 107px;
+            width: 122px;
             border: 1px solid #1A2F43;
-            color: black; }
+            color: #1A2F43; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.info {
             width: 48px;
             background-color: #FFFFFF;
@@ -3032,6 +3032,9 @@ body {
               font-size: 14px;
               line-height: 33px;
               padding-left: 20px; }
+      @media (max-width: 1024px) {
+        .three_js .popup-info .flat-plan .popups-togglers-box {
+          margin-top: 4px; } }
   .three_js .flat-info {
     background-color: #F7F7F7;
     width: 230px;
@@ -3331,13 +3334,17 @@ body {
       opacity: 0; }
   .three_js .flat-bubble {
     position: absolute;
-    padding: 6px;
+    min-height: 30px;
+    font-size: 12px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    padding: 2px;
     z-index: 23;
     transform: translate(0, -20px) scale(0);
-    font-weight: bold;
     font-size: 15px;
     color: black;
-    transition-property: opacity, transform, left , top;
+    transition-property: opacity, transform, left, top;
     opacity: 0;
     background-color: #FFFFFF;
     border-radius: 3px;
@@ -3345,6 +3352,11 @@ body {
     .three_js .flat-bubble.show {
       opacity: 1;
       transform: translate(15px, 10px) scale(1); }
+    .three_js .flat-bubble .model-name {
+      margin: 0 5px; }
+    .three_js .flat-bubble .prop-num {
+      margin: 0 5px;
+      font-weight: bold; }
   .three_js .search-filter-title {
     width: 190px;
     color: #000000;
@@ -4274,11 +4286,7 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   order: 1;
-  background-position: right 2px center; }
-
-body.he .three_js .flat-option.type .top-part .number {
-  margin-left: 0;
-  margin-right: 0px; }
+  background-position: right 8px center; }
 
 body.he .three_js .flat-option.badroom .top-part .middle-text {
   order: 3; }
@@ -4585,11 +4593,11 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     transform: scale(1);
     opacity: 1; }
   .flat_status_2d_css .flat-card-box {
-    text-align: center;
-    text-shadow: 1px 0px 2px black;
     transform: scale(0.5);
     opacity: 0;
     transition: 0.3s; }
+    .flat_status_2d_css .flat-card-box .flat-card-title_number {
+      font-weight: bold; }
     .flat_status_2d_css .flat-card-box .circle {
       margin: auto 0;
       width: 6px;
@@ -4607,6 +4615,9 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
       display: flex;
       justify-content: center; }
       .flat_status_2d_css .flat-card-box .price-row .price-box {
+        font-weight: normal;
+        width: 98px;
+        letter-spacing: -0.21px;
         display: none; }
         .flat_status_2d_css .flat-card-box .price-row .price-box .get-price-btn {
           display: none; }
@@ -4636,14 +4647,16 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     color: #FFFFFF;
     line-height: 20px;
     cursor: pointer;
-    white-space: pre; }
+    white-space: pre;
+    width: 98px;
+    text-align: center; }
   .price-box.common .number {
     display: none; }
   .price-box.common .price-text {
     display: none;
     font-size: 14px;
     color: #603ef2;
-    margin: auto 0 0 5px;
+    margin: auto 5px 0 0;
     font-size: 20px;
     font-weight: 600; }
 
@@ -4738,10 +4751,10 @@ body.en .popup-360 > .flat-info {
 body.en .three_js .title-with-selector .title-text-row::after {
   right: initial;
   left: 0;
-  width: 110%; }
+  width: 98px; }
 
 body.en .three_js .flat-option .top-part .ic {
-  right: 5px;
+  right: 0;
   padding-left: 0; }
 
 body.en .three_js .zoom-controls {

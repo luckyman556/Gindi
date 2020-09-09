@@ -374,6 +374,12 @@ body {
 		}
 	}
 	.flat-plan {
+		font-size: 30px;
+		font-weight: 500;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: normal;
+		letter-spacing: normal;
 		.price {
 			margin-top: 0px;
 			padding-top: 2px;
@@ -386,35 +392,47 @@ body {
 			text-align: left;
 			display: flex;
 			font-family: 'almoni-neue';
+			min-height: 22px;
 			.top-part {
 				font-size: 14px;
 				color: $brand-color-1;
 				display: none;
 			}
 			.bottom-part {
-				padding-left: 4px;
 				font-weight: 400;
 				font-size: 14px;
+
+				position: relative;
 				color: $brand-color-1;
-				.price-box.common {
 					.number {
-						margin-left: 5px;
-						margin-right: 5px;
+						// margin-left: -3px;
+						// margin-right: 5px;
 					}
 					.price-text {
 						font-size: 14px;
 						color: $brand-color-1;
 						font-weight: 400;
 					}
-				}
-
 				.text {
 					color: #9294a3;
 				}
 				.currency {
 
 				}
-
+				// &:after {
+				// 	content: '';
+				// 	position: absolute;
+				// 	background-image: url(/img/apt-gift.svg);
+				// 	background-size: contain;
+				// 	background-repeat: no-repeat;
+				// 	right: -15px;
+				// 	top: 7%;
+				// 	width: 11px;
+				// 	height: 55px;
+				// }
+				// &.he:after {
+				// 	right: 100%;
+				// }
 			}
 		}
 	}
@@ -437,15 +455,14 @@ body {
 		}
 	}
 	.flat-options {
-		padding-top: 8px;
+		padding-top: 14px;
 		display: flex;
 		justify-content: space-between;
 	}
 	.flat-option {
-		width: auto;
 		padding-right: 0px;
 		display: flex;
-		width: auto;
+		max-width: 72px;
 		&.sq {
 			display: none;
 		}
@@ -466,7 +483,7 @@ body {
 		.top-part {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: right;
+			justify-content: flex-start;
 			font-style: normal;
 			font-weight: bold;
 			font-size: 20px;
@@ -476,7 +493,8 @@ body {
 			color: #202E41;
 			font-weight: 300;
 			.middle-text {
-				font-size: 15px;
+				font-size: 14px;
+				line-height: 17px;
 				color: #5c646b;
 				margin: auto 0;
 				width: 100%;
@@ -488,9 +506,10 @@ body {
 				line-height: initial;
 				letter-spacing: 0.0593262px;
 				color: $brand-color-1;
+				// padding-left: 5px;
 				margin: auto 0;
 				order: 1;
-				font-size: 24px;
+				font-size: 18px;
 				font-weight: 600;
 				margin-left: -2px;
 				margin-top: -2px;
@@ -503,8 +522,8 @@ body {
 				right: -5px;
 				order: 0;
 				img {
-					width: 100%;
-					height: 100%;
+					width: 24px;
+					height: 24px;
 					display: block;
 					object-fit: contain;
 				}
@@ -933,6 +952,7 @@ body {
 				.title-text-row {
 					display: flex;
 					font-size: 29px;
+					text-align: center;
 					font-weight: 600;
 					position: relative;
 					line-height: 1;
@@ -944,12 +964,14 @@ body {
 						content: '';
 						position: absolute;
 						height: 12px;
-						width: 131%;
+						width: 98px;
 						right: 0px;
-						bottom: 1px;
+						bottom: 0;
 						background-color: $brand-color-2;
 						transition: 0.5s 0.2s;
-
+					}
+					.title-text {
+						margin: 0 5px;
 					}
 					.type {
 						margin-left: 8px;
@@ -957,10 +979,10 @@ body {
 						text-transform: uppercase;
 						display: none;
 					}
-					.number {
-						margin-left: 5px;
-						margin-right: 5px;
-					}
+					// .number {
+					// 	margin-left: 5px;
+					// 	margin-right: 5px;
+					// }
 				}
 			}
 			.down.btn {
@@ -1357,6 +1379,12 @@ body {
 				margin-left: 7px;
 				margin-right: 7px;
 				background-color: $white;
+				&.toggler-2d {
+					// display: none!important;
+				}
+				&.floor-plan-toggler {
+					// display: none!important;
+				}
 
 			}
 		}
@@ -2209,23 +2237,18 @@ body {
 		.flat-plan {
 			display: flex;
 			width: 284px;
-			height: 178px;
+			height: fit-content;
 			border-radius: 6px;
 			overflow: hidden;
-			padding: 15px;
+			padding: 21px 17px 15px 17px;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: contain;
-			padding-top: 12px;
 			display: block;
-			padding-right: 0px;
 			background-color: $white;
-			padding-right: 17px;
-			padding-left: 17px;
-			box-shadow: 8px 8px  $brand-color-1, 0px 0px 4px 0px rgba(26, 47, 67, 0.3);
+			box-shadow: 0 5px 9px 0 rgba(46, 70, 81, 0.15);
 			&.min  {
-				height: 170px;
-				max-height: 170px;
+				height: fit-content;
 				.popups-togglers-box  {
 					margin-top: 20px;
 				}
@@ -2283,8 +2306,8 @@ body {
 					opacity: 0;
 				}
 				div {
-					height: 34px;
-					font-weight: 300;
+					height: 44px;
+					font-weight: bold;
 					font-size: 16px;
 					letter-spacing: 0.0553711px;
 					border-radius: 0px;
@@ -2301,32 +2324,37 @@ body {
 						order: 2;
 						background-color: $brand-color-1;
 						border: none;
-						padding-left: 24px;
+						padding-left: 36px;
 						background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-						background-position: left 5px center;
+						background-position: left 10px center;
 						background-repeat: no-repeat;
 						background-size: 28px;
 						box-shadow: none;
 						//margin-right: 13px;
-						width: 113px;
+						width: 122px;
 						margin-left: 0px;
 						//margin-right: 0;
+
+						&.icon-360 {
+							background-image: url(../img/popup-info-360.svg) !important;
+						}
 					}
 					&.floor-plan-toggler {
 						order: 1;
 						background-color: transparent;
 						padding-left: 30px;
 						background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-						background-position: left 10px center;
+						background-position: left 13px center;
 						background-repeat: no-repeat;
-						background-size: 18px;
+						background-size: 24px;
+
 						box-shadow: none;
 						//border: 1px solid $white;
-						width: 107px;
+						width: 122px;
 						//margin-left: auto;
 						//margin-right: 15px;
 						border: 1px solid $brand-color-1;
-						color: black;
+						color: $brand-color-1;
 					}
 					&.info {
 						width: 48px;
@@ -2365,6 +2393,13 @@ body {
 							}
 						}
 					}
+				}
+
+
+			}
+			@media (max-width: 1024px) {
+				.popups-togglers-box {
+					margin-top: 4px;
 				}
 			}
 		}
@@ -2747,14 +2782,18 @@ body {
 	}
 	.flat-bubble {
 		position: absolute;
-		padding: 6px;
+		min-height: 30px;
+		font-size: 12px;
+  		font-weight: normal;
+		display: flex;
+		align-items: center;
+		padding: 2px;
 		z-index: 23;
 		transform: translate(0, -20px) scale(0);
-		font-weight: bold;
 		font-size: 15px;
 		color: black;
 		//transition: 0.4s;
-		transition-property: opacity, transform, left , top;
+		transition-property: opacity, transform, left, top;
 		opacity: 0;
 		background-color: $white;
 		border-radius: 3px;
@@ -2762,6 +2801,18 @@ body {
 		&.show {
 			opacity: 1;
 			transform: translate(15px, 10px) scale(1);
+		}
+		& .model-name {
+			margin: 0 5px;
+		}
+
+		& .prop-num {
+			margin: 0 5px;
+			font-weight: bold;
+		}
+
+		& img {
+			// margin: 0 10px;
 		}
 	}
 	.search-filter-title {
@@ -3919,13 +3970,13 @@ body.he {
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
 		order: 1;
-		background-position: right 2px center;
+		background-position: right 8px center;
 	}
 	.three_js .flat-option.type {
 		.top-part {
 			.number {
-				margin-left: 0;
-				margin-right: 0px;
+				// margin-left: 0;
+				// margin-right: 0px;
 			}
 			.ic {
 			}
@@ -4213,7 +4264,6 @@ body.he {
 	left: -25px;
 	background-color: rgba(0, 0, 0, 0.7);
 }
-
 body.on-white {
 	&.he {
 		.three_js .floors-selector-n-back {
@@ -4251,8 +4301,6 @@ body.on-white {
 		right: 3px;
 		display: none;
 	}
-
-
 }
 .night-mode,
 .ui-hide {
@@ -4303,12 +4351,14 @@ body.on-white {
 		}
 	}
 	.flat-card-box {
-		text-align: center;
-		text-shadow: 1px 0px 2px black;
-		//filter: drop-shadow(1px 1px 2px black);
 		transform: scale(0.5);
 		opacity: 0;
 		transition: 0.3s;
+
+		.flat-card-title_number {
+			font-weight: bold;
+		}
+
 		h3 {
 
 		}
@@ -4335,6 +4385,9 @@ body.on-white {
 			justify-content: center;
 
 			.price-box {
+				font-weight: normal;
+				width: 98px;
+				letter-spacing: -0.21px;
 				display: none;
 				.get-price-btn {
 					display: none;
@@ -4375,6 +4428,8 @@ body.on-white {
 		line-height: 20px;
 		cursor: pointer;
 		white-space: pre;
+		width: 98px;
+		text-align: center;
 	}
 	.number {
 		display: none;
@@ -4384,7 +4439,7 @@ body.on-white {
 		display: none;
 		font-size: 14px;
 		color: #603ef2;
-		margin: auto 0 0 5px;
+		margin: auto 5px 0 0;
 		font-size: 20px;
 		font-weight: 600;
 	}
@@ -4495,13 +4550,13 @@ body.en {
 			& .title-text-row::after {
 				right: initial;
 				left: 0;
-				width: 110%;
+				width: 98px;
 			}
 		}
 		& .flat-option {
 			& .top-part {
 				& .ic {
-					right: 5px;
+					right: 0;
 					padding-left: 0;
 				}
 			}
