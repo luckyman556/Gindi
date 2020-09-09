@@ -2909,6 +2909,7 @@ body {
         margin-top: 13px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
+          display: none;
           padding: 0;
           position: absolute;
           left: 0;

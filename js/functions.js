@@ -116,6 +116,10 @@ var car_route_lines = [];
 var human_route = [];
 var low_performance_mode = false;
 var dictionary;
+var crmStatusLoadBool = false;
+var progressLoaderObj = {};
+
+
 
 function animate_obj_scale(target_scale, obj, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
@@ -2899,8 +2903,24 @@ function add_instances_trees(tree, positions_array, scale, options) {
     window.positions_array = positions_array;
     return mesh;
 }
+
+let tot = 0;
+let load = 0;
 function onSuccessCallback(){}
-function onProgressCallback(){}
+function onProgressCallback(e) {
+    
+    Object.assign(progressLoaderObj, {
+        [e.currentTarget.responseURL]: {
+            loaded: e.loaded,
+            total: e.total,
+            isLoaded: Boolean(this.loaded === this.total),
+        }
+    });
+    // console.log(progressLoaderObj);
+    tot = e.total;
+    load = e.loaded;
+    // console.log(load,tot);
+}
 function onErrorCallback(e){
     console.log(e);
 }
