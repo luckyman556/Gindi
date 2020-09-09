@@ -4359,7 +4359,7 @@ body.on-white {
 			.pulse {
 				display: flex;
 				margin: 0;
-				margin-left: 10px;
+				// margin-left: 10px;
 			}
 			.circle {
 				display: none;
@@ -4379,11 +4379,14 @@ body.on-white {
 		transform: scale(0.5);
 		opacity: 0;
 		transition: 0.3s;
-
+		display: flex;
+		flex-direction: column;
 		.flat-card-title_number {
 			font-weight: bold;
 		}
-
+		img {
+			margin: 5px auto; 
+		}
 		h3 {
 
 		}
