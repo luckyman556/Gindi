@@ -58,11 +58,7 @@ export const optionsMenu = (optionsObject) => {
             if (window.innerWidth < 420) {
                 SwipeScript();
 
-                options.classList.add('hide');
-                zoomControls.classList.add('hide');
-                compass.classList.add('hide');
-                searchBtn.classList.add('hide');
-                miniCard.classList.add('hide');
+                setOrRemoveClass('hide', 'set', options, zoomControls, compass, searchBtn, miniCard);
 
                 if (floorSelection.classList.contains('show')) {
                     floorSelection.classList.add('hide');
@@ -90,7 +86,7 @@ export const optionsMenu = (optionsObject) => {
 function setOrRemoveClass(className, action, ...elements) {
 
     if (action === 'set') {
-
+        elements.forEach(elem => elem.classList.add(className));
     } else if (action === 'remove') {
         elements.forEach(elem => {
             if (elem.classList.contains(className)) {
