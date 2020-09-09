@@ -1416,7 +1416,7 @@ function toggleFullScreen() {
 function flat_number_bubble (action = 'show', intersection_object = null) {
     // flat_bubble script
     var bubble = $('.flat-bubble');
-    var icon_360 = '<img src="/img/bubble-360.svg" alt="icon-360", wigth="24", height="24">';
+    var icon_360 = '<img src="./img/bubble-360.svg" alt="icon-360", wigth="24", height="24">';
     if (action == 'update') {
         let modelName = `<span class="model-name">${intersection_object.parent.userData.crm_data.modelName}</span>`;
         let propNum = `<span class="prop-num">${intersection_object.parent.userData.crm_data.propNum}</span>`;
