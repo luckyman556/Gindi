@@ -2670,38 +2670,43 @@ function get_price_html (price_num, add_class = '', flat) {
         $('.bottom-part').addClass('he');
         get_price_text = get_price_text_he;
     }
-    let flat_status = flat.userData.crm_data.status;
+    // let flat_status = flat.userData.crm_data.status;
 
-    let status_text = '';
-    let status_text_en = flat_status;
-    status_text = status_text_en;
-    let status_text_he = '';
-    if (flat_status == "Sold") {
-        // * not worked yet
-        // console.log(flat_status);
-        $('.price')[0].style[0] = 'block';
-        let price_html = `<div class="price-text" style="display: block">Sold</div>`;
-        return price_html;
-    } else if (flat_status == "Unavailable")  {
-        $('.price')[0].style[0] = 'block';
-        let price_html = `<div class="price-text" style="display: block">Unavailable</div>`;
-        status_text_he = 'לא זמינה';
-        return price_html;
-    } else {
-        $('.price').css('display', 'none');
-        let price_html = `
+    // let status_text = '';
+    // let status_text_en = flat_status;
+    // status_text = status_text_en;
+    // let status_text_he = '';
+    let price_html = `
             <div class="price-box ${add_class}">
                  <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
                 <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
             <div class="number"> ${price}</div>
             </div>
         `;
-        return price_html;
+    return price_html;
+    // if (flat_status == "Sold") {
+    //     // * not worked yet
+    //     // console.log(flat_status);
+    //     $('.price')[0].style[0] = 'block';
+    //     let price_html = `<div class="price-text" style="display: block">Sold</div>`;
+    //     return price_html;
+    // } else if (flat_status == "Unavailable")  {
+    //     $('.price')[0].style[0] = 'block';
+    //     let price_html = `<div class="price-text" style="display: block">Unavailable</div>`;
+    //     status_text_he = 'לא זמינה';
+    //     return price_html;
+    // } else {
+    //     $('.price').css('display', 'none');
+    //     let price_html = `
+    //         <div class="price-box ${add_class}">
+    //              <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
+    //             <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
+    //         <div class="number"> ${price}</div>
+    //         </div>
+    //     `;
+    //     return price_html;
     }
 
-
-
-}
 function get_angle_to_camera() {
     let angle;
     let side_1;
