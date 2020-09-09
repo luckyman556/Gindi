@@ -2542,7 +2542,7 @@ function update_flat_labels (dynamic = false) {
 
 
                 if (flat.userData.status_index == 1) {
-                    let icon_360 = `<img src="/img/flat-card_360.svg" alt="icon-360">`;
+                    let icon_360 = `<img src="./img/flat-card_360.svg" alt="icon-360">`;
                     let empty = '';
                     inner_html = `
                         <div class="flat-card-box">
