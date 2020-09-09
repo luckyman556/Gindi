@@ -592,7 +592,7 @@ body {
     }
     body.on-white.he .three_js .floors-selector-n-back {
         right: 5px!important;
-        /* left: auto; */
+        left: auto;
         transform-origin: right bottom;
     }
     body.he .three_js .popup .close-btn {

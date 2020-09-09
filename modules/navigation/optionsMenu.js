@@ -9,6 +9,12 @@ export const optionsMenu = (optionsObject) => {
     const containerLeft = createElements('div', 'left-nav-bar', document.body);
     const options = createElements('button', 'button-options', containerLeft);
     const containerMenu = createElements('div', 'options__menu', document.body);
+    const zoomControls = document.querySelector('.zoom-controls');
+    const compass = document.querySelector('.compass');
+    const searchBtn = document.querySelector('.search-btn');
+    const floorSelection = document.querySelector('.floors-selector-n-back');
+    const miniCard = document.querySelector('.popup-info');
+
     options.setAttribute('data-type', 'options');
 
     if (low_performance_mode) {
@@ -34,25 +40,41 @@ export const optionsMenu = (optionsObject) => {
             containerMenu.classList.add('open');
             lock_autorotate = true;
 
-            // document.addEventListener('click', (event) => {
-            //     console.log(event.target);
-            //     if (event.target === containerMenu) {
-            //         return;
-            //     } else {
-            //         containerMenu.classList.remove('open');
-            //     }
-            //
-            // });
+            document.querySelector('.three_js').addEventListener('click', closeOptionsMenu);
+            document.querySelector('.three_js').addEventListener('touchstart', closeOptionsMenu);
+
+            function closeOptionsMenu() {
+                containerMenu.classList.remove('open');
+                lock_autorotate = false;
+                containerMenu.innerHTML = '';
+
+                if (window.innerWidth < 420) {
+                    setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
+                }
+                document.querySelector('.three_js').removeEventListener('click', closeOptionsMenu);
+                document.querySelector('.three_js').removeEventListener('touchstart', closeOptionsMenu);
+            }
 
             if (window.innerWidth < 420) {
                 SwipeScript();
+
                 options.classList.add('hide');
+                zoomControls.classList.add('hide');
+                compass.classList.add('hide');
+                searchBtn.classList.add('hide');
+                miniCard.classList.add('hide');
+
+                if (floorSelection.classList.contains('show')) {
+                    floorSelection.classList.add('hide');
+                }
+
                 document.addEventListener('swiped-down', function(e) {
-                    const wrapper = document.querySelector('.options__menu-wrapper');
                     containerMenu.classList.remove('open');
-                    options.classList.remove('hide');
+
+                    setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
 
                     setTimeout(() => {
+                        const wrapper = document.querySelector('.options__menu-wrapper');
                         if (wrapper) {
                             wrapper.remove();
                         }
@@ -63,6 +85,19 @@ export const optionsMenu = (optionsObject) => {
     });
 
     return optionsObject;
+}
+
+function setOrRemoveClass(className, action, ...elements) {
+
+    if (action === 'set') {
+
+    } else if (action === 'remove') {
+        elements.forEach(elem => {
+            if (elem.classList.contains(className)) {
+                elem.classList.remove(className);
+            }
+        });
+    }
 }
 
 function createElements(tag, className, parent) {
