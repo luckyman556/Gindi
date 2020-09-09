@@ -24,6 +24,8 @@ import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader
 // street names and position angle
 
 import {street_names_n_positions_angle} from './modules/street-names/names-angle.js';
+import {getCookie, setCookie} from "./js/setAndGetCookies.js";
+
 dictionary = dictionary_array;
 global_three = THREE;
 var drag_controls;
@@ -32,7 +34,6 @@ var camera , controls;
 var show_resolution = false;
 raycaster = new THREE.Raycaster();
 mouse = new THREE.Vector2();
-
 
 var group = new THREE.Group();
 var  canvas;
@@ -206,6 +207,7 @@ function init() {
             side: THREE.BackSide,
         });
         material.uniforms.tEquirect.value = texture_day;
+
         const plane = new THREE.SphereBufferGeometry(550, 550, 550);
         // const plane2 = new THREE.SphereGeometry(700, 32, 32, 0, Math.PI, 0, Math.PI);
 
@@ -441,6 +443,8 @@ function animate() {
         }
 
         stats.update();
+
+        // console.log(stats.getFPS());
         if (progress_bar_update_bool) {
             if (model_loaded) {
                 window.floor_obj.forEach(function (floor) {
@@ -453,12 +457,14 @@ function animate() {
 
                 let textures_percent = loaded_texture_counter / 32 * 100;
                 progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
-                if (loaded_texture_counter === 32) {
+
+                if ((loaded_texture_counter === 32) || (low_performance_mode && loaded_texture_counter === 11)) {
                     $('.to-page').addClass('active');
                     progress_bar_update(3, 100, 'Load complete');
                     $('.preloader').addClass('completed');
                     $('.preloader .to-page').trigger('click');
                     progress_bar_update_bool = false;
+
                     flat_number_bubble('hide');
                     {
                         const queryString = window.location.search;
@@ -501,7 +507,6 @@ function animate() {
                         ;
                     }
                 }
-                ;
             }
         }
         ;
@@ -658,7 +663,7 @@ function animate() {
 }
 
 
-function setCookie(name, value, options = {}) {
+/*function setCookie(name, value, options = {}) {
     options = {
         path: '/',
         ...options
@@ -685,7 +690,7 @@ function getCookie(name) {
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+}*/
 
 if (!getCookie('access_token')) {
     $.post(

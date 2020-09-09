@@ -1,7 +1,9 @@
 import * as THREE from '../../../node_modules/three/build/three.module.js';
 import { bicycle_routes } from './bicycle_route.js';
 
-export function add_bicycle (loader) {
+let bicyclistArray = [];
+
+export function add_bicycle (loader, action) {
     const bicyclistOptions = {
         amount: 3,
         initialPosition: [
@@ -25,91 +27,17 @@ export function add_bicycle (loader) {
         scale: 0.009,
     }
 
-    createModel(bicyclistOptions, loader);
+    if (action === 'add' && bicyclistArray.length === 0) {
+        createModel(bicyclistOptions, loader);
+    } else if (action === 'remove') {
+        bicyclistArray.forEach(bicyclist => {
+            const bicyclistToRemove = scene.getObjectByName(bicyclist.name);
+            bicyclistToRemove.visible = false;
+            scene.remove(bicyclistToRemove);
+        });
+        bicyclistArray = [];
+    }
 }
-
-/*function add_bicycles_animation (mesh, route, animation_counter) {
-    let callback = (e) => {
-        mesh.position.x = e.position_x;
-        mesh.position.y = e.position_y;
-        mesh.position.z = e.position_z;
-    };
-
-    let on_complete_callback = () => {
-        animation_counter++;
-        let car_animation_points_length =  route.length;
-        if (animation_counter === car_animation_points_length) {
-            animation_counter = 0;
-            add_bicycles_animation_rotation (mesh, route, animation_counter);
-            add_bicycles_animation (mesh, route, animation_counter);
-        } else {
-            add_bicycles_animation_rotation (mesh, route, animation_counter);
-            add_bicycles_animation (mesh, route, animation_counter);
-        }
-    };
-
-    let start = { position_x : mesh.position.x , position_y :  mesh.position.y, position_z :  mesh.position.z };
-    let target_position = route[animation_counter]['position'];
-    let target = { position_x : target_position.x , position_y :  mesh.position.y , position_z :  target_position.z };
-    // let target = { position_x : target_position.x , position_y :  target_position.y , position_z :  target_position.z };
-    let current_point = mesh.position;
-    let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
-    let distance_between = current_point.distanceTo(target_point);
-    let speed = distance_between * (350 / 1.5);
-    let easing = TWEEN.Easing.Linear.None;
-    let delay = 0;
-    let animation = new TWEEN.Tween(start).to(target, speed);
-
-    TWEEN.add(animation);
-    animation.delay(delay);
-    animation.onUpdate(callback);
-    animation.onComplete(on_complete_callback);
-    animation.easing(easing);
-    animation.start();
-}*/
-/*function add_bicycles_animation_rotation (mesh, route, animation_counter) {
-    let base_rotation_angle = global_three.Math.radToDeg(mesh.rotation.y);
-    let new_rotation_angle;
-    let floor_rotation_amount;
-
-    if (animation_counter === 0) {
-        let rotations_amount = mesh.rotation.y / Math.PI * 2;
-
-        if (rotations_amount > 1) {
-            floor_rotation_amount = Math.floor(rotations_amount);
-        }
-
-        new_rotation_angle = mesh.userData.base_y_rotation;
-        let new_mesh_rotation = mesh.rotation.y - 2 * Math.PI;
-        mesh.rotation.y = new_mesh_rotation;
-    } else {
-        new_rotation_angle = global_three.Math.degToRad(base_rotation_angle - route[animation_counter].angle_number);
-    }
-    let start = {rotation :  mesh.rotation.y};
-    let target = {rotation : new_rotation_angle};
-    let callback = (e) => {
-        if (!Number.isNaN(e.rotation)) {
-            mesh.rotation.y = e.rotation;
-        }
-    };
-    let easing = TWEEN.Easing.Quadratic.InOut;
-    let delay = 0;
-    let current_point = mesh.position;
-    let target_position  = route[animation_counter]['position'];
-    let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
-    let distance_between = current_point.distanceTo(target_point);
-    let duration = distance_between * (350 / 6);
-    let new_duration = duration - 20;
-    if (new_duration < 0) {
-        new_duration = 10;
-    }
-    let animation = new TWEEN.Tween(start).to(target, new_duration );
-    TWEEN.add(animation);
-    animation.delay(delay);
-    animation.onUpdate(callback);
-    animation.easing(easing);
-    animation.start();
-}*/
 
 function setRandomColor(obj) {
     obj.material.forEach(item => {
@@ -154,6 +82,7 @@ function createModel({amount, initialPosition, initialRotation, scale}, loader) 
 
             window.bicyclist = bicyclist;
             scene.add(bicyclist);
+            bicyclistArray.push(bicyclist);
 
 
             add_bicycles_animation(bicyclist, bicycle_routes[i], animation_counter);

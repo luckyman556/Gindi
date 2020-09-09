@@ -1,4 +1,5 @@
 import { add_street_names } from "../modules/street-names/add-street-names.js";
+import {getCookie, setCookie} from "./setAndGetCookies.js";
 
 export const langSwitcher = () => {
     const languages = ['EN', 'HE'];
@@ -72,7 +73,7 @@ function setActiveLanguage(button, dropdown, currentLang, languages) {
     html.setAttribute('dir', (currentLang === 'HE') ? 'rtl' : 'ltr');
 
     if (!low_performance_mode) {
-        add_street_names();
+        add_street_names(true);
     }
     changeContentText(currentLang);
     setCookie('language', currentLang, {'max-age': 9999999});
@@ -99,31 +100,31 @@ function changeLanguageByUserSelect(event, button, dropdown, currentLang, langua
         }
     });
 }
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-function setCookie(name, value, options= {}) {
-    options = {
-        path: '/',
-        ...options
-    };
-
-    if (options.expires instanceof Date) {
-        options.expires = options.expires.toUTCString();
-    }
-
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-    for (let optionKey in options) {
-        updatedCookie += "; " + optionKey;
-        let optionValue = options[optionKey];
-        if (optionValue !== true) {
-            updatedCookie += "=" + optionValue;
-        }
-    }
-
-    document.cookie = updatedCookie;
-}
+// function getCookie(name) {
+//     let matches = document.cookie.match(new RegExp(
+//         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+//     ));
+//     return matches ? decodeURIComponent(matches[1]) : undefined;
+// }
+// function setCookie(name, value, options= {}) {
+//     options = {
+//         path: '/',
+//         ...options
+//     };
+//
+//     if (options.expires instanceof Date) {
+//         options.expires = options.expires.toUTCString();
+//     }
+//
+//     let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+//
+//     for (let optionKey in options) {
+//         updatedCookie += "; " + optionKey;
+//         let optionValue = options[optionKey];
+//         if (optionValue !== true) {
+//             updatedCookie += "=" + optionValue;
+//         }
+//     }
+//
+//     document.cookie = updatedCookie;
+// }

@@ -156,7 +156,10 @@ $(document).ready(function(){
             });
             rotation_to_flat ();
             console.log(last_clicked_flat);
-            last_clicked_flat.userData.apartment_locked = true; 
+            last_clicked_flat.userData.apartment_locked = true;
+            rotation_to_flat ();
+            // console.log(last_clicked_flat);
+            last_clicked_flat.userData.apartment_locked = true;
             set_floor_status_color([current_floor]);
             if (document.querySelector('.main-wrap').filter_active === true) {
                 document.querySelector('.main-wrap').update_cards_btns_visibility();
