@@ -456,11 +456,12 @@ function animate() {
                 });
 
                 let textures_percent = loaded_texture_counter / 32 * 100;
-                progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
+                // progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
 
                 if ((loaded_texture_counter === 32) || (low_performance_mode && loaded_texture_counter === 11)) {
                     $('.to-page').addClass('active');
-                    progress_bar_update(3, 100, 'Load complete');
+                    // progress_bar_update(1, 100, 'Load complete');
+                    // progress_bar_update(1, 'Load complete');
                     $('.preloader').addClass('completed');
                     $('.preloader .to-page').trigger('click');
                     progress_bar_update_bool = false;
@@ -746,7 +747,7 @@ function get_json(token, build_id) {
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.setRequestHeader('Authorization', 'Bearer ' + token);
                 $('.preloader .percents').html('Update CRM data');
-                progress_bar_update(1, 100, 'Update CRM data');
+                // progress_bar_update(1, 100, 'Update CRM data');
             },
 
             success: function (response) {
@@ -770,7 +771,7 @@ function get_json(token, build_id) {
                     request.setRequestHeader('Content-Type', 'application/json');
                     request.setRequestHeader('Authorization', 'Bearer ' + token);
                     $('.preloader .percents').html('Update CRM data');
-                    progress_bar_update(1, 100, 'Update CRM data');
+                    // progress_bar_update(1, 100, 'Update CRM data');
                 },
 
                 success: function (response) {
