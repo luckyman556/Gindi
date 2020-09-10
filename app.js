@@ -374,18 +374,42 @@ function update_renderer_size () {
 let progress_bar_update_bool = true;
 window.mixer_first_time = true;
 let percentLoader = 0;
-function animate() {
-    TWEEN.update();
-    function loaderLineProgress() {
-        percentLoader = percentLoader + 3;
-        let stroke_offset =  930 * ((100  - percentLoader) / 100) + 270;
-        $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
-        if (percentLoader > totalPercent){
-            percentLoader = totalPercent;
+
+function loaderLineProgress() {
+    if (!document.querySelector('.preloader.completed')) {
+
+        let current_value = Number($('.preloader svg .st0').css('stroke-dashoffset').replace('px',''));
+        let local_percent;
+        local_percent = totalPercent;
+        let target_value =  930 * ((100  - local_percent) / 100) + 270;
+        let max_value = 1200 - 270;
+        let diff = target_value - current_value;
+        let new_value = current_value + diff * 0.2;
+        let progress_bar_data_percent = 100 - Math.floor((new_value - 270) /  max_value * 100);
+        $('.preloader svg .st0').css('stroke-dashoffset', String(new_value));
+        set_progress_bar_data(progress_bar_data_percent,'');
+        requestAnimationFrame(loaderLineProgress);
+    }
+
+
+    function set_progress_bar_data (current_percent, text) {
+        if (current_percent != Infinity) {
+            $('.custom-progress-bar .progress-line-active .custom-tooltip .text .change').html(current_percent);
+            $('.custom-progress-bar .bottom-text').html(text);
+            $('.custom-progress-bar .progress-line-active').css('width' , current_percent  + '%');
+            // let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
+            // $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
         }
     }
 
-    requestAnimationFrame(loaderLineProgress);
+}
+
+requestAnimationFrame(loaderLineProgress);
+
+
+function animate() {
+    TWEEN.update();
+
 
     if (!document.querySelector('.main-wrap').filter_active) {
         if (crmStatusLoadBool && model_loaded) {
