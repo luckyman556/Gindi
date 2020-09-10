@@ -354,9 +354,7 @@ function init() {
 
     update_renderer_size ();
 
-    if (get_url_param('dev')) {
-        add_filter($('.main-wrap'), 'img/filter-module/');
-    }
+
 }
 function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -378,6 +376,13 @@ window.mixer_first_time = true;
 
 function animate() {
     TWEEN.update();
+    if (!document.querySelector('.main-wrap').filter_active) {
+        if (crmStatusLoadBool && model_loaded) {
+            if (get_url_param('dev')) {
+                add_filter($('.main-wrap'), 'img/filter-module/');
+            }
+        }
+    }
     if ($('.popup.open').length === 0 && window.render_pause != true) {
         if (resizeRendererToDisplaySize(renderer)) {
             update_renderer_size();

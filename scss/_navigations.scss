@@ -249,6 +249,15 @@ html[dir=rtl] {
 	}
 }
 
+.floors-selector-n-back,
+.zoom-controls,
+.compass,
+.search-btn {
+	&.hide {
+		display: none !important;
+	}
+}
+
 @media (max-width: 450px) {
 	.left-nav-bar {
 		top: 16px;
@@ -271,6 +280,7 @@ html[dir=rtl] {
 		width: 100%;
 		height: auto;
 		transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+		z-index: 100;
 
 		&-wrapper {
 			&::before {

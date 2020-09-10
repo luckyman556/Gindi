@@ -1,0 +1,15 @@
+.filter-module-container .filter-controls,
+.nfm-togglers .togglers-row .toggler-btn,
+.new-ui-circle-btn,
+.new-ui-circle-btn:hover,
+.filter-module-container .input-search,
+.filter-module-container .flat-counter,
+.new-ui-btn,.filter-module-container,
+.filter-module-container .flat-cards .nfm-flat-card {
+    border-radius: 0px;
+}
+/*
+.filter-module-container .true-false-toggler .switch,
+.filter-module-container .true-false-toggler .toggle {
+    border-radius: 0px;
+}*/

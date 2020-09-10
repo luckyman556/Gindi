@@ -576,10 +576,11 @@
                 margin: 5px 8px;
                 background-color: $gray-light;
                 font-weight: 500;
-                font-size: 18px;
+                font-size: 18px; 
                 color: $brand-color-1;
                 transition: 0.5s;
                 cursor: pointer;
+                border-radius: 20px;  
            
             &.active {
                 background-color : $brand-color-1; 

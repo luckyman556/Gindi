@@ -774,7 +774,7 @@ $(document).ready(function(){
         $('.preloader').fadeOut();
     });
     $('.preloader').addClass(building_name);
-    requestAnimationFrame(get_prices);
+/*    requestAnimationFrame(get_prices);
     function get_prices () {
         if (all_appartments.length > 0) {
         let min_price = 99999999;
@@ -797,7 +797,7 @@ $(document).ready(function(){
         } else {
             requestAnimationFrame(get_prices) ;
         }
-    }
+    }*/
 
 
     {
