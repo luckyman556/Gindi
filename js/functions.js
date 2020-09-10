@@ -2951,15 +2951,6 @@ function add_instances_trees(tree, positions_array, scale, options) {
     return mesh;
 }
 
-function changeLoadedStatusInObject(objUrl) {
-    Object.entries(progressLoaderObj).forEach(([key,value])=>{
-        if (key === objUrl){
-            value.isLoaded = true;
-        }
-    });
-
-}
-
 function onSuccessCallback(){}
 function onProgressCallback(e) {
 
