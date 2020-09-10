@@ -393,6 +393,10 @@ body {
 			display: flex;
 			font-family: 'almoni-neue';
 			min-height: 22px;
+			&.non-price {
+				display: block !important;
+				text-transform: lowercase;
+			}
 			.top-part {
 				font-size: 14px;
 				color: $brand-color-1;
@@ -411,6 +415,16 @@ body {
 					.price-text {
 						color: $brand-color-1;
 						font-weight: 400;
+					}
+					.price-status {
+						font-family: Fragolino;
+						font-size: 16px;
+						font-weight: normal;
+						font-stretch: normal;
+						font-style: normal;
+						line-height: normal;
+						letter-spacing: -0.21px;
+						color: #1a2f43;
 					}
 				.text {
 					color: #9294a3;
@@ -2282,6 +2296,18 @@ body {
 				.floor-plan-toggler {
 					margin-left: 0!important;
 					margin-right: auto!important;
+					z-index: 10;
+				}
+				&:after {
+					content: '';
+					position: absolute;
+					width: 100%;
+					height: 65%;
+					background-color: $white;
+					opacity: 0.5;
+					top: 0;
+					left: 0;
+					z-index: 5;
 				}
 			}
 
@@ -2314,7 +2340,7 @@ body {
 				justify-content: space-between;
 				position: relative;
 				top: 0;
-				left: 1px;
+				left: 0;
 				margin-top: 16px;
 
 				.toggler-360 ,
@@ -2339,7 +2365,7 @@ body {
 					width: auto;
 					background: rgba(255, 255, 255, 0.1);
 					color: $white;
-					margin-left: 4px;
+					margin-left: 2px;
 					&.non-flat-360 {
 						display: none;
 					}
@@ -4095,7 +4121,7 @@ body.he {
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
 		width: 122px;
 		background-position: right 5px center;
-		margin-left: 4px;
+		margin-left: 2px;
 		margin-right: 8px;
 		background-size: 25px;
 
@@ -4120,6 +4146,7 @@ body.he {
 		display: none;
 	}
 	.three_js .popup-info .flat-plan {
+
 	}
 	.gift {
 		margin-left: auto;
@@ -4130,9 +4157,16 @@ body.he {
 		padding-left: 0px;
 		margin-right: -4px;
 	}
-	.three_js .popup-info .flat-plan.unavailable .floor-plan-toggler {
-		margin-left: auto !important;
-		margin-right: 0 !important;
+	.three_js .popup-info .flat-plan.unavailable {
+		.flat-plan-box {
+			.non-price {
+				text-align: right;
+			}
+		}
+		&.floor-plan-toggler {
+			margin-left: auto !important;
+			margin-right: 0 !important;
+		}
 	}
 	.three_js .flat-info {
 		padding-left: 0;
@@ -4422,7 +4456,6 @@ body.on-white {
 				}
 			}
 		}
-
 	}
 
 }

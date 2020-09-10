@@ -466,7 +466,7 @@ function set_appartment_data_in_block (appartment, box) {
             flat_name_number =   '0' + String(flat_name_number);
         }
         var flat_price = appartment.userData.crm_data.salePrice;
-        flat_price = get_price_html(flat_price, 'common', appartment);
+        flat_price = get_price_html(flat_price, 'common');
 
         $('.popup-info').removeClass('roof_n_looby');
         $('.popup-info').removeClass('roof');
@@ -489,7 +489,34 @@ function set_appartment_data_in_block (appartment, box) {
                 if (appartment.userData.crm_data.concessions[0].title.length > 0) {
                     apt_title = apt_title + '<span class="gift"></span>';
                 }
-            } 
+            }
+        }
+
+        // let flat_price_text_sold_en = 'sold';
+        // let flat_price_text_sold = flat_price_text_sold_en;
+        // let flat_price_text_sold_he = 'נמכר';
+        //
+        // let flat_price_text_unavailable_en = 'unavailable';
+        // let flat_price_text_unavailable = flat_price_text_unavailable_en;
+        // let flat_price_text_unavailable_he = 'נמכר';
+        //
+        // if ($('body').hasClass('he')) {
+        //     flat_price_text_sold = flat_price_text_sold_he;
+        //     $('.bottom-part').addClass('he');
+        //     flat_price_text_sold = flat_price_text_sold_he;
+        //
+        //     flat_price_text_unavailable = flat_price_text_unavailable_he;
+        //     $('.bottom-part').addClass('he');
+        //     flat_price_text_unavailable = flat_price_text_unavailable_he;
+        // }
+        if (appartment.userData.crm_data.status === "Sold") {
+            $('.price').addClass('non-price');
+             flat_price =`<span class="price-sold price-status language-string" data-dictionary="Sold">${get_lang('Sold')}</span>`;
+        } else if (appartment.userData.crm_data.status === "Unavailable") {
+            $('.price').addClass('non-price');
+            flat_price =`<span class="price-unavailable price-status language-string" data-dictionary="Unavailable">${get_lang('Unavailable')}</span>`;
+        } else {
+            $('.price').removeClass('non-price');
         }
         box.find('.title-with-selector .page-title .text').html(apt_title);
         box.find('.flat-plan .price .bottom-part').html(flat_price);
@@ -525,7 +552,7 @@ function set_appartment_data_in_block (appartment, box) {
         bind_price_box_btn (box.find('.flat-plan .price'), ['.number', '.price-text']);
 
         if (appartment.userData.url_360_type === 'custom') {
-           $('.toggler-2d').addClass('icon-360');
+            $('.toggler-2d').addClass('icon-360');
         } else {
             $('.toggler-2d').removeClass('icon-360');
         }
@@ -1217,7 +1244,7 @@ function add_appartment_info_in_popup (box) {
     let form_word_he = 'החל מ-';
     let form_word_current = from_word;
 
-    let price_html = get_price_html(flat_price, 'common', flat);
+    let price_html = get_price_html(flat_price, 'common');
 
     let more_info_word = 'show info';
     let more_info_word_he ='עוד מידע';
@@ -2514,7 +2541,8 @@ function update_flat_labels (dynamic = false) {
 
                 let inner_html = '';
                 let price = Math.floor(flat.userData.crm_data.salePrice);
-                let price_html = get_price_html (price, flat);
+                let flat_status = flat.userData.crm_data.status;
+                let price_html = get_price_html (price);
 
                 let apt_text_en = 'Apt.';
                 let apt_text = apt_text_en;
@@ -2523,8 +2551,6 @@ function update_flat_labels (dynamic = false) {
                     apt_text_he  = 'ד.';
                 }
 
-
-                let flat_status = flat.userData.crm_data.status;
                 let status_text = '';
                 let status_text_en = flat_status;
                 status_text = status_text_en;
@@ -2651,7 +2677,7 @@ function hide_all_labels () {
     });
 }
 
-function get_price_html (price_num, add_class = '', flat) {
+function get_price_html (price_num, add_class = '') {
     let inner_html = '';
     let price = Math.floor(price_num);
     if (price > 1000000) {
@@ -2670,12 +2696,6 @@ function get_price_html (price_num, add_class = '', flat) {
         $('.bottom-part').addClass('he');
         get_price_text = get_price_text_he;
     }
-    // let flat_status = flat.userData.crm_data.status;
-
-    // let status_text = '';
-    // let status_text_en = flat_status;
-    // status_text = status_text_en;
-    // let status_text_he = '';
     let price_html = `
             <div class="price-box ${add_class}">
                  <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
@@ -2684,28 +2704,7 @@ function get_price_html (price_num, add_class = '', flat) {
             </div>
         `;
     return price_html;
-    // if (flat_status == "Sold") {
-    //     // * not worked yet
-    //     // console.log(flat_status);
-    //     $('.price')[0].style[0] = 'block';
-    //     let price_html = `<div class="price-text" style="display: block">Sold</div>`;
-    //     return price_html;
-    // } else if (flat_status == "Unavailable")  {
-    //     $('.price')[0].style[0] = 'block';
-    //     let price_html = `<div class="price-text" style="display: block">Unavailable</div>`;
-    //     status_text_he = 'לא זמינה';
-    //     return price_html;
-    // } else {
-    //     $('.price').css('display', 'none');
-    //     let price_html = `
-    //         <div class="price-box ${add_class}">
-    //              <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
-    //             <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
-    //         <div class="number"> ${price}</div>
-    //         </div>
-    //     `;
-    //     return price_html;
-    }
+}
 
 function get_angle_to_camera() {
     let angle;
@@ -3048,7 +3047,9 @@ function bind_price_box_btn (container, classes) {
             if (container.find(item).css('display') != 'none') {
                 container.find(item).css('display', 'flex');
             }
+
         });
+
     });
 }
 

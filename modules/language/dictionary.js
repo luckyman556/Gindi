@@ -43,6 +43,10 @@ export let dictionary_array = {
         'he' : 'נמכר',
         'en' : 'Sold'
     },
+    'Unavailable' : {
+        'he' : 'לא זמינה',
+        'en' : 'Unavailable'
+    },
     'Floor plan' : {
         'he' : 'תכנית דירה',
         'en' : 'Floor plan'
