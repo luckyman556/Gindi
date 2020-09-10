@@ -373,9 +373,20 @@ function update_renderer_size () {
 }
 let progress_bar_update_bool = true;
 window.mixer_first_time = true;
-
+let percentLoader = 0;
 function animate() {
     TWEEN.update();
+    function loaderLineProgress() {
+        percentLoader = percentLoader + 3;
+        let stroke_offset =  930 * ((100  - percentLoader) / 100) + 270;
+        $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
+        if (percentLoader > totalPercent){
+            percentLoader = totalPercent;
+        }
+    }
+
+    requestAnimationFrame(loaderLineProgress);
+
     if (!document.querySelector('.main-wrap').filter_active) {
         if (crmStatusLoadBool && model_loaded) {
             add_filter($('.main-wrap'), 'img/filter-module/');

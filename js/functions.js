@@ -2282,8 +2282,8 @@ function progress_bar_update () {
             $('.custom-progress-bar .progress-line-active .custom-tooltip .text .change').html(current_percent);
             $('.custom-progress-bar .bottom-text').html(text);
             $('.custom-progress-bar .progress-line-active').css('width' , current_percent  + '%');
-            let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
-            $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
+            // let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
+            // $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
         }
     }
 }
