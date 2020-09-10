@@ -8,7 +8,7 @@ export let dictionary_array = {
         'en' : 'Floor number'
     },
     'Bedrooms' : {
-        'he' : 'חדרי שינה',
+        'he' : 'חדרים',
         'en' : 'Bedrooms'
     },
     'Area' : {

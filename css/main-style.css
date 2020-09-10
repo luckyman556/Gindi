@@ -1056,9 +1056,7 @@ body.he .lang-button::before {
   background-repeat: no-repeat;
   background-image: url("../img/navigation/left-menu/tune.svg");
   background-color: #ffffff;
-  transition: 0.5s;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  }
+  transition: 0.5s; }
   .button-options:hover {
     background-image: url("../img/navigation/left-menu/tune_white.svg");
     background-color: #C1AC87; }
@@ -1074,14 +1072,9 @@ body.he .lang-button::before {
   color: #1A2F43;
   background-color: #fff;
   z-index: 55;
-  transition: cubic-bezier(1, -0.01, 0.55, 1);
-  transition-duration: 0.75s;
-  box-shadow: 2px 2px 5px rgb(26, 47, 67, 0.3);
-  }
+  transition: 0.5s ease-in-out; }
   .options__menu.open {
-    left: 0;
-    transition-timing-function: cubic-bezier(0.38, -0.01, 0, 0.97);
-    }
+    left: 0; }
   .options__menu-wrapper {
     position: relative;
     padding: 32px; }
@@ -3605,10 +3598,10 @@ body {
       border: 1px solid #1A2F43; }
   .three_js .rotation-controller {
     position: absolute;
-    bottom: 15px;
+    bottom: 32px;
     left: 50%;
     transform: translate(-50%, 0);
-    height: 34px;
+    height: 44px;
     width: 528px;
     user-select: none;
     z-index: 2;
@@ -3623,7 +3616,7 @@ body {
       position: absolute;
       top: 50%;
       width: 62px;
-      height: 34px;
+      height: 44px;
       background-color: #1A2F43;
       border-radius: 0px;
       z-index: 2;
@@ -3644,7 +3637,7 @@ body {
         border-width: 2px 2px 0px 0px;
         border-color: #FFFFFF;
         transform: rotateZ(45deg);
-        top: 14px;
+        top: 19px;
         left: 42px; }
       .three_js .rotation-controller .circle:before {
         position: absolute;
@@ -3656,14 +3649,14 @@ body {
         border-width: 2px 2px 0px 0px;
         border-color: #FFFFFF;
         transform: rotateZ(-135deg);
-        top: 14px;
+        top: 19px;
         left: 13px; }
   .three_js .zoom-controls {
     position: absolute;
     right: 20px;
-    bottom: 15px;
+    bottom: 32px;
     height: auto;
-    width: 80px;
+    width: 100px;
     border-radius: 0px;
     z-index: 3;
     display: flex;
@@ -3677,10 +3670,16 @@ body {
       display: none; }
     .three_js .zoom-controls .zoom {
       cursor: pointer;
-      width: 34px;
-      height: 34px;
+      width: 44px;
+      height: 44px;
       background-color: #1a2f43;
       border-radius: 0px; }
+      .three_js .zoom-controls .zoom .img-box {
+        width: 100%;
+        height: 100%; }
+        .three_js .zoom-controls .zoom .img-box img {
+          width: 100%;
+          height: 100%; }
   .three_js .clear-search-filter {
     position: absolute;
     display: flex;
@@ -4801,7 +4800,7 @@ body.en .three_js .flat-option .top-part .ic {
 
 body.en .three_js .zoom-controls {
   right: initial;
-  left: calc(50% - 380px); }
+  left: calc(50% - 405px); }
 
 body.en .three_js .search-btn {
   right: initial;
