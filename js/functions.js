@@ -1226,7 +1226,7 @@ function add_appartment_info_in_popup (box) {
     }
     let concessions_html = '';
     if (flat.userData.crm_data.concessions != undefined) {
-        let concessions_title = flat.userData.crm_data.concessions[0].title;    
+        let concessions_title = flat.userData.crm_data.concessions[0].title;
         if (concessions_title.length > 0) {
             concessions_html = `
             <div class="concessions">
@@ -1357,7 +1357,7 @@ function add_appartment_info_in_popup (box) {
         </div>
         </div>
         </div>`;
-    
+
     box.prepend(html);
     bind_price_box_btn (box.find('.price-box.common'), ['.number', '.price-text']);
     $('.scroll_to_contacts').click(function(){
@@ -2285,32 +2285,52 @@ function reset_range (object) {
 }
 
 
-function progress_bar_update (iteration, percent , text) {
-    let first_iteration_edge = 5;
-    let second_iteration_edge = 90;
-    let third_iteration_edge = 100;
-    if (iteration == 1) {
-        let current_percent = Math.floor(first_iteration_edge / 100 *  percent);
-        set_progress_bar_data (current_percent, text);
-    } else if (iteration == 2) {
-        let divergention = second_iteration_edge - first_iteration_edge;
-        let current_percent = first_iteration_edge + Math.floor(divergention / 100 *  percent);
-        set_progress_bar_data (current_percent, text);
-    } else if (iteration == 3) {
-        let divergention = third_iteration_edge - second_iteration_edge - first_iteration_edge;
-        let current_percent = first_iteration_edge + second_iteration_edge + Math.floor(divergention / 100 *  percent);
-        set_progress_bar_data (current_percent, text);
-    }
-    function set_progress_bar_data (current_percent, text) {
-        if (current_percent != Infinity) {
-            $('.custom-progress-bar .progress-line-active .custom-tooltip .text .change').html(current_percent);
-            $('.custom-progress-bar .bottom-text').html(text);
-            $('.custom-progress-bar .progress-line-active').css('width' , current_percent  + '%');
-            let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
-            $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
-        }
-    }
+
+let totalPercent = 0;
+
+function progress_bar_update () {
+    let totalSize=0;
+    let loadedSize =0;
+    let mathPercent=0;
+
+        Object.entries(progressLoaderObj).forEach(([key,value],index)=>{
+            totalSize += value.total + loaded_texture_counter;
+            loadedSize +=value.loaded;
+            mathPercent = Math.floor((loadedSize * 100) / totalSize);
+            if (mathPercent> totalPercent){
+                totalPercent = mathPercent;
+            }
+        });
+
+
 }
+
+// function progress_bar_update (iteration, percent , text) {
+//     let first_iteration_edge = 5;
+//     let second_iteration_edge = 90;
+//     let third_iteration_edge = 100;
+//     if (iteration == 1) {
+//         let current_percent = Math.floor(first_iteration_edge / 100 *  percent);
+//         set_progress_bar_data (current_percent, text);
+//     } else if (iteration == 2) {
+//         let divergention = second_iteration_edge - first_iteration_edge;
+//         let current_percent = first_iteration_edge + Math.floor(divergention / 100 *  percent);
+//         set_progress_bar_data (current_percent, text);
+//     } else if (iteration == 3) {
+//         let divergention = third_iteration_edge - second_iteration_edge - first_iteration_edge;
+//         let current_percent = first_iteration_edge + second_iteration_edge + Math.floor(divergention / 100 *  percent);
+//         set_progress_bar_data (current_percent, text);
+//     }
+//     function set_progress_bar_data (current_percent, text) {
+//         if (current_percent != Infinity) {
+//             $('.custom-progress-bar .progress-line-active .custom-tooltip .text .change').html(current_percent);
+//             $('.custom-progress-bar .bottom-text').html(text);
+//             $('.custom-progress-bar .progress-line-active').css('width' , current_percent  + '%');
+//             let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
+//             $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
+//         }
+//     }
+// }
 
 function set_camera_on_flat (appartment) {
      let flat_center_position;
@@ -2696,16 +2716,20 @@ function get_price_html (price_num, add_class = '') {
         $('.bottom-part').addClass('he');
         get_price_text = get_price_text_he;
     }
-    let price_html = `
+       let price_html = `
             <div class="price-box ${add_class}">
                  <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
                 <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
             <div class="number"> ${price}</div>
             </div>
         `;
+    // let price_html = `
+
+    //     <span class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</span>
+    //     <span class="number">${price}</span>
+    //     `;
     return price_html;
 }
-
 function get_angle_to_camera() {
     let angle;
     let side_1;
@@ -2943,22 +2967,18 @@ function add_instances_trees(tree, positions_array, scale, options) {
     return mesh;
 }
 
-let tot = 0;
-let load = 0;
 function onSuccessCallback(){}
 function onProgressCallback(e) {
-    
+
     Object.assign(progressLoaderObj, {
         [e.currentTarget.responseURL]: {
             loaded: e.loaded,
             total: e.total,
-            isLoaded: Boolean(this.loaded === this.total),
         }
     });
-    // console.log(progressLoaderObj);
-    tot = e.total;
-    load = e.loaded;
-    // console.log(load,tot);
+
+    progress_bar_update();
+
 }
 function onErrorCallback(e){
     console.log(e);

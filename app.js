@@ -373,14 +373,47 @@ function update_renderer_size () {
 }
 let progress_bar_update_bool = true;
 window.mixer_first_time = true;
+let percentLoader = 0;
+
+function loaderLineProgress() {
+    if (!document.querySelector('.preloader.completed')) {
+
+        let current_value = Number($('.preloader svg .st0').css('stroke-dashoffset').replace('px',''));
+        let local_percent;
+        local_percent = totalPercent;
+        let target_value =  930 * ((100  - local_percent) / 100) + 270;
+        let max_value = 1200 - 270;
+        let diff = target_value - current_value;
+        let new_value = current_value + diff * 0.2;
+        let progress_bar_data_percent = 100 - Math.floor((new_value - 270) /  max_value * 100);
+        $('.preloader svg .st0').css('stroke-dashoffset', String(new_value));
+        set_progress_bar_data(progress_bar_data_percent,'');
+        requestAnimationFrame(loaderLineProgress);
+    }
+
+
+    function set_progress_bar_data (current_percent, text) {
+        if (current_percent != Infinity) {
+            $('.custom-progress-bar .progress-line-active .custom-tooltip .text .change').html(current_percent);
+            $('.custom-progress-bar .bottom-text').html(text);
+            $('.custom-progress-bar .progress-line-active').css('width' , current_percent  + '%');
+            // let stroke_offset =  930 * ((100  - current_percent) / 100) + 270;
+            // $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
+        }
+    }
+
+}
+
+requestAnimationFrame(loaderLineProgress);
+
 
 function animate() {
     TWEEN.update();
+
+
     if (!document.querySelector('.main-wrap').filter_active) {
         if (crmStatusLoadBool && model_loaded) {
-            if (get_url_param('dev')) {
-                add_filter($('.main-wrap'), 'img/filter-module/');
-            }
+            add_filter($('.main-wrap'), 'img/filter-module/');
         }
     }
     if ($('.popup.open').length === 0 && window.render_pause != true) {
@@ -461,11 +494,12 @@ function animate() {
                 });
 
                 let textures_percent = loaded_texture_counter / 32 * 100;
-                progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
+                // progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
 
                 if ((loaded_texture_counter === 32) || (low_performance_mode && loaded_texture_counter === 11)) {
                     $('.to-page').addClass('active');
-                    progress_bar_update(3, 100, 'Load complete');
+                    // progress_bar_update(1, 100, 'Load complete');
+                    // progress_bar_update(1, 'Load complete');
                     $('.preloader').addClass('completed');
                     $('.preloader .to-page').trigger('click');
                     progress_bar_update_bool = false;
@@ -751,7 +785,7 @@ function get_json(token, build_id) {
                 request.setRequestHeader('Content-Type', 'application/json');
                 request.setRequestHeader('Authorization', 'Bearer ' + token);
                 $('.preloader .percents').html('Update CRM data');
-                progress_bar_update(1, 100, 'Update CRM data');
+                // progress_bar_update(1, 100, 'Update CRM data');
             },
 
             success: function (response) {
@@ -775,7 +809,7 @@ function get_json(token, build_id) {
                     request.setRequestHeader('Content-Type', 'application/json');
                     request.setRequestHeader('Authorization', 'Bearer ' + token);
                     $('.preloader .percents').html('Update CRM data');
-                    progress_bar_update(1, 100, 'Update CRM data');
+                    // progress_bar_update(1, 100, 'Update CRM data');
                 },
 
                 success: function (response) {
