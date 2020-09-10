@@ -906,10 +906,10 @@ body {
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .three_js .popup-info .flat-plan {
-            width: 253px;
+            /* width: 253px; */
             padding-bottom: 0px;
-            height: 100%!important;
-            max-height: 100%!important;
+            /* height: 100%!important; */
+            /* max-height: 100%!important; */
         }
         .three_js .flat-plan .price {
             justify-content: right;

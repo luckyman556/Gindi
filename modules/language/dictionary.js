@@ -8,7 +8,7 @@ export let dictionary_array = {
         'en' : 'Floor number'
     },
     'Bedrooms' : {
-        'he' : 'חדרי שינה',
+        'he' : 'חדרים',
         'en' : 'Bedrooms'
     },
     'Area' : {
@@ -42,6 +42,10 @@ export let dictionary_array = {
     'Sold' : {
         'he' : 'נמכר',
         'en' : 'Sold'
+    },
+    'Unavailable' : {
+        'he' : 'לא זמינה',
+        'en' : 'Unavailable'
     },
     'Floor plan' : {
         'he' : 'תכנית דירה',
