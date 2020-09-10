@@ -373,9 +373,21 @@ function update_renderer_size () {
 }
 let progress_bar_update_bool = true;
 window.mixer_first_time = true;
-
+let startTarget = 0;
+var loaderIsLoaded = false;
 function animate() {
     TWEEN.update();
+    function loaderLineProgress() {
+        startTarget = startTarget + 3;
+        let stroke_offset =  930 * ((100  - startTarget) / 100) + 270;
+        $('.preloader svg .st0').css('stroke-dashoffset', String(stroke_offset));
+        if (startTarget > totalPercent){
+            startTarget = totalPercent;
+        }
+    }
+
+    requestAnimationFrame(loaderLineProgress);
+
     if (!document.querySelector('.main-wrap').filter_active) {
         if (crmStatusLoadBool && model_loaded) {
             if (get_url_param('dev')) {
