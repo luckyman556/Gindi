@@ -43,7 +43,6 @@
 		transition: cubic-bezier(1, -0.01, 0.55, 1);
 		transition-duration: 0.75s;
 		box-shadow: 2px 2px 5px rgb(26, 47, 67, 0.3);
-
 		&.open {
 			left: 0;
 			transition-timing-function: cubic-bezier(0.38, -0.01, 0, 0.97);

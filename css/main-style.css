@@ -1056,7 +1056,8 @@ body.he .lang-button::before {
   background-repeat: no-repeat;
   background-image: url("../img/navigation/left-menu/tune.svg");
   background-color: #ffffff;
-  transition: 0.5s; }
+  transition: 0.5s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
   .button-options:hover {
     background-image: url("../img/navigation/left-menu/tune_white.svg");
     background-color: #C1AC87; }
@@ -1072,9 +1073,12 @@ body.he .lang-button::before {
   color: #1A2F43;
   background-color: #fff;
   z-index: 55;
-  transition: 0.5s ease-in-out; }
+  transition: cubic-bezier(1, -0.01, 0.55, 1);
+  transition-duration: 0.75s;
+  box-shadow: 2px 2px 5px rgba(26, 47, 67, 0.3); }
   .options__menu.open {
-    left: 0; }
+    left: 0;
+    transition-timing-function: cubic-bezier(0.38, -0.01, 0, 0.97); }
   .options__menu-wrapper {
     position: relative;
     padding: 32px; }

@@ -377,7 +377,6 @@ let percentLoader = 0;
 
 function loaderLineProgress() {
     if (!document.querySelector('.preloader.completed')) {
-
         let current_value = Number($('.preloader svg .st0').css('stroke-dashoffset').replace('px',''));
         let local_percent;
         local_percent = totalPercent;
