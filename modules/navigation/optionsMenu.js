@@ -47,15 +47,17 @@ export const optionsMenu = (optionsObject) => {
             setInputListener(optionsObject);
 
             containerMenu.classList.add('open');
-            lock_autorotate = true;
+            last_interaction = Date.now();
+            model_autorotate = false;
 
             document.querySelector('.three_js').addEventListener('click', closeOptionsMenu);
             document.querySelector('.three_js').addEventListener('touchstart', closeOptionsMenu);
 
             function closeOptionsMenu() {
                 containerMenu.classList.remove('open');
-                lock_autorotate = false;
-                containerMenu.innerHTML = '';
+                setTimeout(() => {
+                    containerMenu.innerHTML = '';
+                }, 500);
 
                 if (window.innerWidth < 420) {
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
@@ -72,18 +74,19 @@ export const optionsMenu = (optionsObject) => {
                     floorSelection.classList.add('hide');
                 }
 
-                document.addEventListener('swiped-down', function(e) {
+                containerMenu.addEventListener('swiped-down', closeCardOptions, false);
+
+                function closeCardOptions(e) {
+                    e.preventDefault();
+
+                    setTimeout(() => {
+                        containerMenu.innerHTML = '';
+                    }, 300);
+
                     containerMenu.classList.remove('open');
 
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
-
-                    setTimeout(() => {
-                        const wrapper = document.querySelector('.options__menu-wrapper');
-                        if (wrapper) {
-                            wrapper.remove();
-                        }
-                    }, 1000);
-                });
+                }
             }
         }
     });
@@ -140,8 +143,10 @@ function loadHTML(containerMenu) {
 
     btnClose.addEventListener('click', event => {
         menu.classList.remove('open');
-        lock_autorotate = false;
-        containerMenu.innerHTML = '';
+
+        setTimeout(() => {
+            containerMenu.innerHTML = '';
+        }, 500);
     });
 }
 
@@ -194,7 +199,7 @@ function setInputListener(optionsObject) {
 
 function turnOffAllEnvironment(optionsObject) {
     environmentShow = !environmentShow;
-    low_performance_mode = !environmentShow;
+    low_performance_mode = !low_performance_mode;
 
     if (environmentShow) {
         loadEnvironment(on_load_texture);
@@ -218,5 +223,3 @@ function turnOffAllEnvironment(optionsObject) {
     setCookie('environmentBool', environmentShow, {'max-age': 999999});
     setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
 }
-
-// setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
