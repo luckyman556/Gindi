@@ -2588,7 +2588,7 @@ body {
 		}
 		.more-info {
 			display: flex;
-			overflow: scroll;
+			//overflow: scroll;
 			flex-direction: column;
 			margin-bottom: 0;
 			margin-top: 0;
@@ -2663,7 +2663,7 @@ body {
 					font-weight: 400;
 					line-height: 23px;
 					text-align: center;
-					display: flex;
+					display: none;
 					flex-direction: column;
 					justify-content: center;
 					cursor: pointer;
