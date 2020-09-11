@@ -72,7 +72,9 @@ export const optionsMenu = (optionsObject) => {
                     floorSelection.classList.add('hide');
                 }
 
-                document.addEventListener('swiped-down', function(e) {
+                containerMenu.addEventListener('swiped-down', function(e) {
+                    e.preventDefault();
+
                     containerMenu.classList.remove('open');
 
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
@@ -193,7 +195,7 @@ function setInputListener(optionsObject) {
 
 function turnOffAllEnvironment(optionsObject) {
     environmentShow = !environmentShow;
-    low_performance_mode = !environmentShow;
+    low_performance_mode = !low_performance_mode;
 
     if (environmentShow) {
         loadEnvironment(on_load_texture);

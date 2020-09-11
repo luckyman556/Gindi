@@ -120,16 +120,16 @@ export function add_models( scene, all_appartments) {
     {
         const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        if (isSafari) {
-            if (isMobileApple) {
-                let iphone_type = getiPhoneModel();
-                if (iphone_type == "10-") {
-                    low_performance_mode = true;
-                }
+        if (isSafari && isMobileApple) {
+            let iphone_type = getiPhoneModel();
+            if (iphone_type == "10-") {
+                low_performance_mode = true;
+                setCookie('environmentBool', !low_performance_mode, {'max-age': 999999});
             }
         }
         if (get_url_param('low_performance')) {
             low_performance_mode = true;
+            setCookie('environmentBool', !low_performance_mode, {'max-age': 999999});
         }
     }
 
