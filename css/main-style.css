@@ -1561,7 +1561,6 @@ body {
       letter-spacing: 0.138428px;
       color: #476FC0;
       text-align: left;
-      display: flex;
       font-family: 'almoni-neue';
       min-height: 22px; }
       .three_js .flat-plan .price.non-price {
@@ -2159,14 +2158,11 @@ body {
     .three_js .popup.open {
       transform: scale(1);
       opacity: 1;
-      border-radius: 6px !important;
       display: flex !important;
       width: calc(100% - 150px) !important;
-      height: calc(100% - 50px) !important; }
+      height: calc(100% - 50px) !important;
+      filter: drop-shadow(0px 8px 14px rgba(46, 70, 81, 0.15)); }
       .three_js .popup.open * {
-        transition: 0.5s; }
-      .three_js .popup.open:after {
-        opacity: 1;
         transition: 0.5s; }
       .three_js .popup.open * {
         opacity: 1; }
@@ -2177,8 +2173,6 @@ body {
       width: 100%;
       padding: 0;
       overflow: hidden;
-      border-bottom-right-radius: 8px;
-      border-top-right-radius: 8px;
       background-color: #FFFFFF; }
       .three_js .popup .content .iframe-box {
         width: 100%;
@@ -2335,7 +2329,6 @@ body {
         background-color: #FFFFFF; }
     .three_js .popup .popup-btn {
       position: absolute;
-      top: 0;
       right: -40px;
       width: 32px;
       height: 32px;
@@ -2350,7 +2343,7 @@ body {
       background-image: url(../img/gindi-popup-close.svg);
       background-size: 20px; }
     .three_js .popup .print-btn {
-      top: 54px;
+      bottom: 12px;
       right: -56px;
       background-image: url(../img/gindi-popup-printer.svg);
       background-size: 28px; }
@@ -2389,7 +2382,7 @@ body {
       padding-right: 0;
       padding-left: 0;
       background-image: none !important;
-      margin: 0 0 0 10px;
+      margin: 0;
       border: solid 1px #1A2F43;
       border-radius: 0px;
       font-family: almoni-neue;
@@ -2965,10 +2958,6 @@ body {
       display: block;
       background-color: #FFFFFF;
       box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15); }
-      .three_js .popup-info .flat-plan.min {
-        height: fit-content; }
-        .three_js .popup-info .flat-plan.min .popups-togglers-box {
-          margin-top: 20px; }
       .three_js .popup-info .flat-plan.unavailable .floor-plan-toggler {
         margin-left: 0 !important;
         margin-right: auto !important;
@@ -3027,8 +3016,7 @@ body {
           padding: 0 10px;
           width: auto;
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF;
-          margin-left: 2px; }
+          color: #FFFFFF; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.non-flat-360 {
             display: none; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
@@ -3044,7 +3032,8 @@ body {
             width: 122px;
             margin-left: 0px; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
-              background-image: url(../img/popup-info-360.svg) !important; }
+              background-image: url(../img/popup-info-360.svg) !important;
+              background-position: left 27px center; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
             font-family: Fragolino;
             font-size: 18px;
@@ -3067,37 +3056,35 @@ body {
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
             position: relative;
             font-size: 0;
-            width: 34px !important;
-            height: 34px !important;
+            width: 44px !important;
+            height: 44px !important;
             background-color: #FFFFFF;
             border-radius: 0px;
             background-image: url(../img/back-to-floor-plan.svg) !important;
-            background-position: center;
             background-repeat: no-repeat;
             transition-property: background-color, border-radius, width;
             transition: 0.5s;
-            background-size: 7px !important;
+            background-size: 24px !important;
             background-position: center !important;
             padding: 0;
-            margin-right: auto;
-            margin-left: 20px; }
+            margin-right: auto; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:after {
               content: 'Back';
               position: absolute;
               color: #1A2F43;
-              right: -40px;
-              top: -2px;
-              font-size: 14px;
-              line-height: 33px;
+              right: -50px;
+              top: calc(50% - 11.5px);
+              font-size: 18px;
+              line-height: 23px;
               padding-left: 20px; }
       @media (max-width: 1024px) {
         .three_js .popup-info .flat-plan .popups-togglers-box {
-          margin-top: 4px; } }
+          margin-top: 20px; } }
   .three_js .flat-info {
     background-color: #F7F7F7;
-    width: 230px;
-    min-width: 230px;
-    padding-left: 29px;
+    width: 208px;
+    min-width: 208px;
+    padding-left: 33px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -3111,9 +3098,10 @@ body {
     .three_js .flat-info.unavailable > .title .sep {
       display: none; }
     .three_js .flat-info > .title {
-      display: flex;
+      display: inline-block;
+      left: -2px;
       flex-wrap: wrap;
-      padding-top: 46px; }
+      padding-top: 32px; }
       .three_js .flat-info > .title .title-box {
         position: relative; }
         .three_js .flat-info > .title .title-box:after {
@@ -3123,13 +3111,15 @@ body {
           right: 0;
           height: 13px;
           background-color: #C1AC87;
-          width: 105%;
+          width: 98px;
           z-index: 0; }
       .three_js .flat-info > .title h2 {
         font-weight: bold;
-        font-size: 45px;
+        font-size: 32px;
         font-weight: 600;
-        padding-left: 2px;
+        line-height: 41px;
+        padding-left: 5px;
+        padding-right: 0;
         width: auto;
         color: #03233A;
         position: relative;
@@ -3141,7 +3131,6 @@ body {
         margin: 11px 0 0 9px;
         display: none; }
       .three_js .flat-info > .title .price {
-        padding: 9px 0 0 10px;
         display: flex; }
         .three_js .flat-info > .title .price .text {
           font-family: almoni-neue;
@@ -3150,7 +3139,7 @@ body {
           color: #1A2F43;
           display: none; }
         .three_js .flat-info > .title .price .price-num {
-          display: flex; }
+          height: 21px; }
           .three_js .flat-info > .title .price .price-num .currency {
             display: block;
             width: 18px;
@@ -3161,12 +3150,13 @@ body {
             color: #603EF2;
             position: relative;
             top: -2px;
-            font-family: almoni-neue;
+            font-family: Fragolino;
             font-size: 16px;
             letter-spacing: -0.21px;
             color: #1A2F43; }
           .three_js .flat-info > .title .price .price-num .number {
-            font-family: almoni-neue;
+            font-family: Fragolino;
+            padding-top: 2px;
             font-size: 16px;
             letter-spacing: -0.21px;
             color: #1A2F43;
@@ -3175,7 +3165,8 @@ body {
           .three_js .flat-info > .title .price .price-num .price-text {
             display: none;
             font-weight: 400;
-            font-family: almoni-neue;
+            padding-top: 2px;
+            font-family: Fragolino;
             font-size: 16px;
             letter-spacing: -0.21px;
             color: #1A2F43; }
@@ -3206,6 +3197,7 @@ body {
         padding-left: 10px; }
     .three_js .flat-info .more-info {
       display: flex;
+      overflow: scroll;
       flex-direction: column;
       margin-bottom: 0;
       margin-top: 0;
@@ -3234,9 +3226,8 @@ body {
         position: relative;
         background-color: transparent;
         width: auto;
-        margin: 9px auto 0 0;
         border-radius: 4px;
-        padding: 19px 20px 1px 0px;
+        padding: 16px 20px 1px 0px;
         opacity: 1;
         transform-origin: top;
         transform: scaleY(1);
@@ -3256,46 +3247,45 @@ body {
           background-color: #FFFFFF;
           transform: rotate(45deg); }
         .three_js .flat-info .more-info .bottom-part .info-loop {
-          margin-top: 18px;
           margin-bottom: auto;
           width: 100%; }
         .three_js .flat-info .more-info .bottom-part .apply-now {
-          margin-top: auto;
-          height: 35px;
-          width: 125px;
+          font-family: Fragolino;
+          margin-bottom: 32px;
+          height: 44px;
+          min-height: 44px;
+          width: 144px;
+          box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
+          background-color: #C1AC87;
           color: #FFFFFF;
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 400;
-          line-height: 19px;
+          line-height: 23px;
           text-align: center;
-          display: none;
+          display: flex;
           flex-direction: column;
           justify-content: center;
-          background-color: #603ef2;
-          border-radius: 22px;
-          cursor: pointer;
-          transition: 0.5s; }
-          .three_js .flat-info .more-info .bottom-part .apply-now:hover {
-            transform: scale(1.2); }
+          cursor: pointer; }
         .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
-          margin-bottom: 17px; }
+          margin-bottom: 23px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row {
             display: flex;
             font-size: 24px; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row .bottom {
-              font-size: 24px;
-              font-weight: 600;
-              padding-top: 6px; }
+              font-family: 'Fragolino-Cond';
+              font-size: 16px;
+              line-height: 21px;
+              font-weight: bold;
+              padding: 0 6px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.bath-item {
             display: none; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.square-item {
-            display: none; }
+            display: block; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon {
-            width: 33px;
-            height: 33px;
+            width: 24px;
+            height: 24px;
             background-position: center;
-            background-repeat: no-repeat;
-            background-size: 18px; }
+            background-repeat: no-repeat; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.plan {
               background-image: url(../img/ic-plan.svg); }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.floor {
@@ -3306,11 +3296,11 @@ body {
               background-image: url(../img/ic_bedrooms.svg); }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.square {
               background-image: url(../img/ic_meters.svg); }
+            .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.balcony {
+              background-image: url(../img/ic_balcony.svg); }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.position {
               background-image: url(../img/ic_side.svg); }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text {
-            margin-top: -6px;
-            margin-left: 10px;
             padding-right: 6px;
             font-size: 16px;
             line-height: 18px;
@@ -3318,15 +3308,16 @@ body {
             color: #FFFFFF;
             text-shadow: none; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .top {
-              font-family: almoni-neue;
-              font-size: 15px;
-              font-weight: normal;
+              font-family: Fragolino;
+              font-size: 14px;
+              font-weight: 300;
               font-stretch: normal;
               font-style: normal;
-              line-height: normal;
+              line-height: 18px;
               letter-spacing: -0.21px;
               text-align: right;
-              color: #5c646b; }
+              color: #5c646b;
+              }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .bottom {
               width: 100%;
               display: block;
@@ -4400,6 +4391,10 @@ body.he .three_js .search-filter-title .icon {
   border: 1px solid #8d969e;
   border-radius: 100%; }
 
+body.he .three_js .flat-info > .title h2 {
+  padding-right: 2px;
+  padding-left: 0; }
+
 body.he .folder-box .border-top-left {
   transform: rotateY(180deg);
   right: 0;
@@ -4430,20 +4425,20 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-tog
   background-size: 25px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
-  width: 30px;
-  background-image: url(../img/gindi-popup-back-ic.svg) !important;
-  background-size: 25px !important;
-  margin-left: 50px; }
+  width: 24px;
+  background-image: url(../img/back-to-floor-plan.svg) !important;
+  transform: rotate(180deg);
+  background-size: 24px !important;
+  left: 78px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
   content: 'חזור';
   position: absolute;
+  transform: rotate(180deg);
   color: #1A2F43;
-  right: 40px;
-  top: -2px;
-  font-size: 16px;
-  line-height: 34px;
-  padding-left: 20px; }
+  left: 54px;
+  font-size: 18px;
+  line-height: 23px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:after {
   display: none; }
@@ -4711,6 +4706,9 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
 .price-box.common {
   display: flex; }
   .price-box.common .get-price-btn {
+    font-family: Fragolino;
+    font-size: 16px;
+    font-weight: normal;
     height: 21px;
     padding: 0 10px;
     background-color: #1A2F43;
@@ -4812,7 +4810,7 @@ body.en .popup-360 > .flat-info {
     body.en .popup-360 > .flat-info > .title .title-box::after {
       right: initial;
       left: 0;
-      width: 80%; }
+      width: 98px; }
     body.en .popup-2d > .flat-info > .title .price-text,
     body.en .popup-3d > .flat-info > .title .price-text,
     body.en .popup-360 > .flat-info > .title .price-text {

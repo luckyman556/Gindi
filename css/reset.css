@@ -15,6 +15,7 @@ time, mark, audio, video, input, textarea {
   padding: 0;
   border: 0;
   font-size: 16px;
+  line-height: 21px;
   font: inherit;
   vertical-align: baseline;
   box-sizing: border-box;

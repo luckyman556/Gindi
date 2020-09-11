@@ -1167,12 +1167,13 @@ function add_appartment_info_in_popup (box) {
     }
     var badrooms = flat.userData.crm_data.roomNum;
     var bathrooms = flat.userData.crm_data.bathRooms;
+    var balcony = flat.userData.crm_data.balconySize;
     var facing = flat.userData.crm_data.facing;
     let facing_translates = {
-      'צפון' : 'N',
-      'מערב' : 'W',
-      'דרום' : 'S',
-      'מזרח' : 'E',
+      'צפון' : 'North',
+      'מערב' : 'West',
+      'דרום' : 'South',
+      'מזרח' : 'East',
     };
    let facing_string_array = facing.split(',');
    let facing_string_en = '';
@@ -1185,7 +1186,7 @@ function add_appartment_info_in_popup (box) {
     });
     var flat_type = flat.userData.crm_data.propType;
     let flat_types_translates = {
-         'דירה' : 'Apartment'
+         'דירה' : 'apt.type'
     };
     let flat_type_en = flat_types_translates[flat_type];
     let flat_type_he = flat_type;
@@ -1254,23 +1255,27 @@ function add_appartment_info_in_popup (box) {
     let hide_word_he = 'לסגור';
     let hide_word_current = hide_word;
 
-    let floor_word = 'Floor';
+    let floor_word = 'floor';
     let floor_word_he ='קומה';
     let floor_word_current = floor_word;
 
-    let badrooms_word = 'Bedrooms';
+    let badrooms_word = 'bedrooms';
     let badrooms_word_he ='חדרים';
     let badrooms_word_current = badrooms_word;
 
-    let bathrooms_word = 'Bathrooms';
+    let bathrooms_word = 'bathrooms';
     let bathrooms_word_he ='חדרי רחצה';
     let bathrooms_word_current = bathrooms_word;
 
-    let area_word = 'Area';
+    let balcony_word = 'balcony size';
+    let balcony_word_he ='גודל מרפסת';
+    let balcony_word_current = balcony_word;
+
+    let area_word = 'area';
     let area_word_he ='אזור';
     let area_word_current = area_word;
 
-    let exposure_word = 'Exposure';
+    let exposure_word = 'exposure';
     let exposure_word_he ='כיווני אוויר';
     let exposure_word_current = exposure_word;
 
@@ -1289,6 +1294,7 @@ function add_appartment_info_in_popup (box) {
         floor_word_current = floor_word_he;
         badrooms_word_current = badrooms_word_he;
         bathrooms_word_current = bathrooms_word_he;
+        balcony_word_current = balcony_word_he;
         area_word_current = area_word_he;
         exposure_word_current = exposure_word_he;
         apply_now_word_current = apply_now_word_he;
@@ -1328,30 +1334,34 @@ function add_appartment_info_in_popup (box) {
             <div class="bottom-part">
                 <div class="info-loop">
                 <div class="info-item">
+                <div class="info-item flat-type-item">
+                    <div class="row"><div class="icon plan"></div><span class="bottom">${engine_id}</span></div>
+                <div class="text">
+                    <span class="top language-string" data-he="${flat_type_he}" data-en="${flat_type_en}">${flat_type}</span></div>
+                </div>
                 <div class="row"><div class="icon floor"></div><span class="bottom">${floor}</span></div>
                 <div class="text"><span class="top language-string" data-he="${floor_word_he}" data-en="${floor_word}">${floor_word_current}</span></div>
+            </div> 
+            <div class="info-item square-item">
+                <div class="row"><div class="icon square"></div><span class="bottom">${flat_square}</span></div>
+                <div class="text"><span class="top language-string" data-he="${area_word_he}" data-en="${area_word}">${area_word_current}</span></div>
             </div>
             <div class="info-item bed-item">
                 <div class="row"><div class="icon bad"></div><span class="bottom">${badrooms}</span></div>
-                 <div class="text"><span class="top language-string" data-he="${badrooms_word_he}" data-en="${badrooms_word}">${badrooms_word_current}</span></div>
+                <div class="text"><span class="top language-string" data-he="${badrooms_word_he}" data-en="${badrooms_word}">${badrooms_word_current}</span></div>
             </div>
             <div class="info-item bath-item">
                 <div class="row"><div class="icon bath"></div><span class="bottom">${bathrooms}</span></div>
                 <div class="text"><span class="top language-string" data-he="${bathrooms_word_he}" data-en="${bathrooms_word}">${bathrooms_word_current}</span></div> 
             </div>
-            <div class="info-item square-item">
-                <div class="row"><div class="icon square"></div><span class="bottom">${flat_square} sq. ft.</span></div>
-                <div class="text"><span class="top language-string" data-he="${area_word_he}" data-en="${area_word}">${area_word_current}</span></div>
+            <div class="info-item position-item">
+                <div class="row"><div class="icon position"></div><span class="bottom language-string"  data-he="${facing_word_he}" data-en="${facing_word_en}">${facing_word}</span></div>
+                <div class="text"><span class="top language-string" data-he="${exposure_word_he}" data-en="${exposure_word}">${exposure_word_current}</span></div>
             </div>
-        <div class="info-item flat-type-item">
-            <div class="row"><div class="icon plan"></div><span class="bottom">${engine_id}</span></div>
-        <div class="text">
-            <span class="top language-string" data-he="${flat_type_he}" data-en="${flat_type_en}">${flat_type}</span></div>
-        </div>
-        <div class="info-item position-item">
-             <div class="row"><div class="icon position"></div><span class="bottom language-string"  data-he="${facing_word_en}" data-en="${facing_word_en}">${facing_word_en }</span></div>
-            <div class="text"><span class="top language-string" data-he="${exposure_word_he}" data-en="${exposure_word}">${exposure_word_current}</span></div>
-        </div>
+             <div class="info-item balcony-item">
+                <div class="row"><div class="icon balcony"></div><span class="bottom">${balcony}</span></div>
+                <div class="text"><span class="top language-string" data-he="${balcony_word_he}" data-en="${balcony_word}">${balcony_word_current}</span></div> 
+            </div>
         </div>
             ${apply_now_html}
         </div>
