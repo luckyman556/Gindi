@@ -273,7 +273,16 @@ html[dir=rtl] {
 	}
 }
 
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
+	body {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: -1;
+	}
+
 	.left-nav-bar {
 		top: 16px;
 	}
@@ -285,6 +294,10 @@ html[dir=rtl] {
 		&.hide {
 			opacity: 0;
 			visibility: hidden;
+		}
+		&:hover {
+			background-image: url("../img/navigation/left-menu/tune.svg");
+			background-color: $white;
 		}
 	}
 	.options__menu {

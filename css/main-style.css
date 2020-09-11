@@ -1229,7 +1229,14 @@ html[dir=rtl] .options__menu-label {
 .search-btn.hide {
   display: none !important; }
 
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
+  body {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1; }
   .left-nav-bar {
     top: 16px; }
   .button-options {
@@ -1239,6 +1246,9 @@ html[dir=rtl] .options__menu-label {
     .button-options.hide {
       opacity: 0;
       visibility: hidden; }
+    .button-options:hover {
+      background-image: url("../img/navigation/left-menu/tune.svg");
+      background-color: #FFFFFF; }
   .options__menu {
     top: initial;
     bottom: -150%;

@@ -55,7 +55,9 @@ export const optionsMenu = (optionsObject) => {
 
             function closeOptionsMenu() {
                 containerMenu.classList.remove('open');
-                containerMenu.innerHTML = '';
+                setTimeout(() => {
+                    containerMenu.innerHTML = '';
+                }, 500);
 
                 if (window.innerWidth < 420) {
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
@@ -72,20 +74,19 @@ export const optionsMenu = (optionsObject) => {
                     floorSelection.classList.add('hide');
                 }
 
-                containerMenu.addEventListener('swiped-down', function(e) {
+                containerMenu.addEventListener('swiped-down', closeCardOptions, false);
+
+                function closeCardOptions(e) {
                     e.preventDefault();
+
+                    setTimeout(() => {
+                        containerMenu.innerHTML = '';
+                    }, 300);
 
                     containerMenu.classList.remove('open');
 
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
-
-                    setTimeout(() => {
-                        const wrapper = document.querySelector('.options__menu-wrapper');
-                        if (wrapper) {
-                            wrapper.remove();
-                        }
-                    }, 1000);
-                });
+                }
             }
         }
     });
@@ -142,7 +143,10 @@ function loadHTML(containerMenu) {
 
     btnClose.addEventListener('click', event => {
         menu.classList.remove('open');
-        containerMenu.innerHTML = '';
+
+        setTimeout(() => {
+            containerMenu.innerHTML = '';
+        }, 500);
     });
 }
 
