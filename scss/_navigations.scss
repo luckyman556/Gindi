@@ -18,13 +18,13 @@
 	background-repeat: no-repeat;
 	//border-radius: 50%;
 	background-image: url("../img/navigation/left-menu/tune.svg");
-	background-color: #ffffff;
+	background-color: $white;
 	transition: 0.5s;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 
 	&:hover {
 		background-image: url("../img/navigation/left-menu/tune_white.svg");
-		background-color: #C1AC87;
+		background-color: $brand-color-2;
 	}
 }
 
@@ -37,9 +37,9 @@
 		top: 0;
 		left: -200%;
 		font-family: fragolino, sans-serif;
-		color: #1A2F43;
-		background-color: #fff;
-		z-index: 55;
+		color: $brand-color-1;
+		background-color: $white;
+		z-index: 500;
 		transition: cubic-bezier(1, -0.01, 0.55, 1);
 		transition-duration: 0.75s;
 		box-shadow: 2px 2px 5px rgba(26, 47, 67, 0.3);
@@ -107,8 +107,7 @@
 			position: relative;
 			padding:  7px 16px 7px 48px;
 			filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
-			background: #FFFFFF;
-			//border-radius: 30px;
+			background-color: $gray-light;
 			cursor: pointer;
 			text-align: right;
 			transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
@@ -117,8 +116,7 @@
 				font-weight: 500;
 				font-size: 16px;
 				line-height: 18px;
-				color: #1A2F43;
-				opacity: 0.5;
+				color: $brand-color-1;
 				transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 			}
 
@@ -133,7 +131,6 @@
 				background-repeat: no-repeat;
 				background-position: center;
 				background-size: cover;
-				opacity: 0.5;
 				transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
 			}
 
@@ -186,6 +183,7 @@
 		}
 		&-input {
 			display: none;
+
 			&:checked {
 				& + .options__menu-switch {
 					background-color: #F7F7F7;
@@ -227,6 +225,19 @@
 						&::before {
 							background-image: url("../img/navigation/left-menu/birds_white.svg");
 						}
+					}
+				}
+			}
+			&:disabled {
+				& + .options__menu-label {
+					background-color: $white;
+					cursor: default;
+
+					& > span {
+						opacity: 0.5;
+					}
+					&::before {
+						opacity: 0.5;
 					}
 				}
 			}
@@ -274,7 +285,6 @@ html[dir=rtl] {
 		&.hide {
 			opacity: 0;
 			visibility: hidden;
-			//display: none;
 		}
 	}
 	.options__menu {

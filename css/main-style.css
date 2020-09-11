@@ -1055,7 +1055,7 @@ body.he .lang-button::before {
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("../img/navigation/left-menu/tune.svg");
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   transition: 0.5s;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
   .button-options:hover {
@@ -1071,8 +1071,8 @@ body.he .lang-button::before {
   left: -200%;
   font-family: fragolino, sans-serif;
   color: #1A2F43;
-  background-color: #fff;
-  z-index: 55;
+  background-color: #FFFFFF;
+  z-index: 500;
   transition: cubic-bezier(1, -0.01, 0.55, 1);
   transition-duration: 0.75s;
   box-shadow: 2px 2px 5px rgba(26, 47, 67, 0.3); }
@@ -1128,7 +1128,7 @@ body.he .lang-button::before {
     position: relative;
     padding: 7px 16px 7px 48px;
     filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
-    background: #FFFFFF;
+    background-color: #F7F7F7;
     cursor: pointer;
     text-align: right;
     transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
@@ -1137,7 +1137,6 @@ body.he .lang-button::before {
       font-size: 16px;
       line-height: 18px;
       color: #1A2F43;
-      opacity: 0.5;
       transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
     .options__menu-label::before {
       content: '';
@@ -1150,7 +1149,6 @@ body.he .lang-button::before {
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-      opacity: 0.5;
       transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
     .options__menu-label--pedestrians::before {
       background-image: url("../img/navigation/left-menu/walkin.svg"); }
@@ -1206,6 +1204,13 @@ body.he .lang-button::before {
         background-image: url("../img/navigation/left-menu/car_white.svg"); }
       .options__menu-input:checked + .options__menu-label--birds::before {
         background-image: url("../img/navigation/left-menu/birds_white.svg"); }
+    .options__menu-input:disabled + .options__menu-label {
+      background-color: #FFFFFF;
+      cursor: default; }
+      .options__menu-input:disabled + .options__menu-label > span {
+        opacity: 0.5; }
+      .options__menu-input:disabled + .options__menu-label::before {
+        opacity: 0.5; }
 
 html[dir=rtl] .options__menu-button {
   margin-left: 16px; }

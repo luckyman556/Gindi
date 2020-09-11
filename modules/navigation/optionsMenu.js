@@ -47,14 +47,14 @@ export const optionsMenu = (optionsObject) => {
             setInputListener(optionsObject);
 
             containerMenu.classList.add('open');
-            lock_autorotate = true;
+            last_interaction = Date.now();
+            model_autorotate = false;
 
             document.querySelector('.three_js').addEventListener('click', closeOptionsMenu);
             document.querySelector('.three_js').addEventListener('touchstart', closeOptionsMenu);
 
             function closeOptionsMenu() {
                 containerMenu.classList.remove('open');
-                lock_autorotate = false;
                 containerMenu.innerHTML = '';
 
                 if (window.innerWidth < 420) {
@@ -140,7 +140,6 @@ function loadHTML(containerMenu) {
 
     btnClose.addEventListener('click', event => {
         menu.classList.remove('open');
-        lock_autorotate = false;
         containerMenu.innerHTML = '';
     });
 }
@@ -218,5 +217,3 @@ function turnOffAllEnvironment(optionsObject) {
     setCookie('environmentBool', environmentShow, {'max-age': 999999});
     setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
 }
-
-// setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
