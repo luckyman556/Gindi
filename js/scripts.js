@@ -1163,9 +1163,17 @@ function flat_popup_prepare (data) {
         }
 
         if (document.body.classList.contains('en')) {
-            popup.find('.toggler-360').html('360');
+            if (flat.userData.url_360_type === 'default') {
+                popup.find('.toggler-360').html('Vantage');
+            } else {
+                popup.find('.toggler-360').html('360');
+            }
         } else {
-            popup.find('.toggler-360').html('תצפית');
+            if (flat.userData.url_360_type === 'default') {
+                popup.find('.toggler-360').html('תצפית');
+            } else {
+                popup.find('.toggler-360').html('360');
+            }
         }
         // if (flat.userData.url_360_type === 'default') {
         //     popup.find('.toggler-360').html('תצפית');

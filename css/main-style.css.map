@@ -3,7 +3,7 @@
 	"file": "main-style.css",
 	"sources": [
 		"../scss/main-style.scss",
-		"../scss/var.scss",
+		"../scss/_var.scss",
 		"../scss/_keyframes.scss",
 		"../scss/_font-face.scss",
 		"../scss/_preloader.scss",

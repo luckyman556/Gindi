@@ -716,14 +716,41 @@
         object-fit: contain; }
 
 .nmf-range-selector-box {
-  padding-right: 10px; }
+  padding-right: 10px;
+  overflow: hidden; }
+  .nmf-range-selector-box .disabled-selector {
+    display: block;
+    position: absolute;
+    top: 300px;
+    width: 156px;
+    transition: 0.5s; }
+    .nmf-range-selector-box .disabled-selector .text {
+      color: #03233A;
+      opacity: 0.75;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.2; }
+  .nmf-range-selector-box.disabled .nfm-selected {
+    opacity: 0;
+    top: 100px; }
+  .nmf-range-selector-box.disabled .nmf-range-selector {
+    top: 100px;
+    opacity: 0; }
+  .nmf-range-selector-box.disabled .disabled-selector {
+    display: block;
+    position: absolute;
+    top: 55px;
+    width: 156px; }
   .nmf-range-selector-box .nmf-range-selector {
     width: 156px;
     position: relative;
     height: 50px;
     margin-right: 30px;
     margin-top: 22px;
-    left: 8px; }
+    left: 8px;
+    position: relative;
+    top: 0;
+    transition: 0.5s; }
     .nmf-range-selector-box .nmf-range-selector .circle {
       position: absolute;
       top: -10px;
@@ -767,7 +794,10 @@
     font-weight: 300;
     justify-content: space-between;
     margin-bottom: 10px;
-    padding-top: 9px; }
+    padding-top: 9px;
+    transition: 0.5s;
+    position: relative;
+    top: 0px; }
     .nmf-range-selector-box .nfm-selected .number-box {
       display: flex;
       justify-content: center;
@@ -1055,7 +1085,7 @@ body.he .lang-button::before {
   background-position: center;
   background-repeat: no-repeat;
   background-image: url("../img/navigation/left-menu/tune.svg");
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   transition: 0.5s;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
   .button-options:hover {
@@ -1071,8 +1101,8 @@ body.he .lang-button::before {
   left: -200%;
   font-family: fragolino, sans-serif;
   color: #1A2F43;
-  background-color: #fff;
-  z-index: 55;
+  background-color: #FFFFFF;
+  z-index: 500;
   transition: cubic-bezier(1, -0.01, 0.55, 1);
   transition-duration: 0.75s;
   box-shadow: 2px 2px 5px rgba(26, 47, 67, 0.3); }
@@ -1128,7 +1158,7 @@ body.he .lang-button::before {
     position: relative;
     padding: 7px 16px 7px 48px;
     filter: drop-shadow(0px 5px 9px rgba(46, 70, 81, 0.15));
-    background: #FFFFFF;
+    background-color: #F7F7F7;
     cursor: pointer;
     text-align: right;
     transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
@@ -1137,7 +1167,6 @@ body.he .lang-button::before {
       font-size: 16px;
       line-height: 18px;
       color: #1A2F43;
-      opacity: 0.5;
       transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
     .options__menu-label::before {
       content: '';
@@ -1150,7 +1179,6 @@ body.he .lang-button::before {
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
-      opacity: 0.5;
       transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
     .options__menu-label--pedestrians::before {
       background-image: url("../img/navigation/left-menu/walkin.svg"); }
@@ -1206,6 +1234,13 @@ body.he .lang-button::before {
         background-image: url("../img/navigation/left-menu/car_white.svg"); }
       .options__menu-input:checked + .options__menu-label--birds::before {
         background-image: url("../img/navigation/left-menu/birds_white.svg"); }
+    .options__menu-input:disabled + .options__menu-label {
+      background-color: #FFFFFF;
+      cursor: default; }
+      .options__menu-input:disabled + .options__menu-label > span {
+        opacity: 0.5; }
+      .options__menu-input:disabled + .options__menu-label::before {
+        opacity: 0.5; }
 
 html[dir=rtl] .options__menu-button {
   margin-left: 16px; }
@@ -1224,7 +1259,14 @@ html[dir=rtl] .options__menu-label {
 .search-btn.hide {
   display: none !important; }
 
-@media (max-width: 450px) {
+@media screen and (max-width: 450px) {
+  body {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1; }
   .left-nav-bar {
     top: 16px; }
   .button-options {
@@ -1234,6 +1276,9 @@ html[dir=rtl] .options__menu-label {
     .button-options.hide {
       opacity: 0;
       visibility: hidden; }
+    .button-options:hover {
+      background-image: url("../img/navigation/left-menu/tune.svg");
+      background-color: #FFFFFF; }
   .options__menu {
     top: initial;
     bottom: -150%;

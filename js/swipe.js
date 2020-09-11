@@ -74,7 +74,6 @@ export const SwipeScript = () => {
         }
 
         function handleTouchStart(e) {
-
             // if the element has data-swipe-ignore="true" we stop listening for swipe events
             if (e.target.getAttribute('data-swipe-ignore') === 'true') return;
 

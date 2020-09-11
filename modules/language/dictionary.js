@@ -127,4 +127,8 @@ export let dictionary_array = {
         'he': 'מכוניות',
         'en': 'cars'
     },
+    'Enable “Show available only” to turn on this option' : {
+        'he' : 'לורם איפסום הוא כינוי לטקסט חסר משמעות לחלוטין - הנקרא לפעמים גם דמי טקסט או',
+        'en' : 'Enable “Show available only” to turn on this option'
+    }
 }

@@ -165,13 +165,13 @@ body {
         right: 5px;
     }
     body.he .three_js .zoom-controls {
-        bottom: 75px;
-        right: 5px;
+        bottom: 80px;
+        right: 9px;
         flex-direction: column;
-        width: 50px;
+        width: 42px;
     }
     body.en .three_js .search-btn {
-        right: 5px;
+        right: 10px;
         left: initial;
         width: initial;
     }
@@ -185,7 +185,7 @@ body {
     }
 
     .three_js .zoom-controls .zoom {
-        width: 50px;
+        width: 42px;
         height: 40px;
     }
     .three_js .zoom-controls .zoom .img-box {
