@@ -1163,7 +1163,6 @@ body {
 		border-radius: 6px;
 		* {
 			opacity: 0;
-			transition: 0.5s;
 		}
 		&:after {
 			position: absolute;
@@ -1178,13 +1177,15 @@ body {
 			opacity: 0;
 		}
 		&.open {
-			transform:   scale(1);
+			transform: scale(1);
 			opacity: 1;
 			border-radius: 6px!important;
 			display: flex!important;
 			width: calc(100% - 150px)!important;
 			height: calc(100% - 50px)!important;
-
+            * {
+			    transition: 0.5s;
+            }
 			&:after {
 				opacity: 1;
 				transition: 0.5s;
@@ -2291,7 +2292,7 @@ body {
 			}
 			&.unavailable {
 				.toggler-2d {
-					display: none;
+					//display: none;
 				}
 				.floor-plan-toggler {
 					margin-left: 0!important;

@@ -60,6 +60,9 @@ export function add_models( scene, all_appartments) {
         let z_base = 0;
         var geometry = new THREE.SphereGeometry( 1, 32, 32 );
         var material = new THREE.MeshBasicMaterial( {color: 0xC1AC87} );
+        let sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xC1AC87, envMap: texture_loader.load('resources/material/textures/2124.jpg'), lightMap : white_lightmap_2 } );
+        sphereMaterial.envMap.mapping = THREE.EquirectangularReflectionMapping;
+
         var sphere = new THREE.Mesh( geometry, material );
          let  sphere_group = new THREE.Group();
         sphere.position.set(0,0,z_base + 1);

@@ -721,7 +721,7 @@ $(document).ready(function(){
         });
     });
     $('.popup-info .close-btn').click(function(){
-         $('body').removeClass('mini-card-open');
+        $('body').removeClass('mini-card-open');
         new_floor_selector_obj.rebuild();
         $('.popup-info').addClass('hide');
         if (lock_mouse_rotation_x != true) {            
@@ -729,9 +729,6 @@ $(document).ready(function(){
         }
         // $('.points-line').addClass('hide');
         window.last_clicked_point_css.visible = false;
-        if ($('.clear-search-filter.active').length > 0) {
-            flats_filter_update();
-        }
         let filter_container = document.querySelector('.main-wrap');
         let filter_active = filter_container.filter_active;
         if (filter_active) {
@@ -745,6 +742,8 @@ $(document).ready(function(){
             last_clicked_flat.userData.apartment_locked = false;
             last_clicked_flat.userData.color_locked = false;
         }
+
+        checkIntersection();
        // $('.main-wrap')[0].filter_update();
 
     });
