@@ -430,6 +430,37 @@
 }
 .nmf-range-selector-box  { 
     padding-right: 10px;
+    overflow: hidden;
+    .disabled-selector {
+        display: block;
+        position: absolute;
+        top: 300px;        
+        width: 156px;
+        transition: 0.5s;
+        .text {
+            color: #03233A;
+            opacity: 0.75;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+    }
+    &.disabled {
+        .nfm-selected {
+            opacity: 0; 
+            top: 100px;
+        }
+         .nmf-range-selector { 
+            top: 100px;
+            opacity: 0;
+        }
+        .disabled-selector {
+            display: block;
+            position: absolute;
+            top: 55px;
+            width: 156px;
+        }
+    }
     .nmf-range-selector {
         width: 156px;
         position:relative;
@@ -437,6 +468,9 @@
         margin-right: 30px;
         margin-top: 22px;
         left: 8px;
+        position: relative;
+        top:0;
+        transition: 0.5s;
         .circle {
             position: absolute;
             top: -10px;
@@ -481,6 +515,9 @@
         .circle-tooltip {
             display: none;
         };
+        .disabled-selector {
+
+        }
     }
     .nfm-selected {
         display: flex;
@@ -489,6 +526,9 @@
             justify-content: space-between;
             margin-bottom: 10px;
                 padding-top: 9px;
+                transition: 0.5s;
+                position: relative;
+                top: 0px;
         .number-box {
             display: flex;
             justify-content: center;
@@ -537,7 +577,7 @@
 
         display: flex;
         width: 100%; 
-        padding: 16px 0 4px 0;
+        padding: 16px 0 4px 0; 
         .title {
             font-size: 18px;
             order: 2;

@@ -121,6 +121,30 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         return false;
                     }
                     return false;
+                },
+                change_callback : function (this_el) {
+                    let range_el = document.querySelector('#sort-item-salePrice');
+                    if (range_el) {
+                        let current_min_num = Number(range_el.querySelector('.nmf-min').dataset.currentNumber);
+                        let current_max_num = Number(range_el.querySelector('.nmf-max').dataset.currentNumber);
+                        let range_object = range_el.querySelector('.nmf-range-selector');
+                        let min_num = Number(range_object.dataset.min);
+                        let max_num = Number(range_object.dataset.max);
+                        if (this_el.checked) {
+                            range_el.querySelector('.nmf-min').dataset.currentNumber = range_object.last_min_value;
+                            range_el.querySelector('.nmf-max').dataset.currentNumber = range_object.last_max_value;
+                            range_el.classList.remove('disabled');
+                            range_object.object_update();
+                        } else {
+                            range_el.querySelector('.nmf-min').dataset.currentNumber = min_num;
+                            range_el.querySelector('.nmf-max').dataset.currentNumber = max_num;
+                            range_object.last_min_value = current_min_num;
+                            range_object.last_max_value = current_max_num;
+                            range_el.classList.add('disabled');
+                           range_object.object_update();
+                        }
+
+                    }
                 }
             }
         },
@@ -343,7 +367,12 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     } else {
                         $(this).parent().removeClass('active');
                     }
+                    if (item.options.change_callback) {
+                        item.options.change_callback(this);
+                    }
+
                 });
+                $('.' + item.crm_name + ' input')[0].user_data = item;
             }
 
         });
@@ -1040,6 +1069,14 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     </div>
                     <div class="range-line"></div>
                     <div class="range-line-active"></div>
+                </div>
+                <div class="disabled-selector">
+                    <div class="text language-string" data-dictionary='Enable “Show available only” to turn on this option'>${get_lang('Enable “Show available only” to turn on this option')}</div>
+                    <div class="range-line">                    
+                        <div class="cube first"></div>
+                        <div class="line"></div>
+                        <div class="cube second"></div>
+                    </div>
                 </div>
             </div>  
         `;

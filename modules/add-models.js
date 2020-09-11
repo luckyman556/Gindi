@@ -59,8 +59,8 @@ export function add_models( scene, all_appartments) {
         let z_base = 0;
         var geometry = new THREE.SphereGeometry( 1, 32, 32 );
         var material = new THREE.MeshBasicMaterial( {color: 0xC1AC87} );
-        let sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xC1AC87, envMap: texture_loader.load('resources/material/textures/2124.jpg'), lightMap : white_lightmap_2 } );
-        sphereMaterial.envMap.mapping = THREE.EquirectangularReflectionMapping;
+        //let sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xC1AC87, envMap: texture_loader.load('resources/material/textures/2124.jpg'), lightMap : white_lightmap_2 } );
+        //sphereMaterial.envMap.mapping = THREE.EquirectangularReflectionMapping;
 
         var sphere = new THREE.Mesh( geometry, material );
          let  sphere_group = new THREE.Group();
@@ -1457,9 +1457,6 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             model_loaded = true;
 
             add_cylinder_floor_numbers();
-            setTimeout(function(){
-                model_autorotate = true;
-            }, 15000);
             floors_height_positions = [];
             window.floor_obj.forEach(function(floor){
                 let center_position = floor[0].parent.getObjectByName('floor_center');

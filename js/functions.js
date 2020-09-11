@@ -2286,7 +2286,7 @@ function reset_range (object) {
 
 
 
-let totalPercent = 0;
+var totalPercent = 0;
 
 function progress_bar_update () {
     let totalSize=0;
