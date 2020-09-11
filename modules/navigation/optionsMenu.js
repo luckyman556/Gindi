@@ -2,8 +2,15 @@ import { liveToggler } from "../add-models.js";
 import { add_street_names } from "../street-names/add-street-names.js";
 import { SwipeScript } from "../../js/swipe.js";
 import { loadEnvironment } from "../add-models.js";
+import { setCookie, getCookie } from "../../js/setAndGetCookies.js";
+import { loadTrees } from "../add-models.js";
+
 
 let environmentShow = true;
+
+if (getCookie('environmentBool')) {
+    environmentShow = (getCookie('environmentBool') === 'true') ? true : false;
+}
 
 export const optionsMenu = (optionsObject) => {
     const containerLeft = createElements('div', 'left-nav-bar', document.body);
@@ -11,7 +18,7 @@ export const optionsMenu = (optionsObject) => {
     const containerMenu = createElements('div', 'options__menu', document.body);
     const zoomControls = document.querySelector('.zoom-controls');
     const compass = document.querySelector('.compass');
-    const searchBtn = document.querySelector('.search-btn');
+    const searchBtn = document.querySelector('.filter-module-open-btn');
     const floorSelection = document.querySelector('.floors-selector-n-back');
     const miniCard = document.querySelector('.popup-info');
 
@@ -21,6 +28,7 @@ export const optionsMenu = (optionsObject) => {
         environmentShow = false;
         optionsObject.forEach(item => item.active = false);
     }
+
 
     containerLeft.addEventListener('click', function(event) {
         const btn = event.target;
@@ -37,6 +45,7 @@ export const optionsMenu = (optionsObject) => {
             loadHTML(containerMenu, optionsObject);
             showAndSetStatusesButtons(optionsObject);
             setInputListener(optionsObject);
+
             containerMenu.classList.add('open');
             lock_autorotate = true;
 
@@ -57,7 +66,6 @@ export const optionsMenu = (optionsObject) => {
 
             if (window.innerWidth < 420) {
                 SwipeScript();
-
                 setOrRemoveClass('hide', 'set', options, zoomControls, compass, searchBtn, miniCard);
 
                 if (floorSelection.classList.contains('show')) {
@@ -79,17 +87,19 @@ export const optionsMenu = (optionsObject) => {
             }
         }
     });
-
-    return optionsObject;
 }
 
 function setOrRemoveClass(className, action, ...elements) {
 
     if (action === 'set') {
-        elements.forEach(elem => elem.classList.add(className));
+        elements.forEach(elem => {
+            if (elem) {
+                elem.classList.add(className);
+            }
+        });
     } else if (action === 'remove') {
         elements.forEach(elem => {
-            if (elem.classList.contains(className)) {
+            if (elem && elem.classList.contains(className)) {
                 elem.classList.remove(className);
             }
         });
@@ -170,8 +180,6 @@ function setInputListener(optionsObject) {
 
          if (targetInput === 'optionsSwitch') {
              turnOffAllEnvironment(optionsObject);
-
-
          } else {
              optionsObject.forEach(option => {
                 if (option.type === targetInput) {
@@ -186,24 +194,29 @@ function setInputListener(optionsObject) {
 
 function turnOffAllEnvironment(optionsObject) {
     environmentShow = !environmentShow;
-    let newOptions = [...optionsObject];
-    newOptions.forEach(item => item.active = false);
+    low_performance_mode = !environmentShow;
 
     if (environmentShow) {
         loadEnvironment(on_load_texture);
+        loadTrees();
 
         function on_load_texture() {
             loaded_texture_counter++;
         }
+    } else if (!environmentShow) {
+        optionsObject.map(item => item.active = false);
     }
 
     const env = scene.getObjectByName('environment');
     const instaTree = scene.getObjectByName('instanceTree');
-    instaTree.visible = environmentShow;
     scene.remove(env);
+    scene.remove(instaTree);
 
-    liveToggler(newOptions);
+    liveToggler(optionsObject);
     add_street_names(environmentShow);
+
+    setCookie('environmentBool', environmentShow, {'max-age': 999999});
+    setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
 }
 
-// get_url_param()
+// setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});

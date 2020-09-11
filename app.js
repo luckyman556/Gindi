@@ -73,11 +73,6 @@ function init() {
     renderer.setSize( width, height );
     scene = new THREE.Scene();
 
-    const colorFog = 0xFFFFFF;
-    const nearFog = 650;
-    const farFog = 1500;
-    scene.fog = new THREE.Fog(colorFog, nearFog, farFog);
-
     perspectiveCamera = PerspectiveCamera_init(perspectiveCamera);
 
     controls = controls_init(perspectiveCamera ,canvas, controls);
@@ -188,45 +183,6 @@ function init() {
     light.intensity = 1.5;
     scene.add( light );
 
-    let bgMesh;
-    {
-        const loader = new THREE.TextureLoader();
-        const texture_day = loader.load(
-            'resources/material/textures/360.jpg',
-        );
-
-        texture_day.magFilter = THREE.LinearFilter;
-        texture_day.minFilter = THREE.LinearFilter;
-
-        const shader = THREE.ShaderLib.equirect;
-        const material = new THREE.ShaderMaterial({
-            fragmentShader: shader.fragmentShader,
-            vertexShader: shader.vertexShader,
-            uniforms: shader.uniforms,
-            depthWrite: false,
-            side: THREE.BackSide,
-        });
-        material.uniforms.tEquirect.value = texture_day;
-
-        const plane = new THREE.SphereBufferGeometry(550, 550, 550);
-        // const plane2 = new THREE.SphereGeometry(700, 32, 32, 0, Math.PI, 0, Math.PI);
-
-        // var geometryGround = new THREE.CircleBufferGeometry( 710, 32 );
-        // var materialGround = new THREE.MeshBasicMaterial({
-        //     color: 0xffffff,
-        // });
-        // var circleGround = new THREE.Mesh( geometryGround, materialGround );
-
-        bgMesh = new THREE.Mesh(plane, material);
-        // bgMesh = new THREE.Mesh(plane2, material);
-        // bgMesh.rotation.x = Math.PI * -0.5;
-        // circleGround.rotation.x = Math.PI * -0.5;
-        // window.bgMesh = bgMesh;
-        // window.circleGround = circleGround;
-        // scene.add(circleGround);
-        scene.add(bgMesh);
-    }
-    // control.attach(window.ground);
     var d = new Date();
     begin_time = d.getTime();
     var params = {
@@ -699,36 +655,6 @@ function animate() {
 
     requestAnimationFrame( animate );
 }
-
-
-/*function setCookie(name, value, options = {}) {
-    options = {
-        path: '/',
-        ...options
-    };
-
-    if (options.expires instanceof Date) {
-        options.expires = options.expires.toUTCString();
-    }
-
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-    for (let optionKey in options) {
-        updatedCookie += "; " + optionKey;
-        let optionValue = options[optionKey];
-        if (optionValue !== true) {
-            updatedCookie += "=" + optionValue;
-        }
-    }
-    document.cookie = updatedCookie;
-}
-
-function getCookie(name) {
-    let matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-}*/
 
 if (!getCookie('access_token')) {
     $.post(

@@ -9,8 +9,7 @@ import { add_cylinder_floor_numbers } from  './cylinder-floor-numbers/add-cylind
 import { trees_position } from  './trees/trees-positions.js';
 import {langSwitcher} from "../js/langSwitcher.js";
 import {optionsMenu} from "./navigation/optionsMenu.js";
-import {setCookie} from "../js/setAndGetCookies.js";
-
+import {setCookie, getCookie} from "../js/setAndGetCookies.js";
 
 window.floor_obj = [];
 window.appartments = [];
@@ -134,23 +133,40 @@ export function add_models( scene, all_appartments) {
         }
     }
 
-    let envAttrOptionsArray = environmentDataAttribyte.environment.movement;
-
     function on_load_texture() {
         loaded_texture_counter++;
     }
 
+    let envAttrOptionsArray = environmentDataAttribyte.environment.movement.filter(item => item.active);
+    let arrOptionsFromCookie;
+
     if (optionsMenuShowHide) {
-        envAttrOptionsArray = optionsMenu(envAttrOptionsArray);
+        const environmentBool = getCookie('environmentBool');
+
+        if (getCookie('envOptions')) {
+            arrOptionsFromCookie = JSON.parse(getCookie('envOptions'));
+        }
+
+        envAttrOptionsArray = (getCookie('envOptions')) ? arrOptionsFromCookie : envAttrOptionsArray;
+
+        if (environmentBool && environmentBool === 'false') {
+            envAttrOptionsArray.forEach(item => item.active = false);
+        }
+
+        optionsMenu(envAttrOptionsArray);
     }
 
+
+    sceneGlobus();
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
-    loadSea(texture_loader);
+    // loadSea(texture_loader);
+
+    low_performance_mode = (getCookie('environmentBool') === 'false') ?  true :  false;
 
     if (!low_performance_mode) {
         loadEnvironment(on_load_texture);
-        loadTrees(loader, texture_loader, white_lightmap_2);
         liveToggler(envAttrOptionsArray);
+        loadTrees();
     }
 
     langSwitcher(); //Include language button
@@ -362,7 +378,7 @@ export function loadEnvironment(on_load_texture) {
 
         window.enviroment = enviroment;
 
-            scene.add(enviroment);
+        scene.add(enviroment);
 
         }, onProgressCallback , onErrorCallback);
     },1000);
@@ -1488,7 +1504,7 @@ function getCenterPoint(mesh) {
     mesh.localToWorld( middle );
     return middle;
 }
-function loadSea(texture_loader) {
+/*function loadSea(texture_loader) {
     // add sea sprite start
     var sprite_map = texture_loader.load( "resources/sprite/sea_en_2.png" );
     var sprite_material = new THREE.SpriteMaterial( { map: sprite_map } );
@@ -1506,8 +1522,12 @@ function loadSea(texture_loader) {
     sprite_2.scale.set(scale_number, scale_number / 138 * 118,1);
     window.sprite_2 = sprite_2;
     window.sprite_2 = sprite_2;
-}
-function loadTrees(loader, texture_loader, white_lightmap_2) {
+}*/
+export function loadTrees() {
+    const loader = new FBXLoader();
+    const texture_loader = new THREE.TextureLoader();
+    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg');
+
     loader.load('resources/trees/tree.fbx', function(tree){
         let tree_mesh = tree.children[0];
         tree_mesh.position.set(0,0,0);
@@ -1536,9 +1556,11 @@ export function liveToggler(environmentSettings) {
     const loader = new FBXLoader();
     const texture_loader = new THREE.TextureLoader();
 
-    if (low_performance_mode) {
+    if (getCookie('environmentBool') === 'false') {
         return;
     }
+
+    setCookie('envOptions', JSON.stringify(environmentSettings), {'max-age': 999999});
 
     environmentSettings.forEach(({type, active}) => {
         switch (type) {
@@ -1570,3 +1592,92 @@ export function liveToggler(environmentSettings) {
         }
     });
 }
+function sceneGlobus() {
+
+    const loader = new THREE.TextureLoader();
+    const texture_day = loader.load(
+        'resources/material/textures/360.jpg',
+    );
+
+    texture_day.magFilter = THREE.LinearFilter;
+    texture_day.minFilter = THREE.LinearFilter;
+
+    const shader = THREE.ShaderLib.equirect;
+    const material = new THREE.ShaderMaterial({
+        fragmentShader: shader.fragmentShader,
+        vertexShader: shader.vertexShader,
+        uniforms: shader.uniforms,
+        transparent: false,
+        depthWrite: false,
+        side: THREE.BackSide,
+    });
+    material.uniforms.tEquirect.value = texture_day;
+
+    // const plane = new THREE.SphereBufferGeometry(550, 550, 550);
+    const plane = new THREE.SphereGeometry(1500, 32, 32, 0, 3.8, 0, Math.PI);
+
+    var geometryGround = new THREE.CircleBufferGeometry( 1500, 32 );
+    var materialGround = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+    });
+    var circleGround = new THREE.Mesh( geometryGround, materialGround );
+
+    const bgMesh = new THREE.Mesh(plane, material);
+    bgMesh.rotation.x = Math.PI * -0.5;
+    circleGround.name = 'circleGround';
+    bgMesh.name = 'bgMesh';
+    circleGround.rotation.x = Math.PI * -0.5;
+    circleGround.position.set(0, -7.6, 0);
+    bgMesh.position.set(0, -50, 0);
+
+    // const colorFog = 0xFFFFFF;
+    // const nearFog = 650;
+    // const farFog = 1500;
+    // scene.fog = new THREE.Fog(colorFog, nearFog, farFog);
+
+    scene.add(bgMesh);
+    scene.add(circleGround);
+}
+
+/*
+function handleOptionsFromCRM(environmentDataAttribyte) {
+    let envAttrOptionsArray = environmentDataAttribyte.environment.movement.filter(item => item.active);
+    let arrOptionsFromCookie;
+
+
+
+    if (getCookie('envOptions')) {
+        arrOptionsFromCookie = JSON.parse(getCookie('envOptions'));
+
+        // console.log(envAttrOptionsArray);
+        // console.log(arrOptionsFromCookie);
+        //
+        // envAttrOptionsArray.forEach(option => {
+        //     arrOptionsFromCookie.forEach(cookieOption => {
+        //        if (option.type === cookieOption.type) {
+        //            envAttrOptionsArray.splice(envAttrOptionsArray.indexOf(option));
+        //        }
+        //     });
+        // });
+        // arrOptionsFromCookie = [arrOptionsFromCookie, ...envAttrOptionsArray];
+        //
+        // console.log(envAttrOptionsArray);
+        // console.log(arrOptionsFromCookie);
+    }
+
+
+
+    const environmentBool = getCookie('environmentBool');
+
+    if (optionsMenuShowHide) {
+        envAttrOptionsArray = (getCookie('envOptions')) ? arrOptionsFromCookie : envAttrOptionsArray;
+
+        if (environmentBool && environmentBool === 'false') {
+            envAttrOptionsArray.forEach(item => item.action = false);
+        }
+
+        optionsMenu(envAttrOptionsArray);
+    }
+
+    return envAttrOptionsArray;
+}*/
