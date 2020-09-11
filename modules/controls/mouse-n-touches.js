@@ -123,9 +123,9 @@ export function add_mouse_n_touches () {
             if (picked_object.userData.crm_data != undefined) {
                 last_clicked_flat = picked_object;
                 if (last_clicked_flat.userData.crm_data.status == 'Available') {
-                    this_is_flat_click = false;
+                    this_is_flat_click = true;
                 } else {
-                    this_is_flat_click = false;
+                    this_is_flat_click = true;
                 }
                 if (drag_move != true) {
                     if (e.type == 'mouseup') {
