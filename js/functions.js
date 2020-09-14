@@ -1334,12 +1334,11 @@ function add_appartment_info_in_popup (box) {
             </div>
             <div class="bottom-part">
                 <div class="info-loop">
-                <div class="info-item">
                 <div class="info-item flat-type-item">
-                    <div class="row"><div class="icon plan"></div><span class="bottom">${engine_id}</span></div>
-                <div class="text">
-                    <span class="top language-string" data-he="${flat_type_he}" data-en="${flat_type_en}">${flat_type}</span></div>
+                <div class="row"><div class="icon plan"></div><span class="bottom">${engine_id}</span></div>
+                     <div class="text"><span class="top language-string" data-he="${flat_type_he}" data-en="${flat_type_en}">${flat_type}</span></div>
                 </div>
+            <div class="info-item floor-type-item"> 
                 <div class="row"><div class="icon floor"></div><span class="bottom">${floor}</span></div>
                 <div class="text"><span class="top language-string" data-he="${floor_word_he}" data-en="${floor_word}">${floor_word_current}</span></div>
             </div> 

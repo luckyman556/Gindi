@@ -2322,7 +2322,8 @@ body {
         display: none; }
       .three_js .popup.popup-2d .img-box img {
         display: block;
-        object-fit: contain; }
+        object-fit: contain;
+        }
     .three_js .popup.not-flat-360 .content {
       border-radius: 8px;
       overflow: hidden;
@@ -3058,10 +3059,11 @@ body {
           font-size: 18px;
           letter-spacing: 0.0553711px;
           border-radius: 0px;
-          padding: 0 10px;
+          padding: 0px 7px;
           width: auto;
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF; }
+          color: #FFFFFF;
+          }
           .three_js .popup-info .flat-plan .popups-togglers-box div.non-flat-360 {
             display: none; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
@@ -3078,7 +3080,8 @@ body {
             margin-left: 0px; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
               background-image: url(../img/popup-info-360.svg) !important;
-              background-position: left 27px center; }
+              background-position: left 7px center;
+              }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
             font-family: Fragolino;
             font-size: 18px;
@@ -3152,7 +3155,7 @@ body {
         .three_js .flat-info > .title .title-box:after {
           content: '';
           position: absolute;
-          bottom: 2px;
+          bottom: 6px;
           right: 0;
           height: 13px;
           background-color: #C1AC87;
@@ -3163,7 +3166,7 @@ body {
         font-size: 32px;
         font-weight: 600;
         line-height: 41px;
-        padding-left: 5px;
+        padding-left: 4px;
         padding-right: 0;
         width: auto;
         color: #03233A;
@@ -3176,9 +3179,10 @@ body {
         margin: 11px 0 0 9px;
         display: none; }
       .three_js .flat-info > .title .price {
-        display: flex; }
+        display: flex;
+        margin-top: -4px; }
         .three_js .flat-info > .title .price .text {
-          font-family: almoni-neue;
+          font-family: Fragolino;
           font-size: 16px;
           letter-spacing: -0.21px;
           color: #1A2F43;
@@ -3191,7 +3195,6 @@ body {
             height: 26px;
             background-repeat: no-repeat;
             background-position: center;
-            font-size: 24px;
             color: #603EF2;
             position: relative;
             top: -2px;
@@ -3271,7 +3274,7 @@ body {
         background-color: transparent;
         width: auto;
         border-radius: 4px;
-        padding: 16px 20px 1px 0px;
+        padding: 16px 0 1px 0;
         opacity: 1;
         transform-origin: top;
         transform: scaleY(1);
@@ -3320,7 +3323,7 @@ body {
               font-size: 16px;
               line-height: 21px;
               font-weight: bold;
-              padding: 0 6px; }
+              padding: 0 5px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.bath-item {
             display: none; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.square-item {
@@ -3328,6 +3331,8 @@ body {
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon {
             width: 24px;
             height: 24px;
+            min-width: 24px;
+            min-height: 24px;
             background-position: center;
             background-repeat: no-repeat; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .icon.plan {

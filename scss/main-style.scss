@@ -2476,7 +2476,7 @@ body {
 				&:after {
 					content: '';
 					position: absolute;
-					bottom: 2px;
+					bottom: 6px;
 					right: 0;
 					height: 13px;
 					background-color: $brand-color-2;
@@ -2489,7 +2489,7 @@ body {
 				font-size: 32px;
 				font-weight: 600;
 				line-height: 41px;
-				padding-left: 5px;
+				padding-left: 4px;
 				padding-right: 0;
 				width: auto;
 				color: $text-color-1;
@@ -2505,8 +2505,9 @@ body {
 			}
 			.price {
 				display: flex;
+				margin-top: -4px;
 				.text {
-					font-family: almoni-neue;
+					font-family: Fragolino;
 					font-size: 16px;
 					letter-spacing: -0.21px;
 					color: $brand-color-1;
@@ -2521,11 +2522,9 @@ body {
 						// background-image: url(../img/currency-ic.svg);
 						background-repeat: no-repeat;
 						background-position: center;
-						font-size: 24px;
 						color: #603EF2;
 						position: relative;
 						top: -2px;
-
 						font-family: Fragolino;
 						font-size: 16px;
 						letter-spacing: -0.21px;
@@ -2625,7 +2624,7 @@ body {
 				background-color: transparent;
 				width: auto;
 				border-radius: 4px;
-				padding: 16px 20px 1px 0px;
+				padding: 16px 0 1px 0;
 				opacity: 1;
 				transform-origin: top;
 				transform: scaleY(1);
@@ -2683,7 +2682,7 @@ body {
 								font-size: 16px;
 								line-height: 21px;
 								font-weight: bold;
-								padding: 0 6px;
+								padding: 0 5px;
 							}
 						}
 						&.bath-item {
@@ -2695,6 +2694,8 @@ body {
 						.icon {
 							width: 24px;
 							height: 24px;
+							min-width: 24px;
+							min-height: 24px;
 							background-position: center;
 							background-repeat: no-repeat;
 

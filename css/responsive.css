@@ -445,7 +445,7 @@ body {
     .three_js .popup .close-btn {right: 5px;top: 5px;}
 
     .three_js .flat-info {
-        width: 100%;
+        /* width: 100%; */
         padding-left: 0;
         border-radius: 0;
         z-index: 2;
@@ -453,7 +453,7 @@ body {
     }
 
     body.en .three_js .flat-info {
-        order: 0;
+        /* order: 0; */
     }
 
     .three_js .flat-info > .title {
@@ -462,7 +462,7 @@ body {
     }
     .three_js .flat-info > .title h2 {
         width: auto;
-        text-align: center;
+        /* text-align: center; */
     }
     .three_js .flat-info .more-info .top-part {
         display: flex;
@@ -498,8 +498,8 @@ body {
         top: 43px;
         left: 0;
         width: 100%;
-        padding-bottom: 10px;
-        padding-top: 30px;
+        padding-bottom: 11px;
+        padding-top: 14px;
         margin-top: 0;
         height: auto;
         opacity: 0;
@@ -525,7 +525,7 @@ body {
     .three_js .flat-info .more-info {
         position: relative;
         width: 100%;
-        padding: 0 15px 15px;
+        padding: 0px 0px 15px 18px;
     }
 
     .three_js .flat-info .more-info.open {
@@ -553,10 +553,10 @@ body {
         padding-right: 10px;
     }
     .three_js .flat-info .more-info .bottom-part .info-loop {
-        display: flex;
-        flex-wrap: wrap;
+        /* display: flex; */
+        /*flex-wrap: wrap;*/
         padding: 0;
-        justify-content: center;
+        /*justify-content: center;*/
         margin-top: 0;
         margin-bottom: -17px;
     }
@@ -744,9 +744,9 @@ body {
     }
     .three_js .flat-info > .title {display: block;padding-top: 15px;}
 
-    .three_js .flat-info > .title .title-box {margin-left: auto;margin-right: auto;}
+    .three_js .flat-info > .title .title-box {margin-left: auto;/* margin-right: auto; */}
     .three_js .flat-info > .title .title-box h2 {
-        font-size: 30px!important;
+        font-size: 32px!important;
     }
 
     .three_js .flat-info > .title .title-box:after {
@@ -757,16 +757,16 @@ body {
 
     body.en .three_js .flat-info > .title .title-box:after {
         width: 120px;
-        right: 50%;
+        /* right: 50%; */
         left: initial;
-        transform: translateX(50%);
+        /* transform: translateX(50%); */
     }
 
     body.en .popup-2d > .flat-info > .title .title-box::after {
-        width: 120px;
-        right: 50%;
+        width: 98px;
+        /* right: 50%; */
         left: initial;
-        transform: translateX(50%);
+        /* transform: translateX(50%); */
     }
 
     .three_js .flat-info > .title .price {
@@ -933,7 +933,7 @@ body {
         flex-wrap: nowrap;
     }
     .three_js .flat-info > .title .title-box h2 {
-        text-align: right;
+        /* text-align: right; */
     }
     .three_js .flat-info > .title .title-box:after {
         right: 61px;
@@ -943,8 +943,8 @@ body {
     }
     .three_js .flat-info > .title .price {
         justify-content: right;
-        padding-top: 5px;
-        margin-right: -4px;
+        /* padding-top: 5px; */
+        margin-top: -4px;
     }
     body.he .three_js .flat-info .more-info  {position: relative;top: 0;left: 0;padding: 0;}
 
@@ -953,22 +953,21 @@ body {
     }
 
     .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
-        width: 50%;
         padding: 0;
     }
 
     .three_js .flat-info .more-info .bottom-part .info-loop .info-item.position-item {
-        width: 100%;
+        /* width: 100%; */
+        order: 5;
     }
     body .three_js .flat-info .more-info .bottom-part {
         transform: scale(1);
         opacity: 1;
     }
     .three_js .flat-info > .title .price  * {
-        font-size: 13px!important;
+        font-size: 16px!important;
     }
     .three_js .flat-info .more-info .top-part {
-
         display: none!important;
     }
     .three_js .flat-info .more-info .bottom-part .info-loop {
@@ -1026,16 +1025,15 @@ body {
 @media (min-width: 769px) {
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d,
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
-        background-position: left 27px center;
+        background-position: left 6px center;
     }
 
     .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
-        background-position: left 33px center;
+        background-position: left 11px center;
     }
 }
 
-
-@media (min-width: 375px) {
+@media (max-width: 375px) {
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d,
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
         background-position: left 7px center;
@@ -1045,3 +1043,42 @@ body {
         background-position: left 11px center;
     }
 }
+
+/*styles for info-items in extended cards*/
+
+@media (max-width: 414px) {
+    .popup.popup-2d.non-canvas.open {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    body.en .popup-2d > .flat-info, body.en .popup-3d > .flat-info, body.en .popup-360 > .flat-info {
+        order: 0;
+        width: 100%;
+    }
+
+    .three_js .flat-info .more-info .bottom-part .info-loop {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
+        min-width: 53px;
+        margin-bottom: 16px;
+    }
+}
+
+@media (min-width: 274px) {
+    .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
+        width: 117px;
+        padding: 0 7px 0 31px;
+    }
+
+    .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d, .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
+        background-position: left 5px center;
+    }
+}
+
+
+
