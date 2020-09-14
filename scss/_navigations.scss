@@ -281,10 +281,12 @@ html[dir=rtl] {
 		top: 0;
 		bottom: 0;
 		z-index: -1;
+		overflow: hidden;
 	}
 
 	.left-nav-bar {
 		top: 16px;
+		left: 16px;
 	}
 	.button-options {
 		opacity: 1;

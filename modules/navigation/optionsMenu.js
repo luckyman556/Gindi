@@ -45,6 +45,7 @@ export const optionsMenu = (optionsObject) => {
             loadHTML(containerMenu, optionsObject);
             showAndSetStatusesButtons(optionsObject);
             setInputListener(optionsObject);
+            document.body.setAttribute('data-swipe-ignore', 'true');
 
             containerMenu.classList.add('open');
             last_interaction = Date.now();
@@ -55,6 +56,7 @@ export const optionsMenu = (optionsObject) => {
 
             function closeOptionsMenu() {
                 containerMenu.classList.remove('open');
+                document.body.removeAttribute('data-swipe-ignore');
                 setTimeout(() => {
                     containerMenu.innerHTML = '';
                 }, 500);
@@ -62,6 +64,7 @@ export const optionsMenu = (optionsObject) => {
                 if (window.innerWidth < 420) {
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
                 }
+
                 document.querySelector('.three_js').removeEventListener('click', closeOptionsMenu);
                 document.querySelector('.three_js').removeEventListener('touchstart', closeOptionsMenu);
             }
@@ -78,14 +81,17 @@ export const optionsMenu = (optionsObject) => {
 
                 function closeCardOptions(e) {
                     e.preventDefault();
+                    e.stopPropagation();
 
                     setTimeout(() => {
                         containerMenu.innerHTML = '';
                     }, 300);
 
                     containerMenu.classList.remove('open');
+                    document.body.removeAttribute('data-swipe-ignore');
 
                     setOrRemoveClass('hide', 'remove', options, zoomControls, compass, searchBtn, miniCard, floorSelection);
+                    return false;
                 }
             }
         }

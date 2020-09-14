@@ -1,4 +1,4 @@
-export const SwipeScript = () => {
+export const SwipeScript = (element) => {
     (function (window, document) {
         'use strict';
 
@@ -9,7 +9,7 @@ export const SwipeScript = () => {
 
                 params = params || { bubbles: false, cancelable: false, detail: undefined };
 
-                var evt = document.createEvent('CustomEvent');
+                var evt = element.createEvent('CustomEvent');
                 evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
                 return evt;
             };
