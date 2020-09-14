@@ -268,6 +268,7 @@ function update_click_intersection () {
 }
 
 function flat_click (appartment, without_card = false) {
+
     $('.pulse').addClass("run-animation");
     setTimeout(function(){
         $('.pulse').removeClass("run-animation");

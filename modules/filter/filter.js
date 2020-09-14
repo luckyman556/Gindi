@@ -1474,9 +1474,12 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                      $('#' + key + ' .nmf-range-selector')[0].object_update();
                 }
                 $('.filter-module-container').removeClass('full-window');
+                document.querySelector('body').classList.remove('filter-open');
                 window.render_pause = false;
             } else {
                 $('.filter-module-container').addClass('full-window');
+
+                document.querySelector('body').classList.add('filter-open');
                 $('.lang-container').hide();
                 resize_function ();        
                 setTimeout(function(){                

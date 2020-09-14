@@ -180,13 +180,14 @@ body {
         flex-direction: column;
         align-items: flex-start;
         bottom: 75px;
-        right: -25px;
+        right: 9px;
         left: initial;
+        width: 42px;
     }
 
     .three_js .zoom-controls .zoom {
         width: 42px;
-        height: 40px;
+        height: 42px;
     }
     .three_js .zoom-controls .zoom .img-box {
         width: 100%;
@@ -862,9 +863,9 @@ body {
         bottom: 0;
     }
 
-.three_js .compass.not-default {
-    bottom: 50px;
-}
+    .three_js .compass.not-default {
+        bottom: 50px;
+    }
 
     /*@media  (orientation: landscape) {*/
     /*    .three_js .search-btn {*/
@@ -914,72 +915,71 @@ body {
     /*        height: 70%;*/
     /*       }*/
     /*    }*/
-        .three_js .flat-plan .price {
-            justify-content: right;
-        }
-        body.he .three_js .popup .content {
-            height: 100%;
-            width: auto;
-        }
-        body.he .three_js .flat-info {
-            width: 162px;
-            height: 100%;
-            max-width: 162px;
-            min-width: 162px;
-        }
-        .three_js .popup.open {
-            flex-direction: row;
-            flex-wrap: nowrap;
-        }
-        .three_js .flat-info > .title .title-box h2 {
-            text-align: right;
-        }
-        .three_js .flat-info > .title .title-box:after {
-            right: 61px;
-            width: 86px;
-            transform: none;
-            right: 0px;
-        }
-        .three_js .flat-info > .title .price {
-            justify-content: right;
-            padding-top: 5px;
-            margin-right: -4px;
-        }
-        body.he .three_js .flat-info .more-info  {position: relative;top: 0;left: 0;padding: 0;}
+    .three_js .flat-plan .price {
+        justify-content: right;
+    }
+    body.he .three_js .popup .content {
+        height: 100%;
+        width: auto;
+    }
+    body.he .three_js .flat-info {
+        width: 162px;
+        height: 100%;
+        max-width: 162px;
+        min-width: 162px;
+    }
+    .three_js .popup.open {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .three_js .flat-info > .title .title-box h2 {
+        text-align: right;
+    }
+    .three_js .flat-info > .title .title-box:after {
+        right: 61px;
+        width: 86px;
+        transform: none;
+        right: 0px;
+    }
+    .three_js .flat-info > .title .price {
+        justify-content: right;
+        padding-top: 5px;
+        margin-right: -4px;
+    }
+    body.he .three_js .flat-info .more-info  {position: relative;top: 0;left: 0;padding: 0;}
 
-        body.he .three_js .flat-info .more-info.open .bottom-part {
-            margin-top: 1px;
-        }
+    body.he .three_js .flat-info .more-info.open .bottom-part {
+        margin-top: 1px;
+    }
 
-        .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
-            width: 50%;
-            padding: 0;
-        }
+    .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
+        width: 50%;
+        padding: 0;
+    }
 
-        .three_js .flat-info .more-info .bottom-part .info-loop .info-item.position-item {
-            width: 100%;
-        }
-        body .three_js .flat-info .more-info .bottom-part {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .three_js .flat-info > .title .price  * {
-            font-size: 13px!important;
-        }
-        .three_js .flat-info .more-info .top-part {
+    .three_js .flat-info .more-info .bottom-part .info-loop .info-item.position-item {
+        width: 100%;
+    }
+    body .three_js .flat-info .more-info .bottom-part {
+        transform: scale(1);
+        opacity: 1;
+    }
+    .three_js .flat-info > .title .price  * {
+        font-size: 13px!important;
+    }
+    .three_js .flat-info .more-info .top-part {
 
-            display: none!important;
-        }
-        .three_js .flat-info .more-info .bottom-part .info-loop {
-            justify-content: initial;
-        }
-        body.he .three_js .popup .popups-togglers-box {
-            left: calc(50% - 81px);
-            transform: translate(-50%, 0);
-            width: 230px;
-            flex-direction: row;
-            right: initial;
-        }
+        display: none!important;
+    }
+    .three_js .flat-info .more-info .bottom-part .info-loop {
+        justify-content: initial;
+    }
+    body.he .three_js .popup .popups-togglers-box {
+        left: calc(50% - 81px);
+        transform: translate(-50%, 0);
+        width: 230px;
+        flex-direction: row;
+        right: initial;
     }
 }
 
@@ -998,7 +998,7 @@ body {
 
     }
 
-    .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler, 
+    .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler,
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
         /* width: 168px; */
         /* height: 44px; */
@@ -1014,6 +1014,10 @@ body {
         margin-right: 0;
         width: 168px;
         background-position: left 117px center;
+    }
+
+    .filter-open .left-nav-bar {
+        display: none!important;
     }
 }
 
