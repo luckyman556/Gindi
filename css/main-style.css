@@ -1658,7 +1658,8 @@ body {
   .three_js .flat-options {
     padding-top: 10px;
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    }
   .three_js .flat-option {
     padding-right: 0px;
     display: flex;
@@ -2327,8 +2328,7 @@ body {
         display: none; }
       .three_js .popup.popup-2d .img-box img {
         display: block;
-        object-fit: contain;
-        }
+        object-fit: contain; }
     .three_js .popup.not-flat-360 .content {
       border-radius: 8px;
       overflow: hidden;
@@ -2576,12 +2576,11 @@ body {
         transform-origin: center; }
   .three_js .left-floors-selector-wrap {
     overflow: hidden;
-    height: 274px;
+    height: 291px;
     margin: auto 0;
     width: 96px;
     z-index: 2;
-    display: none;
-    }
+    display: none; }
   .three_js .tg-list {
     text-align: center;
     display: flex;
@@ -3065,11 +3064,10 @@ body {
           font-size: 18px;
           letter-spacing: 0.0553711px;
           border-radius: 0px;
-          padding: 0px 7px;
+          padding: 0 10px;
           width: auto;
           background: rgba(255, 255, 255, 0.1);
-          color: #FFFFFF;
-          }
+          color: #FFFFFF; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.non-flat-360 {
             display: none; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
@@ -3086,8 +3084,7 @@ body {
             margin-left: 0px; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
               background-image: url(../img/popup-info-360.svg) !important;
-              background-position: left 7px center;
-              }
+              background-position: left 7px center; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
             font-family: Fragolino;
             font-size: 18px;
@@ -3133,7 +3130,8 @@ body {
               padding-left: 20px; }
       @media (max-width: 1024px) {
         .three_js .popup-info .flat-plan .popups-togglers-box {
-          margin-top: 20px; } }
+          /* margin-top: 20px; */
+          } }
   .three_js .flat-info {
     background-color: #F7F7F7;
     width: 208px;
@@ -3738,8 +3736,7 @@ body {
       margin: auto;
       background-color: #E6E6E6;
       opacity: 0.07;
-      display: none;
-      }
+      display: none; }
     .three_js .zoom-controls .zoom {
       cursor: pointer;
       width: 44px;
