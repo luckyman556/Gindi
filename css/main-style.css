@@ -1658,8 +1658,7 @@ body {
   .three_js .flat-options {
     padding-top: 10px;
     display: flex;
-    justify-content: space-between;
-    }
+    justify-content: space-between; }
   .three_js .flat-option {
     padding-right: 0px;
     display: flex;
@@ -2323,12 +2322,10 @@ body {
       padding: 0; }
     .three_js .popup.popup-2d .img-box {
       height: 100%;
-      width: 100%; }
-      .three_js .popup.popup-2d .img-box p {
-        display: none; }
-      .three_js .popup.popup-2d .img-box img {
-        display: block;
-        object-fit: contain; }
+      width: 100%;
+      transition: none; }
+      .three_js .popup.popup-2d .img-box * {
+        transition: none; }
     .three_js .popup.not-flat-360 .content {
       border-radius: 8px;
       overflow: hidden;
@@ -3130,8 +3127,7 @@ body {
               padding-left: 20px; }
       @media (max-width: 1024px) {
         .three_js .popup-info .flat-plan .popups-togglers-box {
-          /* margin-top: 20px; */
-          } }
+          margin-top: 20px; } }
   .three_js .flat-info {
     background-color: #F7F7F7;
     width: 208px;

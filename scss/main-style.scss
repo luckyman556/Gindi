@@ -1322,18 +1322,14 @@ body {
 			.content {
 				position: relative;
 				padding: 0;
-				//order: 5;
+				//order: 5; 
 			}
 			.img-box {
 				height: 100%;
 				width: 100%;
-				p {
-					display: none;
-				}
-				img {
-
-					display: block;
-					object-fit: contain;
+				transition: none;
+				* {
+					transition: none;
 				}
 			}
 		}

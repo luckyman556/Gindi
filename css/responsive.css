@@ -591,7 +591,7 @@ body {
     .three_js .popup .content {
         height: calc(100% - 30px - 85px);
         order: 5;
-        top: -125px;
+        /* top: -125px; */
     }
     .three_js .floors-selector-n-back.show {
         bottom: 200px;

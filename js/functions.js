@@ -2206,7 +2206,7 @@ function toggler_2d_click (clicked_object) {
         img_box.find('img').attr('height', img_height);
        // fast_change
         const image = document.querySelector('.popup-2d .img-box img');
-        window.img_viewer = new ImageViewer(image);
+        window.img_viewer = new ImageViewer('.popup-2d .img-box img' );
         setTimeout(function(){
             $('.popup-2d .content').removeClass('loading');
         }, 500);

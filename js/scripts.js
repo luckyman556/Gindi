@@ -341,9 +341,9 @@ $(document).ready(function(){
         $('.search-btn').removeClass('open');
     }
     $(window).resize(function(){
-        if (window.img_viewer != undefined) {
+/*        if (window.img_viewer != undefined) {
             window.img_viewer.refresh();
-        }
+        }*/
         let range_selector = $('.three_js .search-filter .active-tab .range-selector');
         if (range_selector.length > 0) {
             let update_event = new Event('update');
