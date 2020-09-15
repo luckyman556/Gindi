@@ -2232,7 +2232,9 @@ body {
           height: calc(100% + 2px);
           border: none; }
       .three_js .popup .content .slider-box {
-        width: 100%; }
+        width: 100vw;
+        height: calc(100vw / 16 * 9);
+        margin: 0 auto; }
         .three_js .popup .content .slider-box .slider {
           width: 100%;
           height: 100%;
@@ -3073,7 +3075,7 @@ body {
             border: none;
             padding-left: 33px;
             background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-            background-position: left 5px center;
+            background-position: left 7px center;
             background-repeat: no-repeat;
             background-size: 24px;
             box-shadow: none;
@@ -3089,7 +3091,7 @@ body {
             background-color: transparent;
             padding-left: 37px;
             background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-            background-position: left 7px center;
+            background-position: left 10px center;
             background-repeat: no-repeat;
             background-size: 24px;
             box-shadow: none;
@@ -3127,7 +3129,7 @@ body {
               padding-left: 20px; }
       @media (max-width: 1024px) {
         .three_js .popup-info .flat-plan .popups-togglers-box {
-          margin-top: 20px; } }
+          margin-top: 16px; } }
   .three_js .flat-info {
     background-color: #F7F7F7;
     width: 208px;
@@ -4381,7 +4383,7 @@ body.he .three_js .popup .content {
   border-top-left-radius: 8px; }
 
 body.he .three_js .flat-info > .title {
-  padding-right: 5px; }
+  padding-right: 0; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
   padding-right: 23px;
@@ -4389,7 +4391,7 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   order: 1;
-  background-position: right 8px center; }
+  background-position: right 6px center; }
 
 body.he .three_js .flat-option.badroom .top-part .middle-text {
   order: 3; }
@@ -4467,7 +4469,7 @@ body.he .folder-box .border-top-right {
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
   width: 122px;
-  background-position: right 5px center;
+  background-position: right 3px center;
   margin-left: 2px;
   margin-right: 8px;
   background-size: 25px; }
@@ -4733,7 +4735,8 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
         letter-spacing: -0.21px;
         display: none; }
         .flat_status_2d_css .flat-card-box .price-row .price-box .get-price-btn {
-          display: none; }
+          display: none;
+          margin: 0 2px; }
 
 .floor_center_2d_css .floor-center-text {
   display: flex;
@@ -4768,13 +4771,20 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     text-align: center;
     letter-spacing: -0.21px; }
   .price-box.common .number {
-    display: none; }
+    display: none;
+    margin: 0 2px; }
   .price-box.common .price-text {
     display: none;
     font-size: 16px;
     color: #603ef2;
     margin: auto 5px 0 0;
     font-weight: 600; }
+
+body.en .price-box.common {
+  flex-direction: row-reverse; }
+
+body.he .price-box.common {
+  flex-direction: row-reverse; }
 
 .current-resolution {
   display: none;
