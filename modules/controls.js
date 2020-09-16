@@ -2,7 +2,7 @@
 import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js';
 import {TrackballControls} from '../node_modules/three/examples/jsm/controls/TrackballControls.js';
 
-export function controls_init (camera,canvas, controls) {
+export function controls_init (camera, canvas, controls) {
 
     var canvas = document.getElementById('c');
 
@@ -172,7 +172,7 @@ export function controls_init (camera,canvas, controls) {
             // canvas.removeEventListener('touchmove', controls_touchmove);
         });
     }
-    var elem = document;
+   /* var elem = document;
     if (elem.addEventListener) {
         if ('onwheel' in document) {
             // IE9+, FF17+, Ch31+
@@ -186,10 +186,9 @@ export function controls_init (camera,canvas, controls) {
         }
     } else { // IE8-
         elem.attachEvent("onmousewheel", onWheel, { passive: false });
-    }
+    }*/
 
-    function onWheel(e) {
-        // console.log(e);
+    /*function onWheel(e) {
         // event.preventDefault();
             $(".mouse-wheel-info").removeClass('active');
             update_line_position_enabled = true;
@@ -209,7 +208,7 @@ export function controls_init (camera,canvas, controls) {
                         e = e || window.event;
                         // wheelDelta не даёт возможность узнать количество пикселей
                         var delta = e.deltaY || e.detail || e.wheelDelta;
-                        if ($('body').hasClass('firefox-run') == true) {
+                        if ($('body').hasClass('firefox-run') === true) {
                             delta = delta * 33;
                         }
                         target_zoom =  target_zoom_limit (target_zoom + delta * 0.3);
@@ -230,17 +229,17 @@ export function controls_init (camera,canvas, controls) {
                                 requestAnimationFrame(hide_mouse_wheel_info);
                             }
                         };
-/*                        far_current_click_camera_position_y = window.camera_target.position.y;
+/!*                        far_current_click_camera_position_y = window.camera_target.position.y;
                         var delta = e.deltaY || e.detail || e.wheelDelta;
                         raf_divergention_y = delta;
-                        change_camera_position_y();*/
+                        change_camera_position_y();*!/
                     }
 
                 }
 
 
             }
-    }
+    }*/
 
     canvas.ondragstart = function() {
         return false;

@@ -23,10 +23,12 @@ export function mouse_wheel_events () {
     }
 
     function onWheel(e) {
+        console.log(e)
         // event.preventDefault();
         $(".mouse-wheel-info").removeClass('active');
         update_line_position_enabled = true;
-        if(e.toElement == document.getElementById('c') || e.toElement == document.querySelector('.points-line') || e.toElement == document.querySelector('.mouse-wheel-info')) {
+
+        if(e.target == document.getElementById('c') || e.target == document.querySelector('.points-line') || e.target == document.querySelector('.mouse-wheel-info')) {
             if (e.ctrlKey === true) {
                 if (get_url_param('dev') === "true") {
                     e = e || window.event;
@@ -51,14 +53,17 @@ export function mouse_wheel_events () {
                     setTimeout(function(){ update_line_position_enabled = false;}, 4000);
                 }
             } else {
-                if (zoom_by_mousewheel == true) {
+                if (zoom_by_mousewheel === true) {
                     e = e || window.event;
                     // wheelDelta не даёт возможность узнать количество пикселей
                     var delta = e.deltaY || e.detail || e.wheelDelta;
+                    console.log(delta);
                     if ($('body').hasClass('firefox-run') == true) {
                         delta = delta * 33;
                     }
+                    console.log(delta);
                     target_zoom =  target_zoom_limit (target_zoom + delta * 0.3);
+
 
                     e.preventDefault ? e.preventDefault() : (e.returnValue = false);
                     setTimeout(function(){ update_line_position_enabled = false;}, 4000);
@@ -75,7 +80,7 @@ export function mouse_wheel_events () {
                         } else {
                             requestAnimationFrame(hide_mouse_wheel_info);
                         }
-                    };
+                    }
                     /*                        far_current_click_camera_position_y = window.camera_target.position.y;
                                             var delta = e.deltaY || e.detail || e.wheelDelta;
                                             raf_divergention_y = delta;
@@ -83,8 +88,6 @@ export function mouse_wheel_events () {
                 }
 
             }
-
-
         }
     }
 }

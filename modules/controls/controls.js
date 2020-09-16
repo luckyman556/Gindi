@@ -1,8 +1,8 @@
 import { add_route_points  } from './add-route-points.js';
 import { mouse_wheel_events  } from './mouse-wheel.js';
-export function controls_init (camera,canvas, controls) {
+export function controls_init (camera, canvas, controls) {
 
-    var canvas = document.getElementById('c');
+    // var canvas = document.getElementById('c');
 
     document.onmousedown = function (e) {
         if (add_points_mode == false) {
