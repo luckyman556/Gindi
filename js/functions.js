@@ -143,9 +143,9 @@ function set_floor_n_appartment (floor_i, flat_i) {
     set_appartment_data_in_block (appartment, popup_info);
     if (last_clicked_flat != appartment) {
         set_appartment_data_in_block (appartment, popup_info);
-/*        $('.point-1').fadeOut();
-        $('.point-2').fadeOut();
-        $('.points-line').addClass('hide');*/
+        /*        $('.point-1').fadeOut();
+                $('.point-2').fadeOut();
+                $('.points-line').addClass('hide');*/
         window.last_clicked_point_css.visible = false;
         popup_info.removeClass('show');
         popup_info.addClass('hide');
@@ -222,8 +222,8 @@ function set_floor_status_color (colored_floors) {
         last_clicked_flat = all_appartments[0];
     }
     change_flat_color ('active', last_clicked_flat);
-   last_clicked_flat.material.opacity = standard_flat_opacity;
-   last_clicked_flat.material.map = scene.userData.active_boxes_texture;
+    last_clicked_flat.material.opacity = standard_flat_opacity;
+    last_clicked_flat.material.map = scene.userData.active_boxes_texture;
 }
 function animate_camera_angle (angle, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
@@ -284,7 +284,7 @@ function flat_click (appartment, without_card = false) {
     update_click_intersection();
     if (lock_mouse_rotation_x != true) {
         current_floor = floor;
-       // animate_height_on_floor(appartment.userData.floor,  1000,  0,  TWEEN.Easing.Sinusoidal.InOut);
+        // animate_height_on_floor(appartment.userData.floor,  1000,  0,  TWEEN.Easing.Sinusoidal.InOut);
         // destroy_building(current_floor);
         set_floor_status_color (colored_floors);
     }  else {
@@ -304,7 +304,7 @@ function flat_click (appartment, without_card = false) {
             }
 
 
-           // animate_height_on_floor(appartment.userData.floor);
+            // animate_height_on_floor(appartment.userData.floor);
         }
 
     }
@@ -315,9 +315,9 @@ function flat_click (appartment, without_card = false) {
     if (!without_card) {
         var popup_info = $('.popup-info');
         set_appartment_data_in_block (appartment, popup_info);
-    /*    $('.point-1').fadeIn();
-        $('.point-2').fadeIn();
-        $('.points-line').removeClass('hide');*/
+        /*    $('.point-1').fadeIn();
+            $('.point-2').fadeIn();
+            $('.points-line').removeClass('hide');*/
         // window.last_clicked_point_css.visible = true;
         popup_info.addClass('show');
 
@@ -338,9 +338,9 @@ function flat_click (appartment, without_card = false) {
     if (!lock_mouse_rotation_x) {
         rotation_to_flat ();
     }
-/*    if (advanced_flat_click == true ) {
-        flat_click_animation (appartment, 'z');
-    }*/
+    /*    if (advanced_flat_click == true ) {
+            flat_click_animation (appartment, 'z');
+        }*/
 }
 
 function eventFire(el, etype){
@@ -438,14 +438,14 @@ function appartment_hover (appartment) {
     document.querySelector('#c').style.cssText = 'cursor : pointer;';
     if (lock_mouse_rotation_x == false) {
         if (appartment.userData.lobby_or_roof == undefined) {
-        last_hover_object = appartment;
-        var flat_bubble = $('.flat-bubble');
-        if (flat_bubble.is(":visible")) {
-            flat_number_bubble('update', appartment.children[0]);
-        } else {
-            flat_number_bubble('update', appartment.children[0]);
-            flat_number_bubble('show', appartment.children[0]);
-        }
+            last_hover_object = appartment;
+            var flat_bubble = $('.flat-bubble');
+            if (flat_bubble.is(":visible")) {
+                flat_number_bubble('update', appartment.children[0]);
+            } else {
+                flat_number_bubble('update', appartment.children[0]);
+                flat_number_bubble('show', appartment.children[0]);
+            }
         } else {
             var flat_bubble = $('.flat-bubble');
             if (flat_bubble.is(":visible")) {
@@ -512,7 +512,7 @@ function set_appartment_data_in_block (appartment, box) {
         // }
         if (appartment.userData.crm_data.status === "Sold") {
             $('.price').addClass('non-price');
-             flat_price =`<span class="price-sold price-status language-string" data-dictionary="Sold">${get_lang('Sold')}</span>`;
+            flat_price =`<span class="price-sold price-status language-string" data-dictionary="Sold">${get_lang('Sold')}</span>`;
         } else if (appartment.userData.crm_data.status === "Unavailable") {
             $('.price').addClass('non-price');
             flat_price =`<span class="price-unavailable price-status language-string" data-dictionary="Unavailable">${get_lang('Unavailable')}</span>`;
@@ -539,7 +539,7 @@ function set_appartment_data_in_block (appartment, box) {
             }
         } else {
             box.find('.flat-img img').attr('src' , theme_url + '/img/apt_1'  + '.svg');
-        }
+        }*/
 
         box.find('.flat-plan .flat-status .text').html(appartment.userData.status_name);
         box.find('.flat-plan .flat-status .circle').css('background-color', '#' + appartment.userData.status_color);
@@ -586,16 +586,16 @@ function change_camera_rotate_x (event, mouseXOnMouseDown) {
     }
     targetRotationX = targetRotationOnMouseDownX + (mouseX - mouseXOnMouseDown) * 0.01 * -1;
 
-/*    var divergention_x = raf_divergention_x;
-    var current_move = divergention_x * 0.6;
+    /*    var divergention_x = raf_divergention_x;
+        var current_move = divergention_x * 0.6;
 
-    if (current_move != 0) {
-        var rotation = current_move / 18 / (Math.PI * 2);
-        var move_target = far_current_click_camera_x + rotation;
-        var degree = move_target * (180/Math.PI);
-        move_target = degree / (180/Math.PI);
-        window.camera_target.rotation.y =  move_target;
-    }*/
+        if (current_move != 0) {
+            var rotation = current_move / 18 / (Math.PI * 2);
+            var move_target = far_current_click_camera_x + rotation;
+            var degree = move_target * (180/Math.PI);
+            move_target = degree / (180/Math.PI);
+            window.camera_target.rotation.y =  move_target;
+        }*/
 }
 function normilize_camera_rotation_x () {
     var current_rotation = window.camera_target.rotation.y;
@@ -750,9 +750,9 @@ function add_floor (floor,base_delay , floor_delay = 0, last_floor = false) {
         });
     }
 
-   // var duration = 500;
+    // var duration = 500;
 
-   // add_floor_animation (floor_local , duration , floor_delay)
+    // add_floor_animation (floor_local , duration , floor_delay)
 
 
 }
@@ -792,99 +792,99 @@ function resizeRendererToDisplaySize(renderer,composer) {
 
 
 function checkIntersection() {
-        if (mouse.x != 0 || mouse.y != 0) {
-            var intersects = raycaster.intersectObjects(objects_to_intersection, false);
-            if (intersects.length > 0) {
-                var selectedObject = intersects[0].object;
-                picked_object = selectedObject;
-                if (drag_move != true) {
-                    if (selectedObject.userData.crm_data != undefined) {
-                        last_flat_intersection_point = intersects[0].point;
+    if (mouse.x != 0 || mouse.y != 0) {
+        var intersects = raycaster.intersectObjects(objects_to_intersection, false);
+        if (intersects.length > 0) {
+            var selectedObject = intersects[0].object;
+            picked_object = selectedObject;
+            if (drag_move != true) {
+                if (selectedObject.userData.crm_data != undefined) {
+                    last_flat_intersection_point = intersects[0].point;
 
-                        if (last_hover_object != undefined) {
-                            if (selectedObject != last_hover_object) {
-                                appartment_hoverout(last_hover_object);
-                                appartment_hover(selectedObject);
-                            } else {
-                                appartment_hover(selectedObject);
-                            }
-                        } else {
-                            appartment_hover(selectedObject);
-                            window.hover_object = selectedObject;
-                        }
-                        // appartment_hoverout(window.lobby);
-                        // appartment_hoverout(window.roof);
-                    } else {
-                        if (selectedObject.userData.lobby_or_roof == true) {
-                            last_flat_intersection_point = intersects[0].point;
-                        }
-                        if (selectedObject.userData.lobby_or_roof != undefined) {
-                            appartment_hover(selectedObject);
-                        } else {
-                            not_flat_function();
-                        }
-                    }
-                } else {
-                    not_flat_function()
-                }
-
-            } else {
-                not_flat_function();
-            }
-
-            function not_flat_function() {
-                picked_object = undefined;
-
-
-                if (window.floor_numbers_intersection) {
-                    document.querySelector('#c').style.cssText = '';
-                }
-                all_appartments.forEach(function (appartment, ap_index) {
-                    if (appartment.userData.color_locked != true) {
-                        appartment_hoverout(appartment);
-                    } else {
-
-                    }
-                });
-                flat_number_bubble('hide');
-                if (last_hover_object != undefined) {
-                    if (selectedObject != last_hover_object) {
-                        if (last_hover_object.userData != undefined) {
+                    if (last_hover_object != undefined) {
+                        if (selectedObject != last_hover_object) {
                             appartment_hoverout(last_hover_object);
+                            appartment_hover(selectedObject);
+                        } else {
+                            appartment_hover(selectedObject);
                         }
+                    } else {
+                        appartment_hover(selectedObject);
+                        window.hover_object = selectedObject;
+                    }
+                    // appartment_hoverout(window.lobby);
+                    // appartment_hoverout(window.roof);
+                } else {
+                    if (selectedObject.userData.lobby_or_roof == true) {
+                        last_flat_intersection_point = intersects[0].point;
+                    }
+                    if (selectedObject.userData.lobby_or_roof != undefined) {
+                        appartment_hover(selectedObject);
+                    } else {
+                        not_flat_function();
+                    }
+                }
+            } else {
+                not_flat_function()
+            }
+
+        } else {
+            not_flat_function();
+        }
+
+        function not_flat_function() {
+            picked_object = undefined;
+
+
+            if (window.floor_numbers_intersection) {
+                document.querySelector('#c').style.cssText = '';
+            }
+            all_appartments.forEach(function (appartment, ap_index) {
+                if (appartment.userData.color_locked != true) {
+                    appartment_hoverout(appartment);
+                } else {
+
+                }
+            });
+            flat_number_bubble('hide');
+            if (last_hover_object != undefined) {
+                if (selectedObject != last_hover_object) {
+                    if (last_hover_object.userData != undefined) {
+                        appartment_hoverout(last_hover_object);
                     }
                 }
             }
+        }
 
-            {
-                // intersection for floor numbers
-                if (window.text_groups) {
-                    let intersects = raycaster.intersectObjects(window.text_groups, true);
-                    if(intersects.length) {
-                       if (intersects[0].object.name == 'text') {
-                           window.floor_numbers_intersection = true;
-                           document.querySelector('#c').style.cssText = 'cursor : pointer';
-                           window.floor_number_object = intersects[0].object.parent;
-                       }  else {
-                           window.floor_numbers_intersection = false;
-                           document.querySelector('#c').style.cssText = '';
-                           window.floor_number_object = undefined;
-                       }
-
-                    } else {
+        {
+            // intersection for floor numbers
+            if (window.text_groups) {
+                let intersects = raycaster.intersectObjects(window.text_groups, true);
+                if(intersects.length) {
+                    if (intersects[0].object.name == 'text') {
+                        window.floor_numbers_intersection = true;
+                        document.querySelector('#c').style.cssText = 'cursor : pointer';
+                        window.floor_number_object = intersects[0].object.parent;
+                    }  else {
                         window.floor_numbers_intersection = false;
                         document.querySelector('#c').style.cssText = '';
                         window.floor_number_object = undefined;
                     }
+
+                } else {
+                    window.floor_numbers_intersection = false;
+                    document.querySelector('#c').style.cssText = '';
+                    window.floor_number_object = undefined;
                 }
             }
-
         }
+
+    }
 }
 
 function destroy_building (current_floor_var , flat = null) {
     tween_animations = [];
-   // window.roof.visible = false;
+    // window.roof.visible = false;
     window.roof.visible = false;
     object_disappear(window.roof);
     // x : -0.46 ,
@@ -925,66 +925,66 @@ function destroy_building (current_floor_var , flat = null) {
     window.floor_obj.forEach(function(element, floor_index){
         let user_data_floor = element[0].userData.floor;
         if (user_data_floor > current_floor_var) {
-                let floor_key = floor_index + 5;
-                let mesh = instanced_floors[floor_key].mesh;
-                let count = instanced_floors[floor_key].count;
-                if (user_data_floor != current_floor_var) {
-                    window.floor_obj[floor_index][0].parent.visible = false;
-                    if (window.floor_obj[floor_index][0].parent.userData.base_scale == undefined) {
-                        window.floor_obj[floor_index][0].parent.userData.base_scale = window.floor_obj[floor_index][0].parent.scale.x;
-                    }
-                    window.floor_obj[floor_index][0].parent.scale.set(0,0,0);
+            let floor_key = floor_index + 5;
+            let mesh = instanced_floors[floor_key].mesh;
+            let count = instanced_floors[floor_key].count;
+            if (user_data_floor != current_floor_var) {
+                window.floor_obj[floor_index][0].parent.visible = false;
+                if (window.floor_obj[floor_index][0].parent.userData.base_scale == undefined) {
+                    window.floor_obj[floor_index][0].parent.userData.base_scale = window.floor_obj[floor_index][0].parent.scale.x;
                 }
+                window.floor_obj[floor_index][0].parent.scale.set(0,0,0);
+            }
 
-                let start_position = {
-                  x : instanced_floors[floor_key].position[0],
-                  y :   instanced_floors[floor_key].position[1],
-                  z :   instanced_floors[floor_key].position[2],
-                  scale : 1,
-                };
-                let target_position = {
-                    x :  instanced_floors[floor_key].position[0],
-                    y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (38 + (user_data_floor - current_floor_var)),
-                    z :   instanced_floors[floor_key].position[2],
-                    scale : 0,
-                };
-                let matrix =  instanced_floors[floor_key].matrix;
-                let an_counter = 0;
-                if (user_data_floor == current_floor + 1) {
-                    matrix.setPosition (target_position.x,  target_position.y, target_position.z );
+            let start_position = {
+                x : instanced_floors[floor_key].position[0],
+                y :   instanced_floors[floor_key].position[1],
+                z :   instanced_floors[floor_key].position[2],
+                scale : 1,
+            };
+            let target_position = {
+                x :  instanced_floors[floor_key].position[0],
+                y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (38 + (user_data_floor - current_floor_var)),
+                z :   instanced_floors[floor_key].position[2],
+                scale : 0,
+            };
+            let matrix =  instanced_floors[floor_key].matrix;
+            let an_counter = 0;
+            if (user_data_floor == current_floor + 1) {
+                matrix.setPosition (target_position.x,  target_position.y, target_position.z );
+                matrix.scale ( new global_three.Vector3(0,0,0) );
+                mesh.setMatrixAt(count,matrix);
+                mesh.instanceMatrix.needsUpdate = true;
+                instanced_floors[floor_key].hidden = true;
+            } else {
+                add_tween_animation ({
+                    'animation_obj' :  tween_animations,
+                    'start' : start_position,
+                    'target' : target_position,
+                    'duration' : 1000,
+                    'easing' : TWEEN.Easing.Sinusoidal.InOut,
+                    'delay' : 0
+                }, function (e) {
+                    matrix.makeRotationFromEuler(instanced_floors[floor_key].rotation);
+
+                    if (instanced_floors[floor_key].hidden != true) {
+                        matrix.scale ( new global_three.Vector3(1,1,1) );
+                    } else {
+
+                        matrix.scale ( new global_three.Vector3(0,0,0) );
+                    }
+                    matrix.setPosition (e.x,  e.y, e.z );
+                    mesh.setMatrixAt(count,matrix);
+                    mesh.instanceMatrix.needsUpdate = true;
+                    an_counter++;
+                }, function (e) {
                     matrix.scale ( new global_three.Vector3(0,0,0) );
                     mesh.setMatrixAt(count,matrix);
                     mesh.instanceMatrix.needsUpdate = true;
                     instanced_floors[floor_key].hidden = true;
-                } else {
-                    add_tween_animation ({
-                        'animation_obj' :  tween_animations,
-                        'start' : start_position,
-                        'target' : target_position,
-                        'duration' : 1000,
-                        'easing' : TWEEN.Easing.Sinusoidal.InOut,
-                        'delay' : 0
-                    }, function (e) {
-                        matrix.makeRotationFromEuler(instanced_floors[floor_key].rotation);
+                });
 
-                        if (instanced_floors[floor_key].hidden != true) {
-                            matrix.scale ( new global_three.Vector3(1,1,1) );
-                        } else {
-
-                            matrix.scale ( new global_three.Vector3(0,0,0) );
-                        }
-                        matrix.setPosition (e.x,  e.y, e.z );
-                        mesh.setMatrixAt(count,matrix);
-                        mesh.instanceMatrix.needsUpdate = true;
-                        an_counter++;
-                    }, function (e) {
-                        matrix.scale ( new global_three.Vector3(0,0,0) );
-                        mesh.setMatrixAt(count,matrix);
-                        mesh.instanceMatrix.needsUpdate = true;
-                        instanced_floors[floor_key].hidden = true;
-                    });
-
-                }
+            }
         }
     });
     floor_appear_animation();
@@ -1010,7 +1010,7 @@ function filter_flats () {
 
 
 function position_on_canvas (appartment){
-   var cube = appartment;
+    var cube = appartment;
     // get the position of the center of the cube
     if (cube.userData.world_position == undefined) {
         cube.updateWorldMatrix(true, false);
@@ -1035,25 +1035,25 @@ function position_on_canvas (appartment){
     // return world_position;
 }
 function set_floor_track_position_center (current_floor) {
-   new_floor_selector_obj.set_track_floor(new_floor_selector_obj, current_floor);
-/*    var items_in_view = 3;
-    var all_items_length = document.querySelectorAll('.left-floors-selector .floor-selector-item').length;
-    var center_item_offset = Math.floor(items_in_view/2);
-    var min_change_floor_number = center_item_offset;
-    var max_change_floor_number = all_items_length - center_item_offset - 1;
-    if (current_floor <= max_change_floor_number && current_floor >= min_change_floor_number) {
-        var position_difference = (all_items_length - current_floor - center_item_offset - 1);
-        set_floor_track_position(position_difference);
-    }
-    if (current_floor > max_change_floor_number) {
-        var position_difference = (all_items_length - max_change_floor_number - center_item_offset - 1);
-        set_floor_track_position(position_difference);
-    }
-    if (current_floor < min_change_floor_number) {
-        var position_difference = (all_items_length - min_change_floor_number - center_item_offset - 1);
+    new_floor_selector_obj.set_track_floor(new_floor_selector_obj, current_floor);
+    /*    var items_in_view = 3;
+        var all_items_length = document.querySelectorAll('.left-floors-selector .floor-selector-item').length;
+        var center_item_offset = Math.floor(items_in_view/2);
+        var min_change_floor_number = center_item_offset;
+        var max_change_floor_number = all_items_length - center_item_offset - 1;
+        if (current_floor <= max_change_floor_number && current_floor >= min_change_floor_number) {
+            var position_difference = (all_items_length - current_floor - center_item_offset - 1);
+            set_floor_track_position(position_difference);
+        }
+        if (current_floor > max_change_floor_number) {
+            var position_difference = (all_items_length - max_change_floor_number - center_item_offset - 1);
+            set_floor_track_position(position_difference);
+        }
+        if (current_floor < min_change_floor_number) {
+            var position_difference = (all_items_length - min_change_floor_number - center_item_offset - 1);
 
-        set_floor_track_position(position_difference);
-    }*/
+            set_floor_track_position(position_difference);
+        }*/
 }
 function set_floor_track_position (position) {
     var track_step = document.querySelector('.left-floors-selector .floor-selector-item').offsetHeight;
@@ -1180,13 +1180,13 @@ function add_appartment_info_in_popup (box) {
     var balcony = flat.userData.crm_data.balconySize;
     var facing = flat.userData.crm_data.facing;
     let facing_translates = {
-      'צפון' : 'North',
-      'מערב' : 'West',
-      'דרום' : 'South',
-      'מזרח' : 'East',
+        'צפון' : 'North',
+        'מערב' : 'West',
+        'דרום' : 'South',
+        'מזרח' : 'East',
     };
-   let facing_string_array = facing.split(',');
-   let facing_string_en = '';
+    let facing_string_array = facing.split(',');
+    let facing_string_en = '';
     facing_string_array.forEach(function(facing_item){
         let sep = ',';
         if (facing_string_en.length == 0) {
@@ -1196,7 +1196,7 @@ function add_appartment_info_in_popup (box) {
     });
     var flat_type = flat.userData.crm_data.propType;
     let flat_types_translates = {
-         'דירה' : 'apt.type'
+        'דירה' : 'apt.type'
     };
     let flat_type_en = flat_types_translates[flat_type];
     let flat_type_he = flat_type;
@@ -1424,7 +1424,7 @@ function line_from_point_to_point (point_1, point_2, options) {
     }
     var distance_3 = Math.sqrt((distance_1 * distance_1) + (distance_2 * distance_2));
     var degree = 0;
-        degree =  (Math.asin(distance_1 / distance_3) * 180) / Math.PI;
+    degree =  (Math.asin(distance_1 / distance_3) * 180) / Math.PI;
     if (point_1[0] > point_2[0]) {
         degree = degree * -1;
     }  else {
@@ -1443,7 +1443,7 @@ function update_line_position () {
         let p  = click_flat_intersection_point;
         let point = window.last_clicked_point_css;
         point.position.set(p.x , p.y  , p.z );
-       // point.element.innerHTML = inner_html;
+        // point.element.innerHTML = inner_html;
         // point.visible = true;
     }
 }
@@ -1470,8 +1470,8 @@ function flat_number_bubble (action = 'show', intersection_object = null) {
         let modelName = `<span class="model-name">${intersection_object.parent.userData.crm_data.modelName}</span>`;
         let propNum = `<span class="prop-num">${intersection_object.parent.userData.crm_data.propNum}</span>`;
         (intersection_object.parent.userData.url_360_type === 'custom') ?
-        bubble.html( propNum + ' &#183; ' +  modelName + '' + icon_360 ) :
-        bubble.html( propNum + ' &#183; ' +  modelName);
+            bubble.html( propNum + ' &#183; ' +  modelName + '' + icon_360 ) :
+            bubble.html( propNum + ' &#183; ' +  modelName);
         bubble.attr('data-clipboard-text', intersection_object.parent.name );
         // set_flat_number_bubble_position (intersection_object);
         bubble.css({
@@ -1510,8 +1510,8 @@ function set_flat_number_bubble_position (intersection_object) {
     var bubble = $('.flat-bubble');
     var canvas_point = get_canvas_coords (intersection_point);
     bubble.css({
-       'top' :  canvas_point[0],
-       'left' :  canvas_point[1],
+        'top' :  canvas_point[0],
+        'left' :  canvas_point[1],
     });
 }
 
@@ -1579,78 +1579,78 @@ function flat_click_animation (flat, vector) {
     if (lock_mouse_rotation_x) {
         parent.children.forEach(function(flat){
 
-                animation (flat);
+            animation (flat);
 
         });
 
         function animation (flat) {
 
             if (flat.material.length != undefined) {
-            if (last_clicked_flat != flat) {
-                add_tween_animation_new({
-                        start : {
-                            number : flat.scale.z,
-                            position : flat.position.z
-                        },
-                        target : {
-                            number : 1,
-                            position : flat.userData.base_position.z
-                        },
-                        duration : 500,
-                        easing : TWEEN.Easing.Quadratic.InOut,
-                        delay : 0,
-
-                    },
-                    function (e) {
-                        flat.position.z = e.position;
-                        flat.scale.z = e.number;
-                    }
-                );
-            } else {
-                add_tween_animation_new({
-                        start : {
-                            number : flat.scale.z,
-                            position : flat.position.z
-                        },
-                        target : {
-                            number : 1.2,
-                            position : flat.position.z + 0.25,
+                if (last_clicked_flat != flat) {
+                    add_tween_animation_new({
+                            start : {
+                                number : flat.scale.z,
+                                position : flat.position.z
+                            },
+                            target : {
+                                number : 1,
+                                position : flat.userData.base_position.z
+                            },
+                            duration : 500,
+                            easing : TWEEN.Easing.Quadratic.InOut,
+                            delay : 0,
 
                         },
-                        duration : 500,
-                        easing : TWEEN.Easing.Quadratic.InOut,
-                        delay : 0,
-
-                    },
-                    function (e) {
-                        flat.position.z = e.position;
-                        flat.scale.z = e.number;
-
-                    },
-                    function(){
-                        add_tween_animation_new({
-                                start : {
-                                    number : flat.scale.z,
-                                    position : flat.position.z
-                                },
-                                target : {
-                                    number : 1,
-                                    position : flat.userData.base_position.z
-                                },
-                                duration : 500,
-                                easing : TWEEN.Easing.Quadratic.InOut,
-                                delay : 50,
+                        function (e) {
+                            flat.position.z = e.position;
+                            flat.scale.z = e.number;
+                        }
+                    );
+                } else {
+                    add_tween_animation_new({
+                            start : {
+                                number : flat.scale.z,
+                                position : flat.position.z
+                            },
+                            target : {
+                                number : 1.2,
+                                position : flat.position.z + 0.25,
 
                             },
-                            function (e) {
-                                flat.position.z = e.position;
-                                flat.scale.z = e.number;
-                            }
-                        );
-                    }
-                );
+                            duration : 500,
+                            easing : TWEEN.Easing.Quadratic.InOut,
+                            delay : 0,
+
+                        },
+                        function (e) {
+                            flat.position.z = e.position;
+                            flat.scale.z = e.number;
+
+                        },
+                        function(){
+                            add_tween_animation_new({
+                                    start : {
+                                        number : flat.scale.z,
+                                        position : flat.position.z
+                                    },
+                                    target : {
+                                        number : 1,
+                                        position : flat.userData.base_position.z
+                                    },
+                                    duration : 500,
+                                    easing : TWEEN.Easing.Quadratic.InOut,
+                                    delay : 50,
+
+                                },
+                                function (e) {
+                                    flat.position.z = e.position;
+                                    flat.scale.z = e.number;
+                                }
+                            );
+                        }
+                    );
+                }
             }
-        }
         }
     }
 }
@@ -1662,7 +1662,7 @@ function floor_selector_mouse_up_fn (e) {
     if (e.which == 1 || e.isTrigger == 3 ){
         if (flat_selector_dragged != true) {
             if ( floors_track_animated == false) {
-            if ($(this).hasClass('active') != true) {
+                if ($(this).hasClass('active') != true) {
                     floors_track_animated = true;
                     var floor_var = $(this).data('floor');
                     if (floor_var > current_floor) {
@@ -1883,23 +1883,23 @@ function popup_appear_function (popup_btn, mouse_event) {
     var popup_class = popup_btn.data('popup');
     var popup = $('.' + popup_class);
     if (popup_class != 'not-flat-360') {
-       var flat = add_appartment_info_in_popup(popup);
-       if (flat.userData.url_360 != undefined) {
-           var url_360 = flat.userData.url_360;
-           var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
-           $('.popup-360 .iframe-box').html(iframe_html);
-           popup.find('.toggler-360').css('display' , 'flex');
+        var flat = add_appartment_info_in_popup(popup);
+        if (flat.userData.url_360 != undefined) {
+            var url_360 = flat.userData.url_360;
+            var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
+            $('.popup-360 .iframe-box').html(iframe_html);
+            popup.find('.toggler-360').css('display' , 'flex');
 
 
-       } else {
-           popup.find('.toggler-360').css('display' , 'none');
+        } else {
+            popup.find('.toggler-360').css('display' , 'none');
 
-       }
-       if (flat.userData.int_360 != undefined) {
-           popup.find('.toggler-3d').css('display' , 'flex');
-       } else {
-           popup.find('.toggler-3d').css('display' , 'none');
-       }
+        }
+        if (flat.userData.int_360 != undefined) {
+            popup.find('.toggler-3d').css('display' , 'flex');
+        } else {
+            popup.find('.toggler-3d').css('display' , 'none');
+        }
     }
     var toggler_class = popup.data('toggler');
     var toggler = $('.main-wrap .' + toggler_class);
@@ -1973,7 +1973,7 @@ function popup_appear_function (popup_btn, mouse_event) {
 
 function popup_disappear_function (popup_btn, mouse_event) {
     $('.popup').hide();
-   // TWEEN.removeAll();
+    // TWEEN.removeAll();
     var toggler_class = popup_btn.parent('.popup').data('toggler');
     var popup = popup_btn.parent('.popup');
     var toggler = $('.popup-info .' + toggler_class);
@@ -2202,8 +2202,9 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function toggler_2d_click (clicked_object) {
-    let img_src = $('.flat-img img').attr('src');
+function toggler_2d_click(clicked_object) {
+    console.log(clicked_object);
+    /*let img_src = $('.flat-img img').attr('src');
     let img_box = $('.popup-2d .img-box');
     img_box.empty();
     img_box.html('<img src="' + img_src + '" data-high-res-src="' + img_src + '" alt=""/>');
@@ -2212,14 +2213,40 @@ function toggler_2d_click (clicked_object) {
         let img_width = $('.popup-2d .img-box').width();
         let img_height = $('.popup-2d .img-box').height();
         img_box.find('img').attr('width', img_width);
-        img_box.find('img').attr('height', img_height);
-       // fast_change
-        const image = document.querySelector('.popup-2d .img-box img');
-        window.img_viewer = new ImageViewer('.popup-2d .img-box img' );
-        setTimeout(function(){
-            $('.popup-2d .content').removeClass('loading');
-        }, 500);
-    }, 600);
+        img_box.find('img').attr('height', img_height);*/
+    // fast_change
+//XeDuH
+
+    const imgBox = document.querySelector('.img-box');
+    if (imgBox) {
+        const content = document.querySelector('.popup-2d .content');
+        const dataSvg = last_clicked_flat.userData.svg_plan;
+        const modelName = last_clicked_flat.userData.crm_data.modelName;
+        const currentLang = c_lang();
+
+        if (dataSvg) {
+            const imgUrl = (window.innerWidth > 1024) ? dataSvg.horizontal[currentLang] : dataSvg.vertical[currentLang];
+            imgBox.innerHTML = `<img class='card-plan-image' src=${imgUrl} data-high-res-src=${imgUrl} alt=${modelName}>`;
+        }
+
+
+        const image = document.querySelector('.card-plan-image');
+
+        image.onerror = () => {
+            console.log('img NOT loaded');
+            content.classList.remove('loading');
+            // imgBox.innerHTML = '';
+            image.remove();
+            imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
+        }
+
+        image.onload = () => {
+            console.log('img loaded');
+            content.classList.remove('loading');
+            let img_viewer = new ImageViewer(image);
+            window.img_viewer = img_viewer;
+        }
+    }
 
     let data = {};
     data.popup = 'popup-2d';
@@ -2273,7 +2300,7 @@ function reset_range (object) {
     let start_max_num = Math.floor(Number(object.parent().find('.max-text').html().replace(/,/g,'')));
     let start_max_difference = max_num - start_max_num;
     // object.parent().find('.min-text').html(min_num);
-   // object.parent().find('.max-text').html(max_num);
+    // object.parent().find('.max-text').html(max_num);
 
 
     object.find('.range-line-active').animate({
@@ -2312,14 +2339,14 @@ function progress_bar_update () {
     let loadedSize =0;
     let mathPercent=0;
 
-        Object.entries(progressLoaderObj).forEach(([key,value],index)=>{
-            totalSize += value.total + loaded_texture_counter;
-            loadedSize +=value.loaded;
-            mathPercent = Math.floor((loadedSize * 100) / totalSize);
-            if (mathPercent> totalPercent){
-                totalPercent = mathPercent;
-            }
-        });
+    Object.entries(progressLoaderObj).forEach(([key,value],index)=>{
+        totalSize += value.total + loaded_texture_counter;
+        loadedSize +=value.loaded;
+        mathPercent = Math.floor((loadedSize * 100) / totalSize);
+        if (mathPercent> totalPercent){
+            totalPercent = mathPercent;
+        }
+    });
 
 
 }
@@ -2352,16 +2379,16 @@ function progress_bar_update () {
 // }
 
 function set_camera_on_flat (appartment) {
-     let flat_center_position;
+    let flat_center_position;
     if (appartment.children.length > 0) {
         let floor_index = appartment.userData.floor;
         let floor_center = floors_height_positions[floor_index];
         flat_center_position =  floor_center;
         last_flat_intersection_point = floor_center;
-        } else {
+    } else {
         flat_center_position =  appartment.getWorldPosition(window.vector_point);
         last_flat_intersection_point = appartment.getWorldPosition(window.vector_point);
-        }
+    }
     add_tween_animation ({
         'animation_obj' :  tween_animations,
         'start' : {  x : window.camera_target.position.x, y : window.camera_target.position.y, z : window.camera_target.position.z },
@@ -2370,7 +2397,7 @@ function set_camera_on_flat (appartment) {
         'easing' : TWEEN.Easing.Cubic.In,
         'delay' : 0
     }, function (e) {
-       // window.camera_target.position.z = e.z;
+        // window.camera_target.position.z = e.z;
         window.camera_target.position.y = e.y;
         //window.camera_target.position.x = e.x;
         update_line_position();
@@ -2381,75 +2408,75 @@ function set_camera_on_flat (appartment) {
 
 function add_floor_animation (floor_local , duration , floor_delay) {
     setTimeout(function(){
-    floor_local.forEach(function(flat,index ){
-        var add_distance = add_distance_animation_val * ((flat.userData.floor - current_floor) * 2);
-        add_tween_animation ({
-            'animation_obj' :  tween_animations,
-            'start' : {y : flat.userData.base_position.z  + add_distance, opacity: 0, glass_opacity : 0},
-            'target' : {  y: flat.userData.base_position.z  , opacity: 1 , glass_opacity : glass_base_opacity},
-            'duration' : duration ,
-            'easing' : TWEEN.Easing.Sinusoidal.InOut,
-            'delay' :  100 * index
-        }, function (e) {
-            flat.visible = true;
-            flat.position.z = e.y;
-            if (flat.material.length == undefined) {
-                if (flat.material.name != glass_name) {
-                    flat.material.opacity = e.opacity;
-                } else {
-                    flat.material.opacity = e.glass_opacity;
-                }
-            } else {
-                var metarial_i = 0;
-                while (metarial_i < flat.material.length) {
-                    if (flat.material[metarial_i].name != glass_name) {
-                        if (flat.material[metarial_i].userData.not_color_change == false) {
-                            let material = flat.material[metarial_i];
-                            material.opacity = e.opacity;
-                        } else {
-                            let material = flat.material[metarial_i];
-                            material.opacity = 0.9;
-                        }
-
+        floor_local.forEach(function(flat,index ){
+            var add_distance = add_distance_animation_val * ((flat.userData.floor - current_floor) * 2);
+            add_tween_animation ({
+                'animation_obj' :  tween_animations,
+                'start' : {y : flat.userData.base_position.z  + add_distance, opacity: 0, glass_opacity : 0},
+                'target' : {  y: flat.userData.base_position.z  , opacity: 1 , glass_opacity : glass_base_opacity},
+                'duration' : duration ,
+                'easing' : TWEEN.Easing.Sinusoidal.InOut,
+                'delay' :  100 * index
+            }, function (e) {
+                flat.visible = true;
+                flat.position.z = e.y;
+                if (flat.material.length == undefined) {
+                    if (flat.material.name != glass_name) {
+                        flat.material.opacity = e.opacity;
                     } else {
-                        flat.material[metarial_i].opacity = e.glass_opacity;
+                        flat.material.opacity = e.glass_opacity;
                     }
-                    metarial_i++;
-                }
-            }
-
-
-        }, function (e) {
-            if (flat.material.length == undefined) {
-                if (flat.material.name != glass_name) {
-                    flat.material.opacity = e.opacity;
                 } else {
-                    flat.material.opacity = e.glass_opacity;
-                }
-            } else {
-                var metarial_i = 0;
-                while (metarial_i < flat.material.length) {
-                    if (flat.material[metarial_i].name != glass_name) {
-                        if (flat.material[metarial_i].userData.not_color_change == false) {
-                            let material = flat.material[metarial_i];
-                            material.opacity = e.opacity;
-                        } else {
-                            let material = flat.material[metarial_i];
-                            material.opacity = 0.9;
-                        }
+                    var metarial_i = 0;
+                    while (metarial_i < flat.material.length) {
+                        if (flat.material[metarial_i].name != glass_name) {
+                            if (flat.material[metarial_i].userData.not_color_change == false) {
+                                let material = flat.material[metarial_i];
+                                material.opacity = e.opacity;
+                            } else {
+                                let material = flat.material[metarial_i];
+                                material.opacity = 0.9;
+                            }
 
-                    } else {
-                        flat.material[metarial_i].opacity = e.glass_opacity;
+                        } else {
+                            flat.material[metarial_i].opacity = e.glass_opacity;
+                        }
+                        metarial_i++;
                     }
-                    metarial_i++;
                 }
-            }
-            update_line_position()
+
+
+            }, function (e) {
+                if (flat.material.length == undefined) {
+                    if (flat.material.name != glass_name) {
+                        flat.material.opacity = e.opacity;
+                    } else {
+                        flat.material.opacity = e.glass_opacity;
+                    }
+                } else {
+                    var metarial_i = 0;
+                    while (metarial_i < flat.material.length) {
+                        if (flat.material[metarial_i].name != glass_name) {
+                            if (flat.material[metarial_i].userData.not_color_change == false) {
+                                let material = flat.material[metarial_i];
+                                material.opacity = e.opacity;
+                            } else {
+                                let material = flat.material[metarial_i];
+                                material.opacity = 0.9;
+                            }
+
+                        } else {
+                            flat.material[metarial_i].opacity = e.glass_opacity;
+                        }
+                        metarial_i++;
+                    }
+                }
+                update_line_position()
+            });
         });
-    });
-    setTimeout(function(){
-        flooring_obj[floor_local[0].userData.floor].visible = true;
-    }, duration);
+        setTimeout(function(){
+            flooring_obj[floor_local[0].userData.floor].visible = true;
+        }, duration);
     }, floor_delay);
 }
 
@@ -2538,8 +2565,8 @@ function material_appear (material, duration , delay, easing) {
 
 function save_scene() {
     var formData = new FormData();
-   // var scene_obj = JSON.stringify(window.scene.toJSON());
-   // formData.set('json', scene_obj);
+    // var scene_obj = JSON.stringify(window.scene.toJSON());
+    // formData.set('json', scene_obj);
     $.ajax({
         type: "POST",
         url: 'my-file.php',
@@ -2578,41 +2605,41 @@ function update_flat_labels (dynamic = false) {
             window.floor_obj[current_floor].forEach(function(flat, index){
                 if (flat.name.search('floor_center') == -1) {
 
-                let inner_html = '';
-                let price = Math.floor(flat.userData.crm_data.salePrice);
-                let flat_status = flat.userData.crm_data.status;
-                let price_html = get_price_html (price);
+                    let inner_html = '';
+                    let price = Math.floor(flat.userData.crm_data.salePrice);
+                    let flat_status = flat.userData.crm_data.status;
+                    let price_html = get_price_html (price);
 
-                let apt_text_en = 'Apt.';
-                let apt_text = apt_text_en;
-                let apt_text_he = 'דירה';
-                if ($(window).width() < 1024) {
-                    apt_text_he  = 'ד.';
-                }
+                    let apt_text_en = 'Apt.';
+                    let apt_text = apt_text_en;
+                    let apt_text_he = 'דירה';
+                    if ($(window).width() < 1024) {
+                        apt_text_he  = 'ד.';
+                    }
 
-                let status_text = '';
-                let status_text_en = flat_status;
-                status_text = status_text_en;
-                let status_text_he = '';
-                if (flat_status == "Sold") {
-                    status_text_he = 'נמכר';
-                } else if (flat_status == "Unavailable")  {
-                    status_text_he = 'לא זמינה';
-                }
+                    let status_text = '';
+                    let status_text_en = flat_status;
+                    status_text = status_text_en;
+                    let status_text_he = '';
+                    if (flat_status == "Sold") {
+                        status_text_he = 'נמכר';
+                    } else if (flat_status == "Unavailable")  {
+                        status_text_he = 'לא זמינה';
+                    }
                     if ($(window).width() < 1024) {
                         status_text_he  = '';
                     }
 
-                if ($('body').hasClass('he') == true) {
-                    apt_text = apt_text_he;
-                    status_text = status_text_he;
-                }
+                    if ($('body').hasClass('he') == true) {
+                        apt_text = apt_text_he;
+                        status_text = status_text_he;
+                    }
 
 
-                if (flat.userData.status_index == 1) {
-                    let icon_360 = `<img src="./img/flat-card_360.svg" alt="icon-360">`;
-                    let empty = '';
-                    inner_html = `
+                    if (flat.userData.status_index == 1) {
+                        let icon_360 = `<img src="./img/flat-card_360.svg" alt="icon-360">`;
+                        let empty = '';
+                        inner_html = `
                         <div class="flat-card-box">
                             <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
                             <div class="price-row">
@@ -2622,8 +2649,8 @@ function update_flat_labels (dynamic = false) {
                             </div>
                             ${flat.userData.url_360_type === 'custom' ? icon_360 : empty}
                         </div>`
-                } else {
-                    inner_html = `
+                    } else {
+                        inner_html = `
                         <div class="flat-card-box">
                         <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
                             <p class="unavailable-row">
@@ -2632,24 +2659,24 @@ function update_flat_labels (dynamic = false) {
                             </p>
                         </div>
                     `;
-                }
-                $('.float-text.flat-' + flat.userData.flat_i).addClass('active');
-                if (flat.userData.world_position == undefined) {
-                    flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
-                }
-                let p;
-                if (dynamic == true) {
-                    p = flat.children[0].getWorldPosition(new global_three.Vector3());
-                } else {
-                    p = flat.userData.world_position;
-                }
+                    }
+                    $('.float-text.flat-' + flat.userData.flat_i).addClass('active');
+                    if (flat.userData.world_position == undefined) {
+                        flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
+                    }
+                    let p;
+                    if (dynamic == true) {
+                        p = flat.children[0].getWorldPosition(new global_three.Vector3());
+                    } else {
+                        p = flat.userData.world_position;
+                    }
 
-                flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
-                flat_labels_group[index].element.innerHTML = inner_html;
-                flat_labels_group[index].visible = true;
-                setTimeout(function(){
-                    $(flat_labels_group[index].element).addClass('active');
-                }, 100);
+                    flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
+                    flat_labels_group[index].element.innerHTML = inner_html;
+                    flat_labels_group[index].visible = true;
+                    setTimeout(function(){
+                        $(flat_labels_group[index].element).addClass('active');
+                    }, 100);
                 } else {
                     let floor_text = 'Floor';
                     let floor_number;
@@ -2662,7 +2689,7 @@ function update_flat_labels (dynamic = false) {
                     if ($('body').hasClass('he') == true) {
                         floor_text = 'קומה';
                     }
-                   let inner_html = `
+                    let inner_html = `
                         <div class="floor-center-text">
                             <div class="text language-string" data-he="קומה" data-en="Floor">${floor_text}</div>
                             <div class="number">${floor_number}</div>
@@ -2688,19 +2715,19 @@ function update_flat_labels (dynamic = false) {
 
                 }
             });
-/*
-            {
-                let floor = window.floor_obj[current_floor][0].parent;
-                let floor_query_el = $('.float-text.floor');
-                floor_query_el.addClass('active');
-                let floorNum = window.floor_obj[current_floor][0].userData.crm_data.floorNum;
-                floor_query_el.find('h3').html('Floor ' + floorNum );
-                var position = position_on_canvas (floor);
-                floor_query_el[0].style.top = position[1] + 'px';
-                floor_query_el[0].style.left = position[0] + 'px';
-                scale_coef = perspectiveCamera.position.z / 30;
-                floor_query_el.css('transform', 'translate(-50%, -50%) scale(' + 1 / scale_coef + ')');
-            }*/
+            /*
+                        {
+                            let floor = window.floor_obj[current_floor][0].parent;
+                            let floor_query_el = $('.float-text.floor');
+                            floor_query_el.addClass('active');
+                            let floorNum = window.floor_obj[current_floor][0].userData.crm_data.floorNum;
+                            floor_query_el.find('h3').html('Floor ' + floorNum );
+                            var position = position_on_canvas (floor);
+                            floor_query_el[0].style.top = position[1] + 'px';
+                            floor_query_el[0].style.left = position[0] + 'px';
+                            scale_coef = perspectiveCamera.position.z / 30;
+                            floor_query_el.css('transform', 'translate(-50%, -50%) scale(' + 1 / scale_coef + ')');
+                        }*/
 
 
         } else {
@@ -2735,7 +2762,7 @@ function get_price_html (price_num, add_class = '') {
         $('.bottom-part').addClass('he');
         get_price_text = get_price_text_he;
     }
-       let price_html = `
+    let price_html = `
             <div class="price-box ${add_class}">
                  <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
                 <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
@@ -2756,7 +2783,7 @@ function get_angle_to_camera() {
     side_2 = camera_target_position.distanceTo(building_position);
     side_3 = building_position.distanceTo(camera_position);
 
-   // angle = vector.angleTo();
+    // angle = vector.angleTo();
     return angle;
 
 }
@@ -3044,17 +3071,17 @@ function get_all_params_values (array, key) {
 }
 
 function set_default_camera_position () {
-        let zoom_coef = 1;
-        if (detect_mobile()) {
-            zoom_coef = 1.3;
-        }
-        perspectiveCamera.position.x = 0;
-        perspectiveCamera.position.z = perspectiveCamera_position_z * zoom_coef;
-        target_zoom = perspectiveCamera_position_z * zoom_coef;
-        window.camera_target.rotation.y = 3.7524578917878086;
-        targetRotationX = 3.7524578917878086;
-        window.camera_target.position.y = hide_lock;
-        window.camera_target.children[0].rotation.x = -0.1;
+    let zoom_coef = 1;
+    if (detect_mobile()) {
+        zoom_coef = 1.3;
+    }
+    perspectiveCamera.position.x = 0;
+    perspectiveCamera.position.z = perspectiveCamera_position_z * zoom_coef;
+    target_zoom = perspectiveCamera_position_z * zoom_coef;
+    window.camera_target.rotation.y = 3.7524578917878086;
+    targetRotationX = 3.7524578917878086;
+    window.camera_target.position.y = hide_lock;
+    window.camera_target.children[0].rotation.x = -0.1;
 }
 
 function setPositionButtonLanguage(type) {
