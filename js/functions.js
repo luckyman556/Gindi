@@ -2245,6 +2245,7 @@ function toggler_2d_click(clicked_object) {
             content.classList.remove('loading');
             let img_viewer = new ImageViewer(image);
             window.img_viewer = img_viewer;
+            img_viewer.refresh();
         }
     }
 
