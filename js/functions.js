@@ -539,7 +539,7 @@ function set_appartment_data_in_block (appartment, box) {
             }
         } else {
             box.find('.flat-img img').attr('src' , theme_url + '/img/apt_1'  + '.svg');
-        }*/
+        }
 
         box.find('.flat-plan .flat-status .text').html(appartment.userData.status_name);
         box.find('.flat-plan .flat-status .circle').css('background-color', '#' + appartment.userData.status_color);
@@ -2202,9 +2202,8 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function toggler_2d_click(clicked_object) {
-    console.log(clicked_object);
-    /*let img_src = $('.flat-img img').attr('src');
+function toggler_2d_click (clicked_object) {
+    let img_src = $('.flat-img img').attr('src');
     let img_box = $('.popup-2d .img-box');
     img_box.empty();
     img_box.html('<img src="' + img_src + '" data-high-res-src="' + img_src + '" alt=""/>');
@@ -2213,40 +2212,14 @@ function toggler_2d_click(clicked_object) {
         let img_width = $('.popup-2d .img-box').width();
         let img_height = $('.popup-2d .img-box').height();
         img_box.find('img').attr('width', img_width);
-        img_box.find('img').attr('height', img_height);*/
+        img_box.find('img').attr('height', img_height);
        // fast_change
-//XeDuH
-
-    const imgBox = document.querySelector('.img-box');
-    if (imgBox) {
-        const content = document.querySelector('.popup-2d .content');
-        const dataSvg = last_clicked_flat.userData.svg_plan;
-        const modelName = last_clicked_flat.userData.crm_data.modelName;
-        const currentLang = c_lang();
-
-        if (dataSvg) {
-            const imgUrl = (window.innerWidth > 1024) ? dataSvg.horizontal[currentLang] : dataSvg.vertical[currentLang];
-            imgBox.innerHTML = `<img class='card-plan-image' src=${imgUrl} data-high-res-src=${imgUrl} alt=${modelName}>`;
-        }
-
-
-        const image = document.querySelector('.card-plan-image');
-
-        image.onerror = () => {
-            console.log('img NOT loaded');
-            content.classList.remove('loading');
-            // imgBox.innerHTML = '';
-            image.remove();
-            imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
-        }
-
-        image.onload = () => {
-            console.log('img loaded');
-            content.classList.remove('loading');
-            let img_viewer = new ImageViewer(image);
-            window.img_viewer = img_viewer;
-        }
-    }
+        const image = document.querySelector('.popup-2d .img-box img');
+        window.img_viewer = new ImageViewer('.popup-2d .img-box img' );
+        setTimeout(function(){
+            $('.popup-2d .content').removeClass('loading');
+        }, 500);
+    }, 600);
 
     let data = {};
     data.popup = 'popup-2d';
