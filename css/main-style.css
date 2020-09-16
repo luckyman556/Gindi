@@ -1629,7 +1629,8 @@ body {
         margin-top: -2px; }
         .three_js .flat-plan .price .bottom-part .price-text {
           color: #1A2F43;
-          font-weight: 400; }
+          font-weight: 400;
+          order: 2; }
         .three_js .flat-plan .price .bottom-part .price-status {
           font-family: Fragolino;
           font-size: 16px;
@@ -2232,7 +2233,7 @@ body {
           height: calc(100% + 2px);
           border: none; }
       .three_js .popup .content .slider-box {
-        width: 100vw;
+        width: 100%;
         height: calc(100vw / 16 * 9);
         margin: 0 auto; }
         .three_js .popup .content .slider-box .slider {
@@ -3010,7 +3011,6 @@ body {
       box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15); }
       .three_js .popup-info .flat-plan.unavailable .floor-plan-toggler {
         margin-left: 0 !important;
-        margin-right: auto !important;
         z-index: 10; }
       .three_js .popup-info .flat-plan.unavailable:after {
         content: '';
@@ -3040,11 +3040,12 @@ body {
       .three_js .popup-info .flat-plan .page-description {
         display: none; }
       .three_js .popup-info .flat-plan .popups-togglers-box {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(122px, 1fr));
+        grid-column-gap: 8px;
         position: relative;
         top: 0;
-        left: 0;
+        left: 1px;
         margin-top: 16px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
@@ -3140,8 +3141,6 @@ body {
     position: relative;
     z-index: 2; }
     .three_js .flat-info.unavailable .info-item.bath-item {
-      display: none !important; }
-    .three_js .flat-info.unavailable .info-item.flat-type-item {
       display: none !important; }
     .three_js .flat-info.unavailable > .title .price {
       display: none; }
@@ -3325,7 +3324,8 @@ body {
               font-size: 16px;
               line-height: 21px;
               font-weight: bold;
-              padding: 0 5px; }
+              padding: 0 5px;
+              white-space: nowrap; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.bath-item {
             display: none; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.square-item {
@@ -4470,8 +4470,6 @@ body.he .folder-box .border-top-right {
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
   width: 122px;
   background-position: right 3px center;
-  margin-left: 2px;
-  margin-right: 8px;
   background-size: 25px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
@@ -4780,12 +4778,6 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     margin: auto 5px 0 0;
     font-weight: 600; }
 
-body.en .price-box.common {
-  flex-direction: row-reverse; }
-
-body.he .price-box.common {
-  flex-direction: row-reverse; }
-
 .current-resolution {
   display: none;
   position: absolute;
@@ -4872,7 +4864,8 @@ body.en .popup-360 > .flat-info {
     body.en .popup-2d > .flat-info > .title .price-text,
     body.en .popup-3d > .flat-info > .title .price-text,
     body.en .popup-360 > .flat-info > .title .price-text {
-      display: block; }
+      display: block;
+      order: 2; }
 
 body.en .three_js .title-with-selector .title-text-row::after {
   right: initial;
@@ -4913,5 +4906,10 @@ body.en .three_js .btns-wrap.bedrooms-btns .search-filter-btn.round:first-child 
 
 body.he .three_js .zoom-by-mousewheel .text {
   width: 130px; }
+
+body.he .three_js .popup-2d > .flat-info > .title .price-text,
+body.he .three_js .popup-3d > .flat-info > .title .price-text,
+body.he .three_js .popup-360 > .flat-info > .title .price-text {
+  order: 2; }
 
 /*# sourceMappingURL=main-style.css.map */
