@@ -1207,7 +1207,9 @@ body {
 				}
 			}
 			.slider-box {
-				width: 100%;
+				width: 100vw;
+				height: calc(100vw / 16 * 9);
+				margin: 0 auto;
 				.slider {
 					width: 100%;
 					height: 100%;
@@ -2357,7 +2359,7 @@ body {
 						border: none;
 						padding-left: 33px;
 						background-image: url(../img/gindi-ic-apt-plan.svg) !important;
-						background-position: left 5px center;
+						background-position: left 7px center;
 						background-repeat: no-repeat;
 						background-size: 24px;
 						box-shadow: none;
@@ -2378,7 +2380,7 @@ body {
 						background-color: transparent;
 						padding-left: 37px;
 						background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-						background-position: left 7px center;
+						background-position: left 10px center;
 						background-repeat: no-repeat;
 						background-size: 24px;
 
@@ -2431,7 +2433,7 @@ body {
 			}
 			@media (max-width: 1024px) {
 				.popups-togglers-box {
-					margin-top: 20px;
+					margin-top: 16px;
 				}
 			}
 		}
@@ -4009,7 +4011,7 @@ body.he {
 		border-top-left-radius: 8px;
 	}
 	.three_js .flat-info > .title {
-		padding-right: 5px;
+		padding-right: 0;
 
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div {
@@ -4018,7 +4020,7 @@ body.he {
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
 		order: 1;
-		background-position: right 8px center;
+		background-position: right 6px center;
 	}
 	.three_js .flat-option.type {
 		.top-part {
@@ -4120,7 +4122,7 @@ body.he {
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
 		width: 122px;
-		background-position: right 5px center;
+		background-position: right 3px center;
 		margin-left: 2px;
 		margin-right: 8px;
 		background-size: 25px;
@@ -4454,6 +4456,7 @@ body.on-white {
 				display: none;
 				.get-price-btn {
 					display: none;
+					margin: 0 2px;
 				}
 			}
 		}
@@ -4499,6 +4502,7 @@ body.on-white {
 	}
 	.number {
 		display: none;
+		margin: 0 2px;
 	}
 	.price-text {
 
@@ -4508,6 +4512,14 @@ body.on-white {
 		margin: auto 5px 0 0;
 		font-weight: 600;
 	}
+}
+
+body.en .price-box.common {
+	flex-direction: row-reverse;
+}
+
+body.he .price-box.common {
+	flex-direction: row-reverse;
 }
 .current-resolution {
 	display: none;

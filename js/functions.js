@@ -2713,9 +2713,9 @@ function get_price_html (price_num, add_class = '') {
     if (price > 1000000) {
         price = + Math.floor(price / 1000) / 1000;
     }
-    let after_price_text_en = 'm &#8362  ';
+    let after_price_text_en ='ILS';
     let after_price_text = after_price_text_en;
-    let after_price_text_he =  'מיליון ש\'\'ח';
+    let after_price_text_he =  '₪';
 
     let get_price_text_en = 'show price';
     let get_price_text = get_price_text_en;
@@ -2733,11 +2733,6 @@ function get_price_html (price_num, add_class = '') {
             <div class="number"> ${price}</div>
             </div>
         `;
-    // let price_html = `
-
-    //     <span class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</span>
-    //     <span class="number">${price}</span>
-    //     `;
     return price_html;
 }
 function get_angle_to_camera() {
@@ -3174,3 +3169,12 @@ function target_zoom_limit (target_zoom_fn) {
 
     return target_zoom_fn;
 }
+
+
+// window.screen.orientation.lock("portrait");
+// document.getElementsByTagName('body').requestFullscreen().then(=> {
+//     window.screen.orientation.lock("portrait");
+// })
+
+
+
