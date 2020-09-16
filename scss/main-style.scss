@@ -414,6 +414,7 @@ body {
 					.price-text {
 						color: $brand-color-1;
 						font-weight: 400;
+						order: 2;
 					}
 					.price-status {
 						font-family: Fragolino;
@@ -1207,7 +1208,7 @@ body {
 				}
 			}
 			.slider-box {
-				width: 100vw;
+				width: 100%;
 				height: calc(100vw / 16 * 9);
 				margin: 0 auto;
 				.slider {
@@ -2280,7 +2281,7 @@ body {
 				}
 				.floor-plan-toggler {
 					margin-left: 0!important;
-					margin-right: auto!important;
+					//margin-right: auto!important;
 					z-index: 10;
 				}
 				&:after {
@@ -2321,11 +2322,14 @@ body {
 				display: none;
 			}
 			.popups-togglers-box {
-				display: flex;
-				justify-content: space-between;
+				display: grid;
+				grid-template-columns: repeat(2, minmax(122px, 1fr));
+				grid-column-gap: 8px;
+				//display: flex;
+				//justify-content: space-between;
 				position: relative;
 				top: 0;
-				left: 0;
+				left: 1px;
 				margin-top: 16px;
 
 				.toggler-360 ,
@@ -2452,7 +2456,7 @@ body {
 				display: none!important;
 			}
 			.info-item.flat-type-item {
-				display: none!important;
+				//display: none!important;
 			}
 			> .title {
 				.price {
@@ -2681,6 +2685,7 @@ body {
 								line-height: 21px;
 								font-weight: bold;
 								padding: 0 5px;
+								white-space: nowrap;
 							}
 						}
 						&.bath-item {
@@ -4123,8 +4128,6 @@ body.he {
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
 		width: 122px;
 		background-position: right 3px center;
-		margin-left: 2px;
-		margin-right: 8px;
 		background-size: 25px;
 
 	}
@@ -4514,13 +4517,13 @@ body.on-white {
 	}
 }
 
-body.en .price-box.common {
-	flex-direction: row-reverse;
-}
+//body.en .price-box.common {
+//	flex-direction: row-reverse;
+//}
 
-body.he .price-box.common {
-	flex-direction: row-reverse;
-}
+//body.he .price-box.common {
+//	flex-direction: row-reverse;
+//}
 .current-resolution {
 	display: none;
 	position: absolute;
@@ -4617,6 +4620,7 @@ body.en {
 				}
 				& .price-text {
 					display: block;
+					order: 2;
 				}
 			}
 		}
@@ -4695,6 +4699,17 @@ body.he {
 		.zoom-by-mousewheel {
 			.text {
 				width: 130px;
+			}
+		}
+		.popup-2d,
+		.popup-3d,
+		.popup-360 {
+			&>.flat-info {
+				&>.title {
+					& .price-text {
+						order: 2;
+					}
+				}
 			}
 		}
 	}
