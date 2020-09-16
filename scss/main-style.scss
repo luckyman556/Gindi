@@ -1394,7 +1394,7 @@ body {
 			width: 220px;
 			justify-content: center;
 			//left: calc(50% + 110px);
-			left: 50%;
+			left: calc(50% - 104px); 
 			display: flex;
 			flex-direction: row;
 			padding-bottom: 20px;

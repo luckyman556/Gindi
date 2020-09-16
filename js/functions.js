@@ -1260,7 +1260,7 @@ function add_appartment_info_in_popup (box) {
     let floor_word_he ='קומה';
     let floor_word_current = floor_word;
 
-    let badrooms_word = 'bedrooms';
+    let badrooms_word = 'rooms';
     let badrooms_word_he ='חדרים';
     let badrooms_word_current = badrooms_word;
 

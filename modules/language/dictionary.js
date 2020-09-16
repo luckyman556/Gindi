@@ -130,5 +130,13 @@ export let dictionary_array = {
     'Enable “Show available only” to turn on this option' : {
         'he' : 'לורם איפסום הוא כינוי לטקסט חסר משמעות לחלוטין - הנקרא לפעמים גם דמי טקסט או',
         'en' : 'Enable “Show available only” to turn on this option'
+    },
+    'area' : {
+        'he': 'אֵזוֹר',
+        'en': 'area'
+    },
+    'rooms' : {
+        'he': 'חדרים',
+        'en': 'rooms'
     }
 }
