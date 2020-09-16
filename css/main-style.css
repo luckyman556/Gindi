@@ -2373,7 +2373,8 @@ body {
       display: flex;
       flex-direction: row;
       padding-bottom: 20px;
-      transform: translateX(-50%); }
+      transform: translateX(-50%);
+      z-index: 10; }
       .three_js .popup .popups-togglers-box div {
         margin-top: 20px;
         margin-left: 7px;

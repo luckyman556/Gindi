@@ -522,6 +522,7 @@ $(document).ready(function(){
         data.target_bottom = popup_container.height() - (data.clicked_object.offset().top - popup_container.offset().top) - half_height_of_clicked_object;
         data.overlay = $('.three_js .popup-outer');
         popup_disappear(data, event);
+
         // popup_disappear_function($(this),event);
     });
 

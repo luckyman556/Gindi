@@ -189,6 +189,7 @@ export function controls_init (camera,canvas, controls) {
     }
 
     function onWheel(e) {
+        // console.log(e);
         // event.preventDefault();
             $(".mouse-wheel-info").removeClass('active');
             update_line_position_enabled = true;
