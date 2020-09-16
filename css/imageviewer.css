@@ -6,7 +6,14 @@
 .iv-container {
   overflow: hidden;
   position: relative;
+  height: 100%;
 }
+
+.iv-container > img {
+  display: block;
+
+}
+
 .iv-fullscreen {
   position: fixed;
   background: #0d0d0d;
@@ -49,9 +56,10 @@
   background: #FFF;
   position: absolute;
   left: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  /*top: 50%;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%, -50%);*/
 }
 .iv-fullscreen-close:before {
   transform: translate(-50%, -50%) rotate(45deg);
@@ -100,7 +108,6 @@
   transform: translate3d(0, 0, 0);
   /* box-shadow: 0px 0px 0px 200px rgba(0, 0, 0, 0.5); */
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
   cursor: grab;
   /* display: none; */
 }
@@ -123,7 +130,6 @@
   height: 15px;
   background: #1a2f43;
   position: absolute;
-  cursor: pointer;
   cursor: grab;
 }
 .iv-zoom-handle:active {
@@ -133,8 +139,9 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .iv-image-wrap {
   display: inline-block;
@@ -146,6 +153,8 @@
   max-width: 100%;
   max-height: 100%;
   position: absolute;
+  top: 50%;
+  left: 50%;
   -ms-touch-action: none;
   touch-action: none;
   transform: translate3d(0, 0, 0);
