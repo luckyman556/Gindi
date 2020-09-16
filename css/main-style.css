@@ -2194,8 +2194,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 6px; }
     .three_js .popup * {
-      opacity: 0;
-      }
+      opacity: 0; }
     .three_js .popup:after {
       position: absolute;
       width: 100%;
@@ -2217,8 +2216,7 @@ body {
       .three_js .popup.open * {
         transition: 0.5s; }
       .three_js .popup.open * {
-        opacity: 1;
-        }
+        opacity: 1; }
     .three_js .popup .content {
       position: relative;
       display: flex;
@@ -2235,7 +2233,9 @@ body {
           height: calc(100% + 2px);
           border: none; }
       .three_js .popup .content .slider-box {
-        width: 100%; }
+        width: 100vw;
+        height: calc(100vw / 16 * 9);
+        margin: 0 auto; }
         .three_js .popup .content .slider-box .slider {
           width: 100%;
           height: 100%;
@@ -2307,8 +2307,7 @@ body {
         z-index: 101;
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
-        transition: 0.5s;
-        }
+        transition: 0.5s; }
       .three_js .popup .content .loading-ic {
         width: 50px;
         height: 50px;
@@ -2327,8 +2326,7 @@ body {
     .three_js .popup.popup-2d .img-box {
       height: 100%;
       width: 100%;
-      transition: none;
-      }
+      transition: none; }
       .three_js .popup.popup-2d .img-box * {
         transition: none; }
     .three_js .popup.not-flat-360 .content {
@@ -2374,8 +2372,7 @@ body {
       display: flex;
       flex-direction: row;
       padding-bottom: 20px;
-      transform: translateX(-50%);
-      }
+      transform: translateX(-50%); }
       .three_js .popup .popups-togglers-box div {
         margin-top: 20px;
         margin-left: 7px;
@@ -3133,7 +3130,7 @@ body {
               padding-left: 20px; }
       @media (max-width: 1024px) {
         .three_js .popup-info .flat-plan .popups-togglers-box {
-          margin-top: 20px; } }
+          margin-top: 16px; } }
   .three_js .flat-info {
     background-color: #F7F7F7;
     width: 208px;
@@ -3738,8 +3735,7 @@ body {
       margin: auto;
       background-color: #E6E6E6;
       opacity: 0.07;
-      display: none;
-      }
+      display: none; }
     .three_js .zoom-controls .zoom {
       cursor: pointer;
       width: 44px;
@@ -4388,7 +4384,7 @@ body.he .three_js .popup .content {
   border-top-left-radius: 8px; }
 
 body.he .three_js .flat-info > .title {
-  padding-right: 5px; }
+  padding-right: 0; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
   padding-right: 23px;
@@ -4396,7 +4392,7 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   order: 1;
-  background-position: right 8px center; }
+  background-position: right 6px center; }
 
 body.he .three_js .flat-option.badroom .top-part .middle-text {
   order: 3; }
@@ -4474,7 +4470,7 @@ body.he .folder-box .border-top-right {
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
   width: 122px;
-  background-position: right 5px center;
+  background-position: right 3px center;
   margin-left: 2px;
   margin-right: 8px;
   background-size: 25px; }
@@ -4740,7 +4736,8 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
         letter-spacing: -0.21px;
         display: none; }
         .flat_status_2d_css .flat-card-box .price-row .price-box .get-price-btn {
-          display: none; }
+          display: none;
+          margin: 0 2px; }
 
 .floor_center_2d_css .floor-center-text {
   display: flex;
@@ -4775,13 +4772,20 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     text-align: center;
     letter-spacing: -0.21px; }
   .price-box.common .number {
-    display: none; }
+    display: none;
+    margin: 0 2px; }
   .price-box.common .price-text {
     display: none;
     font-size: 16px;
     color: #603ef2;
     margin: auto 5px 0 0;
     font-weight: 600; }
+
+body.en .price-box.common {
+  flex-direction: row-reverse; }
+
+body.he .price-box.common {
+  flex-direction: row-reverse; }
 
 .current-resolution {
   display: none;
@@ -4912,8 +4916,7 @@ body.he .three_js .zoom-by-mousewheel .text {
   width: 130px; }
 
 .img-box {
-  display: flex;
-  }
+  display: flex; }
 
 .image-error-message {
   display: block;
