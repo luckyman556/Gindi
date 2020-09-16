@@ -6,14 +6,7 @@
 .iv-container {
   overflow: hidden;
   position: relative;
-  height: 100%;
 }
-
-.iv-container > img {
-  display: block;
-
-}
-
 .iv-fullscreen {
   position: fixed;
   background: #0d0d0d;
@@ -53,13 +46,12 @@
   content: "";
   height: 4px;
   width: 24px;
-  background: #FFF;
+  background: gray;
   position: absolute;
   left: 0;
-  top: 0;
-  /*top: 50%;*/
-  /*left: 50%;*/
-  /*transform: translate(-50%, -50%);*/
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .iv-fullscreen-close:before {
   transform: translate(-50%, -50%) rotate(45deg);
@@ -78,12 +70,12 @@
   top: 20px;
   left: 20px;
   border: 1px solid #aaa;
-  background: white;
+  background-color: #fff;
+  /*background-color: #0d0d0d;*/
   z-index: 100;
   box-sizing: content-box;
   transition: opacity ease 400ms;
   opacity: 0;
-  overflow: hidden;
 }
 .iv-snap-image-wrap {
   display: inline-block;
@@ -93,28 +85,29 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .iv-snap-image {
   position: relative;
   -ms-touch-action: none;
   touch-action: none;
-  /* object-fit: fill!Important; */
 }
 .iv-snap-handle {
   box-sizing: border-box;
   position: absolute;
-  /* border: 1px solid white; */
+  /*border: 1px solid white;*/
   transform: translate3d(0, 0, 0);
-  /* box-shadow: 0px 0px 0px 200px rgba(0, 0, 0, 0.5); */
+  /*box-shadow: 0px 0px 0px 200px rgba(0, 0, 0, 0.5);*/
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.2;
+  cursor: pointer;
   cursor: grab;
-  /* display: none; */
 }
 .iv-snap-handle:active {
   cursor: grabbing;
 }
 .iv-zoom-slider {
+  display: none;
   width: 100%;
   box-sizing: content-box;
   border: 1px solid #aaa;
@@ -128,8 +121,9 @@
 .iv-zoom-handle {
   width: 20px;
   height: 15px;
-  background: #1a2f43;
+  background: white;
   position: absolute;
+  cursor: pointer;
   cursor: grab;
 }
 .iv-zoom-handle:active {
@@ -139,9 +133,8 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
 }
 .iv-image-wrap {
   display: inline-block;
@@ -153,11 +146,10 @@
   max-width: 100%;
   max-height: 100%;
   position: absolute;
-  top: 50%;
-  left: 50%;
   -ms-touch-action: none;
   touch-action: none;
   transform: translate3d(0, 0, 0);
+  z-index: 90;
 }
 .iv-loader {
   top: 50%;
@@ -192,5 +184,6 @@
 @media screen and (max-width: 767px) {
   .iv-snap-view {
     z-index: -1;
+    visibility: hidden;
   }
 }

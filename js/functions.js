@@ -2230,24 +2230,22 @@ function toggler_2d_click(clicked_object) {
         }
 
 
-        setTimeout(() => {
-            const image = document.querySelector('.card-plan-image');
+        const image = document.querySelector('.card-plan-image');
 
-            image.onerror = () => {
-                console.log('img NOT loaded');
-                content.classList.remove('loading');
-                imgBox.innerHTML = '';
-                imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
-                console.clear();
-            }
+        image.onerror = () => {
+            console.log('img NOT loaded');
+            content.classList.remove('loading');
+            // imgBox.innerHTML = '';
+            image.remove();
+            imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
+        }
 
-            image.onload = () => {
-                console.log('img loaded');
-                content.classList.remove('loading');
-                let img_viewer = new ImageViewer(image);
-                window.img_viewer = img_viewer;
-            }
-        }, 0);
+        image.onload = () => {
+            console.log('img loaded');
+            content.classList.remove('loading');
+            let img_viewer = new ImageViewer(image);
+            window.img_viewer = img_viewer;
+        }
     }
 
     let data = {};

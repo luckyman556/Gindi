@@ -2193,7 +2193,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 6px; }
     .three_js .popup * {
-      opacity: 0; }
+      opacity: 0;
+      }
     .three_js .popup:after {
       position: absolute;
       width: 100%;
@@ -2215,7 +2216,8 @@ body {
       .three_js .popup.open * {
         transition: 0.5s; }
       .three_js .popup.open * {
-        opacity: 1; }
+        opacity: 1;
+        }
     .three_js .popup .content {
       position: relative;
       display: flex;
@@ -2304,7 +2306,8 @@ body {
         z-index: 101;
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
-        transition: 0.5s; }
+        transition: 0.5s;
+        }
       .three_js .popup .content .loading-ic {
         width: 50px;
         height: 50px;
@@ -2323,7 +2326,8 @@ body {
     .three_js .popup.popup-2d .img-box {
       height: 100%;
       width: 100%;
-      transition: none; }
+      transition: none;
+      }
       .three_js .popup.popup-2d .img-box * {
         transition: none; }
     .three_js .popup.not-flat-360 .content {
@@ -4906,7 +4910,8 @@ body.he .three_js .zoom-by-mousewheel .text {
   width: 130px; }
 
 .img-box {
-  display: flex; }
+  display: flex;
+  }
 
 .image-error-message {
   display: block;
