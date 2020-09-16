@@ -526,7 +526,7 @@ function set_appartment_data_in_block (appartment, box) {
         box.find('.area .number').html(appartment.userData.crm_data.totalSpace);
         box.find('.floor .number').html(appartment.userData.floor + 5);
         box.find('.sq .number').html(appartment.userData.crm_data.totalSpace);
-        if (appartment.userData.svg_plan != undefined ) {
+        if (appartment.userData.svg_plan) {
             box.find('.flat-img img').attr('src' , appartment.userData.svg_plan);
         } else {
             box.find('.flat-img img').attr('src' , theme_url + '/img/apt_1'  + '.svg');
