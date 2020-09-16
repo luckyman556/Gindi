@@ -94,6 +94,21 @@ export let card_fns = {
             <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
             `;
         };
+        let floor_plan_ic = 'floor-plan-white';
+        let flat_3d_object;
+        flat_3d_object = all_appartments.find(function(element){
+            element.userData.crm_data.bmbyPropID;
+            flat.bmbyPropID;
+            if (element.userData.crm_data.bmbyPropID === flat.bmbyPropID) {
+                return element;
+            }
+        });
+        console.log(flat_3d_object);
+        if (flat_3d_object) {
+            if (flat_3d_object.userData.url_360_type === 'custom') {
+                floor_plan_ic = 'popup-info-360';
+            }
+        }
 
         let inner_html = `
         <div class="flat-card-box ${status_class}">
@@ -110,18 +125,7 @@ export let card_fns = {
                         <div class="bottom">
                             <div class="text language-string" data-dictionary="apt. type">${get_lang('apt. type')}</div>
                         </div>
-                    </div>
-                    <div class="option-item">
-                        <div class="top">
-                            <div class="ic">
-                                <img src="${ img_path}card-flat-bedroom.svg" alt="">
-                            </div>
-                            <div class="number">${flat.roomNum}</div>
-                        </div>
-                        <div class="bottom">
-                            <div class="text language-string" data-dictionary="Bedrooms">${get_lang('Bedrooms')}</div>
-                        </div>
-                    </div>
+                    </div>                    
                     <div class="option-item">
                         <div class="top">
                             <div class="ic">
@@ -133,19 +137,41 @@ export let card_fns = {
                             <div class="text language-string" data-dictionary="floor">${get_lang('floor')}</div>
                         </div>
                     </div>
+                    <div class="option-item">
+                        <div class="top">
+                            <div class="ic">
+                                <img src="${ img_path}area-ic.svg" alt="">
+                            </div>
+                            <div class="number">${flat.totalSpace}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="text language-string" data-dictionary="area">${get_lang('area')}</div>
+                        </div>
+                    </div>
+                    <div class="option-item">
+                        <div class="top">
+                            <div class="ic">
+                                <img src="${ img_path}card-flat-bedroom.svg" alt="">
+                            </div>
+                            <div class="number">${flat.roomNum}</div>
+                        </div>
+                        <div class="bottom">
+                            <div class="text language-string" data-dictionary="rooms">${get_lang('rooms')}</div>
+                        </div>
+                    </div>
                 </div>            
                 <div class="btns-row">
                     <div class="new-ui-btn apt-plan">
                         <div class="text language-string" data-dictionary="Floor plan">${get_lang('Floor plan')}</div>
                         <div class="new-ui-icon">
-                            <img src="${img_path}floor-plan-white.svg" alt="">
+                            <img src="${img_path}${floor_plan_ic}.svg" alt="">
                         </div>
                     </div>
                     
                     <div class="new-ui-btn white floor-plan-btn" ${add_hide_floor_plan_text}>
                         <div class="text language-string" data-dictionary="Key plan">${get_lang('Key plan')}</div>
                         <div class="new-ui-icon">
-                            <img src="${img_path}card-flat-floor.svg" alt="">
+                            <img src="${img_path}filter-ic-floor-plan.svg" alt="">
                         </div>
                     </div>
                     <div class="new-ui-btn white floor-plan-btn-back" ${add_hide_back_text}>

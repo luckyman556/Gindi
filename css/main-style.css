@@ -539,7 +539,8 @@
       .filter-module-container .flat-cards .nfm-flat-card .btns-row {
         display: flex;
         padding-top: 15px;
-        justify-content: space-between; }
+        justify-content: space-between;
+        flex-direction: row-reverse; }
         .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
           height: 36px;
           width: 47%; }
@@ -1075,7 +1076,7 @@ body.he .lang-button::before {
   left: 32px;
   background-color: transparent;
   transition: 0.5s ease-in-out;
-  z-index: 50; }
+  z-index: 2; }
 
 .button-options {
   margin: 0;
@@ -2368,7 +2369,7 @@ body {
       right: 20px;
       width: 220px;
       justify-content: center;
-      left: 50%;
+      left: calc(50% - 104px);
       display: flex;
       flex-direction: row;
       padding-bottom: 20px;
@@ -4911,5 +4912,13 @@ body.he .three_js .popup-2d > .flat-info > .title .price-text,
 body.he .three_js .popup-3d > .flat-info > .title .price-text,
 body.he .three_js .popup-360 > .flat-info > .title .price-text {
   order: 2; }
+
+.img-box {
+  display: flex; }
+
+.image-error-message {
+  display: block;
+  margin: auto;
+  font-size: 70px; }
 
 /*# sourceMappingURL=main-style.css.map */

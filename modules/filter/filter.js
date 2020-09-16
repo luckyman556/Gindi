@@ -818,6 +818,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     function set_defaults () {
         crm_array = [];
         filter_update();
+        document.querySelectorAll('.filter-controls .disabled').forEach(function(item){
+            item.classList.remove('disabled');
+        })
         $('.flat-counter').removeClass('unactive');
         $('.flat-counter').fadeOut();
         container.find('.filter-module-container').addClass('clear');

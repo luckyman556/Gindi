@@ -392,15 +392,12 @@ $(document).ready(function(){
         change_filter_colors ();
         filter_flats ();
     });
-
-
-
+//Open 2D
     $('.toggler-2d').click(function(event){
         set_click_point_coords(event);
-        if ($(this).hasClass('active') != true) {
-             toggler_2d_click ($(this));
-        } else {
 
+        if ($(this).hasClass('active') !== true) {
+            toggler_2d_click ($(this));
         }
     });
 
@@ -531,9 +528,8 @@ $(document).ready(function(){
 
 
     $('.print-btn').click(function(){
-         var img_url = $('.popup-2d .content img').attr('src');
+        const img_url = last_clicked_flat.userData.svg_plan.printA4[c_lang()];
         printJS(img_url, 'image')
-
     });
 
 
@@ -724,7 +720,7 @@ $(document).ready(function(){
         $('body').removeClass('mini-card-open');
         new_floor_selector_obj.rebuild();
         $('.popup-info').addClass('hide');
-        if (lock_mouse_rotation_x != true) {            
+        if (!lock_mouse_rotation_x) {
             last_clicked_flat.material.opacity = 0;
         }
         // $('.points-line').addClass('hide');
@@ -908,28 +904,6 @@ $(document).ready(function(){
             change_game_text ();
         }, timeout);
     }
-
-    // $('.language-switch .language').click(function(){
-    //     $('.language-switch .language').removeClass('active');
-    //     $(this).addClass('active');
-    //     if ($(this).hasClass('he') == true) {
-    //         $('html').attr('dir', 'rtl');
-    //         $('body').addClass('he');
-    //         $('.language-string').each(function(){
-    //             let string = $(this).data('he');
-    //             $(this).html(string);
-    //         });
-    //     } else {
-    //
-    //         $('body').removeClass('he');
-    //
-    //         $('html').attr('dir', 'ltr');
-    //         $('.language-string').each(function() {
-    //             let string = $(this).data('en');
-    //             $(this).html(string);
-    //         });
-    //     }
-    // });
 
     $('.zoom-by-mousewheel').click(function(){
         if ($(this).hasClass('active') == true) {
@@ -1148,10 +1122,10 @@ function flat_popup_prepare (data) {
     var popup_class = data.popup;
     var popup = $('.' + popup_class);
     popup.find('.' + popup.data('toggler')).addClass('active');
-    if (popup_class != 'not-flat-360') {
+    if (popup_class !== 'not-flat-360') {
         var flat = add_appartment_info_in_popup(popup);
         console.log(popup_class);
-        if (flat.userData.url_360 != undefined) {
+        if (flat.userData.url_360) {
             var url_360 = flat.userData.url_360;
             var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
             $('.popup-360 .iframe-box').html(iframe_html);
@@ -1159,7 +1133,6 @@ function flat_popup_prepare (data) {
 
         } else {
             popup.find('.toggler-360').css('display' , 'none');
-
         }
 
         if (document.body.classList.contains('en')) {
@@ -1182,7 +1155,7 @@ function flat_popup_prepare (data) {
         // }
 
 
-        if (flat.userData.int_360 != undefined) {
+        if (flat.userData.int_360) {
             popup.find('.toggler-3d').css('display' , 'flex');
         } else {
             popup.find('.toggler-3d').css('display' , 'none');

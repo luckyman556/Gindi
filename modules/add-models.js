@@ -16,7 +16,7 @@ window.appartments = [];
 window.drag_objects = [];
 window.floor_looring_list = [];
 var appartments_array = {};
-var svg_plans_url =  'resources/2d_plans/';
+var svg_plans_url =  'resources/2d_plans';
 
 const optionsMenuShowHide = true;
 
@@ -1343,8 +1343,22 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                                 flat_2d_status = 'Unavailable';
                             }
                             let flat_model_name = user_data.crm_data.modelName;
-        
-                            user_data.svg_plan = svg_plans_url + flat_model_name + '.jpg';
+
+                            user_data.svg_plan = {
+                                horizontal: {
+                                    en: `${svg_plans_url}/horizontal/en/${flat_model_name}.png`,
+                                    he: `${svg_plans_url}/horizontal/he/${flat_model_name}.png`
+                                },
+                                vertical: {
+                                    en: `${svg_plans_url}/vertical/en/${flat_model_name}.png`,
+                                    he: `${svg_plans_url}/vertical/he/${flat_model_name}.png`
+                                },
+                                printA4: {
+                                    en: `${svg_plans_url}/print/en/${flat_model_name}.png`,
+                                    he: `${svg_plans_url}/print/he/${flat_model_name}.png`
+                                }
+                            };
+
                             user_data.status_index = random_number;
                             user_data.status_color = flat_statuses[random_number]['color'];
                             flat.material.color.setHex('0x' + user_data.status_color);

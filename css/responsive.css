@@ -144,7 +144,8 @@ body {
     }
 
     body.en .popup.popup-2d.open .content .img-box .iv-image-view {
-        top: 0;
+        /* top: 50%; */
+        bottom: 24px;
     }
 
     body.he .popup.popup-2d.open .content .img-box .iv-image-view {
@@ -1054,6 +1055,12 @@ body {
         width: 100% !important;
         height: 100% !important;
         top: 0 !important;
+    }
+
+    .image-error-message {
+        display: block;
+        margin: auto;
+        font-size: 30px;
     }
 }
 
