@@ -1185,16 +1185,20 @@ function add_appartment_info_in_popup (box) {
         'דרום' : 'South',
         'מזרח' : 'East',
     };
-    let facing_string_array = facing.split(',');
-    let facing_string_en = '';
+   let facing_string_array = facing.split(',');
+   let facing_string_en = '';
+   let facing_string_he = '';
     facing_string_array.forEach(function(facing_item){
-        let sep = ',';
-        if (facing_string_en.length == 0) {
+        let sep = ', ';
+        if (facing_string_en.length == 0 || facing_string_he.length === 0) {
             sep = '';
         }
         facing_string_en += sep + facing_translates[facing_item];
+        facing_string_he += sep + facing_item;
+        // console.log(facing_string_);
     });
     var flat_type = flat.userData.crm_data.propType;
+    console.log(flat.userData.crm_data);
     let flat_types_translates = {
         'דירה' : 'apt.type'
     };
@@ -1269,7 +1273,7 @@ function add_appartment_info_in_popup (box) {
     let floor_word_he ='קומה';
     let floor_word_current = floor_word;
 
-    let badrooms_word = 'bedrooms';
+    let badrooms_word = 'rooms';
     let badrooms_word_he ='חדרים';
     let badrooms_word_current = badrooms_word;
 
@@ -1294,7 +1298,7 @@ function add_appartment_info_in_popup (box) {
     let apply_now_word_current = apply_now_word;
 
     let facing_word = facing_string_en;
-    let facing_word_he = facing;
+    let facing_word_he = facing_string_he;
     let facing_word_en = facing_string_en;
 
     if ($('body').hasClass('he') == true) {
@@ -3208,10 +3212,17 @@ function target_zoom_limit (target_zoom_fn) {
 }
 
 
-// window.screen.orientation.lock("portrait");
-// document.getElementsByTagName('body').requestFullscreen().then(=> {
-//     window.screen.orientation.lock("portrait");
-// })
+// TODO landscape lock
+
+// window.addEventListener('orientationchange', function() {
+//     var orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
+//     if (orientation === 'landscape') {
+//         window.screen.orientation.lock("portrait");
+//         document.querySelector('body').requestFullscreen();
+//     }
+// }, false);
+
+
 
 
 
