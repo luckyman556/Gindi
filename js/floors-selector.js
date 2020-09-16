@@ -10,7 +10,7 @@ $.fn.floors_selector = function() {
     container.current_top = 0;
     container.target_top = 0;
     container.current_track_index = 0;
-    container.cells_count = 3;
+    container.cells_count = 0;
     container.track = {};
     container.btns = {};
     container.set_track_floor = function (container, floor_index) {
@@ -21,7 +21,6 @@ $.fn.floors_selector = function() {
     };
     floors_selector_init (container);
     function floors_selector_init (container) {
-
 
         window.floor_obj.forEach(function(item, index){
             let floor_number = index + 5;
@@ -62,16 +61,14 @@ $.fn.floors_selector = function() {
             let start_y = 0;
             let start_top = container.target_top;
             let current_y = event.deltaY;
-            let btn_height = container.btns.eq(0).outerHeight();
-            if (Math.sqrt(current_y * current_y) >= btn_height) {
-                if (current_y > 0) {
-                    current_y = btn_height - 1;
-                } else {
-                    current_y = (btn_height + 1) * -1;
-                }
+            let btn_height = container.btns[0].offsetHeight;
+            // if (Math.sqrt(current_y * current_y) >= btn_height) {
+            if (current_y >= btn_height) {
+                current_y = (current_y > 0) ? btn_height - 1 : (btn_height + 1) * -1;
             }
+
             container.scrolled = true;
-            track_move (start_y, current_y, start_top);
+            track_move_new(start_y, current_y, start_top);
         }
         function floor_btn_mouseup (event) {
             container.mouse_down_bool = false;
@@ -116,8 +113,6 @@ $.fn.floors_selector = function() {
                 container.temp_floor_index = floor_index;
                 set_building_changes (floor_index)
             }
-
-
         }
 
         function set_building_changes (target_floor) {
@@ -169,7 +164,6 @@ $.fn.floors_selector = function() {
                     animation_frame_enable = false;
                 }, 2000);
             } else if (floor_var < current_floor) {
-
                 hide_all_labels();
                 let right_first_flat_index = window.floor_obj[floor_var][0].parent.userData.center_flat_index;
                 let flat_parent = window.floor_obj[floor_var][0].parent;
@@ -183,7 +177,7 @@ $.fn.floors_selector = function() {
                    last_flat_intersection_point = flat.getWorldPosition(window.vector_point);
                }
                 update_click_intersection();
-                if (flat.parent.children[0].name.search('zagluha') == -1) {
+                if (flat.parent.children[0].name.search('zagluha') === -1) {
                     var floor_index = flat.parent.children[0].userData.floor;
                     var colored_floors = [floor_index];
                     colored_floors[1] = current_floor_before_minus;
@@ -204,12 +198,8 @@ $.fn.floors_selector = function() {
                     // animate_height_on_floor(flat.userData.floor);
                     set_floor_n_appartment (flat.parent.children[1].userData.floor, flat.parent.children[1].userData.flat_i);
                 }
-
             }
-
-
         }
-
 
         function floor_btn_mouseleave () {
             if (container.dragged == true) {
@@ -255,23 +245,66 @@ $.fn.floors_selector = function() {
 
             }
         }
+        function track_move_new(start_y, current_y, start_top) {
+            container.dragged = true;
+
+            const btnLength = container.btns.length;
+            const btn_height = container.btns[0].offsetHeight;
+            const offset = ((container.cells_count - 1) / 2) * btn_height;
+            let max_top  = btn_height * (btnLength - 1) - offset;
+            let move_difference = start_y - current_y - 1;
+            let target_top = ((start_top - move_difference) > offset) ? offset : start_top - move_difference;
+
+            console.log(container);
+            console.log('btn_height: ', btn_height);
+            console.log('offset: ', offset);
+            console.log('max_top: ', max_top);
+            console.log('move_difference: ', move_difference);
+            console.log('target_top: ', target_top);
+
+            let position_sing = (target_top > 0) ? '+' : '-';
+
+            let positive_current_top = Math.sqrt(target_top * target_top);
+
+            if (positive_current_top > max_top - 1 )  {
+                target_top = max_top * -1;
+            }
+            positive_current_top = Math.sqrt(target_top * target_top);
+
+            new_floor_selector_obj.target_top = target_top;
+            let current_position = Math.floor((positive_current_top + offset) / btn_height) + 1;
+            let target_floor_index = container.btns.length - current_position;
+
+            console.log('position_sing: ', position_sing);
+            console.log('positive_current_top: ', positive_current_top);
+            console.log('current_position: ', current_position);
+            console.log('target_floor_index: ', target_floor_index);
+
+            target_floor_index = (position_sing === '+') ? btnLength - (((container.cells_count - 1) / 2) -  Math.floor(positive_current_top / btn_height)) - 1 : target_floor_index;
+            set_current_floor (target_floor_index);
+            container.temp_floor_index = target_floor_index;
+        }
+
         function track_move (start_y, current_y, start_top, type = 'click') {
             container.dragged = true;
             let btn_height = container.btns.eq(0).outerHeight();
             let offset = ((container.cells_count - 1) / 2) * btn_height;
             let max_top  = btn_height * (container.btns.length - 1) - offset;
-            let move_difference = start_y - current_y;
+            let move_difference = start_y - current_y - 1;
             let target_top = start_top - move_difference;
-/*            if (type == 'touch') {
-                target_top = start_top + move_difference;
-            }*/
-            let position_sing = '-';
-            if (target_top > 0) {
-                position_sing = '+';
-            }
+
+            console.log('btn_height: ', btn_height);
+            console.log('offset: ', offset);
+            console.log('max_top: ', max_top);
+            console.log('move_difference: ', move_difference);
+            console.log('target_top: ', target_top);
+
+            let position_sing = (target_top > 0) ? '+' : '-';
+
             if (target_top > offset) {
                 target_top = offset;
             }
+
             let positive_current_top = Math.sqrt(target_top * target_top);
             if (positive_current_top > max_top - 1 )  {
                 target_top = max_top * -1;
@@ -281,6 +314,12 @@ $.fn.floors_selector = function() {
             new_floor_selector_obj.target_top = target_top;
             let current_position = Math.floor((positive_current_top + offset) / btn_height) + 1;
             let target_floor_index = container.btns.length - current_position;
+
+            console.log('position_sing: ', position_sing);
+            console.log('positive_current_top: ', positive_current_top);
+            console.log('current_position: ', current_position);
+            console.log('target_floor_index: ', target_floor_index);
+
             if (position_sing == '-') {
                 set_current_floor (target_floor_index);
                 container.temp_floor_index = target_floor_index;
@@ -299,29 +338,20 @@ $.fn.floors_selector = function() {
             let current_position = position_if_in_on_top - offset;
             return current_position;
         }
-        function set_current_floor (floor_index) {
 
+        function set_current_floor (floor_index) {
             container.btns.removeClass('active');
             let active_selector = '.floor-' + floor_index;
             $(active_selector).addClass('active');
 
-            container.btns.each(function(){
-            });
-            if (container.dragged == true) {
-
-            } else {
+            if (!container.dragged) {
                 new_floor_selector_obj.target_top = get_current_position(floor_index) * -1;
             }
+
             container.floor_index = floor_index;
             container.current_track_index = container.btns.length - floor_index - 1;
-/*            let this_event_time = new Date().getTime();
-            if (this_event_time - 200 > container.last_scroll_time) {
-                container.last_scroll_time = this_event_time;
-                let src = 'sounds/button1.wav';
-                let audio = new Audio(src);
-                audio.play();
-            }*/
         }
+
         container.set_current_floor = set_current_floor;
         function rebuild () {
             container.css({
@@ -342,6 +372,7 @@ $.fn.floors_selector = function() {
 
                 container.cells_count = max_cells_count;
                 container.set_current_floor(container.floor_index);
+
                 function set_css_prop (max_cells_count, cell_height) {
                     container.css({
                         'height' : max_cells_count * cell_height,
@@ -359,11 +390,8 @@ $.fn.floors_selector = function() {
         container.set_building_changes = set_building_changes;
         container.get_current_position = get_current_position;
 
-
-
-    // floor_selector_slider
-
-    slider = container.find('.slider');
+        // floor_selector_slider
+        slider = container.find('.slider');
         {
             let start_event;
             let selector_height;
@@ -376,8 +404,9 @@ $.fn.floors_selector = function() {
             slider[0].addEventListener('mouseleave', slider_mouse_leave);
             slider.target_top = 0;
             slider.start_top = 0;
+
             function slider_mouse_down (event) {
-                if ($(event.target).hasClass('slider-point') == true) {
+                if ($(event.target).hasClass('slider-point')) {
                     dragged = true;
                     start_event = event;
                     selector_height = container.height();
@@ -387,15 +416,15 @@ $.fn.floors_selector = function() {
                 } else {
                     clicked = true;
                 }
-
             }
+
             function set_slider_changes (target_top) {
                 if (target_top < 0) {
                     target_top = 0;
-                }
-                if (target_top > 100) {
+                } else if (target_top > 100) {
                     target_top = 100;
                 }
+
                 slider.target_top = target_top;
                 slider.find('.slider-point').css({
                     top : slider.target_top + '%'
@@ -404,7 +433,6 @@ $.fn.floors_selector = function() {
                 let current_floor_index = get_curent_floor_index (slider.target_top);
                 slider.current_floor_index = current_floor_index;
                 set_current_floor(current_floor_index);
-
             }
             function get_curent_floor_index (target_top) {
                 let current_floor_index = Math.floor(target_top / 100 * container.btns.length) + 1;
@@ -447,8 +475,6 @@ $.fn.floors_selector = function() {
             function slider_mouse_leave () {
                 slider.find('.tooltip').hide();
             }
-
-
         }
     }
     container.slider = slider;

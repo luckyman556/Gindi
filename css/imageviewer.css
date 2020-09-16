@@ -46,7 +46,7 @@
   content: "";
   height: 4px;
   width: 24px;
-  background: #FFF;
+  background: gray;
   position: absolute;
   left: 0;
   top: 50%;
@@ -70,44 +70,46 @@
   top: 20px;
   left: 20px;
   border: 1px solid #aaa;
-  background: white;
+  background-color: #fff;
+  /*background-color: #0d0d0d;*/
   z-index: 100;
   box-sizing: content-box;
   transition: opacity ease 400ms;
   opacity: 0;
-  overflow: hidden;
 }
 .iv-snap-image-wrap {
   display: inline-block;
-  position: absolute;
-  max-width: 150px;
-  max-height: 150px;
+  position: relative;
+  max-width: 152px;
+  max-height: 152px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 .iv-snap-image {
   position: relative;
   -ms-touch-action: none;
   touch-action: none;
-  /* object-fit: fill!Important; */
 }
 .iv-snap-handle {
   box-sizing: border-box;
   position: absolute;
-  /* border: 1px solid white; */
+  width: 100%;
+  height: 100%;
+  /*border: 1px solid white;*/
   transform: translate3d(0, 0, 0);
-  /* box-shadow: 0px 0px 0px 200px rgba(0, 0, 0, 0.5); */
+  /*box-shadow: 0px 0px 0px 200px rgba(0, 0, 0, 0.5);*/
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.2;
   cursor: pointer;
   cursor: grab;
-  /* display: none; */
 }
 .iv-snap-handle:active {
   cursor: grabbing;
 }
 .iv-zoom-slider {
+  display: none;
   width: 100%;
   box-sizing: content-box;
   border: 1px solid #aaa;
@@ -121,7 +123,7 @@
 .iv-zoom-handle {
   width: 20px;
   height: 15px;
-  background: #1a2f43;
+  background: white;
   position: absolute;
   cursor: pointer;
   cursor: grab;
@@ -149,6 +151,7 @@
   -ms-touch-action: none;
   touch-action: none;
   transform: translate3d(0, 0, 0);
+  z-index: 90;
 }
 .iv-loader {
   top: 50%;
@@ -183,5 +186,6 @@
 @media screen and (max-width: 767px) {
   .iv-snap-view {
     z-index: -1;
+    visibility: hidden;
   }
 }
