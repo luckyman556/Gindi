@@ -1138,7 +1138,7 @@ function flat_popup_prepare (data) {
 
         if (document.body.classList.contains('en')) {
             if (flat.userData.url_360_type === 'default') {
-                popup.find('.toggler-360').html('Vantage');
+                popup.find('.toggler-360').html('vantage');
             } else {
                 popup.find('.toggler-360').html('360');
             }
