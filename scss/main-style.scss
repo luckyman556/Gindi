@@ -468,7 +468,7 @@ body {
 		}
 	}
 	.flat-options {
-		padding-top: 10px;
+		padding-top: 13px;
 		display: flex;
 		justify-content: space-between;
 	}
@@ -492,11 +492,11 @@ body {
 				display: flex;
 
 				.ic {
-					right: -3px;
-					margin-left: 2px;
+					right: 0;
+					margin-left: 0;
 				}
 				.middle-text {
-					margin-left: 4px;
+					margin-left: 2px;
 				}
 			}
 
@@ -545,7 +545,7 @@ body {
 				margin: auto 0;
 				order: 1;
 				font-size: 16px;
-				font-weight: 600;
+				font-weight: 700;
 				margin-left: 3px;
 			}
 			.ic {
@@ -1000,13 +1000,13 @@ body {
 						position: absolute;
 						height: 12px;
 						width: 98px;
-						right: 0;
-						top: 25px;
+						left: 0;
+						top: 26px;
 						background-color: $brand-color-2;
 						transition: 0.5s 0.2s;
 					}
 					.title-text {
-						margin: 0 5px;
+						margin: 0 0;
 
 					}
 					.type {
@@ -2271,7 +2271,7 @@ body {
 			height: 204px;
 			//border-radius: 6px;
 			overflow: hidden;
-			padding: 14.5px 16px 16px 12px;
+			padding: 14.5px 16px 16px 16px;
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: contain;
@@ -2298,7 +2298,17 @@ body {
 					left: 0;
 					z-index: 5;
 				}
+				.flat-plan-box {
+					margin-top: 0;
+					.title-with-selector,
+					.price,
+					.flat-options {
+						filter: saturate(0);
+					}
+				}
+
 			}
+
 
 			.flat-status {
 				display: flex;
@@ -2332,7 +2342,7 @@ body {
 				//justify-content: space-between;
 				position: relative;
 				top: 0;
-				left: 1px;
+				left: 0;
 				margin-top: 16px;
 
 				.toggler-360 ,
@@ -2377,7 +2387,7 @@ body {
 
 						&.icon-360 {
 							background-image: url(../img/popup-info-360.svg) !important;
-							background-position: left 7px center;
+							background-position: left 5px center;
 						}
 					}
 					&.floor-plan-toggler {
@@ -2387,7 +2397,7 @@ body {
 						background-color: transparent;
 						padding-left: 37px;
 						background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-						background-position: left 10px center;
+						background-position: left 8px center;
 						background-repeat: no-repeat;
 						background-size: 24px;
 
@@ -2682,6 +2692,8 @@ body {
 						.row {
 							display: flex;
 							font-size: 24px;
+							margin-left: 2px;
+							margin-right: 4px;
 							.bottom {
 								font-family: 'Fragolino-Cond';
 								font-size: 16px;
@@ -2744,6 +2756,8 @@ body {
 								letter-spacing: -0.21px;
 								text-align: right;
 								color: #5c646b;
+								margin-left: 4px;
+								margin-right: 4px;
 							}
 							.bottom {
 								width: 100%;
@@ -4023,7 +4037,6 @@ body.he {
 	}
 	.three_js .flat-info > .title {
 		padding-right: 0;
-
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div {
 		padding-right: 23px;
@@ -4033,10 +4046,18 @@ body.he {
 		order: 1;
 		background-position: right 6px center;
 	}
+
+	.three_js .title-with-selector .page-title .text .title-text-row:after {
+		left: 6px;
+	}
+
+	.three_js .title-with-selector .page-title .text .title-text-row .title-text {
+		margin-left: 4px;
+	}
 	.three_js .flat-option {
 		.top-part {
 			.number {
-				// margin-left: 0;
+				 //margin-left: 3px;
 				// margin-right: 0px;
 			}
 			.ic {
@@ -4106,7 +4127,7 @@ body.he {
 		border-radius: 100%;
 	}
 	.three_js .flat-info > .title h2 {
-		padding-right: 2px;
+		padding-right: 4px;
 		padding-left: 0;
 	}
 	.folder-box .border-top-left {
@@ -4143,8 +4164,7 @@ body.he {
 		background-image: url(../img/back-to-floor-plan.svg) !important;
 		transform: rotate(180deg);
 		background-size: 24px!important;
-		left: 78px;
-		//margin-left: 50px;
+
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
 		content: 'חזור';
@@ -4495,10 +4515,11 @@ body.on-white {
 }
 .price-box.common {
 	display: flex;
+	margin-right: -4px;
 	.get-price-btn {
 		font-family: Fragolino;
 		font-size: 16px;
-		font-weight: normal;
+		font-weight: 700;
 		height: 21px;
 		padding: 0 10px;
 		background-color: $brand-color-1;

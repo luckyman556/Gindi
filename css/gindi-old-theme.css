@@ -23,6 +23,16 @@
     width: 284px;
     height: 204px;
     box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15);
+    opacity: 1;
+    padding: 14.5px 16px 16px 16px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box {
+    opacity: 0.5;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card.active .flat-card-box {
+    opacity: 1;
 }
 
 /*Title text */
@@ -91,6 +101,7 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
 .filter-module-container .flat-cards .nfm-flat-card .options {
     margin-top: 14px;
     margin-left: 0px;
+    width: 96%;
 }
 
 .nfm-flat-card .flat-card-box .options .option-item .top .number {
@@ -120,16 +131,16 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
     width: 122px;
     height: 44px;
     font-size: 18px;
+    font-weight: 700;
     line-height: 23px;
     align-items: center;
-    padding: 0px 11px 0 8px;
+    padding: 0px 9px 0 8px;
 }
 
 
 
 body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
     margin: 0;
-    font-family: 'Fragolino';
 }
 
 body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.apt-plan {
@@ -140,12 +151,12 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-bt
     font-size: 18px;
     line-height: 23px;
     position: relative;
-    left: -4px;
+    left: -2px;
 }
 
 .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .new-ui-icon {
     margin: 0 auto;
-    left: -7px;
+    left: -4px;
     position: relative;
 }
 
@@ -207,7 +218,7 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-bt
 }
 
 body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
-    padding-right: 16px;
+    padding-right: 7px;
     /* width: 122px; */
     height: 44px;
     font-family: 'Fragolino';

@@ -222,7 +222,7 @@ body {
         width: 284px;
         height: 204px;
         overflow: hidden;
-        padding: 14.5px 16px 16px 12px;
+        padding: 14.5px 16px 16px 16px;
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
@@ -290,7 +290,7 @@ body {
         /* text-align: center; */
     }
     body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
-        margin-right: 30px;
+        /* margin-right: 30px; */
     }
 
     .three_js .flat-option .top-part {
@@ -1062,6 +1062,12 @@ body {
         margin: auto;
         font-size: 30px;
     }
+
+    body.he .three_js .flat-option.type,
+    body.he .three_js .flat-option.floor,
+    body.he .three_js .flat-option.area {
+        width: 78px;
+    }
 }
 
 /*styles for togglers buttons in mini cards*/
@@ -1120,6 +1126,13 @@ body {
         width: 100%;
         background-color: #fff !important;
     }
+
+    /*body.he .three_js .flat-option.type,*/
+    /*body.he .three_js .flat-option.floor,*/
+    /*body.he .three_js .flat-option.area {*/
+    /*    width: 78px;*/
+    /*}*/
+
 
     body.he .three_js .flat-info {
         max-width: none;
@@ -1216,6 +1229,10 @@ body {
         display: grid;
         grid-template-columns: repeat(2, minmax(122px, 1fr));
         grid-column-gap: 8px;
+    }
+
+    body.en .three_js .title-with-selector .page-title .text .title-text-row .title-text {
+        margin-left: 4px;
     }
 }
 

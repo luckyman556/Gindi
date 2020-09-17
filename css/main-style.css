@@ -1665,7 +1665,7 @@ body {
       background-position: center 15px;
       background-repeat: no-repeat; }
   .three_js .flat-options {
-    padding-top: 10px;
+    padding-top: 13px;
     display: flex;
     justify-content: space-between; }
   .three_js .flat-option {
@@ -1679,14 +1679,15 @@ body {
       .three_js .flat-option.badroom .top-part {
         display: flex; }
     .three_js .flat-option.type {
-      width: 70px; }
+      width: 70px;
+      }
       .three_js .flat-option.type .top-part {
         display: flex; }
         .three_js .flat-option.type .top-part .ic {
-          right: -3px;
-          margin-left: 2px; }
+          right: 0;
+          margin-left: 0; }
         .three_js .flat-option.type .top-part .middle-text {
-          margin-left: 4px; }
+          margin-left: 2px; }
     .three_js .flat-option.floor {
       width: 44px; }
     .three_js .flat-option.area {
@@ -1724,7 +1725,7 @@ body {
         margin: auto 0;
         order: 1;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         margin-left: 3px; }
       .three_js .flat-option .top-part .ic {
         width: 24px;
@@ -2083,12 +2084,12 @@ body {
             position: absolute;
             height: 12px;
             width: 98px;
-            right: 0;
-            top: 25px;
+            left: 0;
+            top: 26px;
             background-color: #C1AC87;
             transition: 0.5s 0.2s; }
           .three_js .title-with-selector .page-title .text .title-text-row .title-text {
-            margin: 0 5px; }
+            margin: 0 0; }
           .three_js .title-with-selector .page-title .text .title-text-row .type {
             margin-left: 8px;
             margin-right: 8px;
@@ -3013,7 +3014,7 @@ body {
       width: 284px;
       height: 204px;
       overflow: hidden;
-      padding: 14.5px 16px 16px 12px;
+      padding: 14.5px 16px 16px 16px;
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
@@ -3033,6 +3034,12 @@ body {
         top: 0;
         left: 0;
         z-index: 5; }
+      .three_js .popup-info .flat-plan.unavailable .flat-plan-box {
+        margin-top: 0; }
+        .three_js .popup-info .flat-plan.unavailable .flat-plan-box .title-with-selector,
+        .three_js .popup-info .flat-plan.unavailable .flat-plan-box .price,
+        .three_js .popup-info .flat-plan.unavailable .flat-plan-box .flat-options {
+          filter: saturate(0); }
       .three_js .popup-info .flat-plan .flat-status {
         display: flex;
         display: none; }
@@ -3056,7 +3063,7 @@ body {
         grid-column-gap: 8px;
         position: relative;
         top: 0;
-        left: 1px;
+        left: 0;
         margin-top: 16px; }
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-360,
         .three_js .popup-info .flat-plan .popups-togglers-box .toggler-3d {
@@ -3095,7 +3102,7 @@ body {
             margin-left: 0px; }
             .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d.icon-360 {
               background-image: url(../img/popup-info-360.svg) !important;
-              background-position: left 7px center; }
+              background-position: left 5px center; }
           .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler {
             font-family: Fragolino;
             font-size: 18px;
@@ -3103,7 +3110,7 @@ body {
             background-color: transparent;
             padding-left: 37px;
             background-image: url(../img/gindi-ic-floor-plan.svg) !important;
-            background-position: left 10px center;
+            background-position: left 8px center;
             background-repeat: no-repeat;
             background-size: 24px;
             box-shadow: none;
@@ -3329,7 +3336,9 @@ body {
           margin-bottom: 23px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row {
             display: flex;
-            font-size: 24px; }
+            font-size: 24px;
+            margin-left: 2px;
+            margin-right: 4px; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row .bottom {
               font-family: 'Fragolino-Cond';
               font-size: 16px;
@@ -3378,7 +3387,9 @@ body {
               line-height: 18px;
               letter-spacing: -0.21px;
               text-align: right;
-              color: #5c646b; }
+              color: #5c646b;
+              margin-left: 4px;
+              margin-right: 4px; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .bottom {
               width: 100%;
               display: block;
@@ -4406,6 +4417,12 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   order: 1;
   background-position: right 6px center; }
 
+body.he .three_js .title-with-selector .page-title .text .title-text-row:after {
+  left: 6px; }
+
+body.he .three_js .title-with-selector .page-title .text .title-text-row .title-text {
+  margin-left: 4px; }
+
 body.he .three_js .flat-option .top-part .ic {
   margin-left: 5px; }
 
@@ -4458,7 +4475,7 @@ body.he .three_js .search-filter-title .icon {
   border-radius: 100%; }
 
 body.he .three_js .flat-info > .title h2 {
-  padding-right: 2px;
+  padding-right: 4px;
   padding-left: 0; }
 
 body.he .folder-box .border-top-left {
@@ -4492,8 +4509,7 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-tog
   width: 24px;
   background-image: url(../img/back-to-floor-plan.svg) !important;
   transform: rotate(180deg);
-  background-size: 24px !important;
-  left: 78px; }
+  background-size: 24px !important; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
   content: 'חזור';
@@ -4769,11 +4785,12 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
   direction: ltr; }
 
 .price-box.common {
-  display: flex; }
+  display: flex;
+  margin-right: -4px; }
   .price-box.common .get-price-btn {
     font-family: Fragolino;
     font-size: 16px;
-    font-weight: normal;
+    font-weight: 700;
     height: 21px;
     padding: 0 10px;
     background-color: #1A2F43;

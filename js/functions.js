@@ -3179,13 +3179,16 @@ function target_zoom_limit (target_zoom_fn) {
     return target_zoom_fn;
 }
 
+// if(screen.orientation.lock) {
+//     screen.orientation.lock('portrait');
+// } else {alert('Ваш браузер не підтримує lock');}
 
 // TODO landscape lock
 
 // window.addEventListener('orientationchange', function() {
 //     var orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
 //     if (orientation === 'landscape') {
-//         window.screen.orientation.lock("portrait");
+//
 //         document.querySelector('body').requestFullscreen();
 //     }
 // }, false);
