@@ -113,6 +113,7 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
     padding-top: 17px;
 }
 
+
 .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
     border: 1px solid #1A2F43;
     box-shadow: none;
@@ -122,6 +123,17 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
     line-height: 23px;
     align-items: center;
     padding: 0px 11px 0 8px;
+}
+
+
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
+    margin: 0;
+    font-family: 'Fragolino';
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.apt-plan {
+    order: 2;
 }
 
 .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
@@ -141,6 +153,12 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
     width: 44px;
 }
 
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back {
+    margin-left: 76px;
+    padding: 12px;
+    transform: rotate(180deg);
+}
+
 .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .text {
     display: none
 }
@@ -158,9 +176,9 @@ body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .pric
  }
 
 body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .new-ui-icon::after {
-    left: -46px;
-    transform: rotate(180deg);
+    left: 46px;
     content: 'חזור';
+    transform: rotate(180deg);
 }
 
 body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
@@ -186,5 +204,12 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-bt
 
 .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .btns-row .apt-plan {
     display: flex;
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
+    padding-right: 16px;
+    /* width: 122px; */
+    height: 44px;
+    font-family: 'Fragolino';
 }
 
