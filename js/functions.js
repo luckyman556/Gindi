@@ -526,21 +526,6 @@ function set_appartment_data_in_block (appartment, box) {
         box.find('.area .number').html(appartment.userData.crm_data.totalSpace);
         box.find('.floor .number').html(appartment.userData.floor + 5);
         box.find('.sq .number').html(appartment.userData.crm_data.totalSpace);
-
-        console.log(appartment)
-
-        /*if (appartment.userData.svg_plan) {
-            if (window.innerWidth > 1024) {
-                // box.find('.flat-img img').attr('src' , appartment.userData.svg_plan.horizontal[c_lang()]);
-                box.find('.img-box img').attr('src' , appartment.userData.svg_plan.horizontal[c_lang()]);
-            } else {
-                box.find('.img-box img').attr('src' , appartment.userData.svg_plan.vertical[c_lang()]);
-                // box.find('.flat-img img').attr('src' , appartment.userData.svg_plan.vertical[c_lang()]);
-            }
-        } else {
-            box.find('.flat-img img').attr('src' , theme_url + '/img/apt_1'  + '.svg');
-        }*/
-
         box.find('.flat-plan .flat-status .text').html(appartment.userData.status_name);
         box.find('.flat-plan .flat-status .circle').css('background-color', '#' + appartment.userData.status_color);
         all_appartments.forEach(function(item, index){
@@ -1198,7 +1183,6 @@ function add_appartment_info_in_popup (box) {
         // console.log(facing_string_);
     });
     var flat_type = flat.userData.crm_data.propType;
-    console.log(flat.userData.crm_data);
     let flat_types_translates = {
         'דירה' : 'apt.type'
     };
@@ -2207,7 +2191,6 @@ function numberWithCommas(x) {
 }
 
 function toggler_2d_click(clicked_object) {
-    console.log(clicked_object);
     /*let img_src = $('.flat-img img').attr('src');
     let img_box = $('.popup-2d .img-box');
     img_box.empty();
@@ -2233,22 +2216,21 @@ function toggler_2d_click(clicked_object) {
             imgBox.innerHTML = `<img class='card-plan-image' src=${imgUrl} data-high-res-src=${imgUrl} alt=${modelName}>`;
         }
 
-
         const image = document.querySelector('.card-plan-image');
 
         image.onerror = () => {
-            console.log('img NOT loaded');
             content.classList.remove('loading');
-            // imgBox.innerHTML = '';
             image.remove();
             imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
         }
 
         image.onload = () => {
-            console.log('img loaded');
             content.classList.remove('loading');
+            setTimeout(() => {
             let img_viewer = new ImageViewer(image);
             window.img_viewer = img_viewer;
+            img_viewer.refresh();
+            }, 1000);
         }
     }
 
