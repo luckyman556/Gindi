@@ -23,7 +23,6 @@ export function mouse_wheel_events () {
     }
 
     function onWheel(e) {
-        console.log(e)
         // event.preventDefault();
         $(".mouse-wheel-info").removeClass('active');
         update_line_position_enabled = true;
@@ -57,11 +56,9 @@ export function mouse_wheel_events () {
                     e = e || window.event;
                     // wheelDelta не даёт возможность узнать количество пикселей
                     var delta = e.deltaY || e.detail || e.wheelDelta;
-                    console.log(delta);
                     if ($('body').hasClass('firefox-run') == true) {
                         delta = delta * 33;
                     }
-                    console.log(delta);
                     target_zoom =  target_zoom_limit (target_zoom + delta * 0.3);
 
 

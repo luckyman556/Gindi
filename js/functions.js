@@ -2191,25 +2191,14 @@ function numberWithCommas(x) {
 }
 
 function toggler_2d_click(clicked_object) {
-    /*let img_src = $('.flat-img img').attr('src');
-    let img_box = $('.popup-2d .img-box');
-    img_box.empty();
-    img_box.html('<img src="' + img_src + '" data-high-res-src="' + img_src + '" alt=""/>');
-    $('.popup-2d .content').addClass('loading');
-    setTimeout(function(){
-        let img_width = $('.popup-2d .img-box').width();
-        let img_height = $('.popup-2d .img-box').height();
-        img_box.find('img').attr('width', img_width);
-        img_box.find('img').attr('height', img_height);*/
-    // fast_change
-//XeDuH
-
     const imgBox = document.querySelector('.img-box');
     if (imgBox) {
         const content = document.querySelector('.popup-2d .content');
         const dataSvg = last_clicked_flat.userData.svg_plan;
         const modelName = last_clicked_flat.userData.crm_data.modelName;
         const currentLang = c_lang();
+
+        content.classList.add('loading');
 
         if (dataSvg) {
             const imgUrl = (window.innerWidth > 1024) ? dataSvg.horizontal[currentLang] : dataSvg.vertical[currentLang];
@@ -2219,18 +2208,24 @@ function toggler_2d_click(clicked_object) {
         const image = document.querySelector('.card-plan-image');
 
         image.onerror = () => {
-            content.classList.remove('loading');
             image.remove();
             imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
+            removePreLoader();
         }
 
         image.onload = () => {
-            content.classList.remove('loading');
             setTimeout(() => {
-            let img_viewer = new ImageViewer(image);
-            window.img_viewer = img_viewer;
-            img_viewer.refresh();
+                const img_viewer = new ImageViewer(image);
+                window.img_viewer = img_viewer;
+                img_viewer.refresh();
+                removePreLoader();
             }, 1000);
+        }
+
+        function removePreLoader() {
+            setTimeout(() => {
+                content.classList.remove('loading');
+            }, 500);
         }
     }
 
