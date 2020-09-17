@@ -2747,32 +2747,24 @@ function hide_all_labels () {
     });
 }
 
-function get_price_html (price_num, add_class = '') {
+function get_price_html (price_num, add_class = '', text_only = false) {
     let inner_html = '';
-    let price = Math.floor(price_num);
-    if (price > 1000000) {
-        price = + Math.floor(price / 1000) / 1000;
-    }
-    let after_price_text_en ='ILS';
-    let after_price_text = after_price_text_en;
-    let after_price_text_he =  '₪';
-
-    let get_price_text_en = 'show price';
-    let get_price_text = get_price_text_en;
-    let get_price_text_he = 'הצג מחיר';
-
-    if ($('body').hasClass('he') == true) {
-        after_price_text = after_price_text_he;
-        $('.bottom-part').addClass('he');
-        get_price_text = get_price_text_he;
-    }
-    let price_html = `
+    let price = numberWithCommas(Math.floor(price_num));
+    let price_html;
+    if (text_only) {
+         price_html = `
+            <div class="text-only-price"><span class="number">${price}</span><span class="simbol language-string" data-dictionary="ILS" >${get_lang('ILS')}</span></div>
+        `;
+    } else {
+         price_html = `
             <div class="price-box ${add_class}">
-                 <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
-                <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
+                <div class="get-price-btn language-string" data-dictionary="show price" >${get_lang('show price')}</div>
+                <div class="price-text  language-string" data-dictionary="ILS" >${get_lang('ILS')}</div>
             <div class="number"> ${price}</div>
             </div>
         `;
+    }
+
     return price_html;
 }
 function get_angle_to_camera() {
