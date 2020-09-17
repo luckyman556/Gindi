@@ -20,6 +20,7 @@ time, mark, audio, video, input, textarea {
   vertical-align: baseline;
   box-sizing: border-box;
   outline: none;
+:;
 }
 
 article, aside, details, figcaption, figure,

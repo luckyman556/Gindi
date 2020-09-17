@@ -4033,13 +4033,14 @@ body.he {
 		order: 1;
 		background-position: right 6px center;
 	}
-	.three_js .flat-option.type {
+	.three_js .flat-option {
 		.top-part {
 			.number {
 				// margin-left: 0;
 				// margin-right: 0px;
 			}
 			.ic {
+				margin-left: 5px;
 			}
 			.middle-text {
 			}
