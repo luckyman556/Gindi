@@ -87,7 +87,7 @@ export let card_fns = {
         let price_html = '';
         if (status_class == 'available') {
             price_html = `
-            <div class="price"><div class="text language-string"></div><div class="number">${numberWithCommas(Math.floor(flat.salePrice))}</div><div class="currency">ILS</div><div class="currency-he">&#8362</div></div>
+            <div class="price">${get_price_html(flat.salePrice, '', true)}</div>
             `;
         } else {
             price_html = `

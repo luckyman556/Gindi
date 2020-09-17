@@ -138,5 +138,13 @@ export let dictionary_array = {
     'rooms' : {
         'he': 'חדרים',
         'en': 'rooms'
+    },
+    'ILS' : {
+        'he': '₪',
+        'en': 'ILS'
+    },
+    'show price' : {
+        'he': 'הצג מחיר',
+        'en': 'show price'
     }
 }

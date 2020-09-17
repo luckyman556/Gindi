@@ -208,10 +208,21 @@
     .full-window .nfm-sorting-box .title {
         display: flex;
     }
-    .nfm-sorting-box .sort-btn-item.active {
-        border-bottom: 2px solid black;
+    .nfm-sorting-box .sort-btn-item .ic {
+        opacity: 0.5;
     }
+    .nfm-sorting-box .sort-btn-item.active .ic {
+        opacity: 1;
+    }
+    .nfm-sorting-box .sorting-list .sorting-group {
 
+    }
+    .nfm-sorting-box .sorting-list .sorting-group .sort-btn-item:nth-child(1) {
+        /* margin: 0; */
+    }
+    .nfm-sorting-box .sorting-list .sorting-group .sort-btn-item:nth-child(2) .name  {
+         display: none;
+    }
 
     .nfm-sorting-box .sort-btn-item {
         width: auto!important;

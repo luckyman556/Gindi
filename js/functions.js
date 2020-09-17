@@ -526,21 +526,6 @@ function set_appartment_data_in_block (appartment, box) {
         box.find('.area .number').html(appartment.userData.crm_data.totalSpace);
         box.find('.floor .number').html(appartment.userData.floor + 5);
         box.find('.sq .number').html(appartment.userData.crm_data.totalSpace);
-
-        console.log(appartment)
-
-        /*if (appartment.userData.svg_plan) {
-            if (window.innerWidth > 1024) {
-                // box.find('.flat-img img').attr('src' , appartment.userData.svg_plan.horizontal[c_lang()]);
-                box.find('.img-box img').attr('src' , appartment.userData.svg_plan.horizontal[c_lang()]);
-            } else {
-                box.find('.img-box img').attr('src' , appartment.userData.svg_plan.vertical[c_lang()]);
-                // box.find('.flat-img img').attr('src' , appartment.userData.svg_plan.vertical[c_lang()]);
-            }
-        } else {
-            box.find('.flat-img img').attr('src' , theme_url + '/img/apt_1'  + '.svg');
-        }*/
-
         box.find('.flat-plan .flat-status .text').html(appartment.userData.status_name);
         box.find('.flat-plan .flat-status .circle').css('background-color', '#' + appartment.userData.status_color);
         all_appartments.forEach(function(item, index){
@@ -1198,7 +1183,6 @@ function add_appartment_info_in_popup (box) {
         // console.log(facing_string_);
     });
     var flat_type = flat.userData.crm_data.propType;
-    console.log(flat.userData.crm_data);
     let flat_types_translates = {
         'דירה' : 'apt.type'
     };
@@ -2207,20 +2191,6 @@ function numberWithCommas(x) {
 }
 
 function toggler_2d_click(clicked_object) {
-    console.log(clicked_object);
-    /*let img_src = $('.flat-img img').attr('src');
-    let img_box = $('.popup-2d .img-box');
-    img_box.empty();
-    img_box.html('<img src="' + img_src + '" data-high-res-src="' + img_src + '" alt=""/>');
-    $('.popup-2d .content').addClass('loading');
-    setTimeout(function(){
-        let img_width = $('.popup-2d .img-box').width();
-        let img_height = $('.popup-2d .img-box').height();
-        img_box.find('img').attr('width', img_width);
-        img_box.find('img').attr('height', img_height);*/
-    // fast_change
-//XeDuH
-
     const imgBox = document.querySelector('.img-box');
     if (imgBox) {
         const content = document.querySelector('.popup-2d .content');
@@ -2228,27 +2198,34 @@ function toggler_2d_click(clicked_object) {
         const modelName = last_clicked_flat.userData.crm_data.modelName;
         const currentLang = c_lang();
 
+        content.classList.add('loading');
+
         if (dataSvg) {
             const imgUrl = (window.innerWidth > 1024) ? dataSvg.horizontal[currentLang] : dataSvg.vertical[currentLang];
             imgBox.innerHTML = `<img class='card-plan-image' src=${imgUrl} data-high-res-src=${imgUrl} alt=${modelName}>`;
         }
 
-
         const image = document.querySelector('.card-plan-image');
 
         image.onerror = () => {
-            console.log('img NOT loaded');
-            content.classList.remove('loading');
-            // imgBox.innerHTML = '';
             image.remove();
             imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
+            removePreLoader();
         }
 
         image.onload = () => {
-            console.log('img loaded');
-            content.classList.remove('loading');
-            let img_viewer = new ImageViewer(image);
-            window.img_viewer = img_viewer;
+            setTimeout(() => {
+                const img_viewer = new ImageViewer(image);
+                window.img_viewer = img_viewer;
+                img_viewer.refresh();
+                removePreLoader();
+            }, 1000);
+        }
+
+        function removePreLoader() {
+            setTimeout(() => {
+                content.classList.remove('loading');
+            }, 500);
         }
     }
 
@@ -2747,32 +2724,24 @@ function hide_all_labels () {
     });
 }
 
-function get_price_html (price_num, add_class = '') {
+function get_price_html (price_num, add_class = '', text_only = false) {
     let inner_html = '';
-    let price = Math.floor(price_num);
-    if (price > 1000000) {
-        price = + Math.floor(price / 1000) / 1000;
-    }
-    let after_price_text_en ='ILS';
-    let after_price_text = after_price_text_en;
-    let after_price_text_he =  '₪';
-
-    let get_price_text_en = 'show price';
-    let get_price_text = get_price_text_en;
-    let get_price_text_he = 'הצג מחיר';
-
-    if ($('body').hasClass('he') == true) {
-        after_price_text = after_price_text_he;
-        $('.bottom-part').addClass('he');
-        get_price_text = get_price_text_he;
-    }
-    let price_html = `
+    let price = numberWithCommas(Math.floor(price_num));
+    let price_html;
+    if (text_only) {
+         price_html = `
+            <div class="text-only-price"><span class="number">${price}</span><span class="simbol language-string" data-dictionary="ILS" >${get_lang('ILS')}</span></div>
+        `;
+    } else {
+         price_html = `
             <div class="price-box ${add_class}">
-                 <div class="get-price-btn language-string" data-he="${get_price_text_he}" data-en="${get_price_text_en}">${get_price_text}</div>
-                <div class="price-text  language-string" data-he="${after_price_text_he}" data-en="${after_price_text_en}">${after_price_text}</div>
+                <div class="get-price-btn language-string" data-dictionary="show price" >${get_lang('show price')}</div>
+                <div class="price-text  language-string" data-dictionary="ILS" >${get_lang('ILS')}</div>
             <div class="number"> ${price}</div>
             </div>
         `;
+    }
+
     return price_html;
 }
 function get_angle_to_camera() {
