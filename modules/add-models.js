@@ -16,7 +16,7 @@ window.appartments = [];
 window.drag_objects = [];
 window.floor_looring_list = [];
 var appartments_array = {};
-var svg_plans_url =  'resources/2d_plans';
+var svg_plans_url =  './resources/2d_plans';
 
 const optionsMenuShowHide = true;
 

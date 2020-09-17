@@ -5,6 +5,9 @@
     z-index: 99;  
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
     cursor: pointer;
+    .filter-open &:not(.close-btn) {
+        display: none;
+    }
     &.close-btn {
         
     }

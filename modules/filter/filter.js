@@ -382,6 +382,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             $(this).addClass('active');
             let parent = $(this).parents('.sorting-list');
             let list_status = parent.hasClass('open');
+            if (window.innerWidth < 1024) {
+                list_status = true;
+            }
             if (list_status) {
                 let show_btns = [];
                 sorting_btns.each(function(){
@@ -457,6 +460,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         $('.main-wrap')[0].filter_update();
                     }, 600);
                 }
+
+                    document.querySelector('body').classList.add('filter-open');
+            } else {
+                document.querySelector('body').classList.remove('filter-open');
             }
         });
 
@@ -1568,6 +1575,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         filter_module_container.style.bottom = '';
                         filter_module_container.style.transitionDuration = '';
                         filter_module_container.classList.remove("open");
+                        document.querySelector('body').classList.remove('filter-open');
                     } else if (Number(filter_module_container.style.bottom.replace('px','')) > 60) {
                         if ($('.filter-module-container').hasClass('filters-open')) {
                             let control_tabs = $('.filter-controls-tabs .controls-tab');
