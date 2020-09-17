@@ -14,3 +14,177 @@
 .filter-module-container .true-false-toggler .toggle {
     border-radius: 0px;
 }*/
+
+
+
+ /*Cards boxes styles*/
+
+.filter-module-container .flat-cards .nfm-flat-card {
+    width: 284px;
+    height: 204px;
+    box-shadow: 0px 8px 14px rgba(46, 70, 81, 0.15);
+}
+
+/*Title text */
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box .name {
+    font-family: 'Fragolino-Cond';
+    font-size: 32px;
+    line-height: 41px;
+    position: relative;
+    z-index: 3;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box .name::after {
+    content: '';
+    width: 98px;
+    height: 12px;
+    background-color: #C1AC87;
+    position: absolute;
+    left: -3px;
+    bottom: 4px;
+    z-index: 0;
+}
+
+body.he .nfm-flat-card .flat-card-box .name::after {
+    right: 0;
+}
+
+.nfm-flat-card .flat-card-box .name .flat-name,
+.nfm-flat-card .flat-card-box .name .number {
+    z-index: 3;
+    position: relative;
+    left: 1px;
+}
+
+body.he  .nfm-flat-card .flat-card-box .name .flat-name,
+body.he  .nfm-flat-card .flat-card-box .name .number {
+    right: 4px;
+}
+
+/*Price line styles*/
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price {
+    font-family: 'Fragolino';
+    font-size: 16px !important;
+    font-weight: 400;
+    line-height: 21px;
+    margin-left: 0px;
+    margin-top: -3px;
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price .currency-he {
+    padding-right: 2px;
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price .currency {
+    display: none;
+}
+
+body.en .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price .currency-he {
+    display: none;
+
+}
+
+/*Options line styles */
+
+.filter-module-container .flat-cards .nfm-flat-card .options {
+    margin-top: 14px;
+    margin-left: 0px;
+}
+
+.nfm-flat-card .flat-card-box .options .option-item .top .number {
+    font-family: 'Fragolino-Cond';
+    font-size: 16px !important;
+    line-height: 21px;
+}
+
+.nfm-flat-card .flat-card-box .options .option-item .bottom {
+    font-family: 'Fragolino';
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: -4px;
+    margin-left: 3px;
+}
+
+/*Buttons line styles*/
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row {
+    padding-top: 17px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
+    border: 1px solid #1A2F43;
+    box-shadow: none;
+    width: 122px;
+    height: 44px;
+    font-size: 18px;
+    line-height: 23px;
+    align-items: center;
+    padding: 0px 11px 0 8px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
+    font-size: 18px;
+    line-height: 23px;
+    position: relative;
+    left: -4px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .new-ui-icon {
+    margin: 0 auto;
+    left: -7px;
+    position: relative;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back {
+    width: 44px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .text {
+    display: none
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .new-ui-icon {
+    left: 0;
+    position: relative;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .new-ui-icon::after {
+     left: 46px;
+     position: absolute;
+     content: 'Back';
+     top: calc(50% - 11.5px);
+ }
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn.floor-plan-btn-back .new-ui-icon::after {
+    left: -46px;
+    transform: rotate(180deg);
+    content: 'חזור';
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .text {
+    left: 0px;
+}
+
+body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn .new-ui-icon {
+    margin: 0;
+    left: 3px;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable {
+    filter: saturate(1) ;
+    opacity: 1;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .name,
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .price,
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .options {
+    filter: saturate(0) ;
+    opacity: 0.5;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .btns-row .apt-plan {
+    display: flex;
+}
+

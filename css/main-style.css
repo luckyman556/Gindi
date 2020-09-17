@@ -486,14 +486,16 @@
       min-width: 284px;
       background-color: #FFFFFF;
       margin: 0 16px;
-      padding: 18px 15px;
+      padding: 15px 16px 16px 16px;
       border-radius: 6px;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       opacity: 0.5;
-      transition: 0.5s; }
+      transition: 0.5s;
+      }
       .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable {
         filter: saturate(0);
-        opacity: 0.5; }
+        opacity: 0.5;
+        }
         .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .btns-row .apt-plan {
           display: none; }
       .filter-module-container .flat-cards .nfm-flat-card.active, .filter-module-container .flat-cards .nfm-flat-card:hover {
@@ -538,9 +540,10 @@
             font-weight: 300; }
       .filter-module-container .flat-cards .nfm-flat-card .btns-row {
         display: flex;
-        padding-top: 15px;
+        padding-top: 17px;
         justify-content: space-between;
-        flex-direction: row-reverse; }
+        flex-direction: row-reverse;
+        }
         .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-btn {
           height: 36px;
           width: 47%; }
@@ -4393,6 +4396,9 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div {
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   order: 1;
   background-position: right 6px center; }
+
+body.he .three_js .flat-option .top-part .ic {
+  margin-left: 5px; }
 
 body.he .three_js .flat-option.badroom .top-part .middle-text {
   order: 3; }
