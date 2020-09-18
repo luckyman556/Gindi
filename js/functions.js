@@ -2328,8 +2328,6 @@ function progress_bar_update () {
             totalPercent = mathPercent;
         }
     });
-
-
 }
 
 // function progress_bar_update (iteration, percent , text) {

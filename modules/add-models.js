@@ -10,6 +10,7 @@ import { trees_position } from  './trees/trees-positions.js';
 import {langSwitcher} from "../js/langSwitcher.js";
 import {optionsMenu} from "./navigation/optionsMenu.js";
 import {setCookie, getCookie} from "../js/setAndGetCookies.js";
+import {checkAll2Dplans} from "../js/checlAll2DPlans.js";
 
 window.floor_obj = [];
 window.appartments = [];
