@@ -1007,7 +1007,7 @@ body {
 					}
 					.title-text {
 						margin: 0 0;
-
+						margin-left: 4px;
 					}
 					.type {
 						margin-left: 8px;
@@ -4048,11 +4048,13 @@ body.he {
 	}
 
 	.three_js .title-with-selector .page-title .text .title-text-row:after {
-		left: 6px;
+		left: 10px;
 	}
 
 	.three_js .title-with-selector .page-title .text .title-text-row .title-text {
-		margin-left: 4px;
+		margin-left: 8px;
+		margin-right: 4px;
+
 	}
 	.three_js .flat-option {
 		.top-part {
@@ -4164,6 +4166,7 @@ body.he {
 		background-image: url(../img/back-to-floor-plan.svg) !important;
 		transform: rotate(180deg);
 		background-size: 24px!important;
+		left: 78px;
 
 	}
 	.three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
@@ -4515,7 +4518,7 @@ body.on-white {
 }
 .price-box.common {
 	display: flex;
-	margin-right: -4px;
+	margin-right: 0px;
 	.get-price-btn {
 		font-family: Fragolino;
 		font-size: 16px;
