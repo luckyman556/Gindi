@@ -3120,13 +3120,18 @@ function rotation_to_flat () {
             var delay = 0;
             var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, 1000);
 
+            var bubble = $('.flat-bubble');
             TWEEN.add(animation);
             animation.delay(delay);
             animation.onStart(function (e) {
                 window.rotate_to_flat = true;
             });
             animation.onUpdate(function (e) {
-
+                let new_bubble_position = toScreenPosition(last_clicked_flat); 
+                bubble.css({
+                    top : new_bubble_position.y,
+                    left : new_bubble_position.x
+                })
                 window.camera_target.position.y = e.target_y;
             });
 
@@ -3197,3 +3202,24 @@ function target_zoom_limit (target_zoom_fn) {
 
 
 
+function toScreenPosition(obj)
+{
+    let camera = perspectiveCamera;
+    var vector = new global_three.Vector3();
+
+    var widthHalf = 0.5 * renderer.getContext().canvas.width / window.devicePixelRatio;
+    var heightHalf = 0.5 * renderer.getContext().canvas.height / window.devicePixelRatio;
+
+    obj.updateMatrixWorld();
+    vector.setFromMatrixPosition(obj.matrixWorld);
+    vector.project(camera);
+
+    vector.x = ( vector.x * widthHalf ) + widthHalf;
+    vector.y = - ( vector.y * heightHalf ) + heightHalf;
+
+    return {
+        x: vector.x,
+        y: vector.y
+    };
+
+};

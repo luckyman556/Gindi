@@ -799,23 +799,28 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].set_defaults = set_defaults;
     container[0].filter_run = filter_run;
     container[0].set_scroll_on_card = set_scroll_on_card;
+    container[0].get_card_for_screen = get_card_for_screen;
+    container[0].get_card_for_screen_width = get_card_for_screen_width;
     container[0].update_cards_btns_visibility = card_fns.update_cards_btns_visibility;
+
     function set_scroll_on_card (card_id) {
         if ($('.card-' + card_id).length > 0) {
-            let flat_slider = $('.flat-cards-slider');
-            let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
-            let card_width = $('.nfm-flat-card').outerWidth() + 32;
-            let offset  = get_card_for_screen() - 4;
-            let center_modificator = (((offset / 2) - 0.5) *  card_width);
-            let card_index = $('.card-' + card_id).index();
-            let target_left = card_width * (card_index ) * -1 + center_modificator;
-            if (target_left > 0) {
-                target_left = 0;
+            if (get_card_for_screen_width() < document.querySelectorAll('.nfm-flat-card').length) {
+                let flat_slider = $('.flat-cards-slider');
+                let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
+                let card_width = $('.nfm-flat-card').outerWidth() + 32;
+                let offset  = get_card_for_screen() - 4;
+                let center_modificator = (((offset / 2) - 0.5) *  card_width);
+                let card_index = $('.card-' + card_id).index();
+                let target_left = card_width * (card_index ) * -1 + center_modificator;
+                if (target_left > 0) {
+                    target_left = 0;
+                }
+                if (target_left < max_left) {
+                    target_left = max_left;
+                }
+                $('.flat-cards-slider').attr('data-target-left', target_left);
             }
-            if (target_left < max_left) {
-                target_left = max_left;
-            }
-            $('.flat-cards-slider').attr('data-target-left', target_left);
         }
     };
     function reset_filter() {
@@ -1602,6 +1607,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     }
     function get_card_for_screen () {
         return  Math.floor($(window).width() / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32)) + 4;
+    }
+    function get_card_for_screen_width () {
+        return  Math.floor($(window).width() / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
     }
 
 }

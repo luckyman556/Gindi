@@ -115,7 +115,15 @@ export function add_mouse_n_touches () {
     }
 
     function flat_mouse_click (e) {
-
+        if (e.changedTouches) {
+            console.log($(e).parents('.non-canvas'));
+            if ($(e.target).parents('.non-canvas').length > 0) {
+                return false;
+            }
+            if ($(e.target).hasClass('non-canvas')) {
+                return false;
+            }
+        }
         checkIntersection();
         intersection_on = false;
         set_click_point_coords(e);
