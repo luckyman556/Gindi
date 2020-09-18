@@ -1634,7 +1634,8 @@ body {
         line-height: 21px;
         position: relative;
         color: #1A2F43;
-        margin-top: -2px; }
+        margin-top: 0px;
+        }
         .three_js .flat-plan .price .bottom-part .price-text {
           color: #1A2F43;
           font-weight: 400;
@@ -1679,8 +1680,7 @@ body {
       .three_js .flat-option.badroom .top-part {
         display: flex; }
     .three_js .flat-option.type {
-      width: 70px;
-      }
+      width: 70px; }
       .three_js .flat-option.type .top-part {
         display: flex; }
         .three_js .flat-option.type .top-part .ic {
@@ -2089,7 +2089,8 @@ body {
             background-color: #C1AC87;
             transition: 0.5s 0.2s; }
           .three_js .title-with-selector .page-title .text .title-text-row .title-text {
-            margin: 0 0; }
+            margin: 0 0;
+            margin-left: 4px; }
           .three_js .title-with-selector .page-title .text .title-text-row .type {
             margin-left: 8px;
             margin-right: 8px;
@@ -4418,10 +4419,11 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   background-position: right 6px center; }
 
 body.he .three_js .title-with-selector .page-title .text .title-text-row:after {
-  left: 6px; }
+  left: 10px; }
 
 body.he .three_js .title-with-selector .page-title .text .title-text-row .title-text {
-  margin-left: 4px; }
+  margin-left: 8px;
+  margin-right: 4px; }
 
 body.he .three_js .flat-option .top-part .ic {
   margin-left: 5px; }
@@ -4509,7 +4511,8 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-tog
   width: 24px;
   background-image: url(../img/back-to-floor-plan.svg) !important;
   transform: rotate(180deg);
-  background-size: 24px !important; }
+  background-size: 24px !important;
+  left: 78px; }
 
 body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active:before {
   content: 'חזור';
@@ -4786,7 +4789,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
 
 .price-box.common {
   display: flex;
-  margin-right: -4px; }
+  margin-right: 0px; }
   .price-box.common .get-price-btn {
     font-family: Fragolino;
     font-size: 16px;

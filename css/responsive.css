@@ -291,6 +291,7 @@ body {
     }
     body.he .three_js .popup-info .flat-plan .popups-togglers-box div.floor-plan-toggler.active {
         /* margin-right: 30px; */
+        left:  0;
     }
 
     .three_js .flat-option .top-part {
