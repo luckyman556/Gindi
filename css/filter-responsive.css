@@ -209,7 +209,8 @@
         display: flex;
     }
     .nfm-sorting-box .sort-btn-item .ic {
-        opacity: 0.5;
+        /* opacity: 0.5; */
+        filter: grayscale(1);
     }
     .nfm-sorting-box .sort-btn-item.active .ic {
         opacity: 1;
@@ -229,6 +230,10 @@
         padding-bottom: 15px;
         padding-right: 0;
         margin-right: 20px;
+    }
+    .en .filter-module-container .flat-cards {
+        padding-left: 0;
+        padding-right: 0;
     }
     .filter-module-container .flat-cards {
         /* display: none; */
@@ -298,7 +303,10 @@
     .filter-module-container .flat-cards .nfm-flat-card:hover {
         transform: scale(1);
     }
-
+    .en .filter-module-container .flat-cards .flat-cards-slider {
+        margin-right: -16px;
+        margin-left: 0;
+    }
     .filter-module-container .flat-cards .flat-cards-slider {
         padding: 20px 0;
     }

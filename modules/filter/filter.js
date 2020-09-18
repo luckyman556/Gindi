@@ -810,7 +810,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
                 let card_width = $('.nfm-flat-card').outerWidth() + 32;
                 let offset  = get_card_for_screen() - 4;
-                let center_modificator = (((offset / 2) - 0.5) *  card_width);
+                let center_modificator = window.innerWidth / 2 - card_width / 2;
                 let card_index = $('.card-' + card_id).index();
                 let target_left = card_width * (card_index ) * -1 + center_modificator;
                 if (target_left > 0) {
@@ -1230,22 +1230,25 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             current_left = Number(current_left.replace('px', ''));
                             current_left = Math.sqrt(current_left * current_left);
                             let current_postion = Math.floor(Math.sqrt(current_left * current_left)  / (card_width));
-                            let clear_position = current_postion * card_width;
+
+
+                          let clear_position = current_postion * card_width;
                             let last_direction = flat_slider.attr('data-last-direction');
                             let difference = current_left - clear_position;
                             let offset = 0.05;
                             if (last_direction == '-') {
                                 if (difference / card_width < 1 - offset) {
-                                    $('.flat-cards-slider').attr('data-target-left', (clear_position) * -1);
-                                    $('.nfm-flat-card').eq(current_postion).click();
+                                    let card_id = $('.nfm-flat-card').eq(current_postion ).attr('data-bmby-id');
+                                    set_scroll_on_card(card_id);
+                                     $('.nfm-flat-card').eq(current_postion ).click();
                                 }
                             } else {
                                 if (difference / card_width > offset) {
-                                    $('.flat-cards-slider').attr('data-target-left', (clear_position + card_width) * -1);
+                                    let card_id = $('.nfm-flat-card').eq(current_postion + 1).attr('data-bmby-id');
+                                    set_scroll_on_card(card_id);
                                     $('.nfm-flat-card').eq(current_postion + 1).click();
                                 }
                             };
-                            console.log(difference);
                         }
                     }
                 }
