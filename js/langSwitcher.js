@@ -6,7 +6,7 @@ export const langSwitcher = () => {
     let currentLang = languages[0];
 
     const body = document.querySelector('body');
-    const container = createHtmlLanguage('div', 'class', 'lang-container language-switch');
+    const container = createHtmlLanguage('div', 'class', 'lang-container language-switch non-canvas');
     const button = createHtmlLanguage('div', 'class', `lang-button language active`);
     const dropdown = createHtmlLanguage('div', 'class', 'lang-dropdown');
 

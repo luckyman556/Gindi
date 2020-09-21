@@ -10,6 +10,7 @@ import { trees_position } from  './trees/trees-positions.js';
 import {langSwitcher} from "../js/langSwitcher.js";
 import {optionsMenu} from "./navigation/optionsMenu.js";
 import {setCookie, getCookie} from "../js/setAndGetCookies.js";
+import {checkAll2Dplans} from "../js/checlAll2DPlans.js";
 
 window.floor_obj = [];
 window.appartments = [];
@@ -54,8 +55,8 @@ export function add_models( scene, all_appartments) {
     let new_merged_glass_map;
     let white_lightmap;
     let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg');
-
-    {
+    //sphere pointer start
+/*    {
         let z_base = 0;
         var geometry = new THREE.SphereGeometry( 1, 32, 32 );
         var material = new THREE.MeshBasicMaterial( {color: 0xC1AC87} );
@@ -116,7 +117,8 @@ export function add_models( scene, all_appartments) {
             sphere.position.set(0,0,-1);
           //  sphere_group.add(sphere);
         }
-    }
+    }*/
+    //sphere pointer end
     {
         const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);

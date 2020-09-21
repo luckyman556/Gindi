@@ -611,35 +611,37 @@ function animate() {
 
 
         {
-            if (last_clicked_flat) {
-                let sphere_group = scene.userData.flat_boxes_sphere;
-                if (lock_mouse_rotation_x) {
-                    scene.remove(sphere_group);
-                } else {
-                    if (last_clicked_flat.material.opacity > 0 && last_clicked_flat.userData.color_locked) {
-                        scene.add(sphere_group);
-                        let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
-                        let flat_position = last_clicked_flat.getWorldPosition(new global_three.Vector3())
-                        let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
-                        camera_world_position.y = flat_position.y + 1.5;
-
-                        let ray = new global_three.Raycaster(camera_world_position, flat_world_position.sub(camera_world_position).normalize());
-                        let intersects = ray.intersectObjects(all_appartments);
-                        if (intersects.length > 0) {
-                            if (intersects[0].object === last_clicked_flat) {
-                                let sphere_position =  intersects[0].point;
-                                sphere_group.position.set(sphere_position.x,flat_position.y + 1.5 , sphere_position.z);
-                                sphere_group.lookAt(camera_world_position);
-                            }
-                        }
-                    } else {
+            if (scene.userData.flat_boxes_sphere) {
+                if (last_clicked_flat) {
+                    let sphere_group = scene.userData.flat_boxes_sphere;
+                    if (lock_mouse_rotation_x) {
                         scene.remove(sphere_group);
-                    }
+                    } else {
+                        if (last_clicked_flat.material.opacity > 0 && last_clicked_flat.userData.color_locked) {
+                            scene.add(sphere_group);
+                            let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+                            let flat_position = last_clicked_flat.getWorldPosition(new global_three.Vector3())
+                            let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
+                            camera_world_position.y = flat_position.y + 1.5;
 
+                            let ray = new global_three.Raycaster(camera_world_position, flat_world_position.sub(camera_world_position).normalize());
+                            let intersects = ray.intersectObjects(all_appartments);
+                            if (intersects.length > 0) {
+                                if (intersects[0].object === last_clicked_flat) {
+                                    let sphere_position = intersects[0].point;
+                                    sphere_group.position.set(sphere_position.x, flat_position.y + 1.5, sphere_position.z);
+                                    sphere_group.lookAt(camera_world_position);
+                                }
+                            }
+                        } else {
+                            scene.remove(sphere_group);
+                        }
+
+                    }
+                } else {
+                    let sphere_group = scene.userData.flat_boxes_sphere;
+                    scene.remove(sphere_group);
                 }
-            } else {
-                let sphere_group = scene.userData.flat_boxes_sphere;
-                scene.remove(sphere_group);
             }
         }
 
