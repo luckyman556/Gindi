@@ -256,9 +256,24 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     add_sorting_html ();
     add_filters_html();
     add_tabs_html();
-    // document.querySelector('.filter-controls').classList.add('data-simplebar');
-    new SimpleBar(document.querySelector('.filter-controls'));
 
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+        new SimpleBar(document.querySelector('.filter-controls'), { autoHide: false } );
+    }
+
+
+    // function for horizontal scrolling
+    // let horizontalElements = document.querySelectorAll('[data-simplebar]');
+    // for (let element of horizontalElements)
+    //     element.onwheel = (event) => {
+    //         event.preventDefault();
+    //         let elementToScroll = element.querySelector('.simplebar-content-wrapper');
+    //
+    //         clearTimeout(elementToScroll.timer);
+    //         elementToScroll.timer = setTimeout(() => {
+    //             elementToScroll.scrollTo({ left: event.deltaY > 0 ? elementToScroll.scrollLeft + 250 : elementToScroll.scrollLeft - 250, behavior: 'smooth' });
+    //         }, 20);
+    //     };
 
     function add_tabs_html() {
         let tabs_html = ""

@@ -103,7 +103,7 @@ export let card_fns = {
                 return element;
             }
         });
-        console.log(flat_3d_object);
+        // console.log(flat_3d_object);
         if (flat_3d_object) {
             if (flat_3d_object.userData.url_360_type === 'custom') {
                 floor_plan_ic = 'popup-info-360';
