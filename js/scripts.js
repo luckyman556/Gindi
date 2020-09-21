@@ -753,6 +753,7 @@ $(document).ready(function(){
     $('.floor-plan-toggler').click(function(){
         if (floor_plan_btn_last_click + 1000 < Date.now()) {
             $(this).toggleClass('active');
+            $('.flat-bubble').removeClass('show');
            $('.bomb-btn').trigger('click');
             floor_plan_btn_last_click =  Date.now();
         }
