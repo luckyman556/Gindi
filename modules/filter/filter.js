@@ -57,7 +57,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             crm_name : 'roomNum',
             filter_type  : 'togglers',
             options : {
-                title : 'Bedrooms',
+                title : 'rooms',
                 ic_name : 'bedroom-ic.svg',
                 with_sep : false,
                 sep : ',',
@@ -256,6 +256,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     add_sorting_html ();
     add_filters_html();
     add_tabs_html();
+    // document.querySelector('.filter-controls').classList.add('data-simplebar');
+    new SimpleBar(document.querySelector('.filter-controls'));
 
 
     function add_tabs_html() {
@@ -1605,3 +1607,5 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     }
 
 }
+
+// document.querySelector('.filter-controls').classList.add('data-simplebar');

@@ -1251,6 +1251,12 @@ body {
     }
 }
 
+@media (max-width: 320px) {
+    .three_js .flat-info .more-info .bottom-part .info-loop  {
+        grid-template-columns: 80px 72px 72px 72px;
+    }
+}
+
 @media (max-width: 274px) {
     .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
         width: 117px;

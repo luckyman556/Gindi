@@ -12,6 +12,7 @@
   "dependencies": {
     "canvg": "^3.0.2",
     "iv-viewer": "^2.0.1",
+    "simplebar": "^5.2.1",
     "svg-to-canvas": "^1.0.1"
   },
   "devDependencies": {

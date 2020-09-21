@@ -1137,7 +1137,7 @@ body {
 		position: absolute;
 		width: 100vw;
 		height: 100vh;
-		background-color: rgba(32, 46, 65, 0.6);
+		background-color: rgba(32, 46, 65, 0.75);
 		z-index: 22;
 		opacity: 1;
 		transform-origin: left top;
@@ -2880,7 +2880,8 @@ body {
 		}
 	}
 	.search-filter-title {
-		width: 190px;
+		//width: 190px;
+		width: 100%;
 		color: #000000;
 		font-size: 30px;
 		line-height: 28px;
