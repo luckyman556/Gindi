@@ -146,5 +146,9 @@ export let dictionary_array = {
     'show price' : {
         'he': 'הצג מחיר',
         'en': 'show price'
+    },
+    'Sorry, apartment plan not found' : {
+        'he': 'לא נמצא',
+        'en': 'Sorry, apartment plan not found'
     }
 }

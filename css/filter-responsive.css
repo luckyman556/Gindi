@@ -108,6 +108,7 @@
         height: calc(100% - 129px);
         overflow-y: auto;
         z-index: 4;
+        width: 100%;
     }
 
     .filter-module-container.full-window .filter-controls > div:not(:last-child) {
@@ -239,7 +240,7 @@
         /* margin: 0; */
     }
     .nfm-sorting-box .sorting-list .sorting-group .sort-btn-item:nth-child(2) .name  {
-         display: none;
+        display: none;
     }
 
     .nfm-sorting-box .sort-btn-item {
@@ -321,10 +322,10 @@
         transform: scale(1);
     }
     .en .filter-module-container .flat-cards .flat-cards-slider {
-        
-margin-right: -16px;
-        
-margin-left: 0;
+
+        margin-right: -16px;
+
+        margin-left: 0;
     }
     .filter-module-container .flat-cards .flat-cards-slider {
         padding: 20px 0;
