@@ -149,15 +149,15 @@ $(document).ready(function(){
                 //window.camera_target.position.z = e.camera_target_p_z;
                 //window.camera_target.rotation.y = e.camera_target_r_y;
             }, function (e) {
+               // rotation_to_flat();
                 //set_page_descriptions ();
                 //targetRotationX = e.camera_target_r_y;
                 rotation_animated = false;
 
             });
-            rotation_to_flat ();
             console.log(last_clicked_flat);
             last_clicked_flat.userData.apartment_locked = true;
-            rotation_to_flat ();
+
             // console.log(last_clicked_flat);
             last_clicked_flat.userData.apartment_locked = true;
             set_floor_status_color([current_floor]);

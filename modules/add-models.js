@@ -157,9 +157,16 @@ export function add_models( scene, all_appartments) {
 
         optionsMenu(envAttrOptionsArray);
     }
-
-
-    sceneGlobus();
+    {
+        const texture = texture_loader.load(
+            'resources/material/textures/360.jpg',
+            () => {
+                const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
+                rt.fromEquirectangularTexture(renderer, texture);
+                scene.background = rt;
+            }, onProgressCallback , onErrorCallback);
+    }
+    // sceneGlobus();
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
     // loadSea(texture_loader);
 
