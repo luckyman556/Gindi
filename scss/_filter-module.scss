@@ -15,13 +15,16 @@
 .filter-module-container {
     position: absolute; 
     width: auto;
-    min-width:calc(100% - 64px); 
+    min-width:calc(100% - 64px);
+    //max-width: 1856px;
     left: 34px;
     z-index: 99;
     height: 144px;
     border-radius: 6px; 
     display: flex;
-    font-family: 'fragolino';  
+    font-family: 'fragolino';
+    //overflow-x: scroll;
+    //overflow-y: hidden;
     bottom: -100%;  
     transition: 1s;
     transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1); 
@@ -44,7 +47,7 @@
     .reset-filter {
         position: absolute;
         bottom: calc(100% + 34px);
-        right: 0;
+        right: 34px;
     }
     .filter-controls.on-back ~ .flat-counter { 
         .text {
@@ -59,6 +62,7 @@
     }
     .filter-controls {
         display: flex;
+        //grid-template-columns: repeat(auto-fill, minmax(230px, 250px));
         min-width: 100%;
         height: 144px;
         position: relative;
@@ -69,9 +73,13 @@
         backface-visibility: hidden;
         transition: 0.5s;
         border-radius: 6px;
-        overflow: hidden;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         &.open {
+            overflow-x: auto;
+            width: 1407px;
+            overflow-y: hidden;
+            white-space: nowrap;
+            //flex-wrap: nowrap;
         }
         &.unactive {
             opacity: 0.5!important;
@@ -217,7 +225,7 @@
     }
     .input-search {
         position: absolute;
-        bottom: calc(100% + 32px);
+        bottom: calc(100% + 34px);
         left: 78px;
         height: 42px;
         width: 226px;
@@ -254,8 +262,8 @@
     }
     .flat-counter {
         position: absolute;
-        bottom: calc(100% + 32px);
-        right: 68px;;
+        bottom: calc(100% + 34px);
+        right: 100px;;
         display: none;
         height: 42px;
         background-color: $brand-color-1;
@@ -289,6 +297,7 @@
         }
         * {
             margin: auto 5px;
+            font-weight: 700;
         }
 
     }
@@ -300,7 +309,8 @@
         left: 0px;
     }
     .true-false-toggler {
-            position: relative; 
+            position: relative;
+            padding-right: 0;
         .b {
             display: block;
         }
@@ -590,6 +600,9 @@
             order: 2;
             line-height: 1.3; 
             font-weight: 700;
+            &::first-letter {
+                text-transform: capitalize;
+            }
         }
         .icon-box {
             margin-right: 14px;
@@ -647,13 +660,17 @@
 }
 
 body.he {
+    .filter-module-container {
+        left: 0;
+        right: 34px;
+    }
     .filter-module-container .flat-counter .ic {
         margin-left: 10px;
         margin-right: 0;
     }
     .filter-module-container .reset-filter {
         right: initial;
-        left: 0;
+        left: 34px;
     }
     .filter-module-container .close-btn {
         right: 0;
@@ -670,7 +687,7 @@ body.he {
     }
     .filter-module-container .flat-counter {
         right: initial;
-        left: 68px;
+        left: 100px;
     }
     .filter-module-container .flat-counter .count {
         order: 2;
@@ -689,6 +706,7 @@ body.he {
     }
     .nmf-range-selector-box .nmf-range-selector  {
         right: -30px;
+
     }
     .nmf-range-selector-box .nfm-selected {
         flex-direction: row-reverse;
@@ -712,10 +730,33 @@ body.he {
     .nfm-sorting-box {
         padding-right: 32px;
         padding-left: 12px;
-        margin-left: 28px;
-        margin-right: 0px;
+        margin-left: 0px;
+        margin-right: -1px;
     }
     .filter-module-container .flat-cards .nfm-flat-card .price .text-only-price {
         display: flex; 
     }
+    .filter-module-container .true-false-toggler {
+        padding-right: 20px;
+    }
+
+}
+
+.simplebar-content > div {
+    min-width: 220px !important;
+    padding-right: 0;
+    margin-right: 30px;
+}
+
+body.he .simplebar-content > div:first-child {
+    margin-right: 0px;
+    padding-right: 12px;
+}
+
+.simplebar-content-wrapper {
+    overflow-x: scroll !important;
+}
+
+.simplebar-content {
+    display: flex;
 }
