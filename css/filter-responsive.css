@@ -20,6 +20,7 @@
         width: 100%;
         min-width: initial;
         flex-wrap: wrap;
+        background-color: white;
     }
 
     .filter-module-container.open:after {
@@ -34,13 +35,25 @@
     .filter-module-container.open.flat-cards-open {
         bottom: 60px;
     }
+    .filter-module-container.transition-off * {
+        transition: none!important;
+    }
+    .filter-module-container.full-window > .flat-counter {
 
+    }
+    .main-wrap .filter-module-container .mobile-btns-row {
+        transition: 1s!important;
+    }
     .filter-module-container.open.full-window {
-        height: 100%;
+        /* height: 100%; */
         bottom: 0;
         display: flex;
         flex-direction: column;
         z-index: 1000;
+        background-color: white;
+    }
+    .filter-module-container.open.open-animation {
+        height: 100%;
     }
 
     .filter-module-container.open.full-window .mobile-full-filter-back {
@@ -86,6 +99,7 @@
         border-radius: 0px;
         width: auto;
         height: 130px;
+        transition: none;
     }
 
     .filter-module-container.full-window .filter-controls {
@@ -121,6 +135,7 @@
     .filter-module-container.full-window .filter-controls .nmf-range-selector-box {
         padding-left: 19px;
     }
+
 
     .filter-module-container .filter-controls > * {
         position: absolute;
@@ -170,6 +185,8 @@
         padding: 0 16px;
         position: relative;
         z-index: 4;
+        height: 40px;
+        transition: 0.5s;
     }
 
     .filter-module-container .filter-controls-tabs.hide {
@@ -209,7 +226,7 @@
         display: flex;
     }
     .nfm-sorting-box .sort-btn-item .ic {
-        /* opacity: 0.5; */
+        opacity: 0.5;
         filter: grayscale(1);
     }
     .nfm-sorting-box .sort-btn-item.active .ic {
@@ -270,7 +287,7 @@
     }
 
     .filter-module-container.full-window > .flat-counter {
-        display: none!important;
+        display: flex;
     }
 
     .filter-module-container.flat-cards-open > .flat-counter {
@@ -304,8 +321,10 @@
         transform: scale(1);
     }
     .en .filter-module-container .flat-cards .flat-cards-slider {
-        margin-right: -16px;
-        margin-left: 0;
+        
+margin-right: -16px;
+        
+margin-left: 0;
     }
     .filter-module-container .flat-cards .flat-cards-slider {
         padding: 20px 0;
@@ -366,6 +385,7 @@
         position: absolute;
         display: block;
         overflow: hidden;
+        transition: 0.5s;
     }
 
     .full-window .mobile-btns-row {

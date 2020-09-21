@@ -59,7 +59,7 @@ function init() {
     var renderer_params = {
         canvas,
         antialias: true,
-        outputEncoding: THREE.LinearEncoding,
+        //outputEncoding: THREE.sRGBEncoding,
         // sortObjects: true,
         // powerPreference: 'high-performance',
     };
@@ -71,6 +71,7 @@ function init() {
     renderer.autoClear = false;
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( width, height );
+    //renderer.outputEncoding = THREE.sRGBEncoding;
     scene = new THREE.Scene();
 
     perspectiveCamera = PerspectiveCamera_init(perspectiveCamera);

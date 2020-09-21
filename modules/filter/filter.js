@@ -1354,50 +1354,22 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             let difference =  current_postion - data_position;
                             difference = Math.sqrt(difference * difference);
                             let cards_for_screen = get_card_for_screen();
+                            $('.flat-cards-slider .nfm-flat-card').addClass('not-rendered');
                             let max_num = data_position + cards_for_screen - 2;
 
                            // console.log('cards_for_screen: ' + max_num);
                             let min_num = data_position  - 1;
-
-                            if (data_position < current_postion) {
-                                let counter = 0;
-                                while (counter < difference) {
-                                    max_num = current_postion + cards_for_screen - 2 - (difference - counter);
-                                    min_num = current_postion  - 1 - (difference - counter); 
-                                    let last_card =  $('.flat-cards-slider .nfm-flat-card').eq(max_num);
-                                    $('.flat-cards-slider .nfm-flat-card').eq(min_num).empty();
-
-                                    if (crm_array[max_num]) {
-                                        const input_val = $('#input-search').val();
-                                        last_card.html(card_fns.get_card_html_inner(crm_array[max_num], max_num, img_path));
-                                        card_fns.bind_flat_cards_events (last_card);
-                                        if ($('#input-search').val()) {
-                                            last_card.mark(input_val);
-                                        }
-                                    }
-                                    counter++;
-                                }
-
-                            } else {
-                                let counter = 0;
-                                while (counter < difference) {
-                                    min_num = current_postion  - 1 + counter;
-                                    max_num = current_postion + cards_for_screen - 2 + counter;
-                                    if (min_num >= 0) {
-                                        if (crm_array[min_num]) {
-                                            const input_val = $('#input-search').val();
-                                            let first_card = $('.flat-cards-slider .nfm-flat-card').eq(min_num)
-                                            first_card.html(card_fns.get_card_html_inner(crm_array[min_num], min_num, img_path));
-                                            card_fns.bind_flat_cards_events(first_card);
-                                            if ($('#input-search').val()) {
-                                                first_card.mark(input_val);
-                                            }
-                                        }
-                                    }
-                                    $('.flat-cards-slider .nfm-flat-card').eq(max_num).empty();
-                                    counter++;
-                                }
+                            let while_i = min_num;
+                            while (while_i <= max_num) {
+                                $('.flat-cards-slider .nfm-flat-card').eq(while_i).removeClass('not-rendered');
+                                let first_card = $('.flat-cards-slider .nfm-flat-card').eq(while_i)                            
+                                 if (first_card.html().length === 0) {
+                                        first_card.html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
+                                        card_fns.bind_flat_cards_events(first_card);
+                                 }  
+                                while_i++;
                             }
+                            $('.flat-cards-slider .nfm-flat-card.not-rendered').empty();
 
                         }
 
@@ -1484,6 +1456,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             let key = $(this).data('key');
             $('.controls-tab').removeClass('active');
             $(this).addClass('active');
+            let filter_container = $('.filter-module-container');
             if (key !== 'more') {
                 $('.filter-module-container .filter-controls > *').removeClass('mobile-open');
                 $('#' + key).addClass('mobile-open');
@@ -1491,11 +1464,18 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 if ($('#' + key + ' .nmf-range-selector')[0]) {
                      $('#' + key + ' .nmf-range-selector')[0].object_update();
                 }
-                $('.filter-module-container').removeClass('full-window');
-                document.querySelector('body').classList.remove('filter-open');
+                //$('.filter-module-container').removeClass('full-window');
                 window.render_pause = false;
             } else {
-                $('.filter-module-container').addClass('full-window');
+
+                filter_container.addClass('transition-off');
+                setTimeout(function(){
+                    filter_container.addClass('full-window');
+                    filter_container.removeClass('transition-off');
+                    setTimeout(function(){
+                        filter_container.addClass('open-animation');
+                    }, 50);
+                }, 50);
 
                 document.querySelector('body').classList.add('filter-open');
                 $('.lang-container').hide();
@@ -1507,10 +1487,19 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             }
         });
         $('.mobile-full-filter-back').click(function(){
-            $('.filter-module-container').removeClass('full-window');
+            let filter_container = $('.filter-module-container');
+            filter_container.removeClass('open-animation');
+            setTimeout(function(){
+                filter_container.addClass('transition-off');
+                filter_container.removeClass('full-window');
+                setTimeout(function(){
+                    filter_container.removeClass('transition-off');
+                }, 50);
+            }, 1050);
+            document.querySelector('body').classList.remove('filter-open');
             window.render_pause = false;
             document.querySelector('.filter-module-container .filter-controls').scrollTop = 0;
-             $('.controls-tab').eq(0).click();
+            $('.controls-tab').eq(0).click();
             $('.lang-container').show();
             resize_function ();
 
