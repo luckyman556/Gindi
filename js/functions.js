@@ -2209,7 +2209,7 @@ function toggler_2d_click(clicked_object) {
 
         image.onerror = () => {
             image.remove();
-            imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">Sorry, apartment plan not found</h3>`);
+            imgBox.insertAdjacentHTML('afterbegin', `<h3 class="image-error-message">${get_lang('Sorry, apartment plan not found')}</h3>`);
             removePreLoader();
         }
 
