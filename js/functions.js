@@ -3192,12 +3192,31 @@ function target_zoom_limit (target_zoom_fn) {
 //     var orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
 //     if (orientation === 'landscape') {
 //
-//         document.querySelector('body').requestFullscreen();
+//         // document.querySelector('body')..style.display
+//
+//         // console.log(document.documentElement.requestFullscreen())
+//         //  document.documentElement.requestFullscreen;
 //     }
 // }, false);
 
-
-
+// function lock () {
+//     // Go into full screen first
+//     if (document.documentElement.requestFullscreen) {
+//         document.documentElement.requestFullscreen();
+//     } else if (document.documentElement.mozRequestFullScreen) {
+//         document.documentElement.mozRequestFullScreen();
+//     } else if (document.documentElement.webkitRequestFullscreen) {
+//         document.documentElement.webkitRequestFullscreen();
+//     } else if (document.documentElement.msRequestFullscreen) {
+//         document.documentElement.msRequestFullscreen();
+//     }
+//
+//     // Then lock orientation
+//     screen.orientation.lock('portrait');
+// };
+//
+//
+// lock();
 
 
 function toScreenPosition(obj)

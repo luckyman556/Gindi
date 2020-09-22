@@ -443,7 +443,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); }
     .filter-module-container .filter-controls.open {
       overflow-x: auto;
-      width: 1407px;
+      width: calc(100vw - 34px);
       overflow-y: hidden;
       white-space: nowrap; }
     .filter-module-container .filter-controls.unactive {
