@@ -116,7 +116,6 @@ export function add_mouse_n_touches () {
 
     function flat_mouse_click (e) {
         if (e.changedTouches) {
-            console.log($(e).parents('.non-canvas'));
             if ($(e.target).parents('.non-canvas').length > 0) {
                 return false;
             }
@@ -155,11 +154,12 @@ export function add_mouse_n_touches () {
                     let filter_container = document.querySelector('.main-wrap');
                     if (filter_container.filter_active) {
                         if (document.querySelector('.filter-module-container.open')) {
-                            console.log('filter_open');
                             if ($('.filter-controls.on-back').length > 0) {
                                 let card_id = picked_object.userData.crm_data.bmbyPropID;
                                 // $('.card-' + card_id).click();
                                 window.card_clicked = false;
+                                var popup_info = $('.popup-info');
+                                set_appartment_data_in_block (picked_object, popup_info);
                                 trigger_card_click ();
                                 function trigger_card_click () {
                                     $('.card-' + card_id).click();
