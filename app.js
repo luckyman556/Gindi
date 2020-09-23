@@ -20,7 +20,8 @@ import { RenderPass } from './node_modules/three/examples/jsm/postprocessing/Ren
 import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
-
+import { applyNow } from './modules/apply-now/applyNow.js';
+applyNow(document.querySelector('.apply__main-container'));
 // street names and position angle
 
 import {street_names_n_positions_angle} from './modules/street-names/names-angle.js';

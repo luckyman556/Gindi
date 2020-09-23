@@ -7,6 +7,8 @@
 @import "lang-switcher";
 @import 'common-ui';
 @import "navigations";
+@import "apply-now";
+
 //@import "navigations-newui";
 
 body {
@@ -2677,7 +2679,7 @@ body {
 					font-weight: 400;
 					line-height: 23px;
 					text-align: center;
-					display: none;
+					display: block;
 					flex-direction: column;
 					justify-content: center;
 					cursor: pointer;

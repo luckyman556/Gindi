@@ -100,3 +100,16 @@
 	src: url("../fonts/fragolino/FragolinoCondBold.eot?#iefix") format("embedded-opentype"), url("../fonts/fragolino/FragolinoCondBold.woff2") format("woff2"), url("../fonts/fragolino/FragolinoCondBold.ttf") format("truetype");
 
 }
+
+// Ubuntu
+@font-face {
+	font-family: 'Ubuntu';
+	src: url('../fonts/ubuntu/Ubuntu-Light.eot');
+	src: url('../fonts/ubuntu/Ubuntu-Light.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/ubuntu/Ubuntu-Light.woff2') format('woff2'),
+	url('../fonts/ubuntu/Ubuntu-Light.woff') format('woff'),
+	url('../fonts/ubuntu/Ubuntu-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
