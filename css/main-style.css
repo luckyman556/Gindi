@@ -499,7 +499,11 @@
       transition: 0.5s; }
       .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable {
         filter: saturate(0);
-        opacity: 0.5; }
+        opacity: 0.5;
+        transition: 0.5s; }
+        .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable.active, .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable:hover {
+          opacity: 1;
+          transform-origin: center; }
         .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .btns-row .apt-plan {
           display: none; }
       .filter-module-container .flat-cards .nfm-flat-card.active, .filter-module-container .flat-cards .nfm-flat-card:hover {

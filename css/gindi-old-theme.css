@@ -203,7 +203,8 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-bt
 
 .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable {
     filter: saturate(1) ;
-    opacity: 1;
+    opacity: 0.5;
+
 }
 
 .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .name,

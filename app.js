@@ -366,7 +366,11 @@ requestAnimationFrame(loaderLineProgress);
 function animate() {
     TWEEN.update();
 
-
+    if (document.querySelector('.filter-module-container.open')) {
+        if (!document.querySelector('.filter-module-container.clear')) {
+            $('.popup-info').addClass('hide');
+        }
+    }
     if (!document.querySelector('.main-wrap').filter_active) {
         if (crmStatusLoadBool && model_loaded) {
             add_filter($('.main-wrap'), 'img/filter-module/');

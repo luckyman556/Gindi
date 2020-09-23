@@ -146,7 +146,13 @@
             .flat-card-box { 
                 &.unavailable {
                    filter: saturate(0);
-                   opacity: 0.5;                         
+                   opacity: 0.5; 
+                   transition: 0.5s;      
+                    &.active,
+                    &:hover {
+                        opacity: 1;
+                        transform-origin: center; 
+                    }              
                     .btns-row .apt-plan {
                         display: none;
                     }         

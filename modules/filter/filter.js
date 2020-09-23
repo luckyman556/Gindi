@@ -1198,6 +1198,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let delta = event.wheelDeltaY;
                 let new_target_left =  target_left + delta;
                 let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
+                console.log(max_left);
                 if (new_target_left > 0) {
                     new_target_left = 0;
                 }
@@ -1335,7 +1336,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     left = 0;
                 }
 
-                let target_left = Number(flat_slider.attr('data-target-left'));
+                let target_left = Number(document.querySelector('.flat-cards-slider').dataset.targetLeft);
                 let dif =  Number(left) - target_left;
                 let new_left;
                 if (Math.sqrt(dif * dif) > 1) {
@@ -1355,6 +1356,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         }
                     }*/
                 }
+
                 flat_slider.css(position_side, new_left);
                 if (left < target_left) {
                     flat_slider.attr('data-last-direction', '-');
@@ -1379,11 +1381,14 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             let while_i = min_num;
                             while (while_i <= max_num) {
                                 $('.flat-cards-slider .nfm-flat-card').eq(while_i).removeClass('not-rendered');
-                                let first_card = $('.flat-cards-slider .nfm-flat-card').eq(while_i)                            
-                                 if (first_card.html().length === 0) {
-                                        first_card.html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
-                                        card_fns.bind_flat_cards_events(first_card);
-                                 }  
+                                let first_card = $('.flat-cards-slider .nfm-flat-card').eq(while_i);
+
+                                    if (first_card.length > 0) {
+                                        if (first_card[0].innerHTML.length == 0) {
+                                            first_card.html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
+                                            card_fns.bind_flat_cards_events(first_card);
+                                        }
+                                    }
                                 while_i++;
                             }
                             $('.flat-cards-slider .nfm-flat-card.not-rendered').empty();
