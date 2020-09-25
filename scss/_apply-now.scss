@@ -1,0 +1,132 @@
+.popup-apply{
+  @extend .popup-2d;
+}
+
+.apply__main-container{
+  font-family: Fragolino;
+  color: #1A2F43;
+  bottom: 25px;
+  right: 75px;
+  left: initial;
+  top: initial;
+  margin: 0 auto;
+  background: #fff;
+}
+
+#applyMain{
+  border-radius: 0;
+}
+
+.apply__content__wrapper{
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.apply__title-container{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding-top: 64px;
+}
+
+.apply__title{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.apply__sub-title{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  letter-spacing: -0.2px;
+  margin-top: 12px;
+}
+
+.apply__social-icons{
+  //display: flex;
+  display: grid;
+  justify-content: space-between;
+  grid-template-rows: auto;
+  grid-auto-flow: column;
+  margin-top: 43px;
+  flex-wrap: wrap;
+}
+
+.apply__social-href{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.apply__separator-container{
+  display: flex;
+  align-items: center;
+  margin-top: 52px;
+}
+
+.apply__left-separator{
+  height: 1px;
+  width: 100%;
+  border-bottom: 1px solid #6E767E;
+}
+
+.apply__separator-text{
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  padding: 0 13px;
+}
+
+.apply__form-titlle{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 54px;
+}
+
+.apply__social-icon__text{
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.apply-btn__close{
+  @extend .close-btn, .popup-btn;
+}
+
+.apply__social-icon__text[data-name="Video Chat"]::after{
+  content: '*';
+}
+
+@media screen and (max-width: 1024px) {
+  #applyCloseBtn.apply-btn__close{
+   right: 10px;
+   top: 10px;
+   z-index: 2;
+   filter: invert(1);
+ }
+
+
+}
+
+@media screen and (max-width: 768px) {
+  .apply__content__wrapper{
+    max-width: calc(100% - 50px);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .apply__social-icons{
+    grid-template-rows: auto auto auto;
+    grid-gap: 28px 0;
+  }
+
+}

@@ -20,6 +20,7 @@ import { RenderPass } from './node_modules/three/examples/jsm/postprocessing/Ren
 import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
+import { applyNow} from './modules/apply-now/applyNow.js';
 
 // street names and position angle
 
@@ -49,6 +50,8 @@ window.vector_point = new THREE.Vector3();
 window.vector_point_2 = new THREE.Vector2();
 vector_to_world_position = new THREE.Vector3();
 box = new THREE.Box3();
+var openedPopup;
+
 
 function init() {
     container = document.createElement( 'div' );
@@ -56,6 +59,7 @@ function init() {
     var width = window.innerWidth;
     var height = window.innerHeight;
     canvas = document.querySelector('#c');
+    applyNow(document.querySelector('.apply__main-container'));
     var renderer_params = {
         canvas,
         antialias: true,
