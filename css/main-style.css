@@ -421,7 +421,7 @@
   .filter-module-container .reset-filter {
     position: absolute;
     bottom: calc(100% + 34px);
-    right: 34px; }
+    right: 0; }
   .filter-module-container .filter-controls.on-back ~ .flat-counter .text {
     display: none; }
   .filter-module-container .filter-controls.on-back ~ .flat-counter .ic.short {
@@ -443,9 +443,10 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); }
     .filter-module-container .filter-controls.open {
       overflow-x: auto;
-      width: calc(100vw - 34px);
+      width: 100vw;
       overflow-y: hidden;
-      white-space: nowrap; }
+      white-space: nowrap;
+      max-width: calc(100vw - 68px); }
     .filter-module-container .filter-controls.unactive {
       opacity: 0.5 !important;
       filter: grayscale(0.5); }
@@ -590,7 +591,7 @@
   .filter-module-container .flat-counter {
     position: absolute;
     bottom: calc(100% + 34px);
-    right: 101px;
+    right: calc(101px - 34px);
     display: none;
     height: 42px;
     background-color: #1A2F43;
@@ -687,7 +688,7 @@
       border-radius: 40px; }
 
 .nfm-sorting-box {
-  min-width: 164px;
+  min-width: 130px;
   width: auto;
   background: #1A2F43;
   color: #FFFFFF;
@@ -732,7 +733,8 @@
 
 .nmf-range-selector-box {
   padding-right: 10px;
-  overflow: hidden; }
+  overflow: hidden;
+  min-width: 170px; }
   .nmf-range-selector-box .disabled-selector {
     display: block;
     position: absolute;
@@ -850,7 +852,7 @@
 .nfm-first-line {
   display: flex;
   width: 100%;
-  padding: 16px 0 4px 0; }
+  padding: 16px 16px 4px 0; }
   .nfm-first-line .title {
     font-size: 18px;
     order: 2;
@@ -875,7 +877,7 @@
   margin-right: 24px; }
   .nfm-togglers .togglers-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding-top: 8px;
     margin-left: -6px; }
     .nfm-togglers .togglers-row .toggler-btn {
@@ -942,8 +944,7 @@ body.he .nfm-sorting-box .sort-btn-item .name {
   margin-left: 18px; }
 
 body.he .nmf-range-selector-box {
-  padding-left: 0;
-  padding-right: 31px; }
+  padding-left: 0; }
 
 body.he .nmf-range-selector-box .nmf-range-selector {
   right: -30px; }
@@ -980,7 +981,6 @@ body.he .filter-module-container .true-false-toggler {
   padding-right: 20px; }
 
 .simplebar-content > div {
-  min-width: 220px !important;
   padding-right: 0;
   margin-right: 30px; }
 

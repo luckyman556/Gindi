@@ -240,9 +240,10 @@ export function loadEnvironment(on_load_texture) {
                         road.material = new THREE.MeshPhongMaterial({
                             transparent: false,
                             lightMap: roadLightMap,
-                            map: texture_loader.load(`resources/enviroment/textures/${roadMapsTextures[i]}.png`, on_load_texture),
-                            color: 'lightgray',
+                            // map: texture_loader.load(`resources/enviroment/textures/${roadMapsTextures[i]}.png`, on_load_texture),
+                            //color: 'lightgray',
                         });
+                        road.material.color.setHex('0x373b42');
                     }
                     break;
                 }

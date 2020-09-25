@@ -47,7 +47,7 @@
     .reset-filter {
         position: absolute;
         bottom: calc(100% + 34px);
-        right: 34px;
+        right: 0;
     }
     .filter-controls.on-back ~ .flat-counter { 
         .text {
@@ -67,7 +67,7 @@
         height: 144px;
         position: relative;
         z-index: 1;
-        background-color: $white;
+        background-color: $white; 
         transform: rotateX(0deg);
         transform-style: preserve-3d;
         backface-visibility: hidden;
@@ -76,13 +76,14 @@
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         &.open {
             overflow-x: auto;
-            width: calc(100vw - 34px);
+            width: 100vw;
             overflow-y: hidden;
             white-space: nowrap;
+            max-width: calc(100vw - 68px);
             //flex-wrap: nowrap;
         }
         &.unactive {
-            opacity: 0.5!important;
+            opacity: 0.5!important; 
             filter: grayscale(0.5)
         }
         &.on-back {
@@ -269,7 +270,7 @@
     .flat-counter {
         position: absolute;
         bottom: calc(100% + 34px);
-        right: 101px;;
+        right: calc(101px - 34px);
         display: none;
         height: 42px;
         background-color: $brand-color-1;
@@ -393,7 +394,7 @@
     }
 }
 .nfm-sorting-box {
-    min-width: 164px;
+    min-width: 130px;
     width: auto;
     background: $brand-color-1;
     color: $white;
@@ -454,6 +455,7 @@
 .nmf-range-selector-box  { 
     padding-right: 10px;
     overflow: hidden;
+        min-width: 170px;
     .disabled-selector {
         display: block;
         position: absolute;
@@ -554,6 +556,7 @@
                 position: relative;
                 top: 0px;
         .number-box {
+
             display: flex;
             justify-content: center;
             min-width: 44px;
@@ -597,11 +600,10 @@
         }
     }
 }
-    .nfm-first-line {
-
+    .nfm-first-line { 
         display: flex;
         width: 100%; 
-        padding: 16px 0 4px 0; 
+        padding: 16px 16px 4px 0; 
         .title {
             font-size: 18px;
             order: 2;
@@ -632,7 +634,7 @@
     margin-right: 24px;
     .togglers-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding-top: 8px;
     margin-left: -6px; 
         .toggler-btn {
@@ -708,8 +710,7 @@ body.he {
         margin-left: 18px;
     }
     .nmf-range-selector-box {
-        padding-left: 0;
-        padding-right: 31px;
+        padding-left: 0; 
     }
     .nmf-range-selector-box .nmf-range-selector  {
         right: -30px;
@@ -720,7 +721,7 @@ body.he {
     }
     .nmf-range-selector-box .nfm-selected .number-box .nmf-max-text,
     .nmf-range-selector-box .nfm-selected .number-box .nmf-min-text {
-        order: 2;
+        order: 2; 
     }
     .nfm-first-line .icon-box {
         margin-left: 19px;
@@ -749,8 +750,7 @@ body.he {
 
 }
 
-.simplebar-content > div {
-    min-width: 220px !important;
+.simplebar-content > div { 
     padding-right: 0;
     margin-right: 30px;
 }

@@ -205,7 +205,7 @@ function init() {
         if (urlParams !== undefined) {
             let dev = urlParams.get('fps');
             if (dev !== null) {
-                document.querySelector('.three_js').appendChild( stats.dom );
+                document.querySelector('.three_js').appendChild(stats.dom);
             }
             let disable_auto_rotate = urlParams.get('disable_auto_rotate');
             if (disable_auto_rotate != null) {
@@ -213,7 +213,7 @@ function init() {
             }
             let show_res = urlParams.get('show_res');
             if (show_res != null) {
-               show_resolution = true;
+                show_resolution = true;
                 $('.current-resolution').show();
             }
             let show_gui = urlParams.get('gui');
@@ -257,6 +257,66 @@ function init() {
                         flat_statuses[0]['hover'] = return_val;
                     });
                 folder.open();
+            }
+            {
+
+                r_animation_type = TWEEN.Easing.Linear.None;
+                let r_animate = get_url_param('r_animate');
+                if (r_animate == 'true') {
+                    gui = new GUI();
+                    var params = {
+                        easings: r_animation_type,
+                        duration: r_animate_duration,
+                        'Зависимость от растояния' : r_angle_mod,
+                        'Коефициент зависимости от растояния' : r_angle_mod_coef
+                    };
+                    var folder = gui.addFolder('Animation');
+                    let easings = {
+                        'Linear.None' : TWEEN.Easing.Linear.None,
+                        'Quadratic.In' : TWEEN.Easing.Quadratic.In,
+                        'Quadratic.Out' : TWEEN.Easing.Quadratic.Out,
+                        'Quadratic.InOut' : TWEEN.Easing.Quadratic.InOut,
+                        'Cubic.In' : TWEEN.Easing.Cubic.In,
+                        'Cubic.Out' : TWEEN.Easing.Cubic.Out,
+                        'Quartic.In' : TWEEN.Easing.Quartic.In,
+                        'Quartic.Out' : TWEEN.Easing.Quartic.Out,
+                        'Quartic.InOut' : TWEEN.Easing.Quintic.In,
+                        'Quintic.Out' : TWEEN.Easing.Quintic.Out,
+                        'Quintic.InOut' : TWEEN.Easing.Quintic.InOut,
+                        'Sinusoidal.In' : TWEEN.Easing.Sinusoidal.In,
+                        'Sinusoidal.Out' : TWEEN.Easing.Sinusoidal.Out,
+                        'Sinusoidal.InOut' : TWEEN.Easing.Sinusoidal.InOut,
+                        'Exponential.In' : TWEEN.Easing.Exponential.In,
+                        'Exponential.Out' : TWEEN.Easing.Exponential.Out,
+                        'Circular.In' : TWEEN.Easing.Circular.In,
+                        'Circular.Out' : TWEEN.Easing.Circular.Out,
+                        'Circular.InOut' : TWEEN.Easing.Circular.InOut,
+                        'Elastic.In' : TWEEN.Easing.Elastic.In,
+                        'Elastic.Out' : TWEEN.Easing.Elastic.Out,
+                        'Elastic.InOut' : TWEEN.Easing.Elastic.InOut,
+                        'Back.In' : TWEEN.Easing.Back.In,
+                        'Back.Out' : TWEEN.Easing.Back.Out,
+                        'Back.InOut' : TWEEN.Easing.Back.InOut,
+                        'Bounce.In' : TWEEN.Easing.Bounce.In,
+                        'Bounce.Out' : TWEEN.Easing.Bounce.Out,
+                        'Bounce.InOut' : TWEEN.Easing.Bounce.InOut,
+                    }
+                    folder.add( params, 'easings', Object.keys( easings ) ).onChange( function () {
+                        r_animation_type = easings[params.easings];
+                    } );
+                    folder.add( params, 'duration', 500, 5000 ).step( 100 ).onChange( function () {
+                         r_animate_duration = params.duration;
+                    } );
+                    folder.add( params, 'Зависимость от растояния').onChange( function () {
+                        r_angle_mod = params['Зависимость от растояния'];
+                    } );
+                    folder.add( params, 'Коефициент зависимости от растояния' , 0.1, 2 ).step( 0.1).onChange( function () {
+                        r_angle_mod_coef = params['Коефициент зависимости от растояния'];
+                    } );
+
+                    folder.open();
+                    document.querySelector('.dg.ac').classList.add('non-canvas');
+                }
             }
 
         }
@@ -453,10 +513,10 @@ function animate() {
                     });
                 });
 
-                let textures_percent = loaded_texture_counter / 32 * 100;
+                let textures_percent = loaded_texture_counter / 29 * 100;
                 // progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
 
-                if ((loaded_texture_counter === 32) || (low_performance_mode && loaded_texture_counter === 11)) {
+                if ((loaded_texture_counter === 29) || (low_performance_mode && loaded_texture_counter === 11)) {
                     $('.to-page').addClass('active');
                     // progress_bar_update(1, 100, 'Load complete');
                     // progress_bar_update(1, 'Load complete');

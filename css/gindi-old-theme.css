@@ -224,4 +224,20 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .btns-row .new-ui-bt
     height: 44px;
     font-family: 'Fragolino';
 }
-
+@media screen and (min-width: 1024px) {
+    #sort-item-salePrice {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    .nmf-range-selector-box  {
+        
+        min-width: 180px;
+        max-width: 180px;
+    }
+}
+#sort-item-salePrice .nmf-range-selector {
+    width: 180px
+}
+#sort-item-salePrice.nmf-range-selector-box .nfm-selected .number-box {
+    min-width: 80px;
+}

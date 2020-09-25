@@ -12,7 +12,7 @@ export let dictionary_array = {
         'en' : 'Bedrooms'
     },
     'Area' : {
-        'he' : 'אֵזוֹר',
+        'he' : 'שטח',
         'en' : 'Area'
     },
     'Exposure' : {

@@ -2327,6 +2327,12 @@ function progress_bar_update () {
         if (mathPercent> totalPercent){
             totalPercent = mathPercent;
         }
+        if (totalPercent < 2) {
+            totalPercent = 2;
+        }
+        if (totalPercent > 99) {
+            totalPercent = 99
+        }
     });
 }
 
@@ -3099,7 +3105,8 @@ function get_lang (word) {
 
 function rotation_to_flat () {
     if (!window.rotate_to_flat) {
-        targetRotationX = window.camera_target.rotation.y;
+        normilize_camera_rotation_x ();
+        //targetRotationX = window.camera_target.rotation.y;
         let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
         flat_world_position.y = 1;
         let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
@@ -3114,9 +3121,9 @@ function rotation_to_flat () {
             if (target_y < min_camera_y_for_filter) {
                 // target_y = min_camera_y_for_filter;
             }
-            var easing = TWEEN.Easing.Linear.None;
+            var easing = r_animation_type;
             var delay = 0;
-            var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, 1000);
+            var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, r_animate_duration);
 
             var bubble = $('.flat-bubble');
             TWEEN.add(animation);
@@ -3125,7 +3132,7 @@ function rotation_to_flat () {
                 window.rotate_to_flat = true;
             });
             animation.onUpdate(function (e) {
-                let new_bubble_position = toScreenPosition(last_clicked_flat); 
+                let new_bubble_position = toScreenPosition(last_clicked_flat);
                 bubble.css({
                     top : new_bubble_position.y,
                     left : new_bubble_position.x
@@ -3148,11 +3155,43 @@ function rotation_to_flat () {
                 let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
                 camera_world_position.y = 1;
                 let current_distance = flat_world_position.distanceTo(camera_world_position);
+
+                let target_rotation; 
                 if (current_distance < start_distance) {
-                    targetRotationX = start_target_rotation + angle;
+                    target_rotation = start_target_rotation + angle;
                 } else {
-                    targetRotationX = start_target_rotation - angle;
+                    target_rotation = start_target_rotation - angle;
                 }
+                let angle_mod = 1;
+                console.log(r_angle_mod)
+                if (r_angle_mod) {
+                    angle_mod = global_three.Math.radToDeg(angle) * r_angle_mod_coef * 0.05;
+                    console.log(angle_mod)
+                }
+
+               // target_rotation =  global_three.Math.radToDeg(target_rotation);
+                var easing = r_animation_type;
+                var delay = 0;
+                var animation = new TWEEN.Tween({rotation: window.camera_target.rotation.y}).to({rotation: target_rotation}, r_animate_duration * angle_mod );
+
+                TWEEN.add(animation);
+                animation.delay(delay);
+                animation.onStart(function (e) {
+                    window.camera_target.rotation.y = e.rotation;
+                    targetRotationX =  e.rotation;
+                });
+                animation.onUpdate(function (e) {
+                    window.camera_target.rotation.y = e.rotation;
+                    targetRotationX =  e.rotation;
+                });
+
+                animation.onComplete(function (e) {
+
+                });
+                animation.easing(easing);
+                animation.start();
+
+
             }, 100);
         }
     }

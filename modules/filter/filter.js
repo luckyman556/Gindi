@@ -1,6 +1,7 @@
 import { card_fns } from './filter_card.js';
 export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].filter_active = true;
+    let animate_scroll_bool = true;
     let filter_btn = ` 
             <div class="filter-module-open-btn new-ui-circle-btn  m-dark"> 
                 <div class="ic-img">
@@ -169,6 +170,16 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             options : {
                 title : 'price',
             }
+        },        {
+            crm_name : 'roomNum',
+            options : {
+                title : 'rooms',
+            }
+        },        {
+            crm_name : 'floorNum',
+            options : {
+                title : 'floor',
+            }
         },
     ]
 
@@ -196,7 +207,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 <div class="reset-filter new-ui-circle-btn"> 
                 <div class="text language-string" data-dictionary="clear all filters" >${get_lang('clear all filters')}</div>
                     <div class="ic-img">
-                        <img src="${img_path}/reset-ic.svg" alt="">
+                        <img src="${img_path}reset-ic.svg" alt="">
                     </div>  
                 </div>
             </div>
@@ -220,7 +231,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             </div>
             <div class="reset-filter new-ui-circle-btn"> 
                 <div class="ic-img">
-                    <img src="${img_path}/reset-ic.svg" alt="">
+                    <img src="${img_path}reset-ic.svg" alt="">
                 </div>  
             </div>
             <div class="input-search">                
@@ -257,8 +268,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     add_filters_html();
     add_tabs_html();
 
-    if (window.matchMedia("(min-width: 1024px)").matches) {
-        new SimpleBar(document.querySelector('.filter-controls'), { autoHide: false } );
+    if (window.matchMedia("(min-width: 1024px)").matches) { 
+        container[0].simpleBar = new SimpleBar(document.querySelector('.filter-controls'), { autoHide: false } );
     }
 
 
@@ -424,6 +435,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                                 btn.css('padding-right', '');
                                 btn.removeClass('show');
                                 btn.addClass('hide');
+                                if (container[0].simpleBar ) {
+                                    container[0].simpleBar.recalculate();
+                                }
                             }
                         });
                     }, 20 * i);
@@ -451,6 +465,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                             duration: 500,
                             complete: function() {
                                 btn.css('width', '');
+                                if (container[0].simpleBar ) {
+                                    container[0].simpleBar.recalculate();
+                                }
                             }
                         });
                     }, 20 * i);
@@ -813,7 +830,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     }
     container[0].filter_update = filter_update;
     container[0].reset_filter = reset_filter;
-    container[0].set_defaults = set_defaults;
+    container[0].set_defaults = set_defaults
     container[0].filter_run = filter_run;
     container[0].set_scroll_on_card = set_scroll_on_card;
     container[0].get_card_for_screen = get_card_for_screen;
@@ -836,7 +853,158 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 if (target_left < max_left) {
                     target_left = max_left;
                 }
-                $('.flat-cards-slider').attr('data-target-left', target_left);
+                let current_target_left = $('.flat-cards-slider').attr('data-target-left');
+                if (!current_target_left) {
+                    current_target_left = 0;
+                }
+                let max_diff = card_width * (offset - Math.floor(offset / 2));
+                let target_difference =  target_left - Number(current_target_left);
+                let positive_target_difference =  Math.abs(target_difference);
+                {
+
+                    let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
+                    if (target_difference < 0) {
+                        let target = target_left + max_diff;
+                        if (target > 0) {
+                            target = 0;
+                        }
+                        if (target < max_left) {
+                            target = max_left;
+                        }
+                        animate_scroll_bool = false;
+                        //set_scroll_at(target);
+                        if (target_left > 0) {
+                            target_left = 0;
+                        }
+                        if (target_left < max_left) {
+                            target_left = max_left;
+                        }
+                        animation_to (target_left, target);
+
+                    } else {
+                        let target = target_left - max_diff;
+
+                        if (target > 0) {
+                            target = 0;
+                        }
+                        if (target < max_left) {
+                            target = max_left;
+                        }
+                        animate_scroll_bool = false;
+
+                        //set_scroll_at(target);
+                        if (target_left > 0) {
+                            target_left = 0;
+                        }
+                        if (target_left < max_left) {
+                            target_left = max_left;
+                        }
+                        animation_to (target_left, target);
+                    }
+
+                    function animation_to (target, base_target) {
+                        let direction = document.querySelector('html').getAttribute('dir');
+                        let position_side = 'left';
+                        if (direction) {
+                            if (direction == 'rtl') {
+                                position_side = 'right';
+                            }
+                        }
+                        let left = document.querySelector('.flat-cards-slider').style[position_side];
+                        left = left.replace('px', '');
+                        if (left === '') {
+                            left = 0;
+                        }
+
+                        if (left < target) {
+                            flat_slider.attr('data-last-direction', '-');
+                        } else {
+                            flat_slider.attr('data-last-direction', '+');
+                        }
+
+
+                        var easing = r_animation_type;
+                        var delay = 0;
+                        var animation = new TWEEN.Tween({left : base_target}).to({left : target}, r_animate_duration);
+                        TWEEN.add(animation);
+                        animation.delay(delay);
+                        animation.onStart(function (e) {
+                            animate_scroll_bool = false;
+                            set_cards_content (base_target)
+                            flat_slider.css(position_side, base_target);
+                        });
+                        animation.onUpdate(function (e) {
+                            flat_slider.css(position_side, e.left);
+                            set_cards_content (e.left)
+                        });
+
+                        animation.onComplete(function (e) {
+                            setTimeout(function(){
+                            let current_postion = Math.floor(Math.abs( target ) / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
+                            flat_slider.attr('data-current-position', current_postion );
+                            flat_slider.attr('data-target-left', target);
+                            if (left < target) {
+                                flat_slider.attr('data-last-direction', '-');
+                            } else {
+                                flat_slider.attr('data-last-direction', '+');
+                            }
+                            document.querySelector('.flat-cards-slider').style[position_side] = target + 'px';
+                            animate_scroll_bool = true;
+
+
+                            },100);
+                        });
+                        animation.easing(easing);
+                        animation.start();
+                    }
+                    function set_cards_content (position) {
+                        let current_postion = Math.floor(Math.abs( position) / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
+                        let cards_for_screen = get_card_for_screen();
+                        $('.flat-cards-slider .nfm-flat-card').addClass('not-rendered');
+                        let max_num = current_postion + cards_for_screen - 2;
+
+                        // console.log('cards_for_screen: ' + max_num);
+                        let min_num = current_postion - 1;
+                        let while_i = min_num;
+                        while (while_i <= max_num) {
+                            $('.flat-cards-slider .nfm-flat-card').eq(while_i).removeClass('not-rendered');
+                            let first_card = document.querySelectorAll('.flat-cards-slider .nfm-flat-card')[while_i];
+
+                            if (first_card ) {
+                                if (first_card.innerHTML.length == 0) {
+                                    $(first_card).html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
+                                    card_fns.bind_flat_cards_events($(first_card));
+                                }
+                            }
+                            while_i++;
+                        }
+                        $('.flat-cards-slider .nfm-flat-card.not-rendered').empty();
+                        flat_slider.attr('data-current-position', current_postion );
+                    }
+                    function set_scroll_at(target) {
+                        let direction = document.querySelector('html').getAttribute('dir');
+                        let position_side = 'left';
+                        if (direction) {
+                            if (direction == 'rtl') {
+                                position_side = 'right';
+                            }
+                        }
+                        let left = document.querySelector('.flat-cards-slider').style[position_side];
+                        left = left.replace('px', '');
+                        if (left === '') {
+                            left = 0;
+                        }
+
+                        let target_left = target
+                        let new_left = target;
+                        document.querySelector('.flat-cards-slider').style[position_side] = new_left + 'px';
+                        if (left < target_left) {
+                            flat_slider.attr('data-last-direction', '-');
+                        } else {
+                            flat_slider.attr('data-last-direction', '+');
+                        }
+                    }
+                }
             }
         }
     };
@@ -1161,9 +1329,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     function update_flat_cards () {
         let flat_cards_container = container.find('.flat-cards');
 
-        flat_cards_container.html('<div class="flat-cards-slider" data-current-position="0"><div class="nfm-flat-card" ></div></div>');
+        flat_cards_container.html('<div class="flat-cards-slider" data-current-position="1"><div class="nfm-flat-card"></div></div>');
         let cards_for_screen = get_card_for_screen();
-        flat_cards_container.html('<div class="flat-cards-slider" data-current-position="0"></div>');
+        flat_cards_container.html('<div class="flat-cards-slider" data-current-position="1"></div>');
+        flat_cards_container.attr('data-current-position', 1);
         let flat_cards_list_html = '';
         crm_array.forEach(function(flat, i){
             let inner_html = card_fns.get_card_html_inner (flat, i, img_path);
@@ -1171,9 +1340,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 inner_html = '';
             }
             let flat_card_html = `
-                <div class="nfm-flat-card card-${flat.bmbyPropID }" data-count="${i}"  data-bmby-id="${flat.bmbyPropID }" >
-                    ${inner_html}
-                </div>
+                <div class="nfm-flat-card card-${flat.bmbyPropID }" data-count="${i}"  data-bmby-id="${flat.bmbyPropID }" >${inner_html}</div>
             `;
             flat_cards_list_html += flat_card_html;
         });
@@ -1197,8 +1364,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 let target_left = Number(flat_slider.attr('data-target-left'));
                 let delta = event.wheelDeltaY;
                 let new_target_left =  target_left + delta;
-                let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1;
-                console.log(max_left);
+                let max_left = ($(flat_slider).width() - $('.flat-cards').width()) * -1; 
                 if (new_target_left > 0) {
                     new_target_left = 0;
                 }
@@ -1320,87 +1486,88 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
         }
         requestAnimationFrame(animate_scroll);
-
         function animate_scroll () {
-            if (flat_slider.length > 0){
-                let direction = document.querySelector('html').getAttribute('dir');
-                let position_side = 'left';
-                if (direction) {
-                    if (direction == 'rtl') {
-                        position_side = 'right';
+            if (document.querySelector('.flat-cards-slider')){
+
+                if (animate_scroll_bool) {
+                    let direction = document.querySelector('html').getAttribute('dir');
+                    let position_side = 'left';
+                    if (direction) {
+                        if (direction == 'rtl') {
+                            position_side = 'right';
+                        }
                     }
-                }
-                let left = flat_slider.css(position_side)
-                left = left.replace('px', '');
-                if (left === '') {
-                    left = 0;
-                }
+                    let left =  document.querySelector('.flat-cards-slider').style[position_side];
+                    left = left.replace('px', '');
+                    if (left === '') {
+                        left = 0;
+                    }
 
-                let target_left = Number(document.querySelector('.flat-cards-slider').dataset.targetLeft);
-                let dif =  Number(left) - target_left;
-                let new_left;
-                if (Math.sqrt(dif * dif) > 1) {
-                    new_left = Number(left) - dif * 0.2;
-                    //flat_slider.css('left', new_left);
-                } else {
-                    new_left = target_left;
- /*                   if ($(window).width() < 1024) {
-
-                        let flat_card_width =  ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32);
-                        if (flat_slider.attr('data-last-direction') === '+') {
-                            let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
-                            new_left = current_postion + 1 * flat_card_width * -1;
-                        } else {
-                            let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
-                            new_left = current_postion - 1 * flat_card_width * -1;
-                        }
-                    }*/
-                }
-
-                flat_slider.css(position_side, new_left);
-                if (left < target_left) {
-                    flat_slider.attr('data-last-direction', '-');
-                } else {
-                    flat_slider.attr('data-last-direction', '+');
-                }
-                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
-
-                if (!isNaN( current_postion)) {
-                    let data_position = Number(flat_slider.attr('data-current-position'));
-
-                    if (data_position) {
-                        if (current_postion !== data_position) {
-                            let difference =  current_postion - data_position;
-                            difference = Math.sqrt(difference * difference);
-                            let cards_for_screen = get_card_for_screen();
-                            $('.flat-cards-slider .nfm-flat-card').addClass('not-rendered');
-                            let max_num = data_position + cards_for_screen - 2;
-
-                           // console.log('cards_for_screen: ' + max_num);
-                            let min_num = data_position  - 1;
-                            let while_i = min_num;
-                            while (while_i <= max_num) {
-                                $('.flat-cards-slider .nfm-flat-card').eq(while_i).removeClass('not-rendered');
-                                let first_card = $('.flat-cards-slider .nfm-flat-card').eq(while_i);
-
-                                    if (first_card.length > 0) {
-                                        if (first_card[0].innerHTML.length == 0) {
-                                            first_card.html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
-                                            card_fns.bind_flat_cards_events(first_card);
-                                        }
-                                    }
-                                while_i++;
-                            }
-                            $('.flat-cards-slider .nfm-flat-card.not-rendered').empty();
-
-                        }
-
+                    let target_left = Number(document.querySelector('.flat-cards-slider').dataset.targetLeft);
+                    let dif =  Number(left) - target_left;
+                    let new_left;
+                    if (Math.sqrt(dif * dif) > 1) {
+                        new_left = Number(left) - dif * 0.2;
+                        //flat_slider.css('left', new_left);
                     } else {
+                        new_left = target_left;
+     /*                   if ($(window).width() < 1024) {
+
+                            let flat_card_width =  ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32);
+                            if (flat_slider.attr('data-last-direction') === '+') {
+                                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
+                                new_left = current_postion + 1 * flat_card_width * -1;
+                            } else {
+                                let current_postion = Math.floor(Math.sqrt(new_left * new_left)  / flat_card_width);
+                                new_left = current_postion - 1 * flat_card_width * -1;
+                            }
+                        }*/
+                    }
+
+                    flat_slider.css(position_side, new_left);
+                    if (left < target_left) {
+                        flat_slider.attr('data-last-direction', '-');
+                    } else {
+                        flat_slider.attr('data-last-direction', '+');
+                    }
+                    let position_new_left = Math.abs( new_left) ;
+                    let current_postion = Math.floor( position_new_left / ($('.filter-module-container .flat-cards .nfm-flat-card').outerWidth() + 32));
+
+                    if (!isNaN( current_postion)) {
+                        let data_position = Number(flat_slider.attr('data-current-position'));
+                        if (data_position) {
+                            if (current_postion !== data_position) {
+                                let difference =  current_postion - data_position;
+                                difference = Math.sqrt(difference * difference);
+                                let cards_for_screen = get_card_for_screen();
+                                $('.flat-cards-slider .nfm-flat-card').addClass('not-rendered');
+                                let max_num = current_postion + cards_for_screen - 2;
+
+                               // console.log('cards_for_screen: ' + max_num);
+                                let min_num = current_postion  - 1;
+                                let while_i = min_num;
+                                while (while_i <= max_num) {
+                                    $('.flat-cards-slider .nfm-flat-card').eq(while_i).removeClass('not-rendered');
+                                    let first_card = $('.flat-cards-slider .nfm-flat-card').eq(while_i);
+                                        if (first_card.length > 0) {
+                                            if (first_card[0].innerHTML.length == 0) {
+                                                first_card.html(card_fns.get_card_html_inner(crm_array[while_i], while_i, img_path));
+                                                card_fns.bind_flat_cards_events(first_card);
+                                            }
+                                        }
+                                    while_i++;
+                                }
+                                $('.flat-cards-slider .nfm-flat-card.not-rendered').empty();
+
+                            }
+
+                        } else {
+
+                        }
+                        flat_slider.attr('data-current-position', current_postion);
+                    }
 
                     }
-                    flat_slider.attr('data-current-position', current_postion);
-                }
-
                 requestAnimationFrame(animate_scroll);
             }
         }
