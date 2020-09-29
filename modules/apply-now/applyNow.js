@@ -19,8 +19,13 @@ export function applyNow (parent) {
   const closeBtn = creatHtmlElement(parent,'','div',['apply-btn__close']);
   closeBtn.setAttribute('id','applyCloseBtn');
   const titleContainer = creatHtmlElement(contentWrapper,'','div',['apply__title-container']);
-  const title = creatHtmlElement(titleContainer,'Get in touch today','h2',['apply__title']);
-  const span = creatHtmlElement(titleContainer,'Our customer service representatives are happy to help 24/7','span',['apply__sub-title']);
+  const title = creatHtmlElement(titleContainer,'Get in touch today','h2',['apply__title','language-string']);
+  title.dataset.en = 'Get in touch today';
+  title.dataset.he = 'צרו איתנו קשר עכשיו';
+  const span = creatHtmlElement(titleContainer,'Our customer service representatives are happy to help 24/7','span',['apply__sub-title','language-string']);
+  span.dataset.en = 'Our customer service representatives are happy to help 24/7';
+  span.dataset.he = 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7';
+
   //Icons
   const socialIcons = creatHtmlElement(contentWrapper,'','ul',['apply__social-icons']);
   const iconsArray =[
