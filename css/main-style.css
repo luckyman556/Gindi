@@ -1377,14 +1377,17 @@ html[dir=rtl] .options__menu-label {
 .apply__content__wrapper {
   max-width: 768px;
   width: 100%;
-  margin: 0 auto; }
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
 
 .apply__title-container {
   display: flex;
   flex-direction: column;
   text-align: center;
-  align-items: center;
-  padding-top: 64px; }
+  align-items: center; }
 
 .apply__title {
   font-style: normal;
@@ -1402,9 +1405,11 @@ html[dir=rtl] .options__menu-label {
   display: grid;
   justify-content: space-between;
   grid-template-rows: auto;
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-flow: column;
-  margin-top: 43px;
-  flex-wrap: wrap; }
+  margin-top: 104px;
+  flex-wrap: wrap;
+  padding: 0 82px; }
 
 .apply__social-href {
   display: flex;
@@ -1455,12 +1460,15 @@ html[dir=rtl] .options__menu-label {
 
 @media screen and (max-width: 768px) {
   .apply__content__wrapper {
-    max-width: calc(100% - 50px); } }
+    max-width: calc(100% - 50px); }
+  .apply__social-icons {
+    padding: 0; } }
 
 @media screen and (max-width: 550px) {
   .apply__social-icons {
-    grid-template-rows: auto auto auto;
-    grid-gap: 28px 0; } }
+    grid-gap: 28px 0;
+    grid-template-columns: auto auto auto;
+    grid-auto-flow: row; } }
 
 body {
   font-family: 'almoni-tzar'; }

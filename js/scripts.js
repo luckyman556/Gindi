@@ -662,19 +662,22 @@ $(document).ready(function(){
                 $(event.target).parents('.more-info').toggleClass('open');
             }
             if ($(event.target).hasClass('apply-now') == true) {
-                const applyContainer = document.querySelector('.apply__main-container');
-                const printerBtn = document.querySelector('.print-btn');
-                const popupCollection = document.querySelectorAll('.popup');
-                popupCollection.forEach(popup =>{
-                    if (popup.classList.contains('open')){
-                        openedPopup = popup;
-                        popup.classList.remove('open');
-                        popup.style.display = 'none';
-                    }
-                });
+                if (window.showApplyNow){
+                    const applyContainer = document.querySelector('.apply__main-container');
+                    const printerBtn = document.querySelector('.print-btn');
+                    const popupCollection = document.querySelectorAll('.popup');
+                    popupCollection.forEach(popup =>{
+                        if (popup.classList.contains('open')){
+                            openedPopup = popup;
+                            popup.classList.remove('open');
+                            popup.style.display = 'none';
+                        }
+                    });
 
-                printerBtn.style.display='none';
-                applyContainer.classList.add('open');
+                    printerBtn.style.display='none';
+                    applyContainer.classList.add('open');
+                }
+
                 // var text = $('.apply-now').data('text-to-option');
                 // var block = $('#get-demo-block');
                 // var option = block.find('.nice-select .option').eq(1);
