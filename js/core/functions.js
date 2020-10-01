@@ -1343,6 +1343,9 @@ function add_appartment_info_in_popup (box) {
     if ($('body').hasClass('page-template-only-model')) {
         apply_now_html =  '<a class="apply-now" href="/contact-us/?app_id=' + flat_name_number + '">Apply now!</a>';
     }
+    if (!window.showApplyNow) {
+        apply_now_html = '';
+    }
     let flatOptions = globalFunctions.cardsInfoHTML.getPopupCardOptionsHtml(globalSettings.cardsInfoSettings.PopupCardOptions, flat.userData.crm_data);
     let html = `
         <div class="flat-info ${ status_text }">

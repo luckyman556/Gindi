@@ -63,7 +63,7 @@ window.vector_point_2 = new THREE.Vector2();
 vector_to_world_position = new THREE.Vector3();
 box = new THREE.Box3();
 var openedPopup;
-window.showApplyNow = true;
+window.showApplyNow = false;
 
 
 function init() {
