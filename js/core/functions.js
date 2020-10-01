@@ -496,7 +496,7 @@ function set_appartment_data_in_block (appartment, box) {
             current_apt_title = apt_title_text_he;
         }
         let apt_title = '' +
-            '<div class="title-text-row"><span class="title-text language-string" ээdata-he="' + apt_title_text_he + '" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
+            '<div class="title-text-row"><span class="title-text language-string" data-he="' + apt_title_text_he + '" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
             '<span class="type">' +  appartment.userData.crm_data.modelName + '</span>' +
             '<span class="number">' + appartment.userData.crm_data.propNum + '</span>' +
             '</div>';
@@ -669,11 +669,11 @@ function drag_focus_target_x () {
 function change_camera_rotation_x () {
     if (raf_divergention_y != 0) {
         var move_target_y = far_current_click_camera_rotation_x - (raf_divergention_y * 0.002 * -1);
-        let min = -0.2;
-        let max = -1.25;
+        let min = globalSettings.fullBuilding.cameraLimits.rotation.children_x.max;
+        let max = globalSettings.fullBuilding.cameraLimits.rotation.children_x.min;
         if (lock_mouse_rotation_x) {
-            min = -0.5;
-            max = -1.57;
+            min = globalSettings.destroyedBuilding.cameraLimits.rotation.children_x.max;
+            max = globalSettings.destroyedBuilding.cameraLimits.rotation.children_x.min;
         }
         if (move_target_y > min) {
             move_target_y = min;

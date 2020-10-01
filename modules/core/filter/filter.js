@@ -378,7 +378,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         function input_change (event) {
             let dom_input = $(event.target);
             let word = dom_input.val();
-                input_search_fn(word);
+            input_search_fn(word);
         };
         input_search.focusin(function(){
             $(this).parent().addClass('active');
@@ -457,33 +457,36 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     function input_search_fn(word) {
         crm_array = window.actual_JSON;
         let new_crm_array = [];
-        search_fields.forEach(function(item){
-            const unic_filter_class = item.crm_name;
-            crm_array.forEach(function(crm_item){
+        if (word.length === 0) {
 
-                let val = String(crm_item[unic_filter_class]);
-                let search_result = val.search(word);
-                let match = false;
-                if (search_result !== -1) {
-                    match = true;
-                }
-                val = val.toUpperCase();
-                search_result = val.search(word);
-                if (search_result !== -1) {
-                    match = true;
-                }
-                val = val.toLowerCase();
-                search_result = val.search(word);
-                if (search_result !== -1) {
-                    match = true;
-                }
-                if (match === true) {
-                    new_crm_array.push(crm_item);
-                }
+        } else {
+            search_fields.forEach(function(item){
+                const unic_filter_class = item.crm_name;
+                crm_array.forEach(function(crm_item){
+
+                    let val = String(crm_item[unic_filter_class]);
+                    let search_result = val.search(word);
+                    let match = false;
+                    if (search_result !== -1) {
+                        match = true;
+                    }
+                    val = val.toUpperCase();
+                    search_result = val.search(word);
+                    if (search_result !== -1) {
+                        match = true;
+                    }
+                    val = val.toLowerCase();
+                    search_result = val.search(word);
+                    if (search_result !== -1) {
+                        match = true;
+                    }
+                    if (match === true) {
+                        new_crm_array.push(crm_item);
+                    }
+                });
             });
-
-        });
-        crm_array = new_crm_array;
+            crm_array = new_crm_array;
+        }
         let crm_array_by_id = {};
         let crm_array_by_id_arr = [];
         crm_array.forEach(function(crm_item){

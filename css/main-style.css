@@ -493,7 +493,7 @@
         text-align: center;
         justify-content: center;
         background-color: #FFFFFF;
-        width: calc(100% + 16px);
+        width: calc(100%);
         height: 198px;
         border-radius: 6px;
         font-size: 30px; }
@@ -1381,17 +1381,14 @@ html[dir=rtl] .options__menu-label {
 .apply__content__wrapper {
   max-width: 768px;
   width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; }
+  margin: 0 auto; }
 
 .apply__title-container {
   display: flex;
   flex-direction: column;
   text-align: center;
-  align-items: center; }
+  align-items: center;
+  padding-top: 64px; }
 
 .apply__title {
   font-style: normal;
@@ -1409,11 +1406,9 @@ html[dir=rtl] .options__menu-label {
   display: grid;
   justify-content: space-between;
   grid-template-rows: auto;
-  grid-template-columns: repeat(4, 1fr);
   grid-auto-flow: column;
-  margin-top: 104px;
-  flex-wrap: wrap;
-  padding: 0 82px; }
+  margin-top: 43px;
+  flex-wrap: wrap; }
 
 .apply__social-href {
   display: flex;
@@ -1464,15 +1459,12 @@ html[dir=rtl] .options__menu-label {
 
 @media screen and (max-width: 768px) {
   .apply__content__wrapper {
-    max-width: calc(100% - 50px); }
-  .apply__social-icons {
-    padding: 0; } }
+    max-width: calc(100% - 50px); } }
 
 @media screen and (max-width: 550px) {
   .apply__social-icons {
-    grid-gap: 28px 0;
-    grid-template-columns: auto auto auto;
-    grid-auto-flow: row; } }
+    grid-template-rows: auto auto auto;
+    grid-gap: 28px 0; } }
 
 body {
   font-family: 'almoni-tzar'; }
@@ -1827,7 +1819,10 @@ body {
   .three_js .flat-option {
     padding-right: 0px;
     display: flex;
-    max-width: 72px; }
+    max-width: 72px;
+    margin: 0 auto; }
+    .three_js .flat-option:first-child .top-part {
+      justify-content: flex-start; }
     .three_js .flat-option.sq {
       display: none; }
     .three_js .flat-option.badroom {
@@ -3484,7 +3479,7 @@ body {
           font-weight: 400;
           line-height: 23px;
           text-align: center;
-          display: flex;
+          display: none;
           flex-direction: column;
           justify-content: center;
           cursor: pointer; }
@@ -3545,8 +3540,7 @@ body {
               text-align: right;
               color: #5c646b;
               margin-left: 4px;
-              margin-right: 4px;
-              text-transform: lowercase; }
+              margin-right: 4px; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .bottom {
               width: 100%;
               display: block;
@@ -4575,7 +4569,8 @@ body.he .three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d {
   background-position: right 6px center; }
 
 body.he .three_js .title-with-selector .page-title .text .title-text-row:after {
-  left: 10px; }
+  left: initial;
+  right: 0px; }
 
 body.he .three_js .title-with-selector .page-title .text .title-text-row .title-text {
   margin-left: 8px;

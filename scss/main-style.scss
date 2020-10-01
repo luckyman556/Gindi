@@ -478,6 +478,17 @@ body {
 		padding-right: 0px;
 		display: flex;
 		max-width: 72px;
+		margin: 0 auto;
+
+		&:first-child {
+            .top-part { 
+               justify-content: flex-start;
+            }
+		}
+		&:last-child {
+            .top-part {  
+            }
+		}
 		&.sq {
 			display: none;
 		}
@@ -2301,6 +2312,7 @@ body {
 					z-index: 5;
 				}
 				.flat-plan-box {
+
 					margin-top: 0;
 					.title-with-selector,
 					.price,
@@ -2336,6 +2348,8 @@ body {
 			.page-description {
 				display: none;
 			}
+
+
 			.popups-togglers-box {
 				display: grid;
 				grid-template-columns: repeat(2, minmax(122px, 1fr));
@@ -2346,7 +2360,6 @@ body {
 				top: 0;
 				left: 0;
 				margin-top: 16px;
-
 				.toggler-360 ,
 				.toggler-3d {
 					display:none;
@@ -2679,7 +2692,7 @@ body {
 					font-weight: 400;
 					line-height: 23px;
 					text-align: center;
-					display: flex;
+					display: none;
 					flex-direction: column;
 					justify-content: center; 
 					cursor: pointer;
@@ -2760,7 +2773,6 @@ body {
 								color: #5c646b;
 								margin-left: 4px;
 								margin-right: 4px;
-								text-transform: lowercase;
 							}
 							.bottom {
 								width: 100%;
@@ -4052,7 +4064,8 @@ body.he {
 	}
 
 	.three_js .title-with-selector .page-title .text .title-text-row:after {
-		left: 10px;
+		left: initial;
+        right: 0px;
 	}
 
 	.three_js .title-with-selector .page-title .text .title-text-row .title-text {

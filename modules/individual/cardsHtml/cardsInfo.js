@@ -40,7 +40,7 @@ export const cardsInfoSettings = {
         {
             'crmName' : 'facing',
             'imgUrl' : './img/ic_side.svg',
-            'dictionary' : 'balcony size',
+            'dictionary' : 'Exposure',
             'callback' : function (data) {
                 let facing_translates =  globalSettings.exposure.dictionary;
                 let facing_string_array = data.split(',');
@@ -66,7 +66,7 @@ export const cardsInfoSettings = {
         {
             'crmName' : 'balconySize',
             'imgUrl' : './img/balcony-ic.svg',
-            'dictionary' : 'Exposure',
+            'dictionary' : 'balcony size',
             'boolCallback' : function (data) {
                 if (data > 0) {
                     return true;
