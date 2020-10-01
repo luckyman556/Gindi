@@ -4,28 +4,40 @@ import Stats from './node_modules/three/examples/jsm/libs/stats.module.js';
 import { DragControls } from './node_modules/three/examples/jsm/controls/DragControls.js';
 import { TransformControls } from './node_modules/three/examples/jsm/controls/TransformControls.js';
 
-import {PerspectiveCamera_init} from './modules/camera.js?ver=202009111345';
-import {controls_init} from './modules/controls/controls.js?ver=202009111345';
-import {add_models} from './modules/add-models.js?ver=202009111345';
-import {animate_cylinder_floor_numbers} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202009111345';
-import {floor_numbers_visibility_by_zoom} from './modules/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202009111345';
-import {add_mouse_n_touches} from './modules/controls/mouse-n-touches.js?ver=202009111345';
-import {add_filter} from "./modules/filter/filter.js";
+import {PerspectiveCamera_init} from './modules/core/camera.js?ver=202009111345';
+import {controls_init} from './modules/core/controls/controls.js?ver=202009111345';
+import {add_models} from './modules/individual/add-models.js?ver=202009111345';
+import {animate_cylinder_floor_numbers} from './modules/core/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202009111345';
+import {floor_numbers_visibility_by_zoom} from './modules/core/cylinder-floor-numbers/add-cylinder-floor-numbers.js?ver=202009111345';
+import {add_mouse_n_touches} from './modules/core/controls/mouse-n-touches.js?ver=202009111345';
+import {add_filter} from "./modules/core/filter/filter.js";
 import { GUI } from './node_modules/three/examples/jsm/libs/dat.gui.module.js';
 import { CSS2DRenderer, CSS2DObject } from './node_modules/three/examples/jsm/renderers/CSS2DRenderer.js';
 import { CSS3DRenderer, CSS3DObject } from './node_modules/three/examples/jsm/renderers/CSS3DRenderer.js';
-import {dictionary_array} from "./modules/language/dictionary.js";
+import {dictionary_array} from "./modules/core/language/dictionary.js";
 import { EffectComposer } from './node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './node_modules/three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
-import { applyNow} from './modules/apply-now/applyNow.js';
+import { applyNow} from './modules/core/apply-now/applyNow.js';
+
+import {cardsInfoHTML} from "./modules/core/cardsHtml/cardsInfo.js";
+import {cardsInfoSettings} from "./modules/individual/cardsHtml/cardsInfo.js";
+import {settingsGui} from './modules/core/settingsGui/settingsGui.js'
+import * as animations from "./modules/core/camera/animation.js";
 
 // street names and position angle
 
-import {street_names_n_positions_angle} from './modules/street-names/names-angle.js';
-import {getCookie, setCookie} from "./js/setAndGetCookies.js";
+import {street_names_n_positions_angle} from './modules/core/street-names/names-angle.js';
+import {getCookie, setCookie} from "./modules/core/cookies/setAndGetCookies.js";
+
+
+globalFunctions.cardsInfoHTML = cardsInfoHTML;
+globalFunctions.animateTo = animations.animateTo;
+globalFunctions.setAllDefaultWorldPositions = animations.setAllDefaultWorldPositions;
+globalFunctions.setDefaultWorldPosition = animations.setDefaultWorldPosition;
+globalSettings.cardsInfoSettings = cardsInfoSettings;
 
 dictionary = dictionary_array;
 global_three = THREE;

@@ -21,6 +21,8 @@
         min-width: initial;
         flex-wrap: wrap;
         background-color: white;
+        left: 0!important;
+        right: 0!important;
     }
 
     .filter-module-container.open:after {
@@ -34,6 +36,7 @@
 
     .filter-module-container.open.flat-cards-open {
         bottom: 60px;
+        background-color: transparent;
     }
     .filter-module-container.transition-off * {
         transition: none!important;
@@ -110,8 +113,16 @@
         z-index: 4;
         width: 100%;
     }
+    .filter-module-container.full-window .filter-controls-wrap {
 
-    .filter-module-container.full-window .filter-controls > div:not(:last-child) {
+        flex-wrap: wrap;
+    }
+
+    .filter-module-container.full-window .nfm-sorting-box .sorting-list {
+        padding-top: 30px;
+    }
+
+    .filter-module-container.full-window .filter-controls-wrap > div:not(:last-child) {
         border-bottom: 1px solid silver;
         padding-bottom: 10px;
         margin-bottom: 0;
@@ -120,7 +131,7 @@
     .nmf-range-selector-box.disabled .nfm-selected {
         display: none;
     }
-    .filter-module-container.full-window .filter-controls > * {
+    .filter-module-container.full-window .filter-controls-wrap > * {
         position: relative;
         bottom: 0;
         left: 0;
@@ -138,7 +149,7 @@
     }
 
 
-    .filter-module-container .filter-controls > * {
+    .filter-module-container .filter-controls-wrap > * {
         position: absolute;
         bottom: -200px;
     }
@@ -150,7 +161,7 @@
         margin-right: 0;
     }
 
-    .filter-module-container .filter-controls > *.mobile-open {
+    .filter-module-container:not(.full-window) .filter-controls-wrap > *.mobile-open {
         bottom: 0;
         height: 100%;
         width: 100%;
@@ -159,15 +170,18 @@
         color: #1A2F43;
         font-weight: 600;
         transition: 0.5s;
+        min-width: initial;
     }
-
+    .filter-module-container .filter-controls .filter-controls-wrap {
+        width: 100%;
+    }
     .filter-module-container .filter-controls .nfm-sorting-box {
         background-color: white;
         color: #1a2f43;
         padding-left: 20px;
     }
 
-    .filter-module-container.full-window .filter-controls > *.mobile-open {
+    .filter-module-container.full-window .filter-controls-wrap > *.mobile-open {
         height: auto;
     }
 
@@ -215,6 +229,10 @@
         margin-top: 10px;
         width: 85%;
     }
+    body #sort-item-salePrice .nmf-range-selector {
+
+        width: 85%;
+    }
 
     .filter-module-container .filter-controls-tabs .controls-tab.active {
         border-bottom: 2px solid #020020;
@@ -233,8 +251,14 @@
     .nfm-sorting-box .sort-btn-item.active .ic {
         opacity: 1;
     }
-    .nfm-sorting-box .sorting-list .sorting-group {
+    .nfm-sorting-box .sorting-list {
 
+    }
+    .nfm-sorting-box .sorting-list {
+
+        flex-wrap: wrap;
+
+        padding-top: 0;
     }
     .nfm-sorting-box .sorting-list .sorting-group .sort-btn-item:nth-child(1) {
         /* margin: 0; */
@@ -449,17 +473,19 @@
     .mobile-btns-row .reset-filter .text {
         margin: auto 0;
     }
-    .he .filter-module-container .filter-controls > *.mobile-open {
+    .he .filter-module-container .filter-controls-wrap > *.mobile-open {
         padding-left: 0;
-        padding-right: 20px;
+        margin-right: 20px;
+        padding-right: 0;
     }
     .he .filter-module-container .filter-controls .nfm-sorting-box {
         padding-left: 0;
-        padding-right: 20px;
+        /* padding-right: 20px; */
     }
     .he  .filter-module-container.full-window .filter-controls .nmf-range-selector-box {
         padding-left: 0;
         padding-right: 19px;
+        margin-right: 0;
     }
     .he .filter-module-container.full-window .filter-controls .true-false-toggler {
         padding-left: 0;
@@ -481,7 +507,7 @@
     }
     body.he .nfm-sorting-box .sort-btn-item {
         margin-right: 0;
-        margin-left: 20px;
+        margin-left: 0;
     }
     body.he .nmf-range-selector-box .nmf-range-selector {
         right: -13px;
