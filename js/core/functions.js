@@ -496,7 +496,7 @@ function set_appartment_data_in_block (appartment, box) {
             current_apt_title = apt_title_text_he;
         }
         let apt_title = '' +
-            '<div class="title-text-row"><span class="title-text language-string" data-he="' + apt_title_text_he + '" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
+            '<div class="title-text-row"><span class="title-text language-string" ээdata-he="' + apt_title_text_he + '" data-en="' + apt_title_text +'">' + current_apt_title + '</span>' +
             '<span class="type">' +  appartment.userData.crm_data.modelName + '</span>' +
             '<span class="number">' + appartment.userData.crm_data.propNum + '</span>' +
             '</div>';
