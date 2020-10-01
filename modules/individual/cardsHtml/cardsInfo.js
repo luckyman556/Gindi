@@ -66,7 +66,7 @@ export const cardsInfoSettings = {
         {
             'crmName' : 'balconySize',
             'imgUrl' : './img/balcony-ic.svg',
-            'dictionary' : 'exposure',
+            'dictionary' : 'Exposure',
             'boolCallback' : function (data) {
                 if (data > 0) {
                     return true;
