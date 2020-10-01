@@ -19,39 +19,44 @@ export function applyNow (parent) {
   const closeBtn = creatHtmlElement(parent,'','div',['apply-btn__close']);
   closeBtn.setAttribute('id','applyCloseBtn');
   const titleContainer = creatHtmlElement(contentWrapper,'','div',['apply__title-container']);
-  const title = creatHtmlElement(titleContainer,'Want to find out more?','h2',['apply__title']);
-  const span = creatHtmlElement(titleContainer,'Click here to get in touch with us and receive a quote','span',['apply__sub-title']);
+  const title = creatHtmlElement(titleContainer,'Get in touch today','h2',['apply__title','language-string']);
+  title.dataset.en = 'Get in touch today';
+  title.dataset.he = 'צרו איתנו קשר עכשיו';
+  const span = creatHtmlElement(titleContainer,'Our customer service representatives are happy to help 24/7','span',['apply__sub-title','language-string']);
+  span.dataset.en = 'Our customer service representatives are happy to help 24/7';
+  span.dataset.he = 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7';
+
   //Icons
   const socialIcons = creatHtmlElement(contentWrapper,'','ul',['apply__social-icons']);
   const iconsArray =[
     {
       name: 'Messenger',
-      href: '#'
+      href: 'https://m.me/Gindi.Tel.Aviv'
     },
-    {
-      name: 'Chat',
-      href: '#',
-    },
+    // {
+    //   name: 'Chat',
+    //   href: '#',
+    // },
     {
       name: 'Whatsapp',
-      href: '#'
+      href: 'https://wa.me/972548620020'
     },
-    {
-      name: 'E-mail',
-      href: '#'
-    },
+    // {
+    //   name: 'E-mail',
+    //   href: '#'
+    // },
     {
       name: 'SMS',
-      href: '#'
+      href: 'tel:972524037449'
     },
     {
       name: 'Phone',
-      href: '#'
+      href: 'tel:0747290013'
     },
-    {
-      name: 'Video Chat',
-      href: '#'
-    },
+    // {
+    //   name: 'Video Chat',
+    //   href: '#'
+    // },
   ];
   iconsArray.forEach(icon=>{
     const socialIconItem = creatHtmlElement(socialIcons,'','li',['apply__social-icon__item']);
@@ -65,11 +70,11 @@ export function applyNow (parent) {
   });
   //separator
   const separatorContainer = creatHtmlElement(contentWrapper,'','div',['apply__separator-container']);
-  creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
-  const separatorText = creatHtmlElement(separatorContainer,'or','span',['apply__separator-text']);
-  creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
+  // creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
+  // const separatorText = creatHtmlElement(separatorContainer,'or','span',['apply__separator-text']);
+  // creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
   // last title to form
-  const childTitle = creatHtmlElement(contentWrapper,'Prefer we get back to you with a customized quote?','h3',['apply__form-titlle']);
+  // const childTitle = creatHtmlElement(contentWrapper,'Prefer we get back to you with a customized quote?','h3',['apply__form-titlle']);
   closeBtn.addEventListener('click',closeBtnHandler);
 }
 

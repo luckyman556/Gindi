@@ -163,4 +163,12 @@ export let dictionary_array = {
         'he': 'שטח מרפסת',
         'en': 'balcony size'
     },
+    'Get in touch today':{
+        'he': 'צרו איתנו קשר עכשיו',
+        'en': 'Get in touch today'
+    },
+    'Our customer service representatives are happy to help 24/7':{
+        'he': 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7',
+        'en':'Our customer service representatives are happy to help 24/7',
+    },
 }
