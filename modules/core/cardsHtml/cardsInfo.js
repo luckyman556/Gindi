@@ -56,7 +56,7 @@ export const cardsInfoHTML = {
                         <div class="icon">
                             <img src="${option.imgUrl}" alt="">
                         </div>
-                        <span class="bottom">${crmDataHtml}</span></div>
+                        <span class="bottom">${crmDataHtml}</span></div>            
                          <div class="text"><span class="top language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</span></div>
                     </div>
                 `

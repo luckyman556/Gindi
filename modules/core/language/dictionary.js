@@ -63,6 +63,10 @@ export let dictionary_array = {
         'he' : 'קומה',
         'en' : 'floor'
     },
+    'floor-upper': {
+        'he': 'קומה',
+        'en': 'Floor'
+    },
     'Back' : {
         'he' : 'חזור',
         'en' : 'Back'
@@ -167,8 +171,52 @@ export let dictionary_array = {
         'he': 'צרו איתנו קשר עכשיו',
         'en': 'Get in touch today'
     },
-    'Our customer service representatives are happy to help 24/7':{
+    'Our customer service':{
         'he': 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7',
         'en':'Our customer service representatives are happy to help 24/7',
+    },
+    '2D': {
+      'he': '2D',
+      'en': '2D',
+    },
+    'gallery3D': {
+        'he': 'הדמיה',
+        'en': 'gallery',
+    },
+    '360': {
+        'he': '360',
+        'en': '360',
+    },
+    'zoom': {
+        'he': 'זום ע"י גלגלת העכבר',
+        'en': 'zoom',
+    },
+    '360-roof': {
+        'he': 'סיור על הגג',
+        'en': '360 Roof',
+    },
+    '360-lobby': {
+        'he': 'סיור בקומת קרקע',
+        'en': '360 Lobby'
+    },
+    'clear-filters': {
+        'he': 'אפס חיפוש',
+        'en': 'Clear filters',
+    },
+    'price-from': {
+        'he': 'החל מ -',
+        'en': 'from',
+    },
+    'flat-area': {
+        'he': 'אֵזוֹר',
+        'en': 'area'
+    },
+    'Tours': {
+        'he': 'סיור',
+        'en': 'Tour'
+    },
+    'sqm': {
+        'he': 'מ"ר',
+        'en': 'sqm'
     },
 }
