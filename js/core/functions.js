@@ -2691,7 +2691,7 @@ function update_flat_labels (dynamic = false) {
                     }
                     let inner_html = `
                         <div class="floor-center-text">
-                            <div class="text language-string" data-he="קומה" data-en="Floor">${floor_text}</div>
+                            <div class="text language-string" data-dictionary="floor-upper">${floor_text}</div>
                             <div class="number">${floor_number}</div>
                          </div>
                     `;

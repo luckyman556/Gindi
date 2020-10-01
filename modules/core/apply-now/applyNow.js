@@ -20,11 +20,9 @@ export function applyNow (parent) {
   closeBtn.setAttribute('id','applyCloseBtn');
   const titleContainer = creatHtmlElement(contentWrapper,'','div',['apply__title-container']);
   const title = creatHtmlElement(titleContainer,'Get in touch today','h2',['apply__title','language-string']);
-  title.dataset.en = 'Get in touch today';
-  title.dataset.he = 'צרו איתנו קשר עכשיו';
+  title.dataset.dictionary = 'Get in touch today';
   const span = creatHtmlElement(titleContainer,'Our customer service representatives are happy to help 24/7','span',['apply__sub-title','language-string']);
-  span.dataset.en = 'Our customer service representatives are happy to help 24/7';
-  span.dataset.he = 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7';
+  span.dataset.dictionary = 'Our customer service';
 
   //Icons
   const socialIcons = creatHtmlElement(contentWrapper,'','ul',['apply__social-icons']);

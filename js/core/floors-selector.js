@@ -29,7 +29,7 @@ $.fn.floors_selector = function() {
             }
             let floor_btn_html = `<div class="floor-btn floor-${index}" data-floor="${index}">
             <span class="number">${floor_number  }</span>
-            <span class="text language-string" data-he="קומה" data-en="Floor">Floor</span>
+            <span class="text language-string" data-dictionary="floor-upper">Floor</span>
         </div>`;
             container.container_html += floor_btn_html;
         });
