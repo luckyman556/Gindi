@@ -771,9 +771,10 @@ $(document).ready(function(){
     });
 
     $('.floor-plan-toggler').click(function(){
-        if (floor_plan_btn_last_click + 1000 < Date.now()) {
+        if (floor_plan_btn_last_click + 1050 < Date.now()) {
             $(this).toggleClass('active');
-            $('.flat-bubble').removeClass('show');
+          //  $('.flat-bubble').removeClass('show');
+            globalFunctions.flatBubble.hide();
            $('.bomb-btn').trigger('click');
             floor_plan_btn_last_click =  Date.now();
         }
@@ -936,7 +937,7 @@ $(document).ready(function(){
             $(this).addClass('active');
         }
     });
-    new ClipboardJS('.flat-bubble');
+    //new ClipboardJS('.flat-bubble');
     $('.ui-hide').click(function(){
         $('.non-canvas').toggle();
         if ($(this).hasClass('active')) {

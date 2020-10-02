@@ -115,104 +115,106 @@ export function add_mouse_n_touches () {
     }
 
     function flat_mouse_click (e) {
-        if (e.changedTouches) {
-            if ($(e.target).parents('.non-canvas').length > 0) {
-                return false;
-            }
-            if ($(e.target).hasClass('non-canvas')) {
-                return false;
-            }
-        }
-        checkIntersection();
-        intersection_on = false;
-        set_click_point_coords(e);
-        if (picked_object != undefined) {
-            if (picked_object.userData.crm_data != undefined) {
-                last_clicked_flat = picked_object;
-                if (last_clicked_flat.userData.crm_data.status == 'Available') {
-                    this_is_flat_click = true;
-                } else {
-                    this_is_flat_click = true;
+        if (flatClickHandler) {
+            if (e.changedTouches) {
+                if ($(e.target).parents('.non-canvas').length > 0) {
+                    return false;
                 }
-                if (drag_move != true) {
-                    if (e.type == 'mouseup') {
-                        if (e.which == 1) {
-                            click_handler ();
-                        }
-                    }
-                    if (e.type == 'touchend') {
-                        picked_object.material.opacity = standard_flat_opacity;
-                        if (two_touches != true) {
-                            click_handler ();
-                        }
-                    }
-                } else {
-                    drag_move = false;
+                if ($(e.target).hasClass('non-canvas')) {
+                    return false;
                 }
+            }
+            checkIntersection();
+            intersection_on = false;
+            set_click_point_coords(e);
+            if (picked_object != undefined) {
+                if (picked_object.userData.crm_data != undefined) {
+                    last_clicked_flat = picked_object;
+                    if (last_clicked_flat.userData.crm_data.status == 'Available') {
+                        this_is_flat_click = true;
+                    } else {
+                        this_is_flat_click = true;
+                    }
+                    if (drag_move != true) {
+                        if (e.type == 'mouseup') {
+                            if (e.which == 1) {
+                                click_handler ();
+                            }
+                        }
+                        if (e.type == 'touchend') {
+                            picked_object.material.opacity = standard_flat_opacity;
+                            if (two_touches != true) {
+                                click_handler ();
+                            }
+                        }
+                    } else {
+                        drag_move = false;
+                    }
 
-                function click_handler () {
-                    let filter_container = document.querySelector('.main-wrap');
-                    if (filter_container.filter_active) {
-                        if (document.querySelector('.filter-module-container.open')) {
-                            if ($('.filter-controls.on-back').length > 0) {
-                                let card_id = picked_object.userData.crm_data.bmbyPropID;
-                                // $('.card-' + card_id).click();
-                                window.card_clicked = false;
-                                var popup_info = $('.popup-info');
-                                set_appartment_data_in_block (picked_object, popup_info);
-                                trigger_card_click ();
-                                function trigger_card_click () {
-                                    $('.card-' + card_id).click();
-                                    if (!window.card_clicked) {
-                                        setTimeout(function(){
-                                            trigger_card_click ();
-                                        },100);
+                    function click_handler () {
+                        let filter_container = document.querySelector('.main-wrap');
+                        if (filter_container.filter_active) {
+                            if (document.querySelector('.filter-module-container.open')) {
+                                if ($('.filter-controls.on-back').length > 0) {
+                                    let card_id = picked_object.userData.crm_data.bmbyPropID;
+                                    // $('.card-' + card_id).click();
+                                    window.card_clicked = false;
+                                    var popup_info = $('.popup-info');
+                                    set_appartment_data_in_block (picked_object, popup_info);
+                                    trigger_card_click ();
+                                    function trigger_card_click () {
+                                        $('.card-' + card_id).click();
+                                        if (!window.card_clicked) {
+                                            setTimeout(function(){
+                                                trigger_card_click ();
+                                            },100);
+                                        }
                                     }
+                                    $('.main-wrap')[0].set_scroll_on_card(card_id);
+                                } else {
+                                    flat_click(picked_object);
                                 }
-                                $('.main-wrap')[0].set_scroll_on_card(card_id);
                             } else {
                                 flat_click(picked_object);
                             }
                         } else {
                             flat_click(picked_object);
                         }
-                    } else {
-                        flat_click(picked_object);
                     }
+
+                } else {
+                    this_is_flat_click = false;
+                }
+                if (picked_object.userData.lobby_or_roof != undefined) {
+                    this_is_flat_click = 'roof_n_looby';
+                    let clicked_object = $('.click-point');
+                    lobby_n_roof_click(picked_object, e, clicked_object);
                 }
 
             } else {
                 this_is_flat_click = false;
             }
-            if (picked_object.userData.lobby_or_roof != undefined) {
-                this_is_flat_click = 'roof_n_looby';
-                let clicked_object = $('.click-point');
-                lobby_n_roof_click(picked_object, e, clicked_object);
-            }
+            touch_event_runing = false;
+            drag_move = false;
+            if (window.floor_number_object) {
+                if (!drag_move) {
+                    let floor_i = window.floor_number_object.userData.floor_i;
+                    if (!lock_mouse_rotation_x) {
+                        last_clicked_flat = window.floor_obj[floor_i][0];
+                        current_floor = floor_i;
+                        let bomb_btn = $('.bomb-btn');
+                        bomb_btn.trigger('click');
+                        $('.floor-plan-toggler').addClass('active');
+                        new_floor_selector_obj.set_current_floor(floor_i);
+                        new_floor_selector_obj.temp_floor_index = floor_i;
+                        new_floor_selector_obj.set_building_changes(floor_i);
+                    } else {
+                        new_floor_selector_obj.set_current_floor(floor_i);
+                        new_floor_selector_obj.temp_floor_index = floor_i;
+                        new_floor_selector_obj.set_building_changes(floor_i);
 
-        } else {
-            this_is_flat_click = false;
-        }
-        touch_event_runing = false;
-        drag_move = false;
-        if (window.floor_number_object) {
-            if (!drag_move) {
-                let floor_i = window.floor_number_object.userData.floor_i;
-                if (!lock_mouse_rotation_x) {
-                    last_clicked_flat = window.floor_obj[floor_i][0];
-                    current_floor = floor_i;
-                    let bomb_btn = $('.bomb-btn');
-                    bomb_btn.trigger('click');
-                    $('.floor-plan-toggler').addClass('active');
-                    new_floor_selector_obj.set_current_floor(floor_i);
-                    new_floor_selector_obj.temp_floor_index = floor_i;
-                    new_floor_selector_obj.set_building_changes(floor_i);
-                } else {
-                    new_floor_selector_obj.set_current_floor(floor_i);
-                    new_floor_selector_obj.temp_floor_index = floor_i;
-                    new_floor_selector_obj.set_building_changes(floor_i);
-
-                    current_floor = floor_i;
+                        current_floor = floor_i;
+                    }
                 }
             }
         }

@@ -1487,6 +1487,8 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
             model_loaded = true;
 
+
+
             add_cylinder_floor_numbers();
             floors_height_positions = [];
             window.floor_obj.forEach(function(floor){
@@ -1504,6 +1506,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             globalFunctions.setAllDefaultWorldPositions(scene);
             let defaultData = globalSettings.animations.defaultForeshortening;
             globalFunctions.animateTo(defaultData.position, defaultData.rotation, defaultData.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+            globalFunctions.flatBubble.init();
         }, 1000);
     }
         }, 100)

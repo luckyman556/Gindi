@@ -26,6 +26,7 @@ import {cardsInfoHTML} from "./modules/core/cardsHtml/cardsInfo.js";
 import {cardsInfoSettings} from "./modules/individual/cardsHtml/cardsInfo.js";
 import {settingsGui} from './modules/core/settingsGui/settingsGui.js'
 import * as animations from "./modules/core/camera/animation.js";
+import {flatBubble} from "./modules/core/flatBubble/flatBubble.js";
 
 // street names and position angle
 
@@ -37,6 +38,7 @@ globalFunctions.cardsInfoHTML = cardsInfoHTML;
 globalFunctions.animateTo = animations.animateTo;
 globalFunctions.setAllDefaultWorldPositions = animations.setAllDefaultWorldPositions;
 globalFunctions.setDefaultWorldPosition = animations.setDefaultWorldPosition;
+globalFunctions.flatBubble = flatBubble;
 globalSettings.cardsInfoSettings = cardsInfoSettings;
 
 dictionary = dictionary_array;
@@ -540,8 +542,8 @@ function animate() {
                     $('.preloader').addClass('completed');
                     $('.preloader .to-page').trigger('click');
                     progress_bar_update_bool = false;
-
-                    flat_number_bubble('hide');
+                    globalFunctions.flatBubble.hide();
+                    //flat_number_bubble('hide');
                     {
                         const queryString = window.location.search;
                         const urlParams = new URLSearchParams(queryString);

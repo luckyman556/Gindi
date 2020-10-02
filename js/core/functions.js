@@ -119,8 +119,9 @@ var dictionary;
 var crmStatusLoadBool = false;
 var progressLoaderObj = {};
 var globalFunctions = {};
-
-
+var lastSearchCardClick = Date.now();
+var flatClickHandler = true;
+var intersectionHandler = true;
 
 function animate_obj_scale(target_scale, obj, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
@@ -269,92 +270,93 @@ function update_click_intersection () {
 }
 
 function flat_click (appartment, without_card = false , disableAnyAnimation = false) {
+    if (flatClickHandler) {
+        $('.pulse').addClass("run-animation");
+        setTimeout(function(){
+            $('.pulse').removeClass("run-animation");
+        },50);
+        //$('.flat-bubble').trigger('click');
 
-    $('.pulse').addClass("run-animation");
-    setTimeout(function(){
-        $('.pulse').removeClass("run-animation");
-    },50);
-    $('.flat-bubble').trigger('click');
+        $('.flat_status_2d_css').removeClass('current');
+        $(flat_labels_group[appartment.userData.flat_i].element).addClass('current')
 
-    $('.flat_status_2d_css').removeClass('current');
-    $(flat_labels_group[appartment.userData.flat_i].element).addClass('current')
-
-    var floor_index = appartment.userData.floor;
-    var colored_floors = [floor_index];
-    var floor = appartment.userData.floor;
-    update_click_intersection();
-    if (lock_mouse_rotation_x != true) {
-        current_floor = floor;
-        // animate_height_on_floor(appartment.userData.floor,  1000,  0,  TWEEN.Easing.Sinusoidal.InOut);
-        // destroy_building(current_floor);
-        set_floor_status_color (colored_floors);
-    }  else {
-        console.log(disableAnyAnimation)
-        if (!disableAnyAnimation) {
-            set_camera_on_flat(appartment);
-        }
-
-        if (current_floor < appartment.userData.floor) {
-
-
-        } else {
-            colored_floors[1] = current_floor_before_minus;
-
+        var floor_index = appartment.userData.floor;
+        var colored_floors = [floor_index];
+        var floor = appartment.userData.floor;
+        update_click_intersection();
+        if (lock_mouse_rotation_x != true) {
+            current_floor = floor;
+            // animate_height_on_floor(appartment.userData.floor,  1000,  0,  TWEEN.Easing.Sinusoidal.InOut);
+            // destroy_building(current_floor);
             set_floor_status_color (colored_floors);
-            if (current_floor != appartment.userData.floor) {
-                current_floor = appartment.userData.floor;
-                hide_all_labels();
-                destroy_building(current_floor);
+        }  else {
+            console.log(disableAnyAnimation)
+            if (!disableAnyAnimation) {
+                set_camera_on_flat(appartment);
             }
 
+            if (current_floor < appartment.userData.floor) {
 
-            // animate_height_on_floor(appartment.userData.floor);
-        }
-
-    }
-    set_floor_n_appartment (appartment.userData.floor, appartment.userData.flat_i);
-    // appartment.userData.apartment_locked = true;
-    appartment.userData.color_locked = true;
-    update_line_position();
-    if (!without_card) {
-        var popup_info = $('.popup-info');
-        set_appartment_data_in_block (appartment, popup_info);
-        /*    $('.point-1').fadeIn();
-            $('.point-2').fadeIn();
-            $('.points-line').removeClass('hide');*/
-        // window.last_clicked_point_css.visible = true;
-        popup_info.addClass('show');
-
-
-        if ($(window).width() < 1024) {
-            if ($('body').hasClass('mini-card-open') == true) {
 
             } else {
-                $('body').addClass('mini-card-open');
-                new_floor_selector_obj.rebuild();
-            }
-            if ($('.search-btn').hasClass('open') == true) {
-                $('.search-btn .current-part').trigger('click');
-            }
-        }
-        popup_info.removeClass('hide');
-    }
+                colored_floors[1] = current_floor_before_minus;
 
-    if (!disableAnyAnimation) {
-        if (!lock_mouse_rotation_x) {
-            rotation_to_flat();
+                set_floor_status_color (colored_floors);
+                if (current_floor != appartment.userData.floor) {
+                    current_floor = appartment.userData.floor;
+                    hide_all_labels();
+                    destroy_building(current_floor);
+                }
+
+
+                // animate_height_on_floor(appartment.userData.floor);
+            }
+
         }
-    }
-    if (globalSettings.flat_focus) {
-        if (lock_mouse_rotation_x) {
-            if (!disableAnyAnimation) {
-                globalFunctions.animateTo(appartment.userData.defaultWorldPosition, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
+        set_floor_n_appartment (appartment.userData.floor, appartment.userData.flat_i);
+        // appartment.userData.apartment_locked = true;
+        appartment.userData.color_locked = true;
+        update_line_position();
+        if (!without_card) {
+            var popup_info = $('.popup-info');
+            set_appartment_data_in_block (appartment, popup_info);
+            /*    $('.point-1').fadeIn();
+                $('.point-2').fadeIn();
+                $('.points-line').removeClass('hide');*/
+            // window.last_clicked_point_css.visible = true;
+            popup_info.addClass('show');
+
+
+            if ($(window).width() < 1024) {
+                if ($('body').hasClass('mini-card-open') == true) {
+
+                } else {
+                    $('body').addClass('mini-card-open');
+                    new_floor_selector_obj.rebuild();
+                }
+                if ($('.search-btn').hasClass('open') == true) {
+                    $('.search-btn .current-part').trigger('click');
+                }
+            }
+            popup_info.removeClass('hide');
+        }
+
+        if (!disableAnyAnimation) {
+            if (!lock_mouse_rotation_x) {
+                rotation_to_flat();
             }
         }
+        if (globalSettings.flat_focus) {
+            if (lock_mouse_rotation_x) {
+                if (!disableAnyAnimation) {
+                    globalFunctions.animateTo(appartment.userData.defaultWorldPosition, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
+                }
+            }
+        }
+        /*    if (advanced_flat_click == true ) {
+                flat_click_animation (appartment, 'z');
+            }*/
     }
-    /*    if (advanced_flat_click == true ) {
-            flat_click_animation (appartment, 'z');
-        }*/
 }
 
 function eventFire(el, etype){
@@ -455,15 +457,22 @@ function appartment_hover (appartment) {
             last_hover_object = appartment;
             var flat_bubble = $('.flat-bubble');
             if (flat_bubble.is(":visible")) {
-                flat_number_bubble('update', appartment.children[0]);
+                globalFunctions.flatBubble.updateText(appartment);
+                globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
+                globalFunctions.flatBubble.show();
+                //flat_number_bubble('update', appartment.children[0]);
             } else {
-                flat_number_bubble('update', appartment.children[0]);
-                flat_number_bubble('show', appartment.children[0]);
+                globalFunctions.flatBubble.updateText(appartment);
+                globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
+                globalFunctions.flatBubble.show();
+/*                flat_number_bubble('update', appartment.children[0]);
+                flat_number_bubble('show', appartment.children[0]);*/
             }
         } else {
             var flat_bubble = $('.flat-bubble');
             if (flat_bubble.is(":visible")) {
-                flat_number_bubble('hide', last_hover_object.children[0]);
+                globalFunctions.flatBubble.hide();
+                //flat_number_bubble('hide', last_hover_object.children[0]);
             }
             appartment_hoverout(last_hover_object);
         }
@@ -803,93 +812,96 @@ function resizeRendererToDisplaySize(renderer,composer) {
 
 
 function checkIntersection() {
-    if (mouse.x != 0 || mouse.y != 0) {
-        var intersects = raycaster.intersectObjects(objects_to_intersection, false);
-        if (intersects.length > 0) {
-            var selectedObject = intersects[0].object;
-            picked_object = selectedObject;
-            if (drag_move != true) {
-                if (selectedObject.userData.crm_data != undefined) {
-                    last_flat_intersection_point = intersects[0].point;
+    if (intersectionHandler) {
+        if (mouse.x != 0 || mouse.y != 0) {
+            var intersects = raycaster.intersectObjects(objects_to_intersection, false);
+            if (intersects.length > 0) {
+                var selectedObject = intersects[0].object;
+                picked_object = selectedObject;
+                if (drag_move != true) {
+                    if (selectedObject.userData.crm_data != undefined) {
+                        last_flat_intersection_point = intersects[0].point;
 
-                    if (last_hover_object != undefined) {
-                        if (selectedObject != last_hover_object) {
-                            appartment_hoverout(last_hover_object);
-                            appartment_hover(selectedObject);
+                        if (last_hover_object != undefined) {
+                            if (selectedObject != last_hover_object) {
+                                appartment_hoverout(last_hover_object);
+                                appartment_hover(selectedObject);
+                            } else {
+                                appartment_hover(selectedObject);
+                            }
                         } else {
                             appartment_hover(selectedObject);
+                            window.hover_object = selectedObject;
                         }
+                        // appartment_hoverout(window.lobby);
+                        // appartment_hoverout(window.roof);
                     } else {
-                        appartment_hover(selectedObject);
-                        window.hover_object = selectedObject;
+                        if (selectedObject.userData.lobby_or_roof == true) {
+                            last_flat_intersection_point = intersects[0].point;
+                        }
+                        if (selectedObject.userData.lobby_or_roof != undefined) {
+                            appartment_hover(selectedObject);
+                        } else {
+                            not_flat_function();
+                        }
                     }
-                    // appartment_hoverout(window.lobby);
-                    // appartment_hoverout(window.roof);
                 } else {
-                    if (selectedObject.userData.lobby_or_roof == true) {
-                        last_flat_intersection_point = intersects[0].point;
-                    }
-                    if (selectedObject.userData.lobby_or_roof != undefined) {
-                        appartment_hover(selectedObject);
-                    } else {
-                        not_flat_function();
-                    }
+                    not_flat_function()
                 }
+
             } else {
-                not_flat_function()
+                not_flat_function();
             }
 
-        } else {
-            not_flat_function();
-        }
-
-        function not_flat_function() {
-            picked_object = undefined;
+            function not_flat_function() {
+                picked_object = undefined;
 
 
-            if (window.floor_numbers_intersection) {
-                document.querySelector('#c').style.cssText = '';
-            }
-            all_appartments.forEach(function (appartment, ap_index) {
-                if (appartment.userData.color_locked != true) {
-                    appartment_hoverout(appartment);
-                } else {
-
+                if (window.floor_numbers_intersection) {
+                    document.querySelector('#c').style.cssText = '';
                 }
-            });
-            flat_number_bubble('hide');
-            if (last_hover_object != undefined) {
-                if (selectedObject != last_hover_object) {
-                    if (last_hover_object.userData != undefined) {
-                        appartment_hoverout(last_hover_object);
+                all_appartments.forEach(function (appartment, ap_index) {
+                    if (appartment.userData.color_locked != true) {
+                        appartment_hoverout(appartment);
+                    } else {
+
+                    }
+                });
+                globalFunctions.flatBubble.hide();
+               // flat_number_bubble('hide');
+                if (last_hover_object != undefined) {
+                    if (selectedObject != last_hover_object) {
+                        if (last_hover_object.userData != undefined) {
+                            appartment_hoverout(last_hover_object);
+                        }
                     }
                 }
             }
-        }
 
-        {
-            // intersection for floor numbers
-            if (window.text_groups) {
-                let intersects = raycaster.intersectObjects(window.text_groups, true);
-                if(intersects.length) {
-                    if (intersects[0].object.name == 'text') {
-                        window.floor_numbers_intersection = true;
-                        document.querySelector('#c').style.cssText = 'cursor : pointer';
-                        window.floor_number_object = intersects[0].object.parent;
-                    }  else {
+            {
+                // intersection for floor numbers
+                if (window.text_groups) {
+                    let intersects = raycaster.intersectObjects(window.text_groups, true);
+                    if(intersects.length) {
+                        if (intersects[0].object.name == 'text') {
+                            window.floor_numbers_intersection = true;
+                            document.querySelector('#c').style.cssText = 'cursor : pointer';
+                            window.floor_number_object = intersects[0].object.parent;
+                        }  else {
+                            window.floor_numbers_intersection = false;
+                            document.querySelector('#c').style.cssText = '';
+                            window.floor_number_object = undefined;
+                        }
+
+                    } else {
                         window.floor_numbers_intersection = false;
                         document.querySelector('#c').style.cssText = '';
                         window.floor_number_object = undefined;
                     }
-
-                } else {
-                    window.floor_numbers_intersection = false;
-                    document.querySelector('#c').style.cssText = '';
-                    window.floor_number_object = undefined;
                 }
             }
-        }
 
+        }
     }
 }
 
@@ -1509,12 +1521,13 @@ function flat_number_bubble (action = 'show', intersection_object = null) {
 
 function set_flat_number_bubble_position (intersection_object) {
     var intersection_point = intersection_object.getWorldPosition(window.vector_point);
-    var bubble = $('.flat-bubble');
+   // var bubble = $('.flat-bubble');
     var canvas_point = get_canvas_coords (intersection_point);
-    bubble.css({
+    globalFunctions.flatBubble.updatePosition(canvas_point[0], canvas_point[1])
+/*    bubble.css({
         'top' :  canvas_point[0],
         'left' :  canvas_point[1],
-    });
+    });*/
 }
 
 function get_canvas_coords (intersection_point) {
@@ -2115,7 +2128,9 @@ function popup_disappear(data, mouse_event) {
 
 function popup_appear(data, mouse_event) {
     if (last_hover_object != undefined) {
-        flat_number_bubble('hide', last_hover_object.children[0]);
+        globalFunctions.flatBubble.updateText(last_hover_object);
+        globalFunctions.flatBubble.hide();
+        //flat_number_bubble('hide', last_hover_object.children[0]);
     }
     var popup = data.popup;
     // TWEEN.removeAll();
@@ -3133,23 +3148,28 @@ function rotation_to_flat () {
             var delay = 0;
             var animation = new TWEEN.Tween({target_y: window.camera_target.position.y}).to({target_y: target_y}, r_animate_duration);
 
-            var bubble = $('.flat-bubble');
+            //var bubble = $('.flat-bubble');
             TWEEN.add(animation);
             animation.delay(delay);
             animation.onStart(function (e) {
                 window.rotate_to_flat = true;
+                flatClickHandler = false;
+                intersectionHandler = false;
             });
             animation.onUpdate(function (e) {
                 let new_bubble_position = toScreenPosition(last_clicked_flat);
-                bubble.css({
+                globalFunctions.flatBubble.updatePosition(new_bubble_position.y, new_bubble_position.x)
+/*                bubble.css({
                     top : new_bubble_position.y,
                     left : new_bubble_position.x
-                })
+                })*/
                 window.camera_target.position.y = e.target_y;
             });
 
             animation.onComplete(function (e) {
                 window.rotate_to_flat = false;
+                flatClickHandler = true;
+                intersectionHandler = true;
             });
             animation.easing(easing);
             animation.start();

@@ -6,40 +6,43 @@
         if (card_html.length > 0) {
             card.click(function(event){
                 window.card_clicked = true;
-                $('.nfm-flat-card.active').removeClass('active');
-                $(this).addClass('active');
-                let flat_id = $(this).attr('data-bmby-id');
-                let target_flat = window.appartments_by_bmby_id[flat_id];
-                all_appartments.forEach(function(item, index){
-                    if (item == target_flat) {
-                        $('body').attr('data-current-app-index', index);
-                    }
-                });
-                var popup_info = $('.popup-info');
-                set_appartment_data_in_block (target_flat, popup_info);
-                if (!$(event.target).hasClass('.btns-row')) {
-                    if ($(event.target).parents('.btns-row').length == 0) {
-                        if (lock_mouse_rotation_x) {
-                            let target_floor = target_flat.userData.floor;
-                            new_floor_selector_obj.set_current_floor(target_floor);
-                            new_floor_selector_obj.temp_floor_index = target_floor;
-                            new_floor_selector_obj.set_building_changes(target_floor);
-                            current_floor = target_floor;
-                            flat_click(target_flat, true);
-                            last_clicked_flat = target_flat;
-                            set_floor_status_color([current_floor]);
-                            setTimeout(function(){
-                                rotation_to_flat ();
-                            },50);
-                        } else {
-                            last_clicked_flat = target_flat
-                            current_floor = last_clicked_flat.userData.floor;
-                            set_floor_status_color([current_floor]);
-                            // flat_click(target_flat);
-                            rotation_to_flat ();
+                if (lastSearchCardClick + 1050 < Date.now()) {
+                    lastSearchCardClick = Date.now();
+                    $('.nfm-flat-card.active').removeClass('active');
+                    $(this).addClass('active');
+                    let flat_id = $(this).attr('data-bmby-id');
+                    let target_flat = window.appartments_by_bmby_id[flat_id];
+                    all_appartments.forEach(function(item, index){
+                        if (item == target_flat) {
+                            $('body').attr('data-current-app-index', index);
                         }
+                    });
+                    var popup_info = $('.popup-info');
+                    set_appartment_data_in_block (target_flat, popup_info);
+                    if (!$(event.target).hasClass('.btns-row')) {
+                        if ($(event.target).parents('.btns-row').length == 0) {
+                            if (lock_mouse_rotation_x) {
+                                let target_floor = target_flat.userData.floor;
+                                new_floor_selector_obj.set_current_floor(target_floor);
+                                new_floor_selector_obj.temp_floor_index = target_floor;
+                                new_floor_selector_obj.set_building_changes(target_floor);
+                                current_floor = target_floor;
+                                flat_click(target_flat, true);
+                                last_clicked_flat = target_flat;
+                                set_floor_status_color([current_floor]);
+                                setTimeout(function(){
+                                    rotation_to_flat ();
+                                },50);
+                            } else {
+                                last_clicked_flat = target_flat
+                                current_floor = last_clicked_flat.userData.floor;
+                                set_floor_status_color([current_floor]);
+                                // flat_click(target_flat);
+                                rotation_to_flat ();
+                            }
 
 
+                        }
                     }
                 }
             });
