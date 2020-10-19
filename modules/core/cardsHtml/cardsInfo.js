@@ -3,15 +3,22 @@ export const cardsInfoHTML = {
         let htmlForReturn = ``;
         options.forEach(function(option){
             let crmDataHtml = crmData[option.crmName];
+            if (option.callback) {
+                crmDataHtml = option.callback(crmData[option.crmName]);
+            }
+            let addToDictionary = '';
+            if (option.addToDictionary) {
+                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+            }
             let optionHtml = `
                     <div class="flat-option ${option.crmName}">
                         <div class="top-part">
                             <div class="ic"><img src="${option.imgUrl}" alt="" class="ic-img"></div>
-                            <div class="middle-text language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</div>
+                            <div class="text-box"><div class="middle-text language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</div>${addToDictionary}</div>
                             <div class="number">${crmDataHtml}</div>
                         </div>
                     </div>
-            `
+            `;
             htmlForReturn += optionHtml;
         });
         return htmlForReturn;
@@ -19,7 +26,14 @@ export const cardsInfoHTML = {
     getSearchCardOptionsHtml : function (options, crmData) {
         let htmlForReturn = ``;
         options.forEach(function(option){
-            let crmDataHtml = crmData[option.crmName];
+            let crmDataHtml = crmData[ option.crmName ];
+            if (option.callback) {
+                crmDataHtml = option.callback(crmData[ option.crmName ]);
+            }
+            let addToDictionary = '';
+            if (option.addToDictionary) {
+                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+            }
             let optionHtml = `
                     <div class="option-item">
                         <div class="top">
@@ -30,6 +44,7 @@ export const cardsInfoHTML = {
                         </div>
                         <div class="bottom">
                             <div class="text language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</div>
+                            ${addToDictionary}
                         </div>
                     </div> 
             `
@@ -50,6 +65,10 @@ export const cardsInfoHTML = {
                 if (option.callback) {
                     crmDataHtml = option.callback(crmData[option.crmName]);
                 }
+                let addToDictionary = '';
+                if (option.addToDictionary) {
+                    addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+                }
                 let optionHtml = `
                     <div class="info-item">
                         <div class="row">
@@ -57,7 +76,7 @@ export const cardsInfoHTML = {
                             <img src="${option.imgUrl}" alt="">
                         </div>
                         <span class="bottom">${crmDataHtml}</span></div>            
-                         <div class="text"><span class="top language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</span></div>
+                         <div class="text"><span class="top language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</span>${addToDictionary}</div>
                     </div>
                 `
                 htmlForReturn += optionHtml;

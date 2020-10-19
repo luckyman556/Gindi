@@ -1,116 +1,56 @@
 import * as THREE from '../../../../node_modules/three/build/three.module.js';
 import { cars_routes } from '../../../individual/live/car/cars_routes.js';
+import {carsSettings} from '../../../individual/live/car/carsSettings.js';
+import { live_element_animation } from '../rotation.js';
 
 let allCars = [];
 
 export function add_cars (texture_loader, loader, action) {
     loader.load('resources/cars/carpack.fbx', function (carPack) {
-        const cars = [
-            {
-                name: 'CarSuv',
-                position: {x: 0, y:1.2, z: 0},
-                rotation: {x: 0, y:0, z: 0},
-                scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/carsuv-opt.png',
-                lightMap: 'resources/2020/04/white-lightmap.jpg',
-                wheels: {
-                    modelName: 'WS1',
-                    amount: 4,
-                    position: [
-                        {x: 70.73445478694316, y: -72.24080427496177, z: 235.4089635738065},
-                        {x: 80.417, y: -72.370, z: -66.834},
-                        {x: -79.915, y: -74.475, z: 235.686},
-                        {x: -75.132, y: -72.635, z: -67.148}
-                    ],
-                    rotation: [
-                        {x: 0, y: 0, z: 0},
-                        {x: 0, y: 0, z: 0},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                    ],
-                },
-                clone: 2
-            },
-            {
-                name: 'CarWag',
-                position: {x: 0, y:0.5, z: 0},
-                rotation: {x: 0, y:0, z: 0},
-                scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/carwag-opt.png',
-                lightMap: 'resources/2020/04/white-lightmap.jpg',
-                wheels: {
-                    modelName: 'WW1',
-                    amount: 4,
-                    position: [
-                        {x: 74.465, y: -17.588, z: 124.264},
-                        {x: 74.465, y: -17.588, z: -186.864},
-                        {x: -84.552, y: -17.588, z: -187.520},
-                        {x: -84.552, y: -17.588, z: 127.596},
-                    ],
-                    rotation: [
-                        {x: 0, y: 0, z: 0},
-                        {x: 0, y: 0, z: 0},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                    ],
-                },
-                clone: 2
-            },
-            {
-                name: 'CarTaxi',
-                position: {x: 0, y:0.8, z: 0},
-                rotation: {x: 0, y:0, z: 0},
-                scale: {x: 0.01, y:0.01, z: 0.01},
-                map: 'resources/cars/lightmap/cartaxi-opt.png',
-                lightMap: 'resources/2020/04/white-lightmap.jpg',
-                wheels: {
-                    modelName: 'WT',
-                    amount: 4,
-                    position: [
-                        {x: 79.396, y: -54.486, z: 166.733},
-                        {x: 79.396, y: -54.486, z: -144.884},
-                        {x: -83.431, y: -54.486, z: 169.675},
-                        {x: -84.071, y: -54.486, z: -141.088},
-                    ],
-                    rotation: [
-                        {x: 0, y: 0, z: 0},
-                        {x: 0, y: 0, z: 0},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                        {x: -1.5707962335901773, y: -1.7170703597857524e-7, z: -3.0742714551122785},
-                    ],
-                },
-                clone: 2
-            },
-        ];
-        const initialCarsRotation = [1.3004297965220035, 0.23, -3.1223535, -0.8641343586856935,  -1.823423, 1.723423425345, -0.8009263232562879, -2.88055875653077543, -1.3879574656306857];
 
+        const cars = carsSettings;
         // add_new_route
 
         window.allCars = allCars;
 
         if (action === 'add' && allCars.length === 0) {
             allCars = constructNewCar(carPack, cars, texture_loader, 2);
-
-            for (let i = 0; i < allCars.length; i++) {
+            let carNumber = 0;
+            for (let i = 0; i < cars_routes.length; i++) {
                 let animation_counter = 0;
-                let car = allCars[i];
-                let route = cars_routes[i];
+                if (carNumber ===  allCars.length) {
+                    carNumber = 0;
+                }
+                console.log(allCars);
+                if (allCars[carNumber]) {
+                    let car = allCars[carNumber].clone();
+                   // car.children[0].castShadow = true;
+                    console.log(carNumber);
+                    car.name = 'routeCar' + i;
+                    let route = cars_routes[i];
+                    if (!detectMobile) {
+                        car.castShadow = true;
+                    }
+                    car.position.set(route[0].position.x, route[0].position.y, route[0].position.z);
+                    // car.rotation.y = initialCarsRotation[i];
 
-                car.position.set(route[0].position.x, route[0].position.y, route[0].position.z);
-                car.rotation.y = initialCarsRotation[i];
+                    car.userData.base_y_rotation = car.rotation.y;
+                    car.userData.base_position = car.rotation;
 
-                car.userData.base_y_rotation = car.rotation.y;
-                car.userData.base_position = car.rotation;
-
-                scene.add(car);
-                add_car_animation(car, route, animation_counter);
+                    scene.add(car);
+                    live_element_animation(car,route,animation_counter,globalSettings.live.cars.speed,2);
+                }
+                carNumber++;
             }
         } else if (action === 'remove') {
-            allCars.forEach(car => {
-                let removeCar = scene.getObjectByName(car.name);
-                removeCar.visible = false;
-                scene.remove(removeCar);
-            });
+            for (let i = 0; i < cars_routes.length; i++) {
+                let car_name = 'routeCar' + i;
+                let removeCar = scene.getObjectByName(car_name);
+                if (removeCar) {
+                    removeCar.visible = false;
+                    scene.remove(removeCar);
+                }
+            };
             allCars = [];
         }
 
@@ -182,6 +122,85 @@ function constructNewCar(carPack, cars, texture_loader) {
     return groupCarsArray;
 }
 function add_car_animation (mesh, carRoute, animation_counter) {
+    let speedBase = 30;
+    let second_point_count = animation_counter + 2;
+    if (second_point_count >= carRoute.length) {
+        second_point_count = 0;
+    }
+    let second_point = carRoute[second_point_count].position;
+    let nextCubePositionPointCount = animation_counter + 1;
+    if (nextCubePositionPointCount == carRoute.length) {
+        nextCubePositionPointCount = 0;
+    }
+    let nextCubePositionPoint  = carRoute[nextCubePositionPointCount].position;
+
+    let nextCubePosition = new THREE.Vector3(nextCubePositionPoint.x, nextCubePositionPoint.y, nextCubePositionPoint.z);
+    let newVector = new THREE.Vector3(second_point.x, second_point.y, second_point.z);
+    mesh.updateWorldMatrix(true);
+    let localNewVectorPosition = mesh.worldToLocal(newVector);
+
+    let leftPosition = new THREE.Vector3( 20, 0, 0);
+    let rightPosition = new THREE.Vector3( -20, 0, 0);
+    let frontPosition = new THREE.Vector3(0, 0, 50);
+
+    {
+        if (get_url_param('dev') === 'true') {
+
+
+            var geometry = new THREE.BoxGeometry( 2,2, 2);
+            if (!mesh.getObjectByName('leftCube')) {
+                var leftMaterial = new THREE.MeshBasicMaterial( {color: 'blue'} );
+                var leftCube = new THREE.Mesh( geometry, leftMaterial );
+                leftCube.position.set(leftPosition.x , leftPosition.y , leftPosition.z);
+                leftCube.name = 'leftCube';
+                mesh.add(leftCube);
+            }
+
+            if (!mesh.getObjectByName('rightCube')) {
+                var rightMaterial = new THREE.MeshBasicMaterial( {color: 'red'} );
+                var rightCube = new THREE.Mesh( geometry, rightMaterial );
+                rightCube.position.set(rightPosition.x , rightPosition.y , rightPosition.z);
+                rightCube.name = 'rightCube';
+                mesh.add(rightCube);
+            }
+            if (!mesh.getObjectByName('frontCube')) {
+                var frontMaterial = new THREE.MeshBasicMaterial( {color: 'green'} );
+                var frontCube = new THREE.Mesh( geometry, frontMaterial );
+                frontCube.position.set(frontPosition.x , frontPosition.y , frontPosition.z);
+                frontCube.name = 'frontCube';
+                mesh.add(frontCube);
+            }
+            let nextCubeName = mesh.name + 'NextCube';
+            if (!scene.getObjectByName(nextCubeName)) {
+                var nextCubeMaterial = new THREE.MeshBasicMaterial( {color: 'yellow'} );
+                var nextCube = new THREE.Mesh( geometry, nextCubeMaterial );
+                nextCube.position.set(nextCubePosition.x , nextCubePosition.y , nextCubePosition.z);
+                nextCube.name = mesh.name + 'NextCube';
+                scene.add(nextCube);
+            } else {
+                scene.getObjectByName(nextCubeName).position.set(nextCubePosition.x , nextCubePosition.y , nextCubePosition.z);
+            }
+        }
+    }
+
+
+
+    let angleBetween = frontPosition.angleTo(newVector);
+    let distanceToLeft = leftPosition.distanceTo(localNewVectorPosition);
+    let distanceToRight = rightPosition.distanceTo(localNewVectorPosition);
+
+    let currentRotation = mesh.rotation.y;
+    let targetRotation;
+    if (distanceToLeft < distanceToRight) {
+        targetRotation = currentRotation + angleBetween;
+    } else {
+        targetRotation = currentRotation - angleBetween;
+    }
+
+
+  //  mesh.rotation.y = targetRotation;
+
+
     let callback = (e) => {
         mesh.position.x = e.position_x;
         mesh.position.y = e.position_y;
@@ -193,10 +212,10 @@ function add_car_animation (mesh, carRoute, animation_counter) {
         let car_animation_points_length =  carRoute.length;
         if (animation_counter === car_animation_points_length) {
             animation_counter = 0;
-            add_car_animation_rotation (mesh, carRoute, animation_counter);
+            add_car_animation_rotation (mesh, targetRotation, durationToRotation);
             add_car_animation (mesh, carRoute, animation_counter);
         } else {
-            add_car_animation_rotation (mesh, carRoute, animation_counter);
+            add_car_animation_rotation (mesh, targetRotation, durationToRotation);
             add_car_animation (mesh, carRoute, animation_counter);
         }
     };
@@ -207,7 +226,19 @@ function add_car_animation (mesh, carRoute, animation_counter) {
     let current_point = mesh.position;
     let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
     let distance_between = current_point.distanceTo(target_point);
-    let duration = distance_between * (350 / 4.5);
+    let duration = distance_between * (350 / speedBase);
+    let durationToRotation;
+    {
+        let target_position = carRoute[second_point_count]['position'];
+        let current_point = carRoute[animation_counter]['position'];
+        current_point = new THREE.Vector3(current_point.x, current_point.y, current_point.z);
+        let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
+        let distance_between = current_point.distanceTo(target_point);
+        durationToRotation = distance_between * (350 / (speedBase * 0.95));
+        if (durationToRotation > 500) {
+            durationToRotation = 500;
+        }
+    }
     let easing = TWEEN.Easing.Linear.None;
     let delay = 0;
     let animation = new TWEEN.Tween(start).to(target, duration);
@@ -219,43 +250,17 @@ function add_car_animation (mesh, carRoute, animation_counter) {
     animation.easing(easing);
     animation.start();
 }
-function add_car_animation_rotation (mesh, carRoute, animation_counter) {
-    let base_rotation_angle = global_three.Math.radToDeg(mesh.rotation.y);
-    let new_rotation_angle;
-    let floor_rotation_amount;
+function add_car_animation_rotation (mesh,targetRotation, duration) {
 
-    if (animation_counter === 0) {
-        let rotations_amount = mesh.rotation.y / Math.PI * 2;
-
-        if (rotations_amount > 1) {
-            floor_rotation_amount = Math.floor(rotations_amount);
-        }
-
-        new_rotation_angle = mesh.userData.base_y_rotation;
-        let new_mesh_rotation = mesh.rotation.y - 2 * Math.PI;
-        mesh.rotation.y = new_mesh_rotation;
-    } else {
-        new_rotation_angle = global_three.Math.degToRad(base_rotation_angle - carRoute[animation_counter].angle_number);
-    }
     let start = {rotation :  mesh.rotation.y};
-    let target = {rotation : new_rotation_angle};
+    let target = {rotation : targetRotation};
     let callback = (e) => {
-        if (!Number.isNaN(e.rotation)) {
-            mesh.rotation.y = e.rotation;
-        }
+        mesh.rotation.y = e.rotation;
     };
-    let easing = TWEEN.Easing.Quadratic.InOut;
+    let easing = TWEEN.Easing.Sinusoidal.InOut;
     let delay = 0;
-    let current_point = mesh.position;
-    let target_position  = carRoute[animation_counter]['position'];
-    let target_point = new THREE.Vector3(target_position.x, target_position.y, target_position.z );
-    let distance_between = current_point.distanceTo(target_point);
-    let duration = distance_between * (350 / 6);
-    let new_duration = duration - 20;
-    if (new_duration < 0) {
-        new_duration = 10;
-    }
-    let animation = new TWEEN.Tween(start).to(target, new_duration );
+
+    let animation = new TWEEN.Tween(start).to(target, duration );
     TWEEN.add(animation);
     animation.delay(delay);
     animation.onUpdate(callback);

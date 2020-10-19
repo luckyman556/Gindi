@@ -27,8 +27,9 @@ $.fn.floors_selector = function() {
             if (floor_number < 10) {
                 floor_number = '0' + floor_number;
             }
+            let htmlFloorNumber = window.floor_obj[index][0].userData.crm_data.floorNum;
             let floor_btn_html = `<div class="floor-btn floor-${index}" data-floor="${index}">
-            <span class="number">${floor_number  }</span>
+            <span class="number">${htmlFloorNumber  }</span>
             <span class="text language-string" data-dictionary="floor-upper">Floor</span>
         </div>`;
             container.container_html += floor_btn_html;
@@ -147,12 +148,12 @@ $.fn.floors_selector = function() {
                     if (globalSettings.flat_focus) {
                         let target_position =  flat.userData.defaultWorldPosition;
                         console.log(target_position);
-                        globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
+                        globalFunctions.animateTo(target_position,null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                         last_clicked_flat = flat;
                         flat_click(flat, false, true);
                     } else {
                         let target_position = flat_parent.getObjectByName('zagluha').userData.defaultWorldPosition;
-                        globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
+                        globalFunctions.animateTo(target_position, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                     }
                 },100);
                 var animation_frame_enable = true;
@@ -182,12 +183,12 @@ $.fn.floors_selector = function() {
 
                 if (globalSettings.flat_focus) {
                     let target_position =  flat.getWorldPosition(new global_three.Vector3());
-                    globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, globalSettings.destroyedBuilding.cameraPosition.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+                    globalFunctions.animateTo(target_position, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                     last_clicked_flat = flat;
                     flat_click(flat, false, false);
                 } else {
                     let target_position = flat_parent.getObjectByName('zagluha').getWorldPosition(new global_three.Vector3());
-                    globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, globalSettings.destroyedBuilding.cameraPosition.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+                    globalFunctions.animateTo(target_position, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                 }
 
 

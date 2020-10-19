@@ -62,7 +62,6 @@ export function animateTo(position = null, rotation = null, zoom = null ,duratio
             console.log(e)*/
             if (rotation.x !== null) {
                  window.camera_target.children[0].rotation.x = e.rotation_x;
-                console.log(e.rotation_x)
             }
             if (rotation.y !== null) {
                 window.camera_target.rotation.y = e.rotation_y;
@@ -94,6 +93,7 @@ export function setAllDefaultWorldPositions (object) {
     }
 }
 export function setDefaultWorldPosition (object) {
+    object.updateWorldMatrix();
     let worldPosition = object.getWorldPosition(new THREE.Vector3());
     object.userData.defaultWorldPosition = {
         x : worldPosition.x,

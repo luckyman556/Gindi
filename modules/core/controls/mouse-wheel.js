@@ -33,10 +33,11 @@ export function mouse_wheel_events () {
                     e = e || window.event;
                     // wheelDelta не даёт возможность узнать количество пикселей
                     var delta = e.deltaY || e.detail || e.wheelDelta;
+                    if ($('body').hasClass('firefox-run') == true) {
+                        delta = delta * 33;
+                    }
+                    target_zoom =  target_zoom + delta * 0.3;
 
-                    var in_zoom = camera.position.z + delta * 0.3;
-
-                    target_zoom = in_zoom;
                     e.preventDefault ? e.preventDefault() : (e.returnValue = false);
                     setTimeout(function(){ update_line_position_enabled = false;}, 4000);
                 } else {

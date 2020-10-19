@@ -11,7 +11,11 @@ import {langSwitcher} from "../core/language/langSwitcher.js";
 import {optionsMenu} from "../core/navigation/optionsMenu.js";
 import {setCookie, getCookie} from "../core/cookies/setAndGetCookies.js";
 import {checkAll2Dplans} from "../../js/checlAll2DPlans.js";
+import {modelsFunctions} from "../core/models/models-functions.js";
 
+
+
+globalFunctions.getSizeOfAllLoadings = modelsFunctions.getSizeOfAllLoadings;
 window.floor_obj = [];
 window.appartments = [];
 window.drag_objects = [];
@@ -54,7 +58,10 @@ export function add_models( scene, all_appartments) {
     let floor_map;
     let new_merged_glass_map;
     let white_lightmap;
-    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg');
+    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg', function(){
+        modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap-2.jpg');
+        modelsFunctions.setLoadingPercent();
+    });
     //sphere pointer start
 /*    {
         let z_base = 0;
@@ -135,6 +142,9 @@ export function add_models( scene, all_appartments) {
         }
     }
 
+
+
+
     function on_load_texture() {
         loaded_texture_counter++;
     }
@@ -164,7 +174,9 @@ export function add_models( scene, all_appartments) {
                 const rt = new THREE.WebGLCubeRenderTarget(texture.image.height);
                 rt.fromEquirectangularTexture(renderer, texture);
                 scene.background = rt;
-            }, onProgressCallback , onErrorCallback);
+                modelsFunctions.writeImgLoadingProgress( 'resources/material/textures/360.jpg');
+                modelsFunctions.setLoadingPercent();
+            }, null , onErrorCallback);
     }
     // sceneGlobus();
     loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap_2, on_load_texture);
@@ -176,6 +188,8 @@ export function add_models( scene, all_appartments) {
         loadEnvironment(on_load_texture);
         liveToggler(envAttrOptionsArray);
         loadTrees();
+    } else {
+        allLoadingsSize = 5679784;
     }
 
     langSwitcher(); //Include language button
@@ -185,19 +199,15 @@ function loadMainBuilding(loader, texture_loader, white_lightmap, white_lightmap
     let env_grass_map;
 
     return loader.load('resources/new_merged/Gindi_MainBuilding_js_v5.fbx', function(empty_model) {
-        white_lightmap = texture_loader.load('resources/2020/04/white-lightmap.jpg', on_load_texture);
-        textures_counter++;
-
-        // const crmCheckInterval = setInterval(() => { 
-        //     if (crmStatusLoadBool) {
-        //         clearInterval(crmCheckInterval);
-                loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap);
-        //     }
-        // }, 100);
-
-        // console.log(empty_model);
+        white_lightmap = texture_loader.load('resources/2020/04/white-lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
+        loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap);
+        modelsFunctions.setLoadingPercent();
         return empty_model;
-    },onProgressCallback);
+
+    }, modelsFunctions.loadingProgress);
 }
 
 function find_n_clone_material (object_to_work, object_from_clone) {
@@ -221,14 +231,40 @@ export function loadEnvironment(on_load_texture) {
         const loader = new FBXLoader();
         const texture_loader = new THREE.TextureLoader();
         loader.load('resources/enviroment/enviroment.fbx', function(enviroment) {
-            const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg', on_load_texture);
-            const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg', on_load_texture);
-            const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png', on_load_texture);
-            const textureGrassMap = texture_loader.load('resources/enviroment/textures/grass.jpg', on_load_texture);
-            const whiteLightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', on_load_texture);
-            const glassMap = texture_loader.load('resources/new_merged/textures/glass_map.jpg', on_load_texture);
-            const pavingTextureMap = texture_loader.load('resources/enviroment/textures/paving.jpg', on_load_texture);
-            const concretteMap = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg', on_load_texture);
+
+            modelsFunctions.setLoadingPercent();
+            const mainEnvironmentLightMap = texture_loader.load('resources/enviroment/lightmaps/complete-opt.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/enviroment/lightmaps/complete-opt.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const roadLightMap = texture_loader.load('resources/enviroment/lightmaps/road-opt.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/enviroment/lightmaps/road-opt.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const alphaMap = texture_loader.load('resources/enviroment/textures/alpha.png', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/enviroment/textures/alpha.png');
+                modelsFunctions.setLoadingPercent();
+            });
+            const textureGrassMap = texture_loader.load('resources/enviroment/textures/grass.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/enviroment/textures/grass.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const whiteLightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const glassMap = texture_loader.load('resources/new_merged/textures/glass_map.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/textures/glass_map.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const pavingTextureMap = texture_loader.load('resources/enviroment/textures/paving.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/enviroment/textures/paving.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            const concretteMap = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/material/textures/concrette_diffuse_2_o.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
 
         const roadMapsTextures = ['Road_2_Material_7168_AlbedoTransparency', 'Road_2_Material_7169_AlbedoTransparency', 'Road_2_Material_7170_AlbedoTransparency'];
 
@@ -344,7 +380,10 @@ export function loadEnvironment(on_load_texture) {
                                 break;
                             }
                             case "glass": {
-                                environmentMaterial.envMap = texture_loader.load('resources/material/textures/360_half.jpg', on_load_texture);
+                                environmentMaterial.envMap = texture_loader.load('resources/material/textures/360_half.jpg', function(){
+                                    modelsFunctions.writeImgLoadingProgress( 'resources/material/textures/360_half.jpg');
+                                    modelsFunctions.setLoadingPercent();
+                                });
                                 environmentMaterial.lightMap = mainEnvironmentLightMap;
                                 environmentMaterial.envMap.mapping = THREE.EquirectangularReflectionMapping;
                                 environmentMaterial.envMap.minFilter = THREE.NearestMipmapLinearFilter;
@@ -389,8 +428,8 @@ export function loadEnvironment(on_load_texture) {
         window.enviroment = enviroment;
 
         scene.add(enviroment);
-
-        }, onProgressCallback , onErrorCallback);
+        modelsFunctions.setLoadingPercent();
+        }, modelsFunctions.loadingProgress , onErrorCallback);
     },1000);
 
 }
@@ -398,15 +437,19 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
     loader.load('resources/2020/04/boxes_6.FBX', function(boxes_model) {
         // console.log(boxes_model);
         let materials_array_skeleton = {};
-        beton_texture = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg', on_load_texture);
-        textures_counter++;
+        beton_texture = texture_loader.load('resources/material/textures/concrette_diffuse_2_o.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/material/textures/concrette_diffuse_2_o.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         beton_texture.wrapS = THREE.RepeatWrapping;
         beton_texture.wrapT = THREE.RepeatWrapping;
         beton_texture.repeat.set(0.1, 0.1);
         beton_texture.encoding = THREE.LinearEncoding;
 
-        reflection_material = texture_loader.load('resources/material/textures/360_half.jpg', on_load_texture);
-        textures_counter++;
+        reflection_material = texture_loader.load('resources/material/textures/360_half.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/material/textures/360_half.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         reflection_material.mapping = THREE.EquirectangularReflectionMapping;
         reflection_material.minFilter = THREE.NearestMipmapLinearFilter;
         reflection_material.roughness = 0;
@@ -416,65 +459,58 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         reflection_material.minFilter = THREE.LinearFilter;
 
         // new merged materials start
-        let new_merged_map;
-
-        {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            if (urlParams !== undefined) {
-                let atlas = urlParams.get('atlas');
-                if (atlas !== null) {
-                    if (atlas === 1) {
-                        new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_1.jpg', on_load_texture);
-                    } else if (atlas === 2) {
-                        new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_2.jpg', on_load_texture);
-                    } else if (atlas === 3) {
-                        new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_3.jpg', on_load_texture);
-                    } else if (atlas === 4) {
-                        new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_4.jpg', on_load_texture);
-                    } else   {
-                        new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_6.jpg', on_load_texture);
-                    }
-                } else {
-                    new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_6.jpg', on_load_texture);
-                }
-            } else {
-                new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_6.jpg', on_load_texture);
-            }
-        }
-
-        textures_counter++;
+        let new_merged_map = texture_loader.load('resources/new_merged/textures/atlas_6.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/textures/atlas_6.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_map.encoding = THREE.LinearEncoding;
 
-        let new_merged_specular = texture_loader.load('resources/new_merged/textures/atlas_spec.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_specular = texture_loader.load('resources/new_merged/textures/atlas_spec.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/textures/atlas_spec.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_specular.encoding = THREE.LinearEncoding;
 
-        new_merged_glass_map = texture_loader.load('resources/new_merged/textures/glass_map.jpg');
+        new_merged_glass_map = texture_loader.load('resources/new_merged/textures/glass_map.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/textures/glass_map.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_glass_map.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_5_7 = texture_loader.load('resources/new_merged/lightmaps/5-7_lightmap.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_5_7 = texture_loader.load('resources/new_merged/lightmaps/5-7_lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/5-7_lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_5_7.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_8_11 = texture_loader.load('resources/new_merged/lightmaps/8-11_lightmap.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_8_11 = texture_loader.load('resources/new_merged/lightmaps/8-11_lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/8-11_lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_8_11.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_12_20 = texture_loader.load('resources/new_merged/lightmaps/12-20_lightmap.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_12_20 = texture_loader.load('resources/new_merged/lightmaps/12-20_lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/12-20_lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_12_20.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_21_43 = texture_loader.load('resources/new_merged/lightmaps/21-43_lightmap_2.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_21_43 = texture_loader.load('resources/new_merged/lightmaps/21-43_lightmap_2.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/21-43_lightmap_2.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_21_43.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_lobby = texture_loader.load('resources/new_merged/lightmaps/Lobby_lightmap.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_lobby = texture_loader.load('resources/new_merged/lightmaps/Lobby_lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/Lobby_lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_lobby.encoding = THREE.LinearEncoding;
 
-        let new_merged_lm_roof = texture_loader.load('resources/new_merged/lightmaps/Roof_lightmap.jpg', on_load_texture);
-        textures_counter++;
+        let new_merged_lm_roof = texture_loader.load('resources/new_merged/lightmaps/Roof_lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/new_merged/lightmaps/Roof_lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         new_merged_lm_roof.encoding = THREE.LinearEncoding;
 
         // new merged lightmaps end
@@ -1470,47 +1506,54 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             }
         }
 
-        const crmInterval = setInterval(() => { 
-            if (crmStatusLoadBool) {
-                clearInterval(crmInterval);
-                add_building(elements_array_big, building);
-                buildHighlights();
+        const crmInterval = setInterval(() => {
 
-        // apply_textures (window.ground, material_flat_arr);
-        window.floor_obj.length = floor_obj_length;
-        $('.flat-plan .toggle-btn').removeClass('active');
-        $('.flat-plan').removeClass('active');
-        $('#c').removeClass('active');
+            if (totalPercent >= 100) {
+                if (crmStatusLoadBool) {
+                    clearInterval(crmInterval);
+                    add_building(elements_array_big, building);
+                    buildHighlights();
+                    // apply_textures (window.ground, material_flat_arr);
+                    window.floor_obj.length = floor_obj_length;
+                    $('.flat-plan .toggle-btn').removeClass('active');
+                    $('.flat-plan').removeClass('active');
+                    $('#c').removeClass('active');
 
-        setTimeout(function () {
-            new_floor_selector_obj = $('.new-floors-selector').floors_selector();
+                    setTimeout(function () {
 
-            model_loaded = true;
+                        scene.updateWorldMatrix(true);
+                        new_floor_selector_obj = $('.new-floors-selector').floors_selector();
 
+                        model_loaded = true;
 
+                        $('.preloader').addClass('loaded');
+                        setTimeout(function(){
+                            $('.preloader').hide();
+                        },550);
+                        add_cylinder_floor_numbers();
+                        floors_height_positions = [];
+                        window.floor_obj.forEach(function (floor) {
+                            let center_position = floor[0].parent.getObjectByName('floor_center');
+                            let world_position = center_position.getWorldPosition(new global_three.Vector3());
+                            floors_height_positions.push(world_position);
+                        });
 
-            add_cylinder_floor_numbers();
-            floors_height_positions = [];
-            window.floor_obj.forEach(function(floor){
-                let center_position = floor[0].parent.getObjectByName('floor_center');
-                let world_position = center_position.getWorldPosition(new global_three.Vector3());
-                floors_height_positions.push(world_position);
-            });
+                        if ($(window).width() < 768) {
+                            // $('body')[0].requestFullscreen();
+                        }
 
-            if ($(window).width() < 768) {
-                // $('body')[0].requestFullscreen();
+                        $('.language.he').trigger('click');
+                        globalFunctions.setAllDefaultWorldPositions(scene);
+                        let defaultData = globalSettings.animations.defaultForeshortening;
+                        globalFunctions.animateTo(defaultData.position, defaultData.rotation, defaultData.zoom, 2000, TWEEN.Easing.Sinusoidal.InOut, 600);
+                        globalFunctions.flatBubble.init();
+                    }, 1000);
+                }
+            } else {
+                modelsFunctions.setLoadingPercent();
             }
-
-            $('.language.he').trigger('click');
-
-            globalFunctions.setAllDefaultWorldPositions(scene);
-            let defaultData = globalSettings.animations.defaultForeshortening;
-            globalFunctions.animateTo(defaultData.position, defaultData.rotation, defaultData.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
-            globalFunctions.flatBubble.init();
-        }, 1000);
-    }
         }, 100)
-    }, onProgressCallback, onErrorCallback);
+    }, modelsFunctions.loadingProgress, onErrorCallback);
 
 
 // }, function (xhr) {
@@ -1558,16 +1601,22 @@ function getCenterPoint(mesh) {
     window.sprite_2 = sprite_2;
     window.sprite_2 = sprite_2;
 }*/
-export function loadTrees() {
+function loadTrees() {
     const loader = new FBXLoader();
     const texture_loader = new THREE.TextureLoader();
-    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg');
+    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg', function(){
+        modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap-2.jpg');
+        modelsFunctions.setLoadingPercent();
+    });
 
     loader.load('resources/trees/tree.fbx', function(tree){
         let tree_mesh = tree.children[0];
         tree_mesh.position.set(0,0,0);
         tree_mesh.scale.set(0.1,0.1,0.1);
-        let three_map = texture_loader.load('resources/trees/2321.jpg');
+        let three_map = texture_loader.load('resources/trees/2321.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/trees/2321.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         // scene.add(tree_mesh);
         // control.attach(tree_mesh);
         window.tree_mesh = tree_mesh;
@@ -1576,7 +1625,10 @@ export function loadTrees() {
             lightMap : white_lightmap_2,
         }
         tree_mesh.material.map = three_map;
-        tree_mesh.material.lightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg');
+        tree_mesh.material.lightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
         // scene.add(tree_mesh);
         {
             const queryString = window.location.search;

@@ -200,6 +200,11 @@
                             font-weight: 400;
                             line-height: 25px;
                             padding: 0 5px;
+                            position: relative;
+                            sup { 
+                                vertical-align: super;
+                                font-size: 12px;
+                            }
                         }
                         .ic {
                             width: 24px;
@@ -214,6 +219,17 @@
                         }
                     }
                     .bottom {
+                        display: flex;
+                        sup {
+                            position:relative;
+                            top: -4px;
+                            font-size: 12px;
+                        }
+                        .add-to-dictionary { 
+                            color: $gray-middle;
+                            font-weight: 300;
+                            
+                        }
                         .text {
                             color: $gray-middle;
                             font-weight: 300;

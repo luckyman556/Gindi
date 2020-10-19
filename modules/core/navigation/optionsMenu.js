@@ -3,7 +3,6 @@ import { add_street_names } from "../street-names/add-street-names.js";
 import { SwipeScript } from "../../../js/swipe.js";
 import { loadEnvironment } from "../../individual/add-models.js";
 import { setCookie, getCookie } from "../cookies/setAndGetCookies.js";
-import { loadTrees } from "../../individual/add-models.js";
 
 
 let environmentShow = true;
@@ -209,7 +208,6 @@ function turnOffAllEnvironment(optionsObject) {
 
     if (environmentShow) {
         loadEnvironment(on_load_texture);
-        loadTrees();
 
         function on_load_texture() {
             loaded_texture_counter++;

@@ -73,7 +73,7 @@ export function add_route_points () {
                 mouse.y = - ( (y - $('#c')[0].getBoundingClientRect().top) / document.querySelector('#c').offsetHeight ) * 2 + 1;
                 let raycaster = new global_three.Raycaster();
                 raycaster.setFromCamera(mouse, perspectiveCamera);
-                let intersect_objects = raycaster.intersectObjects(scene.children, true);
+                let intersect_objects = raycaster.intersectObjects([scene.getObjectByName('roads')], true);
                 if (intersect_objects.length > 0) {
                     let clicked_object = intersect_objects[0];
                     let clicked_point = clicked_object.point;
@@ -140,20 +140,6 @@ export function add_route_points () {
                             const right_cube_position = right_cube.getWorldPosition(new global_three.Vector3());
                             const distance_to_left_cube = new global_three.Vector3(left_cube_position.x, 0, left_cube_position.z).distanceTo(new global_three.Vector3(side_c.x, 0, side_c.z));
                             const distance_to_right_cube = new global_three.Vector3(right_cube_position.x, 0, right_cube_position.z).distanceTo(new global_three.Vector3(side_c.x, 0, side_c.z));
-                            let angle_number = (180 - angle);
-
-                            if (distance_to_left_cube !== distance_to_right_cube) {
-
-                                if (distance_to_left_cube != distance_to_right_cube) {
-                                    if (distance_to_left_cube < distance_to_right_cube) {
-                                        console.log('negative angle');
-                                        angle_number = angle_number * -1;
-                                    } else {
-                                        console.log('positive angle');
-                                    }
-                                }
-                                car_route_points_groups[car_route_points_groups.length - 2].userData.angle_number = angle_number;
-                            }
                         }
                     }
                 }
@@ -182,19 +168,6 @@ export function add_route_points () {
                     };
                     console.log(route_object);
                     human_route.push(route_object);
-
-                    if (human_route.length > 1) {
-                        let position_point = human_route[human_route.length - 2].position;
-                        window.human.position.set(position_point.x , position_point.y , position_point.z);
-                        window.human.lookAt( human_route[human_route.length - 1].position );
-                        setTimeout(function(){
-                            let rotation = window.human.rotation;
-                            human_route[human_route.length - 1].rotation = {};
-                            human_route[human_route.length - 1].rotation.x = rotation['_x'];
-                            human_route[human_route.length - 1].rotation.y = rotation['_y'];
-                            human_route[human_route.length - 1].rotation.z = rotation['_z'];
-                        },200);
-                    }
                 }
             }
         }
@@ -210,7 +183,6 @@ function getArrayPointsForRoute() {
                 y: pointRoute.position.y,
                 z: pointRoute.position.z,
             },
-            "angle_number": (!pointRoute.userData.angle_number) ? 0 :  pointRoute.userData.angle_number
         });
     });
     localStorage.setItem('routeC', JSON.stringify(car_route_points_array));

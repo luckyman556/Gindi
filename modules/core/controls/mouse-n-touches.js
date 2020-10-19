@@ -219,4 +219,62 @@ export function add_mouse_n_touches () {
             }
         }
     }
+
+    if (get_url_param('dev')) {
+        new ClipboardJS('body');
+        document.querySelector('.three_js').addEventListener( 'click', function(event){
+            if(event.altKey) {
+                let raycaster =  new global_three.Raycaster();
+                raycaster.setFromCamera(mouse, perspectiveCamera);
+                let intersects = raycaster.intersectObjects(scene.children, true);
+                console.log(mouseMode);
+                if (mouseMode == 'Objects removing') {
+                    if (!window.removed_objects) {
+                        window.removed_objects = [];
+                    }
+                    window.removed_objects.push({
+                        'child' : intersects[0].object,
+                        'parent' : intersects[0].object.parent
+                    });
+                    intersects[0].object.parent.remove(intersects[0].object);
+                }
+
+                if (mouseMode == 'Objects info') {
+                    console.log(intersects[0].object.name);
+                    console.log(intersects[0].point);
+                    document.querySelector('body').dataset.clipboardText = intersects[0].object.name;
+                    $('body').click();
+                }
+                if (mouseMode == 'Objects transform') {
+                    control.detach();
+                    setTimeout(function(){
+                        control.attach(intersects[0].object);
+                    }, 500);
+                }
+
+
+            }
+        }, false );
+
+        window.addEventListener( 'keydown', function ( event ) {
+            if (event.ctrlKey) {
+                if (event.code === 'KeyZ') {
+                    if (mouseMode == 'Objects removing') {
+                        if (window.removed_objects) {
+                            if (window.removed_objects.length > 0) {
+                                let object = window.removed_objects[window.removed_objects.length - 1];
+                                let child = object.child;
+                                let parent = object.parent;
+                                parent.add(child);
+                                window.removed_objects.pop()
+                            }
+                        }
+                        window.removed_objects.push(intersects[0].object);
+                        intersects[0].object.parent.remove(intersects[0].object);
+                    }
+                }
+            }
+        });
+    }
+
 }

@@ -22,13 +22,38 @@
     <link rel="shortcut icon" href="./img/logo-s.png" type="image/png">
     <!-- Add scripts-->
     <script>
+        var allLoadingsSize = 8145005;
         var globalSettings = {
             'base_floor' : 5,
             'flat_focus' : false,
             'cylinderNumbersBase' : 30,
+            startCamera : {
+                target_zoom : 340,
+                position_x : 0,
+                position_y : 104,
+                rotation_y : 3.8724578917878087,
+                rotation_x : -0.744,
+            },
+            live : {
+                cars : {
+                    speed : 8,
+                    scale : 0.01,
+                },
+                humans : {
+                    speed : 0.5,
+                    animationSpeed  : 1,
+                    scale : 0.01,
+                },
+                bicycles : {
+                    speed : 4,
+                    animationSpeed  : 0.5,
+                    scale : 0.01,
+                }
+            },
             'destroyedBuilding' : {
                 'cameraPosition' : {
-                    'zoom' : 80
+                    'zoom' : 80,
+                    'mobile_zoom' : 165,
                 },
                 'cameraLimits' : {
                     rotation : {
@@ -37,6 +62,18 @@
                             max : -0.5
                         }
                     }
+                },
+                flatLabels : {
+                    centerLabelTop : 3,
+                }
+            },
+            'floorCylinderNumbers' : {
+                desktop : {
+                    min : 220,
+                    max : 300
+                },
+                mobile : {
+
                 }
             },
             'fullBuilding' : {

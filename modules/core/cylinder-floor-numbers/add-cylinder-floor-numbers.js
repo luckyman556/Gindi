@@ -2,18 +2,22 @@ import * as THREE from '../../../node_modules/three/build/three.module.js';
 export function floor_numbers_visibility_by_zoom (border_1, border_2) {
     if (window.text_groups) {
         let camera_zoom = perspectiveCamera.position.z;
-        if (lock_mouse_rotation_x) {
+        let base = globalSettings.floorCylinderNumbers.desktop;
+        if (detectMobile) {
+            base = globalSettings.floorCylinderNumbers.mobile;
+        }
+        if (destroyedMode) {
             window.text_groups.forEach(function(text_group){
                 text_group.visible = false;
             });
         } else {
-            if (camera_zoom > border_1) {
+            if (camera_zoom > base.max) {
                 window.text_groups.forEach(function(text_group){
                     text_group.visible = false;
                 });
             } else {
 
-                if (camera_zoom > border_2) {
+                if (camera_zoom > base.min) {
                     window.text_groups.forEach(function(text_group){
                         const key_floor = text_group.userData.key_floor;
                         if (key_floor) {
@@ -158,11 +162,13 @@ export function add_cylinder_floor_numbers () {
                         text.position.set(0, 0, -1 * (globalSettings.cylinderNumbersBase + 5));
                         text.position.y = Math.PI;
                         text.name = 'text';
+                        text.renderOrder =  12;
 
                         bold_text = new THREE.Mesh( bold_geometry, matLite );
                         bold_text.position.set(0, 0, -1 * (globalSettings.cylinderNumbersBase + 5));
                         bold_text.position.y = Math.PI;
                         bold_text.name = 'bold_text';
+                        bold_text.renderOrder =  12;
 
 
 
@@ -171,7 +177,7 @@ export function add_cylinder_floor_numbers () {
                         let floor_center = floor[0].parent.getObjectByName( "floor_center");
                         if (floor_center) {
                             let floor_position = floor_center.getWorldPosition(new THREE.Vector3());
-                            text_group.position.set(floor_position.x, floor_position.y, floor_position.z);
+                            text_group.position.set(0, floor_position.y, 0);
                             text_group.add(text);
                             text_group.add(bold_text);
                             scene.add( text_group );
@@ -194,6 +200,7 @@ export function add_cylinder_floor_numbers () {
                             var line = new THREE.Line( geometry, material );
                             line.name = 'line';
                             text_group.add( line );
+                            line.renderOrder =  12;
                         }
 
 
@@ -251,6 +258,8 @@ export function add_cylinder_floor_numbers () {
                             }
                             circle.renderOrder = 0;
                             text_group.add( circle );
+                            circle.renderOrder =  12;
+
                         }
 
                 });

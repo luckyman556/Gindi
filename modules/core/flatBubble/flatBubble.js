@@ -10,11 +10,11 @@ export const flatBubble = {
     updateText : function (flat) {
         let flatBubbleEl = document.querySelector('.flat-bubble');
         let crmData = flat.userData.crm_data;
-        flatBubbleEl.querySelector('.text-container').innerHTML = flatBubbleHTML(crmData);
+        flatBubbleHTML(crmData);
         if (flat.userData.url_360_type === 'custom') {
-            flatBubbleEl.querySelector('img').style.display = 'block';
+            flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
         } else {
-            flatBubbleEl.querySelector('img').style.display = 'none';
+            flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
         }
 
         //flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);

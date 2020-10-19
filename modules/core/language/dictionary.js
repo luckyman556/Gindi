@@ -219,4 +219,12 @@ export let dictionary_array = {
         'he': 'מ"ר',
         'en': 'sqm'
     },
+    'Studio': {
+        'he': 'סטודיו',
+        'en': 'Studio'
+    },
+    'With balcony': {
+        'he': 'need translate',
+        'en': 'With balcony'
+    },
 }

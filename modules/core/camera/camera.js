@@ -4,7 +4,7 @@ export  function PerspectiveCamera_init (perspectiveCamera) {
     const aspect = window.innerWidth / window.innerHeight;
     const near = 0.1;
 
-    let far = (get_url_param('dev')) ? 10000 : 2000;
+    let far = (get_url_param('dev')) ? 10000 : 10000;
     perspectiveCamera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
     return perspectiveCamera;

@@ -27,7 +27,7 @@ import {cardsInfoSettings} from "./modules/individual/cardsHtml/cardsInfo.js";
 import {settingsGui} from './modules/core/settingsGui/settingsGui.js'
 import * as animations from "./modules/core/camera/animation.js";
 import {flatBubble} from "./modules/core/flatBubble/flatBubble.js";
-
+import * as flatLabels from "./modules/core/destroyedBuilding/flatLabels/flat-labels.js";
 // street names and position angle
 
 import {street_names_n_positions_angle} from './modules/core/street-names/names-angle.js';
@@ -167,6 +167,10 @@ function init() {
         });
     }
 
+    let cameraTargetParent = new THREE.Group();
+    cameraTargetParent.name = 'cameraTargetParent';
+    cameraTargetParent.position.set(0,0,0);
+    scene.add(cameraTargetParent);
     window.camera_target = new THREE.Group();
     window.camera_target.add( cubeA );
     window.camera_target.add( cubeB );
@@ -177,7 +181,7 @@ function init() {
     window.camera_target.visible = false;
     add_models(scene , window.all_appartments);
 
-    scene.add( group );
+    cameraTargetParent.add( window.camera_target );
 
     window.camera_target.children[0].add(perspectiveCamera);
 
@@ -348,45 +352,8 @@ function init() {
     labelRenderer.domElement.style.pointerEvents = 'none';
     document.getElementById( 'three_d_css' ).appendChild( labelRenderer.domElement );
 
-    let labels_i = 0;
-    while (labels_i <= 12) {
-        var text = document.createElement( 'div' );
-        text.className = 'flat_status_2d_css';
-        var label = new CSS2DObject( text );
-        label.position.set(0,0,0);
-
-        label.renderOrder = 1;
-        label.visible = false;
-        scene.add(label);
-        flat_labels_group[labels_i] = label;
-        labels_i++;
-    }
-    var floor_center_text = document.createElement( 'div' );
-
-    floor_center_text.className = 'floor_center_2d_css';
-    var floor_center_text_obj = new CSS2DObject( floor_center_text );
-    floor_center_text_obj.renderOrder = 0;
-    floor_center_text_obj.position.set(0,0,0);
-    floor_center_text_obj.visible = false;
-    scene.add(floor_center_text_obj);
-
-    var last_click_point = document.createElement( 'div' );
-
-    last_click_point.className = 'last_click_point';
-    var last_click_point_obj = new CSS2DObject( last_click_point );
-    last_click_point_obj.renderOrder = 0;
-    last_click_point_obj.position.set(0,0,0);
-    let inner_html = `
-            <div class="pulse"></div>
-    `;
-    last_click_point_obj.element.innerHTML = inner_html;
-    last_click_point_obj.visible = false;
-
-
-    scene.add(last_click_point_obj);
-    window.last_clicked_point_css = last_click_point_obj;
-
-    flat_labels_group[12] = floor_center_text_obj;
+    flatLabels.init(12);
+    globalFunctions.flatLablesUpdate = flatLabels.update;
 
     update_renderer_size ();
 
@@ -441,7 +408,7 @@ function loaderLineProgress() {
 
 requestAnimationFrame(loaderLineProgress);
 
-
+let lastFrameTime;
 function animate() {
     TWEEN.update();
 
@@ -535,7 +502,6 @@ function animate() {
                 let textures_percent = loaded_texture_counter / 29 * 100;
                 // progress_bar_update(3, textures_percent, `Loading textures ${loaded_texture_counter} from  ${textures_counter}`);
 
-                if ((loaded_texture_counter === 29) || (low_performance_mode && loaded_texture_counter === 11)) {
                     $('.to-page').addClass('active');
                     // progress_bar_update(1, 100, 'Load complete');
                     // progress_bar_update(1, 'Load complete');
@@ -581,13 +547,10 @@ function animate() {
                                     }, 500);
                                 }
                             }
-                        }
-                        ;
+                        };
                     }
-                }
             }
-        }
-        ;
+        };
         if (new_floor_selector_obj != undefined) {
             if (new_floor_selector_obj.target_top != undefined) {
                 let current_top = new_floor_selector_obj.current_top;
@@ -689,9 +652,19 @@ function animate() {
                 window.mixer_first_time = false;
             }
             human_animation_array.forEach(function(mixer, i){
-                mixer.update(0.016);
+
+                let coef = globalSettings.live.humans.animationSpeed;
+                if (mixer._root.userData.isBicyclist) {
+                    coef = globalSettings.live.bicycles.animationSpeed;
+                }
+                if (get_url_param('human_animation_speed')) {
+                    coef = Number(get_url_param('human_animation_speed'));
+                }
+                let time = (Date.now() - lastFrameTime) / 1000 * coef;
+                mixer.update(time);
             });
         }
+        lastFrameTime = Date.now();
 
 
         {

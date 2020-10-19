@@ -122,7 +122,18 @@ var globalFunctions = {};
 var lastSearchCardClick = Date.now();
 var flatClickHandler = true;
 var intersectionHandler = true;
-
+var loading_object = {};
+var resources_object = {};
+var destroyedMode = false;
+var detectMobile = detect_mobile();
+//detectMobile = true;
+if (get_url_param('forceMobile') == 'true') {
+    detectMobile = true;
+}
+var mouseMode = null;
+var globalGui;
+var globalGuiParams = [];
+//
 function animate_obj_scale(target_scale, obj, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
         'animation_obj' :  tween_animations,
@@ -485,8 +496,8 @@ function appartment_hover (appartment) {
 
 function set_appartment_data_in_block (appartment, box) {
     if (appartment.userData.crm_data) {
-        box.find('.flat-plan-box').css('transition-duration', '0s');
-        box.find('.flat-plan-box').css('filter', 'blur(5px)');
+/*        box.find('.flat-plan-box').css('transition-duration', '0.1s');
+        box.find('.flat-plan-box').css('filter', 'blur(5px)');*/
         var flat_name_number = appartment.userData.flat_counter;
         if  (flat_name_number < 10) {
             flat_name_number =   '0' + String(flat_name_number);
@@ -582,10 +593,10 @@ function set_appartment_data_in_block (appartment, box) {
         } else {
             $('.toggler-2d').removeClass('icon-360');
         }
-        setTimeout(function(){
+/*        setTimeout(function(){
             box.find('.flat-plan-box').css('filter', '');
-            box.find('.flat-plan-box').css('transition-duration', '0.7s');
-        }, 200)
+            box.find('.flat-plan-box').css('transition-duration', '0.1s');
+        }, 100)*/
     } else {
 
     }
@@ -663,15 +674,18 @@ function change_camera_position_y () {
 
 function drag_focus_target_z () {
     if (raf_divergention_y != 0) {
-        let target =  window.camera_target.userData.position_z + raf_divergention_y * 0.1;
-        window.camera_target.position.z = target;
+        let mesh = scene.getObjectByName('cameraTargetParent');
+        let target =  mesh.userData.position_z + raf_divergention_y * 0.1;
+        mesh.position.z = target;
     }
 }
 
 function drag_focus_target_x () {
     if (raf_divergention_y != 0) {
-        let target =  window.camera_target.userData.position_x + raf_divergention_x * 0.1;
-        window.camera_target.position.x = target;
+        let mesh = scene.getObjectByName('cameraTargetParent');
+        //debugger;
+        let target =  mesh.userData.position_x + raf_divergention_x * 0.1;
+        mesh.position.x = target;
     }
 }
 
@@ -684,11 +698,13 @@ function change_camera_rotation_x () {
             min = globalSettings.destroyedBuilding.cameraLimits.rotation.children_x.max;
             max = globalSettings.destroyedBuilding.cameraLimits.rotation.children_x.min;
         }
-        if (move_target_y > min) {
-            move_target_y = min;
-        }
-        if (move_target_y < max) {
-            move_target_y = max;
+        if (!get_url_param('dev')) {
+            if (move_target_y > min) {
+                move_target_y = min;
+            }
+            if (move_target_y < max) {
+                move_target_y = max;
+            }
         }
         window.camera_target.children[0].rotation.x =  move_target_y;
     }
@@ -718,7 +734,6 @@ function add_floor (floor,base_delay , floor_delay = 0, last_floor = false) {
     let floor_index = current_floor;
     let floor_of_mesh = floor[0].userData.floor;
     let floor_scale = window.floor_obj[floor_of_mesh][0].parent.userData.base_scale;
-    console.log(window.floor_obj[floor_of_mesh][0].parent);
     window.floor_obj[floor_of_mesh][0].parent.visible = true;
     window.floor_obj[floor_of_mesh][0].parent.scale.set(floor_scale.x,floor_scale.y,floor_scale.z);
     let floor_key = floor_of_mesh + globalSettings.base_floor;
@@ -942,7 +957,15 @@ function destroy_building (current_floor_var , flat = null) {
             flat_click(flat, false, true);
         } else {
             let target_position = flat.parent.getObjectByName('zagluha').userData.defaultWorldPosition;
-            globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, globalSettings.destroyedBuilding.cameraPosition.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+
+            let defaultZoom = globalSettings.destroyedBuilding.cameraPosition.zoom
+            if (detectMobile) {
+                defaultZoom = globalSettings.destroyedBuilding.cameraPosition.mobile_zoom;
+            }
+            globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, defaultZoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+
+
+
         }
 
 
@@ -1553,7 +1576,6 @@ function detect_mobile() {
     var a = navigator.userAgent || navigator.vendor || window.opera;
     if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4)))
     {
-
         return true;
 
     } else {
@@ -2499,7 +2521,6 @@ function object_disappear (object, duration = 1000, delay = 0, easing = TWEEN.Ea
         object.children.forEach(function(children){
             object_disappear (children, duration , delay, easing);
         });
-
     } else {
         let object_materials = object.material;
         if (Array.isArray(object_materials) === true) {
@@ -2609,138 +2630,7 @@ function prepare_mesh_to_clone (mesh) {
 }
 
 function update_flat_labels (dynamic = false) {
-    flat_labels_group.forEach(function(item){
-        item.visible = false;
-        $(item.element).removeClass('active');
-
-    });
-    if (last_clicked_flat != undefined) {
-        if (lock_mouse_rotation_x == true) {
-            window.floor_obj[current_floor].forEach(function(flat, index){
-                if (flat.name.search('floor_center') == -1) {
-
-                    let inner_html = '';
-                    let price = Math.floor(flat.userData.crm_data.salePrice);
-                    let flat_status = flat.userData.crm_data.status;
-                    let price_html = get_price_html (price);
-
-                    let apt_text_en = 'Apt.';
-                    let apt_text = apt_text_en;
-                    let apt_text_he = 'דירה';
-                    if ($(window).width() < 1024) {
-                        apt_text_he  = 'ד.';
-                    }
-
-                    let status_text = '';
-                    let status_text_en = flat_status;
-                    status_text = status_text_en;
-                    let status_text_he = '';
-                    if (flat_status == "Sold") {
-                        status_text_he = 'נמכר';
-                    } else if (flat_status == "Unavailable")  {
-                        status_text_he = 'לא זמינה';
-                    }
-                    if ($(window).width() < 1024) {
-                        status_text_he  = '';
-                    }
-
-                    if ($('body').hasClass('he') == true) {
-                        apt_text = apt_text_he;
-                        status_text = status_text_he;
-                    }
-
-
-                    if (flat.userData.status_index == 1) {
-                        let icon_360 = `<img src="./img/flat-card_360.svg" alt="icon-360">`;
-                        let empty = '';
-                        inner_html = `
-                        <div class="flat-card-box">
-                            <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
-                            <div class="price-row">
-                                <span class="pulse blue"></span>
-                                <span class="circle" style="background-color: #${flat.userData.status_color}"></span>
-                                    ${price_html}
-                            </div>
-                            ${flat.userData.url_360_type === 'custom' ? icon_360 : empty}
-                        </div>`
-                    } else {
-                        inner_html = `
-                        <div class="flat-card-box">
-                        <h3><span class="flat-card-title_name language-string" data-he="${apt_text_he}" data-en="${apt_text_en}">${apt_text}</span> <span class="flat-card-title_number">${flat.userData.crm_data.modelName + ' - ' +  flat.userData.crm_data.propNum}</span></h3>
-                            <p class="unavailable-row">
-                                <span class="circle" style="background-color: #${flat.userData.status_color}"></span> 
-                                <span class="pulse red"></span><span class="language-string"  data-he="${status_text_he}" data-en="${status_text_en}" >${status_text}</span>
-                            </p>
-                        </div>
-                    `;
-                    }
-                    $('.float-text.flat-' + flat.userData.flat_i).addClass('active');
-                    if (flat.userData.world_position == undefined) {
-                        flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
-                    }
-                    let p;
-                    if (dynamic == true) {
-                        p = flat.children[0].getWorldPosition(new global_three.Vector3());
-                    } else {
-                        p = flat.children[0].userData.defaultWorldPosition;
-                    }
-
-                    flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
-                    flat_labels_group[index].element.innerHTML = inner_html;
-                    flat_labels_group[index].visible = true;
-                    setTimeout(function(){
-                        $(flat_labels_group[index].element).addClass('active');
-                    }, 100);
-                } else {
-                    let floor_text = 'Floor';
-                    let floor_number;
-                    let zagluha = flat.parent.getObjectByName('zagluha');
-                    if (flat.parent.children[0].name.search('zagluha') == -1) {
-                        floor_number = flat.parent.children[0].userData.crm_data.floorNum;
-                    } else {
-                        floor_number = flat.parent.children[1].userData.crm_data.floorNum;
-                    }
-
-                    if ($('body').hasClass('he') == true) {
-                        floor_text = 'קומה';
-                    }
-                    let inner_html = `
-                        <div class="floor-center-text">
-                            <div class="text language-string" data-dictionary="floor-upper">${floor_text}</div>
-                            <div class="number">${floor_number}</div>
-                         </div>
-                    `;
-
-
-
-                    let p;
-                    p = zagluha.userData.defaultWorldPosition;
-
-                    flat_labels_group[12].position.set(p.x , p.y + 3, p.z );
-                    flat_labels_group[12].element.innerHTML = inner_html;
-                    flat_labels_group[12].visible = true;
-
-                }
-            });
-            /*
-                        {
-                            let floor = window.floor_obj[current_floor][0].parent;
-                            let floor_query_el = $('.float-text.floor');
-                            floor_query_el.addClass('active');
-                            let floorNum = window.floor_obj[current_floor][0].userData.crm_data.floorNum;
-                            floor_query_el.find('h3').html('Floor ' + floorNum );
-                            var position = position_on_canvas (floor);
-                            floor_query_el[0].style.top = position[1] + 'px';
-                            floor_query_el[0].style.left = position[0] + 'px';
-                            scale_coef = perspectiveCamera.position.z / 30;
-                            floor_query_el.css('transform', 'translate(-50%, -50%) scale(' + 1 / scale_coef + ')');
-                        }*/
-
-
-        } else {
-
-        }
-    }
+    globalFunctions.flatLablesUpdate(dynamic);
 }
 
 
@@ -2907,13 +2797,19 @@ function addTrees(plane_mesh, scale, tree_mesh) {
         min_z = cube_1_world.z;
         max_z = cube_2_world.z;
     }
+    min_x = -524;
+    max_x = 5;
+
+    min_z = -290;
+    max_z = 305;
+
     //console.log(min_x + ' ' + max_x);
     //console.log(min_z + ' ' + max_z);
 
 
     let objectsArray = [];
-    const amount = 1000;
-    const gap = 1;
+    const amount = 50;
+    const gap = 2;
     const date = Date.now();
     let i = 0;
     let vector;
@@ -2959,7 +2855,7 @@ function addTrees(plane_mesh, scale, tree_mesh) {
             }
         }
 
-        if (currentDate - date > 5000) {
+        if (currentDate - date > 20000) {
             break;
         }
         scene.remove(line);
@@ -2978,9 +2874,12 @@ function addTrees(plane_mesh, scale, tree_mesh) {
 function add_instances_trees(tree, positions_array, scale, options) {
 
     let mesh = new global_three.InstancedMesh(tree.geometry, tree.material, positions_array.length);
+   // mesh.receiveShadow = true;
+    mesh.castShadow = true;
     mesh.frustumCulled = false;
     mesh.position.set(0, 0, 0);
     mesh.scale.set(scale, scale, scale);
+
     // mesh.transparent = true;
 
     let i = 0;
@@ -3011,15 +2910,6 @@ function add_instances_trees(tree, positions_array, scale, options) {
 function onSuccessCallback(){}
 function onProgressCallback(e) {
 
-    Object.assign(progressLoaderObj, {
-        [e.currentTarget.responseURL]: {
-            loaded: e.loaded,
-            total: e.total,
-        }
-    });
-
-    progress_bar_update();
-
 }
 function onErrorCallback(e){
     console.log(e);
@@ -3049,7 +2939,6 @@ function get_url_param (name) {
 }
 
 function getiPhoneModel() {
-
     // iPhone X
     if ((window.screen.height / window.screen.width == 812 / 375) && (window.devicePixelRatio == 3)) {
         return "10+";
@@ -3072,29 +2961,35 @@ function get_all_params_values (array, key) {
 
 function set_default_camera_position () {
     let zoom_coef = 1;
-    if (detect_mobile()) {
-        zoom_coef = 1.3;
-    }
-    perspectiveCamera.position.x = 0;
-    perspectiveCamera.position.z = perspectiveCamera_position_z * zoom_coef;
-    target_zoom = perspectiveCamera_position_z * zoom_coef;
-    window.camera_target.rotation.y = 3.7524578917878086;
-    targetRotationX = 3.7524578917878086;
-    window.camera_target.position.y = hide_lock;
-    window.camera_target.children[0].rotation.x = -0.1;
+/*    perspectiveCamera.position.x = 0;
+    perspectiveCamera.position.z = 1080;
+    target_zoom = 1080;
+    window.camera_target.rotation.y =  5.235987755982989;
+    targetRotationX = 5.235987755982989;
+    window.camera_target.position.y = 132;
+    window.camera_target.children[0].rotation.x = -0.95;*/
+
+    perspectiveCamera.position.x = globalSettings.startCamera.position_x;
+    perspectiveCamera.position.z = globalSettings.startCamera.target_zoom;
+    target_zoom = globalSettings.startCamera.target_zoom;
+    window.camera_target.rotation.y =  globalSettings.startCamera.rotation_y;
+    targetRotationX = globalSettings.startCamera.rotation_y;
+    window.camera_target.position.y = globalSettings.startCamera.position_y;
+    window.camera_target.children[0].rotation.x = globalSettings.startCamera.rotation_x;
 }
 
 function setPositionButtonLanguage(type) {
     const floorSlider = document.querySelector('.floors-selector-n-back');
     const btn = document.querySelector('.lang-container');
+    if (btn) {
+        if (type === 'move') {
+            if (floorSlider.classList.contains('show')) {
+                btn.classList.add('move');
+            }
 
-    if (type === 'move') {
-        if (floorSlider.classList.contains('show')) {
-            btn.classList.add('move');
+        } else if (type === 'restore') {
+            btn.classList.remove('move');
         }
-
-    } else if (type === 'restore') {
-        btn.classList.remove('move');
     }
 }
 
@@ -3307,3 +3202,33 @@ function toScreenPosition(obj)
     };
 
 };
+
+function getRoomNumHTML (roomNum) {
+    let roomNumHTML = '';
+    if (roomNum == 0) {
+        roomNumHTML = `<div class="room-num-html language-string" data-dictionary="Studio">${get_lang('Studio')}</div>`;
+    } else {
+        roomNumHTML = `<div class="room-num-html" >${roomNum}</div>`;
+    }
+    return roomNumHTML;
+}
+function addWhiteLightMap (object) {
+    if (object.type == 'Mesh') {
+        if (Array.isArray(object.material)) {
+            object.material.forEach(function(material) {
+                if (!material.lightMap) {
+                    material.lightMap = window.whiteLightMap;
+                }
+            });
+        } else {
+            if (!object.material.lightMap) {
+                object.material.lightMap = window.whiteLightMap;
+            }
+        }
+    }
+    if (object.children.length > 0) {
+        object.children.forEach(function(child){
+            addWhiteLightMap (child);
+        });
+    }
+}

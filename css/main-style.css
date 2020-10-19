@@ -547,7 +547,11 @@
               font-size: 21px;
               font-weight: 400;
               line-height: 25px;
-              padding: 0 5px; }
+              padding: 0 5px;
+              position: relative; }
+              .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top .number sup {
+                vertical-align: super;
+                font-size: 12px; }
             .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top .ic {
               width: 24px;
               height: 24px;
@@ -557,9 +561,18 @@
                 height: 100%;
                 display: block;
                 object-fit: contain; }
-          .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom .text {
-            color: #6E767E;
-            font-weight: 300; }
+          .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom {
+            display: flex; }
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom sup {
+              position: relative;
+              top: -4px;
+              font-size: 12px; }
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom .add-to-dictionary {
+              color: #6E767E;
+              font-weight: 300; }
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom .text {
+              color: #6E767E;
+              font-weight: 300; }
       .filter-module-container .flat-cards .nfm-flat-card .btns-row {
         display: flex;
         padding-top: 15px;
@@ -1857,12 +1870,30 @@ body {
       letter-spacing: 0.098877px;
       color: #202E41;
       font-weight: 300; }
+      .three_js .flat-option .top-part .text-box {
+        width: 100%;
+        order: 2;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start; }
+        .three_js .flat-option .top-part .text-box .middle-text {
+          order: initial; }
+        .three_js .flat-option .top-part .text-box .add-to-dictionary {
+          display: flex;
+          font-size: 14px;
+          line-height: 18px;
+          white-space: pre;
+          font-family: Fragolino;
+          margin-top: -2px; }
+          .three_js .flat-option .top-part .text-box .add-to-dictionary sup {
+            position: relative;
+            top: -3px;
+            font-size: 10px; }
       .three_js .flat-option .top-part .middle-text {
         font-size: 14px;
         line-height: 18px;
         color: #5c646b;
         margin: auto 0;
-        width: 100%;
         order: 2;
         font-family: Fragolino;
         margin-top: -2px;
@@ -1877,6 +1908,9 @@ body {
         font-size: 16px;
         font-weight: 700;
         margin-left: 3px; }
+        .three_js .flat-option .top-part .number sup {
+          vertical-align: super;
+          font-size: 12px; }
       .three_js .flat-option .top-part .ic {
         width: 24px;
         height: 24px;
@@ -3497,6 +3531,9 @@ body {
               font-weight: bold;
               padding: 0 5px;
               white-space: nowrap; }
+              .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row .bottom sup {
+                vertical-align: super;
+                font-size: 12px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.bath-item {
             display: none; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.square-item {
@@ -3528,7 +3565,8 @@ body {
             line-height: 18px;
             letter-spacing: 0.0553711px;
             color: #FFFFFF;
-            text-shadow: none; }
+            text-shadow: none;
+            display: flex; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .top {
               font-family: Fragolino;
               font-size: 14px;
@@ -3541,6 +3579,16 @@ body {
               color: #5c646b;
               margin-left: 4px;
               margin-right: 4px; }
+            .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .add-to-dictionary {
+              color: #5c646b;
+              font-family: Fragolino;
+              font-size: 14px;
+              font-weight: 300;
+              margin-left: -4px; }
+              .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .add-to-dictionary sup {
+                position: relative;
+                top: -4px;
+                font-size: 10px; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .bottom {
               width: 100%;
               display: block;
@@ -3621,6 +3669,17 @@ body {
     background-color: #FFFFFF;
     border-radius: 3px;
     box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5); }
+    .three_js .flat-bubble .text-container {
+      display: flex;
+      line-height: 24px; }
+    .three_js .flat-bubble .model-rooms {
+      display: flex; }
+      .three_js .flat-bubble .model-rooms .ic {
+        width: 16px;
+        height: 16px;
+        margin: auto 5px auto 0; }
+      .three_js .flat-bubble .model-rooms .room-num-html {
+        padding: 0 5px; }
     .three_js .flat-bubble.show {
       opacity: 1;
       transform: translate(15px, 10px) scale(1); }

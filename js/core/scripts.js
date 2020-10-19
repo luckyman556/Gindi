@@ -37,6 +37,7 @@ $(document).ready(function(){
     $('.bomb-btn').click(function(){
         // TWEEN.removeAll();
         if ($(this).hasClass('active')) {
+            destroyedMode = false;
             hide_all_labels();
             setPositionButtonLanguage('restore');
 
@@ -169,6 +170,8 @@ $(document).ready(function(){
                 document.querySelector('.main-wrap').update_cards_btns_visibility();
             }
         } else {
+
+            destroyedMode = true;
             destroy_building(current_floor);
            // set_camera_on_flat (last_clicked_flat);
             setTimeout(update_flat_labels, 1000);
@@ -789,7 +792,7 @@ $(document).ready(function(){
         }
     }
     $('.preloader .to-page').click(function(){
-        $('.preloader').fadeOut();
+        //$('.preloader').fadeOut();
     });
     $('.preloader').addClass(building_name);
 /*    requestAnimationFrame(get_prices);

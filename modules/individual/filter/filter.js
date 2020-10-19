@@ -43,7 +43,7 @@ export let  filterSettings = {
         },
         {
             crm_name : 'roomNum',
-            filter_type  : 'togglers',
+            filter_type : 'togglers',
             options : {
                 title : 'rooms',
                 ic_name : 'bedroom-ic.svg',

@@ -14,8 +14,9 @@ export function controls_init (camera, canvas, controls) {
                     var windowHalfX = document.getElementById('c').offsetWidth / 2;
                     var mouseXOnMouseDown = event.clientX - windowHalfX;
                     targetRotationOnMouseDownX = targetRotationX;
-                    window.camera_target.userData.position_z = window.camera_target.position.z;
-                    window.camera_target.userData.position_x = window.camera_target.position.x;
+                    let mesh = scene.getObjectByName('cameraTargetParent');
+                    mesh.userData.position_z = mesh.position.z;
+                    mesh.userData.position_x = mesh.position.x;
                     far_current_click_camera_x = window.camera_target.rotation.y;
                     far_current_click_camera_position_y = window.camera_target.position.y;
                     far_current_click_camera_rotation_x = window.camera_target.children[0].rotation.x;
@@ -44,7 +45,7 @@ export function controls_init (camera, canvas, controls) {
                                 if (e.ctrlKey) {
                                     change_camera_position_y(e);
                                 } else {
-                                    if (e.which == 3) {
+                                    if (e.which == 3 ) {
                                         change_camera_rotation_x(e, mouseXOnMouseDown);
                                     } else {
                                         if (lock_mouse_rotation_x == true) {
@@ -163,6 +164,9 @@ export function controls_init (camera, canvas, controls) {
                     target_zoom =  target_zoom_limit (target_zoom_i);
 
                     //camera.position.z = target_zoom;
+                } else if  (event.touches.length == 3) {
+                    raf_divergention_y = mouse_down_y - event.touches[0].clientY;
+                    change_camera_rotation_x ()
                 }
                 //console.log(raf_divergention_y)
                 let raf_divergention_y_limit = Math.sqrt(raf_divergention_y * raf_divergention_y);
