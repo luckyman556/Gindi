@@ -19,7 +19,7 @@ export function getApp(logoUrl, qrCode, projectName, appStoreLink,playMarketLink
     const mainContainer = creatHtmlElement(document.body,'','div',['get-app__main-container']);
     const contentContainer = creatHtmlElement(mainContainer,'','div',['get-app__content-container']);
     const closeBtn = creatHtmlElement(contentContainer,'','img',['get-app__close-btn']);
-    closeBtn.src = './img/close-ic.svg';
+    closeBtn.src = './img/close-get-app.svg';
     const title = creatHtmlElement(contentContainer,'Get app','h2',['get-app__title']);
 
     const logoWrapper = creatHtmlElement(contentContainer,'','div',['get-app__logo-wrapeer']);

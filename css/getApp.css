@@ -22,14 +22,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
 }
 
 .get-app__close-btn{
     position: absolute;
-    top: 11px;
-    left: calc(100% + 15px);
-    width: 10px;
-    height: 10px;
+    top: 21px;
+    left: calc(100% + 21px);
+    width: 24px;
+    height: 24px;
     cursor: pointer;
 }
 
@@ -44,7 +45,6 @@
     font-size: 30px;
     font-family: 'Ubuntu-medium';
     margin-bottom: 72px;
-    margin-top: 54px;
 }
 
 .get-app__btn-container{
@@ -72,6 +72,10 @@
     display: none;
 }
 
+.get-app__logo-img{
+    border-radius: 12px;
+}
+
 @media screen and (max-width: 768px){
     .get-app__content-container{
         background-color: inherit;
@@ -79,7 +83,8 @@
     }
 
     .get-app__close-btn{
-        left: calc(100% - 30px);
+        left: calc(100% - 50px);
+        top: -30px;
     }
 
     .get-app__qr-code__wrapper{
