@@ -2257,6 +2257,7 @@ function toggler_2d_click(clicked_object) {
         }
 
         const image = document.querySelector('.card-plan-image');
+        image.addEventListener('wheel', zoom);
 
         image.onerror = () => {
             image.remove();
@@ -2266,12 +2267,15 @@ function toggler_2d_click(clicked_object) {
 
         image.onload = () => {
             setTimeout(() => {
-                const img_viewer = new ImageViewer(image);
-                window.img_viewer = img_viewer;
-                img_viewer.refresh();
+                imgItem = image;
+                // const img_viewer = new ImageViewer(image);
+                // window.img_viewer = img_viewer;
+                // img_viewer.refresh();
                 removePreLoader();
             }, 1000);
-        }
+        };
+
+
 
         function removePreLoader() {
             setTimeout(() => {
