@@ -294,7 +294,7 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
             appartment_hoverout(object)
             setTimeout(function(){
                 scene.userData.lastCustomSelectionId = null;
-            }, 100); 
+            }, 100);
         }
     }
     if (flatClickHandler) {
@@ -2398,6 +2398,7 @@ function toggler_2d_click(clicked_object) {
         }
 
         const image = document.querySelector('.card-plan-image');
+        image.addEventListener('wheel', zoom);
 
         image.onerror = () => {
             image.remove();
@@ -2407,15 +2408,15 @@ function toggler_2d_click(clicked_object) {
 
         image.onload = () => {
             setTimeout(() => {
-                const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-                if (!isMobileApple) {
-                    const img_viewer = new ImageViewer(image);
-                    window.img_viewer = img_viewer;
-                    img_viewer.refresh();
-                }
+                imgItem = image;
+                // const img_viewer = new ImageViewer(image);
+                // window.img_viewer = img_viewer;
+                // img_viewer.refresh();
                 removePreLoader();
             }, 1000);
-        }
+        };
+
+
 
         function removePreLoader() {
             setTimeout(() => {

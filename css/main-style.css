@@ -231,6 +231,14 @@
   font-style: normal;
   font-display: swap; }
 
+@font-face {
+  font-family: 'Ubuntu-medium';
+  src: url("../fonts/ubuntu/Ubuntu-Medium.eot");
+  src: url("../fonts/ubuntu/Ubuntu-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/ubuntu/Ubuntu-Medium.woff2") format("woff2"), url("../fonts/ubuntu/Ubuntu-Medium.woff") format("woff"), url("../fonts/ubuntu/Ubuntu-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; }
+
 .preloader {
   top: 0;
   left: 0;

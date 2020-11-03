@@ -21,6 +21,7 @@ import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/Sha
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
 import { applyNow} from './modules/core/apply-now/applyNow.js';
+import { getApp } from './modules/core/getApp/getApp.js';
 
 import {cardsInfoHTML} from "./modules/core/cardsHtml/cardsInfo.js";
 import {cardsInfoSettings} from "./modules/individual/cardsHtml/cardsInfo.js";
@@ -74,7 +75,12 @@ function init() {
     var width = window.innerWidth;
     var height = window.innerHeight;
     canvas = document.querySelector('#c');
+    if (get_url_param('dev')){
+        getApp('http://goqr.me/_Resources/Static/Packages/GoQrMe.Ui/Images/qr_default.png',
+             'http://goqr.me/_Resources/Static/Packages/GoQrMe.Ui/Images/qr_default.png','Project name','#','#');
+    }
     applyNow(document.querySelector('.apply__main-container'));
+
     var renderer_params = {
         canvas,
         antialias: true,
