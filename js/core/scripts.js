@@ -161,10 +161,8 @@ $(document).ready(function(){
             setTimeout(function(){
                 rotation_animated = false;
             }, 1050);
-            last_clicked_flat.userData.apartment_locked = true;
-
-            // console.log(last_clicked_flat);
-            last_clicked_flat.userData.apartment_locked = true;
+           // last_clicked_flat.userData.apartment_locked = true;
+            //last_clicked_flat.userData.apartment_locked = true;
             set_floor_status_color([current_floor]);
             if (document.querySelector('.main-wrap').filter_active === true) {
                 document.querySelector('.main-wrap').update_cards_btns_visibility();
@@ -181,6 +179,7 @@ $(document).ready(function(){
                 if (document.querySelector('.main-wrap').filter_active === true) {
                     document.querySelector('.main-wrap').update_cards_btns_visibility();
                 }
+                appartment_hover(last_clicked_flat);
             },1000);
             $(this).addClass('active');
             $(this).removeClass('hide');
@@ -741,6 +740,21 @@ $(document).ready(function(){
         });
     });
     $('.popup-info .close-btn').click(function(){
+
+            if (scene.userData.lastCustomSelectionId) {
+        let flatCard = document.querySelector('.popup-info');
+        flatCard.classList.remove('custom-selection');
+        let object = scene.getObjectById(scene.userData.lastCustomSelectionId);
+        if (document.querySelector('.unit_info-points')) $('.unit_info-points').remove();
+        if (object) {
+            object.userData.color_locked = false;
+            appartment_hoverout(object)
+            setTimeout(function(){
+                scene.userData.lastCustomSelectionId = null;
+            }, 100);
+        }
+    }
+
         $('body').removeClass('mini-card-open');
         new_floor_selector_obj.rebuild();
         $('.popup-info').addClass('hide');
@@ -765,6 +779,10 @@ $(document).ready(function(){
 
         checkIntersection();
        // $('.main-wrap')[0].filter_update();
+       let flatBubble3d = scene.getObjectByName('flatBubble3d');
+        if (flatBubble3d) {
+            flatBubble3d.visible = false;
+        }
 
     });
     document.getElementById('c').addEventListener('mousedown', mouse_down_on_three_js_element);

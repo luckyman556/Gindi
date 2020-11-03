@@ -39,6 +39,17 @@ export function init (maxLabelsCount) {
     scene.add(last_click_point_obj);
     window.last_clicked_point_css = last_click_point_obj;
     flat_labels_group[maxLabelsCount] = floor_center_text_obj;
+
+
+    let flatBubble3dHtml = document.createElement( 'div' );
+    let flatBubble3d = new CSS2DObject( flatBubble3dHtml );
+    flatBubble3d.name = 'flatBubble3d';
+    flatBubble3d.renderOrder = 0;
+    flatBubble3d.position.set(0,0,0);
+    flatBubble3d.element.innerHTML = '';
+    flatBubble3d.visible = false;
+    scene.add(flatBubble3d);
+
 }
 export function update (dynamic = false) {
     flat_labels_group.forEach(function(item){

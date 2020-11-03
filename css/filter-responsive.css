@@ -23,6 +23,7 @@
         background-color: white;
         left: 0!important;
         right: 0!important;
+        max-width: initial;
     }
 
     .filter-module-container.open:after {

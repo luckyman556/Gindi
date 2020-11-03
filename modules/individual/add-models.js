@@ -753,7 +753,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
         function prepare_floor(floor) {
             floor.children.forEach(function (flat_mesh) {
-                flat_mesh.material = new THREE.MeshPhongMaterial({
+                flat_mesh.material = new THREE.MeshLambertMaterial({
                     color: '#b32d57',
                     transparent: true,
                     opacity: 0,
@@ -1610,6 +1610,7 @@ function loadTrees() {
     });
 
     loader.load('resources/trees/tree.fbx', function(tree){
+        // _6_tree,  _2_tree
         let tree_mesh = tree.children[0];
         tree_mesh.position.set(0,0,0);
         tree_mesh.scale.set(0.1,0.1,0.1);

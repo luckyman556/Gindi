@@ -7,8 +7,8 @@ import { setCookie, getCookie } from "../cookies/setAndGetCookies.js";
 
 let environmentShow = true;
 
-if (getCookie('environmentBool')) {
-    environmentShow = (getCookie('environmentBool') === 'true') ? true : false;
+if (getCookie(projectName + '_environmentBool')) {
+    environmentShow = (getCookie(projectName + '_environmentBool') === 'true') ? true : false;
 }
 
 export const optionsMenu = (optionsObject) => {
@@ -221,9 +221,14 @@ function turnOffAllEnvironment(optionsObject) {
     scene.remove(env);
     scene.remove(instaTree);
 
+    const environmentGroup = scene.getObjectByName('environmentGroup');
+    if (environmentGroup) {
+        scene.remove(environmentGroup);
+    }
+
     liveToggler(optionsObject);
     add_street_names(environmentShow);
 
-    setCookie('environmentBool', environmentShow, {'max-age': 999999});
-    setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
+    setCookie(projectName + '_environmentBool', environmentShow, {'max-age': 999999});
+    setCookie(projectName + '_envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
 }

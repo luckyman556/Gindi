@@ -425,7 +425,8 @@
     transform: rotateX(0deg); }
   .filter-module-container.open {
     bottom: 32px;
-    opacity: 1; }
+    opacity: 1;
+    max-width: calc(100% - 64px); }
   .filter-module-container .reset-filter {
     position: absolute;
     bottom: calc(100% + 34px);
@@ -496,7 +497,8 @@
         width: calc(100%);
         height: 198px;
         border-radius: 6px;
-        font-size: 30px; }
+        font-size: 30px;
+        margin-left: 0; }
       .filter-module-container .flat-cards .flat-cards-slider mark {
         background-color: #C1AC87; }
     .filter-module-container .flat-cards .nfm-flat-card {
@@ -541,6 +543,19 @@
         justify-content: space-between; }
         .filter-module-container .flat-cards .nfm-flat-card .options .option-item {
           width: auto; }
+          .filter-module-container .flat-cards .nfm-flat-card .options .option-item.studio .ic .text,
+          .filter-module-container .flat-cards .nfm-flat-card .options .option-item.studio .bottom .text {
+            color: white;
+            position: relative; }
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item.studio .ic .text:after,
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item.studio .bottom .text:after {
+              content: '';
+              position: absolute;
+              top: 10px;
+              left: 0;
+              background-color: #b0b4b9;
+              width: 10px;
+              height: 2px; }
           .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top {
             display: flex; }
             .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top .number {
@@ -550,8 +565,9 @@
               padding: 0 5px;
               position: relative; }
               .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top .number sup {
-                vertical-align: super;
-                font-size: 12px; }
+                font-size: 12px;
+                position: relative;
+                top: -6px; }
             .filter-module-container .flat-cards .nfm-flat-card .options .option-item .top .ic {
               width: 24px;
               height: 24px;
@@ -1836,6 +1852,17 @@ body {
     margin: 0 auto; }
     .three_js .flat-option:first-child .top-part {
       justify-content: flex-start; }
+    .three_js .flat-option.studio .top-part .text-box .middle-text {
+      color: white;
+      position: relative; }
+      .three_js .flat-option.studio .top-part .text-box .middle-text:after {
+        content: '';
+        width: 10px;
+        height: 2px;
+        background-color: #a3a7ab;
+        position: absolute;
+        top: 10px;
+        left: 0; }
     .three_js .flat-option.sq {
       display: none; }
     .three_js .flat-option.badroom {
@@ -2389,6 +2416,11 @@ body {
     border-radius: 6px; }
     .three_js .popup * {
       opacity: 0; }
+    .three_js .popup .floor-info-row {
+      order: 2;
+      min-height: 100%;
+      background-color: #f7f7f7;
+      overflow-y: auto; }
     .three_js .popup:after {
       position: absolute;
       width: 100%;
@@ -2428,7 +2460,7 @@ body {
           border: none; }
       .three_js .popup .content .slider-box {
         width: 100%;
-        height: calc(100vw / 16 * 9);
+        height: 100%;
         margin: 0 auto; }
         .three_js .popup .content .slider-box .slider {
           width: 100%;
@@ -3135,30 +3167,15 @@ body {
     transition-property: opacity, transform;
     user-select: none;
     transition: 0.5s; }
-    .three_js .popup-info.roof_n_looby.roof .floor-plan-toggler {
-      display: none; }
-    .three_js .popup-info.roof_n_looby .flat-plan {
-      padding-top: 29px; }
-      .three_js .popup-info.roof_n_looby .flat-plan .popups-togglers-box {
-        margin-top: 18px; }
-        .three_js .popup-info.roof_n_looby .flat-plan .popups-togglers-box .non-flat-360 {
-          display: flex !important;
-          margin-right: 20px;
-          background-color: #603ef2;
-          border-color: #603ef2;
-          padding-left: 30px;
-          background-repeat: no-repeat;
-          background-size: 14px;
-          background-position: left 8px center;
-          background-image: url(../img/ic-plan.svg) !important; }
-    .three_js .popup-info.roof_n_looby .flat-options {
-      display: none; }
-    .three_js .popup-info.roof_n_looby .price {
-      display: none; }
-    .three_js .popup-info.roof_n_looby .flat-plan {
-      height: 136px !important; }
-    .three_js .popup-info.roof_n_looby .toggler-2d {
-      display: none; }
+    .three_js .popup-info.custom-selection {
+      height: auto; }
+      .three_js .popup-info.custom-selection .price,
+      .three_js .popup-info.custom-selection .flat-options {
+        display: none !important; }
+      .three_js .popup-info.custom-selection .flat-plan {
+        height: auto; }
+      .three_js .popup-info.custom-selection .floor-plan-toggler {
+        display: none; }
     .three_js .popup-info:after {
       position: absolute;
       width: 10px;
@@ -3513,12 +3530,23 @@ body {
           font-weight: 400;
           line-height: 23px;
           text-align: center;
-          display: none;
+          display: flex;
           flex-direction: column;
           justify-content: center;
           cursor: pointer; }
         .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
           margin-bottom: 23px; }
+          .three_js .flat-info .more-info .bottom-part .info-loop .info-item.studio .text .top {
+            position: relative;
+            color: #f7f7f7; }
+            .three_js .flat-info .more-info .bottom-part .info-loop .info-item.studio .text .top:after {
+              content: '';
+              position: absolute;
+              top: 10px;
+              left: 0;
+              width: 10px;
+              height: 2px;
+              background-color: #91969b; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item .row {
             display: flex;
             font-size: 24px;
@@ -3578,7 +3606,8 @@ body {
               text-align: right;
               color: #5c646b;
               margin-left: 4px;
-              margin-right: 4px; }
+              margin-right: 4px;
+              text-transform: lowercase; }
             .three_js .flat-info .more-info .bottom-part .info-loop .info-item .text .add-to-dictionary {
               color: #5c646b;
               font-family: Fragolino;
@@ -3671,9 +3700,16 @@ body {
     box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5); }
     .three_js .flat-bubble .text-container {
       display: flex;
-      line-height: 24px; }
+      line-height: 24px;
+      background-color: white; }
+      .three_js .flat-bubble .text-container.custom-selection {
+        font-size: 0px; }
+        .three_js .flat-bubble .text-container.custom-selection .model-name {
+          font-size: 16px; }
     .three_js .flat-bubble .model-rooms {
       display: flex; }
+      .three_js .flat-bubble .model-rooms.studio .ic {
+        display: none; }
       .three_js .flat-bubble .model-rooms .ic {
         width: 16px;
         height: 16px;
@@ -3903,8 +3939,10 @@ body {
     height: 44px;
     width: 528px;
     user-select: none;
-    z-index: 2;
+    z-index: 30;
     display: flex; }
+    .filter-open .three_js .rotation-controller {
+      display: none; }
     .three_js .rotation-controller .line {
       width: 100%;
       height: 2px;
@@ -3957,9 +3995,11 @@ body {
     height: auto;
     width: 100px;
     border-radius: 0px;
-    z-index: 3;
+    z-index: 30;
     display: flex;
     justify-content: space-between; }
+    .filter-open .three_js .zoom-controls {
+      display: none; }
     .three_js .zoom-controls .sep {
       width: 80%;
       height: 1px;
@@ -4350,17 +4390,36 @@ body {
         background-color: black; }
   .three_js .compass {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    background-image: url(../img/compas.svg);
-    width: 132px;
-    height: 132px;
-    background-size: contain;
+    width: 42px;
+    height: 42px;
+    left: 32px;
+    bottom: 32px;
+    transform: rotateZ(-180deg);
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
     z-index: 9;
-    transform: rotateZ(-60deg);
-    cursor: pointer; }
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: 1s;
+    transition-property: bottom;
+    transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
+    transition-delay: 0s; }
+    .three_js .compass .ic {
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url(../img/compas_new.svg); }
     .filter-open .three_js .compass {
-      display: none; }
+      /* display: none; */
+      bottom: 270px;
+      left: 34px;
+      transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
+      transition-delay: 0.13s; }
+      .filter-open .three_js .compass.flat-cards-open {
+        bottom: 330px; }
     .three_js .compass.not-default {
       bottom: 50px; }
 
@@ -4992,7 +5051,7 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
     margin: auto 5px;
     order: 2; }
   .floor_center_2d_css .floor-center-text .text {
-    order: 3; }
+    order: 1; }
 
 #three_d_css {
   direction: ltr; }
@@ -5093,23 +5152,23 @@ body.en .popup-3d > .content,
 body.en .popup-360 > .content {
   order: 1; }
 
-body.en .popup-2d > .flat-info, body.en .popup-apply > .flat-info,
-body.en .popup-3d > .flat-info,
-body.en .popup-360 > .flat-info {
+body.en .popup-2d .flat-info, body.en .popup-apply .flat-info,
+body.en .popup-3d .flat-info,
+body.en .popup-360 .flat-info {
   order: 5; }
-  body.en .popup-2d > .flat-info > .title, body.en .popup-apply > .flat-info > .title,
-  body.en .popup-3d > .flat-info > .title,
-  body.en .popup-360 > .flat-info > .title {
+  body.en .popup-2d .flat-info > .title, body.en .popup-apply .flat-info > .title,
+  body.en .popup-3d .flat-info > .title,
+  body.en .popup-360 .flat-info > .title {
     display: block; }
-    body.en .popup-2d > .flat-info > .title .title-box::after, body.en .popup-apply > .flat-info > .title .title-box::after,
-    body.en .popup-3d > .flat-info > .title .title-box::after,
-    body.en .popup-360 > .flat-info > .title .title-box::after {
+    body.en .popup-2d .flat-info > .title .title-box::after, body.en .popup-apply .flat-info > .title .title-box::after,
+    body.en .popup-3d .flat-info > .title .title-box::after,
+    body.en .popup-360 .flat-info > .title .title-box::after {
       right: initial;
       left: 0;
       width: 98px; }
-    body.en .popup-2d > .flat-info > .title .price-text, body.en .popup-apply > .flat-info > .title .price-text,
-    body.en .popup-3d > .flat-info > .title .price-text,
-    body.en .popup-360 > .flat-info > .title .price-text {
+    body.en .popup-2d .flat-info > .title .price-text, body.en .popup-apply .flat-info > .title .price-text,
+    body.en .popup-3d .flat-info > .title .price-text,
+    body.en .popup-360 .flat-info > .title .price-text {
       display: block;
       order: 2; }
 
@@ -5165,5 +5224,94 @@ body.he .three_js .popup-360 > .flat-info > .title .price-text {
   display: block;
   margin: auto;
   font-size: 70px; }
+
+.three_js .roof_n_looby .flat-plan-box .title-with-selector .page-title .text .title-text-row:after {
+  width: 68px; }
+
+.unit_info-points {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+  grid-gap: 5px;
+  font-size: 16px; }
+  .unit_info-points .unit_info-points_items {
+    display: flex; }
+    .unit_info-points .unit_info-points_items span {
+      margin: 0 5px; }
+    .unit_info-points .unit_info-points_items img {
+      width: 24px;
+      height: 24px; }
+
+body.he .three_js .roof_n_looby .flat-plan-box .title-with-selector .page-title .text .title-text-row:after {
+  left: initial;
+  right: 0; }
+
+body.en .three_js .title-with-selector .page-title .text .title-text-row:after {
+  left: 0;
+  right: initial; }
+
+body.en div[data-clipboard-text="Spa"] .model-name,
+body.en div[data-clipboard-text="Lobby"] .model-name,
+body.en div[data-clipboard-text="Roof"] .model-name {
+  transform: translateX(-5px); }
+
+body.he div[data-clipboard-text="Spa"] .model-name,
+body.he div[data-clipboard-text="Lobby"] .model-name,
+body.he div[data-clipboard-text="Roof"] .model-name {
+  transform: translateX(5px); }
+
+.middle-text .language-string {
+  position: relative; }
+
+body.en .middle-text span[data-dictionary=m2]:after {
+  content: '2';
+  position: absolute;
+  font-size: 75%;
+  height: 8px;
+  width: 8px;
+  left: 9px;
+  top: -2px;
+  line-height: 18px;
+  color: #5c646b;
+  margin: auto 0;
+  order: 2;
+  font-family: Fragolino; }
+
+.bottom.area,
+.bottom.size {
+  position: relative; }
+
+body.en .bottom.size:after,
+body.en .bottom.area:after {
+  content: '2';
+  position: absolute;
+  font-size: 75%;
+  height: 8px;
+  width: 8px;
+  left: 32px;
+  top: -2px;
+  line-height: 18px;
+  order: 2;
+  font-family: Fragolino; }
+
+.bottom.size:after {
+  left: 25px; }
+
+.lobby-n-roof + div > .iv-image-view > div > img {
+  transform: scale(0.7); }
+
+.three_js .popup-info.roof_n_looby .price {
+  display: none !important; }
+
+.three_js .flat-info .more-info.uninhabited-info {
+  display: grid;
+  height: fit-content; }
+  .three_js .flat-info .more-info.uninhabited-info .uninhabited-info_item {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    align-items: center; }
+    .three_js .flat-info .more-info.uninhabited-info .uninhabited-info_item img {
+      margin: 0; }
 
 /*# sourceMappingURL=main-style.css.map */

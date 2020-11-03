@@ -149,7 +149,7 @@ body {
 		}
 	}
 	#c {
-		position: relative;
+		position: relative; 
 		margin: auto;
 		width: 100%!important;
 		height: 100%!important;
@@ -488,6 +488,21 @@ body {
 		&:last-child {
             .top-part {  
             }
+		}
+		&.studio {
+			.top-part .text-box .middle-text {
+				color: white;
+				position: relative;
+				&:after {
+					content: '';
+					width: 10px;
+					height: 2px;
+					background-color: #a3a7ab;
+					position: absolute;
+					top: 10px;
+					left: 0;
+				}
+			}
 		}
 		&.sq {
 			display: none;
@@ -1203,6 +1218,15 @@ body {
 		* {
 			opacity: 0;
 		}
+
+
+		.floor-info-row {
+			order: 2;
+			min-height: 100%;
+			background-color: #f7f7f7;
+			overflow-y: auto;
+		}
+
 		&:after {
 			position: absolute;
 			width: 100%;
@@ -1248,7 +1272,7 @@ body {
 			}
 			.slider-box {
 				width: 100%;
-				height: calc(100vw / 16 * 9);
+				height: 100%;
 				margin: 0 auto;
 				.slider {
 					width: 100%;
@@ -2219,43 +2243,18 @@ body {
 		transition-property: opacity, transform;
 		user-select: none;
 		transition: 0.5s;
-		&.roof_n_looby {
-			&.roof {
+		&.custom-selection { 
+		    .price, 
+		    .flat-options {
+		    	display: none!important;
+		    }
+		    .flat-plan {
+		    	height: auto;
+		    }
+		    height: auto;
 				.floor-plan-toggler {
 					display: none;
-
-
-				}
-			}
-			.flat-plan {
-				padding-top: 29px;
-				.popups-togglers-box {
-					margin-top: 18px;
-					.non-flat-360 {
-						display: flex!important;
-						margin-right: 20px;
-						background-color: #603ef2;
-						border-color: #603ef2;
-						padding-left: 30px;
-						background-repeat: no-repeat;
-						background-size: 14px;
-						background-position: left 8px center;
-						background-image: url(../img/ic-plan.svg)!important;
-					}
-				}
-			}
-			.flat-options {
-				display: none;
-			}
-			.price {
-				display: none;
-			}
-			.flat-plan {
-				height: 136px!important;
-			}
-			.toggler-2d {
-				display: none;
-			}
+				} 
 		}
 		&:after {
 			position: absolute;
@@ -2698,7 +2697,7 @@ body {
 					top: -5px;
 					width: 10px;
 					height: 10px;
-					background-color: $white;
+					background-color: $white; 
 					transform: rotate(45deg);
 				}
 				.info-loop {
@@ -2718,10 +2717,10 @@ body {
 					font-weight: 400;
 					line-height: 23px;
 					text-align: center;
-					display: none;
+					display: flex; 
 					flex-direction: column;
 					justify-content: center; 
-					cursor: pointer;
+					cursor: pointer; 
 					//transition: 0.5s;
 					//&:hover {
 					//	transform: scale(1.2);
@@ -2730,6 +2729,21 @@ body {
 				.info-loop {
 					.info-item {
 						margin-bottom: 23px;
+						&.studio {
+							.text .top {
+								position: relative;
+								color: #f7f7f7;
+								&:after {
+									content: '';
+									position: absolute;
+									top: 10px;
+									left: 0;
+									width: 10px;
+									height: 2px;
+									background-color: #91969b;
+								}
+							}
+						}
 						.row {
 							display: flex;
 							font-size: 24px;
@@ -2804,6 +2818,7 @@ body {
 								color: #5c646b;
 								margin-left: 4px;
 								margin-right: 4px;
+								text-transform: lowercase;
 							}
 							.add-to-dictionary {
 								color: #5c646b;
@@ -2923,9 +2938,21 @@ body {
 		.text-container {
 			display: flex; 
 	        line-height: 24px;
+	        background-color: white;
+	        &.custom-selection {
+	            font-size: 0px;	
+	            .model-name {
+	            	font-size: 16px;
+	            }
+	        }
 		}
-		.model-rooms {
+		.model-rooms { 
 			display: flex;
+			&.studio {
+				.ic {
+					display: none;
+				}
+			}
 			.ic {
 				width: 16px;
 				height: 16px;
@@ -3236,8 +3263,13 @@ body {
 		height: 44px;
 		width: 528px;
 		user-select: none;
-		z-index: 2;
+		z-index: 30;
 		display: flex;
+
+        .filter-open & {
+        	display: none;
+        }
+
 		.line {
 			width: 100%;
 			height: 2px;
@@ -3296,9 +3328,13 @@ body {
 		height: auto;
 		width: 100px;
 		border-radius: 0px;
-		z-index: 3;
+		z-index: 30;
 		display: flex;
 		justify-content: space-between;
+        .filter-open & {
+        	display: none; 
+        } 
+
 		.sep {
 			width: 80%;
 			height: 1px;
@@ -3770,17 +3806,38 @@ body {
 	}
 	.compass {
 		position: absolute;
-		bottom: 0px;
-		left: 0px;
-		background-image: url(../img/compas.svg);
-		width: 132px;
-		height: 132px;
-		background-size: contain;
+		width: 42px;
+		height: 42px;
+		left: 32px;
+		bottom: 32px;
+		transform: rotateZ(-180deg);
+		background-color: #fff;
+		background-repeat: no-repeat;
+		background-position: center;
+		border-radius: 50%;
 		z-index: 9;
-		transform: rotateZ(-60deg);
 		cursor: pointer;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+		transition: 1s;
+		transition-property: bottom;
+		transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
+		transition-delay: 0s; 
+		.ic {
+			width: 100%;
+			height: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+		    background-image: url(../img/compas_new.svg);
+		}
 		.filter-open & {
-	        display: none;
+	            /* display: none; */
+			bottom: 270px;
+			left: 34px;
+			transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
+			transition-delay: 0.13s;
+			&.flat-cards-open {
+				bottom: 330px;
+			}
 		}
 		&.not-default {
 			bottom: 50px;
@@ -4584,7 +4641,7 @@ body.on-white {
 			order: 2;
 		}
 		.text {
-			order: 3;
+			order: 1;
 		}
 	}
 }
@@ -4713,7 +4770,7 @@ body.en {
 		&>.content {
 			order: 1;
 		}
-		&>.flat-info {
+		 .flat-info {
 			order: 5;
 
 			&>.title {
@@ -4827,4 +4884,126 @@ body.he {
 	display: block;
 	margin: auto;
 	font-size: 70px;
+}
+
+.three_js .roof_n_looby .flat-plan-box .title-with-selector .page-title .text .title-text-row:after {
+	width: 68px;
+}
+
+.unit_info-points {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 15px;
+	grid-gap: 5px;
+	font-size: 16px;
+
+	.unit_info-points_items {
+		display: flex;
+
+		span {
+			margin: 0 5px;
+		}
+
+		img {
+			width: 24px;
+			height: 24px;
+		}
+
+	}
+}
+
+// SHAME CSS
+
+body.he .three_js .roof_n_looby .flat-plan-box .title-with-selector .page-title .text .title-text-row:after {
+	left: initial;
+	right: 0;
+}
+
+body.en .three_js .title-with-selector .page-title .text .title-text-row:after {
+	left: 0;
+	right: initial;
+}
+
+
+
+body.en div[data-clipboard-text="Spa"],
+body.en div[data-clipboard-text="Lobby"],
+body.en div[data-clipboard-text="Roof"] {
+	.model-name {
+		transform: translateX(-5px);
+	}
+}
+
+body.he div[data-clipboard-text="Spa"],
+body.he div[data-clipboard-text="Lobby"],
+body.he div[data-clipboard-text="Roof"] {
+	.model-name {
+		transform: translateX(5px);
+	}
+}
+
+.middle-text .language-string {
+	position: relative;
+}
+
+body.en .middle-text span[data-dictionary=m2]:after {
+	content: '2';
+	position: absolute;
+	font-size: 75%;
+	height: 8px;
+	width: 8px;
+	left: 9px;
+	top: -2px;
+	line-height: 18px;
+	color: #5c646b;
+	margin: auto 0;
+	order: 2;
+	font-family: Fragolino;
+}
+
+.bottom.area,
+.bottom.size {
+	position: relative;
+}
+
+body.en .bottom.size:after,
+body.en .bottom.area:after {
+	content: '2';
+	position: absolute;
+	font-size: 75%;
+	height: 8px;
+	width: 8px;
+	left: 32px;
+	top: -2px;
+	line-height: 18px;
+	order: 2;
+	font-family: Fragolino;
+}
+
+.bottom.size:after {
+	left: 25px;
+}
+
+.lobby-n-roof + div > .iv-image-view > div > img {
+	transform: scale(0.7);
+}
+
+.three_js .popup-info.roof_n_looby .price {
+	display: none !important;
+}
+
+.three_js .flat-info .more-info.uninhabited-info {
+	display: grid;
+	height: fit-content;
+
+	.uninhabited-info_item {
+		margin-top: 30px;
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		align-items: center;
+
+		img {
+			margin: 0;
+		}
+	}
 }

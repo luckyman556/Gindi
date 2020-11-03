@@ -11,6 +11,10 @@ export let dictionary_array = {
         'he' : 'חדרים',
         'en' : 'Bedrooms'
     },
+    'Rooms' : {
+        'he' : 'חדרים',
+        'en' : 'Rooms'
+    },
     'Area' : {
         'he' : 'שטח',
         'en' : 'Area'
@@ -143,6 +147,10 @@ export let dictionary_array = {
         'he': 'חדרים',
         'en': 'rooms'
     },
+    'bedrooms' : {
+        'he': 'חדרים',
+        'en': 'bedrooms'
+    },
     'ILS' : {
         'he': '₪',
         'en': 'ILS'
@@ -226,5 +234,109 @@ export let dictionary_array = {
     'With balcony': {
         'he': 'need translate',
         'en': 'With balcony'
+    },
+    'half-bath' : {
+        'he' : '',
+        'en' : 'half-bath'
+    },
+    'Lobby': {
+        'en': 'Lobby',
+        'he': 'לובי'
+    },
+    'Spa': {
+        'en': 'Spa',
+        'he': 'ספא'
+    },
+    'Roof': {
+        'en': 'Roof',
+        'he': 'גג'
+    },
+    'm2': {
+        'en': 'm',
+        'he': 'מ"ר'
+    },
+    'Pool': {
+        'en': 'Pool',
+        'he': 'בריכה'
+    },
+    'Vantage 360': {
+        'en': 'Vantage 360',
+        'he': 'תצפית היקפית'
+    },
+    'Snack bar': {
+        'en': 'Snack bar',
+        'he': 'בר שתיה ואוכל קל'
+    },
+    'Barbecue area': {
+        'en': 'Barbecue area',
+        'he': 'אזור ברביקיו'
+    },
+    'Lounge': {
+        'en': 'Lounge',
+        'he': 'אזור ישיבה'
+    },
+    'Reception': {
+        'en': 'Reception',
+        'he': 'דלפק קבלה'
+    },
+    'Coffee shop': {
+        'en': 'Coffee shop',
+        'he': 'בית קפה'
+    },
+    'Restaurant': {
+        'en': 'Restaurant',
+        'he': 'מסעדה'
+    },
+    'Supermarket': {
+        'en': 'Supermarket',
+        'he': 'סופר מרקט'
+    },
+    'Restroom': {
+        'en': 'Restroom',
+        'he': 'שירותים'
+    }
+    ,'Sauna': {
+        'en': 'Sauna',
+        'he': 'סאונה'
+    },
+    'Jacuzzi': {
+        'en': 'Jacuzzi',
+        'he': 'ג׳קוזי'
+    },
+    'Treatment room': {
+        'en': 'Treatment room',
+        'he': 'חדרי טיפול'
+    },
+    'Open lounge': {
+        'en': 'Open lounge',
+        'he': 'אזור ישיבה פתוח'
+    },
+    'Gym': {
+        'en': 'Gym',
+        'he': 'חדר כושר'
+    }
+    ,'Wardrobes': {
+        'en': 'Wardrobes',
+        'he': 'מלתחות'
+    },
+    'Conference room': {
+        'en': 'Conference room',
+        'he': 'חדרי ישיבות'
+    },
+    'Bar': {
+        'en': 'Bar',
+        'he': 'בר'
+    },
+    'No price': {
+        'en': 'No price',
+        'he': 'מחיר לא ידוע'
+    },
+    'Apply now': {
+        'en': 'Apply now',
+        'he': 'להגיש מועמדות',
+    },
+    'Wellness & studies': {
+        'en': 'Wellness & studies',
+        'he': 'need translate',
     },
 }

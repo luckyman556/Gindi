@@ -34,8 +34,7 @@ body {
     border-radius: 3px;
 }
 
-.custom-progress-bar .progress-line-active {
-    width: 100%!important;
+.custom-progress-bar .progress-line-active { 
     height: 100%;
     background-color: transparent;
     border-radius: 3px;
@@ -191,6 +190,9 @@ body {
         left: initial;
         width: 42px;
     }
+    body.filter-open .three_js .zoom-controls {
+        display: none;
+    }
 
     .three_js .zoom-controls .zoom {
         width: 42px;
@@ -250,7 +252,7 @@ body {
         right: 87%;
     }
 
-    .three_js .popup-info.show.hide {
+    .three_js .popup-info.hide {
         bottom: -368px!important;
         transform: translateX(-50%);
         display: none;
@@ -891,7 +893,12 @@ body {
     .three_js .compass {
         /* width: 90px; */
         /* height: 90px; */
-        bottom: 0;
+        bottom: 24px;
+        left: 16px;
+    }
+    .filter-open .three_js .compass {
+        
+left: 16px;
     }
 
     .three_js .compass.not-default {

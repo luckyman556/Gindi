@@ -43,11 +43,12 @@
     &.open {
         bottom: 32px;
         opacity: 1;
+        max-width: calc(100% - 64px); 
     }
     .reset-filter {
         position: absolute;
         bottom: calc(100% + 34px);
-        right: 0;
+        right: 0; 
     }
     .filter-controls.on-back ~ .flat-counter { 
         .text {
@@ -133,6 +134,7 @@
                 height: 198px;
                 border-radius: 6px;
                 font-size: 30px;
+                margin-left: 0;
             }
             mark {
                 background-color: $brand-color-2;
@@ -193,6 +195,26 @@
                 justify-content: space-between;
                 .option-item {
                     width: auto;
+                    &.studio {
+                        .ic,
+                        .bottom {  
+                            .text {
+                                color: white;
+                                position: relative;
+                                &:after{
+                                    content: '';
+                                    position: absolute;
+                                    top: 10px;
+                                    left: 0;
+                                    background-color: #b0b4b9;
+                                    width: 10px;
+                                    height: 2px;
+
+                               
+                                }
+                            }
+                        }
+                    }
                     .top {
                         display: flex;
                         .number {
@@ -202,8 +224,9 @@
                             padding: 0 5px;
                             position: relative;
                             sup { 
-                                vertical-align: super;
                                 font-size: 12px;
+                                position: relative;
+                                top: -6px;
                             }
                         }
                         .ic {

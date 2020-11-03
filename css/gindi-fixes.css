@@ -1,0 +1,10 @@
+.three_js .compass .ic {
+
+    transform: rotateZ(60deg);
+}
+.custom-progress-bar .progress-line {
+    position: relative;
+}
+.custom-progress-bar .progress-line-active {
+    position: static;
+}

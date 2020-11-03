@@ -183,7 +183,12 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 filters_html += range_html;
             }
             if (item.filter_type == 'togglers') {
-                const togglers_html = get_togglers_html (crm_array, item.crm_name, item.options.with_sep, item.options.sep, item.options.dictionary);
+                let togglers_html;
+                if (item.options.callback) {
+                    togglers_html = get_togglers_html (crm_array, item.crm_name, item.options.with_sep, item.options.sep, item.options.dictionary, item.options.callback);
+                } else {
+                    togglers_html = get_togglers_html (crm_array, item.crm_name, item.options.with_sep, item.options.sep, item.options.dictionary);
+                }
                 let togglers_filter_html = `
                     <div id="sort-item-${item.crm_name}" class="nfm-togglers ${item.crm_name} ">
                         <div class="nfm-first-line">
@@ -458,7 +463,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         crm_array = window.actual_JSON;
         let new_crm_array = [];
         if (word.length === 0) {
-
+            crm_array = [];
+            filter_update ();
         } else {
             search_fields.forEach(function(item){
                 const unic_filter_class = item.crm_name;
@@ -514,6 +520,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 }
             });
         } else {
+            crm_array = [];
+            filter_update ();
             if ($('.filter-controls').hasClass('open')) {
                 replace_filters_n_cards();
             }
@@ -541,7 +549,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             'max_num' : Math.floor(max_num),
         }
     }
-    function get_togglers_html (array, key, with_sep = false, sep = undefined, dictionary = null) {
+    function get_togglers_html (array, key, with_sep = false, sep = undefined, dictionary = null, callback = null) {
         let togglers_array = {};
         let togglers_html = '';
         array.forEach(function(item){
@@ -566,9 +574,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         });
         for (key in togglers_array) {
             const item = togglers_array[key];
+            let value = item.name;
+            if (callback) {
+                value = callback(item.name);
+            }
             let toggler_html = `
                 <div class="toggler-btn" data-val="${item.name}">
-                    ${item.name}
+                    ${value}
                 </div>
             `;
             if (dictionary) {
@@ -576,8 +588,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 <div class="toggler-btn language-string" data-dictionary="${dictionary[item.name]}" data-val="${item.name}">
                     ${get_lang(dictionary[item.name])}
                 </div>
-            `;
-            }
+            `;}
             togglers_html += toggler_html;
         };
         return togglers_html;
@@ -1475,6 +1486,10 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             filter_controls.addClass('open');
             container_appear (filter_controls);
             container_disappear (card_div);
+            let compass = document.querySelector('.compass');
+            if (compass) {
+                compass.classList.remove('flat-cards-open');
+            }
             main_box.addClass('filters-open');
             main_box.removeClass('flat-cards-open');
             tabs_container.removeClass('hide');
@@ -1487,6 +1502,11 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             }        
             container_disappear (filter_controls)
             container_appear (card_div);
+            let compass = document.querySelector('.compass');
+            if (compass) {
+                compass.classList.add('flat-cards-open');
+            }
+
             main_box.removeClass('filters-open');
             main_box.addClass('flat-cards-open');
             tabs_container.addClass('hide');
@@ -1548,6 +1568,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 filter_container.addClass('transition-off');
                 setTimeout(function(){
                     filter_container.addClass('full-window');
+
                     filter_container.removeClass('transition-off');
                     setTimeout(function(){
                         filter_container.addClass('open-animation');
@@ -1569,6 +1590,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             setTimeout(function(){
                 filter_container.addClass('transition-off');
                 filter_container.removeClass('full-window');
+
+                document.querySelector('body').classList.add('filter-open');
                 setTimeout(function(){
                     filter_container.removeClass('transition-off');
                 }, 50);

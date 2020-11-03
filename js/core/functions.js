@@ -91,7 +91,8 @@ if (findGetParameter('version') == 'old') {
 var opacity_animations = [];
 var new_floor_selector_obj;
 var gama_factor = 1;
-window.all_appartments = [];
+var all_appartments = [];
+var customSelections = [];
 var instanced_floors = {};
 
 var flat_labels_group = [];
@@ -281,6 +282,21 @@ function update_click_intersection () {
 }
 
 function flat_click (appartment, without_card = false , disableAnyAnimation = false) {
+
+    if (scene.userData.lastCustomSelectionId) {
+
+        let flatCard = document.querySelector('.popup-info');
+        flatCard.classList.remove('custom-selection');
+        let object = scene.getObjectById(scene.userData.lastCustomSelectionId);
+        if (document.querySelector('.unit_info-points')) $('.unit_info-points').remove();
+        if (object) {
+            object.userData.color_locked = false;
+            appartment_hoverout(object)
+            setTimeout(function(){
+                scene.userData.lastCustomSelectionId = null;
+            }, 100); 
+        }
+    }
     if (flatClickHandler) {
         $('.pulse').addClass("run-animation");
         setTimeout(function(){
@@ -301,7 +317,6 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
             // destroy_building(current_floor);
             set_floor_status_color (colored_floors);
         }  else {
-            console.log(disableAnyAnimation)
             if (!disableAnyAnimation) {
                 set_camera_on_flat(appartment);
             }
@@ -350,7 +365,13 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
                 }
             }
             popup_info.removeClass('hide');
+        } else {
+
+            var popup_info = $('.popup-info');
+            popup_info.addClass('show');
+            popup_info.addClass('hide');
         }
+
 
         if (!disableAnyAnimation) {
             if (!lock_mouse_rotation_x) {
@@ -464,28 +485,28 @@ function appartment_hover (appartment) {
     }
     document.querySelector('#c').style.cssText = 'cursor : pointer;';
     if (lock_mouse_rotation_x == false) {
-        if (appartment.userData.lobby_or_roof == undefined) {
-            last_hover_object = appartment;
-            var flat_bubble = $('.flat-bubble');
-            if (flat_bubble.is(":visible")) {
-                globalFunctions.flatBubble.updateText(appartment);
-                globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
-                globalFunctions.flatBubble.show();
-                //flat_number_bubble('update', appartment.children[0]);
-            } else {
-                globalFunctions.flatBubble.updateText(appartment);
-                globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
-                globalFunctions.flatBubble.show();
-/*                flat_number_bubble('update', appartment.children[0]);
-                flat_number_bubble('show', appartment.children[0]);*/
+        var flat_bubble = $('.flat-bubble');
+        if (flat_bubble.is(":visible")) {
+            globalFunctions.flatBubble.updateText(appartment);
+            globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
+            globalFunctions.flatBubble.show();
+            //flat_number_bubble('update', appartment.children[0]);
+        } else {
+            globalFunctions.flatBubble.updateText(appartment);
+            globalFunctions.flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
+            globalFunctions.flatBubble.show();
+            /*                flat_number_bubble('update', appartment.children[0]);
+                            flat_number_bubble('show', appartment.children[0]);*/
+        }
+        if (appartment.userData.customSelection) {
+            if (last_hover_object != appartment) {
+                if (last_hover_object) {
+                    appartment_hoverout(last_hover_object);
+                    last_hover_object = appartment;
+                }
             }
         } else {
-            var flat_bubble = $('.flat-bubble');
-            if (flat_bubble.is(":visible")) {
-                globalFunctions.flatBubble.hide();
-                //flat_number_bubble('hide', last_hover_object.children[0]);
-            }
-            appartment_hoverout(last_hover_object);
+            last_hover_object = appartment;
         }
     } else {
         last_hover_object = appartment;
@@ -672,20 +693,36 @@ function change_camera_position_y () {
     }
 }
 
-function drag_focus_target_z () {
-    if (raf_divergention_y != 0) {
+function drag_focus_target (e, basePosition, baseRotation) {
+    // back-front
+
+    if (raf_divergention_y != 0 || raf_divergention_x != 0) {
+        let newVector = new global_three.Vector3(raf_divergention_x, 0,raf_divergention_y);
+        let group = new global_three.Group();
+        group.position.set(basePosition.x, basePosition.y, basePosition.z);
+        group.rotation.set(baseRotation.x, baseRotation.y, baseRotation.z);
+        scene.add(group);
+        group.updateWorldMatrix(true);
+        let worldNewVectorPosition = group.localToWorld(newVector);
         let mesh = scene.getObjectByName('cameraTargetParent');
-        let target =  mesh.userData.position_z + raf_divergention_y * 0.1;
-        mesh.position.z = target;
+        mesh.position.set(newVector.x, newVector.y, newVector.z);
+        scene.remove(group);
     }
 }
 
-function drag_focus_target_x () {
-    if (raf_divergention_y != 0) {
+function drag_focus_target_x (e, basePosition, baseRotation) {
+    // left-right
+    if (raf_divergention_x != 0) {
+        let newVector = new global_three.Vector3(raf_divergention_x, 0,0);
+        let group = new global_three.Group();
+        group.position.set(basePosition.x, basePosition.y, basePosition.z);
+        group.rotation.set(baseRotation.x, baseRotation.y, baseRotation.z);
+        scene.add(group);
+        group.updateWorldMatrix(true);
+        let worldNewVectorPosition = group.localToWorld(newVector);
         let mesh = scene.getObjectByName('cameraTargetParent');
-        //debugger;
-        let target =  mesh.userData.position_x + raf_divergention_x * 0.1;
-        mesh.position.x = target;
+        mesh.position.set(newVector.x, newVector.y, newVector.z);
+        scene.remove(group);
     }
 }
 
@@ -851,10 +888,8 @@ function checkIntersection() {
                         // appartment_hoverout(window.lobby);
                         // appartment_hoverout(window.roof);
                     } else {
-                        if (selectedObject.userData.lobby_or_roof == true) {
+                        if (selectedObject.userData.customSelection) {
                             last_flat_intersection_point = intersects[0].point;
-                        }
-                        if (selectedObject.userData.lobby_or_roof != undefined) {
                             appartment_hover(selectedObject);
                         } else {
                             not_flat_function();
@@ -875,11 +910,10 @@ function checkIntersection() {
                 if (window.floor_numbers_intersection) {
                     document.querySelector('#c').style.cssText = '';
                 }
-                all_appartments.forEach(function (appartment, ap_index) {
+                let allSelections = [];
+                all_appartments.concat(customSelections).forEach(function (appartment, ap_index) {
                     if (appartment.userData.color_locked != true) {
                         appartment_hoverout(appartment);
-                    } else {
-
                     }
                 });
                 globalFunctions.flatBubble.hide();
@@ -1222,205 +1256,286 @@ function updateURLParameter(url, param, paramVal)
 }
 function add_appartment_info_in_popup (box) {
     box.find('.flat-info').remove();
-    var flat = all_appartments[$('body').attr('data-current-app-index')];
-    var flat_name_number = flat.userData.crm_data.propNum;
+    box.find('.floor-info-row').remove();
+    // var flat = all_appartments[$('body').attr('data-current-app-index')];
 
-    var flat_price = flat.userData.crm_data.salePrice;
-    if  (flat_name_number < 10) {
-        flat_name_number =   '0' + String(flat_name_number);
-    }
+    var flat = last_clicked_flat;
 
-    var flat_square = flat.userData.crm_data.totalSpace;
-    if (flat_square == 0) {
-        flat_square = 80;
-    }
-    var badrooms = flat.userData.crm_data.roomNum;
-    var bathrooms = flat.userData.crm_data.bathRooms;
-    var balcony = flat.userData.crm_data.balconySize;
-    var facing = flat.userData.crm_data.facing;
-    let facing_translates = globalSettings.exposure.dictionary;
-   let facing_string_array = facing.split(',');
-   let facing_string_en = '';
-   let facing_string_he = '';
-    facing_string_array.forEach(function(facing_item){
-        let sep = ', ';
-        if (facing_string_en.length == 0 || facing_string_he.length === 0) {
-            sep = '';
-        }
-        facing_string_en += sep + facing_translates[facing_item];
-        facing_string_he += sep + facing_item;
-        // console.log(facing_string_);
-    });
-    var flat_type = flat.userData.crm_data.propType;
-    let flat_types_translates = {
-        'דירה' : 'apt.type'
-    };
-    let flat_type_en = flat_types_translates[flat_type];
-    let flat_type_he = flat_type;
+    if (!scene.userData.lastCustomSelectionId) {
+        var flat_name_number = (flat.userData.crm_data.propNum < 10) ? `0${flat.userData.crm_data.propNum}` : flat.userData.crm_data.propNum;
+        var flat_price = flat.userData.crm_data.salePrice;
+        var flat_square = flat.userData.crm_data.totalSpace;
+        var badrooms = flat.userData.crm_data.roomNum;
+        var bathrooms = flat.userData.crm_data.bathRooms;
+        var balcony = flat.userData.crm_data.balconySize;
+        var facing = flat.userData.crm_data.facing;
+        let facing_translates = globalSettings.exposure.dictionary;
 
-    flat_type = flat_type_en;
-    var engine_id = flat.userData.crm_data.modelName;
-    var floor = flat.userData.floor + globalSettings.base_floor;
-    if (flat.userData.int_360 != undefined) {
+        let facing_string_array = facing.split(',');
+        let facing_string_en = '';
+        let facing_string_he = '';
 
-        if (Array.isArray(flat.userData.int_360) == true) {
-            let slider_box = $('.three_js .popup-3d .content .slider-box');
-            slider_box.empty();
-            let array_360 = flat.userData.int_360;
-            let slider_html = '<div class="slider">';
-            array_360.forEach(function(src){
-                // slider_html += '<div class="slide"><img src="' + 'https://dreamseu.z6.web.core.windows.net/new/dev/gindi/visual/' +  src +'"   sizes="(max-width: 550px) 300px,(max-width: 767px) 768px,(max-width: 1024px) 1024px,2000px" srcset="'  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=300/new/dev/gindi/visual/' +  src + ' 300w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=768/new/dev/gindi/visual/' +  src + ' 768w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=1024/new/dev/gindi/visual/' +  src + ' 1024w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=2000/new/dev/gindi/visual/' +  src + ' 2000w" alt=""></div>';
-                slider_html += '<div class="slide"><img src="" data-image-name="' + src + '" alt=""></div>';
-            });
-            slider_html += '</div>';
-            slider_box.html(slider_html);
-            slider_box.find('.slider').slick({
-                arrows: true,
-            });
+        facing_string_array.forEach(function(facing_item){
+            let sep = (facing_string_en.length === 0 || facing_string_he.length === 0) ? ', ' : '';
+
+            facing_string_en += sep + facing_translates[facing_item];
+            facing_string_he += sep + facing_item;
+        });
+
+        var flat_type = flat.userData.crm_data.propType;
+        let flat_types_translates = {
+            'דירה' : 'apt.type'
+        };
+        let flat_type_en = flat_types_translates[flat_type];
+        let flat_type_he = flat_type;
+
+        flat_type = flat_type_en;
+        var engine_id = flat.userData.crm_data.modelName;
+        var floor = flat.userData.floor;
+        if (flat.userData.int_360 != undefined) {
+
+            if (flat.userData.int_360.length > 0) {
+
+                let slider_box = $('.three_js .popup-3d .content .slider-box');
+                slider_box.empty();
+                let array_360 = flat.userData.int_360;
+                let slider_html = '<div class="slider">';
+                array_360.forEach(function(src){
+                    // slider_html += '<div class="slide"><img src="' + 'https://dreamseu.z6.web.core.windows.net/new/dev/gindi/visual/' +  src +'"   sizes="(max-width: 550px) 300px,(max-width: 767px) 768px,(max-width: 1024px) 1024px,2000px" srcset="'  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=300/new/dev/gindi/visual/' +  src + ' 300w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=768/new/dev/gindi/visual/' +  src + ' 768w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=1024/new/dev/gindi/visual/' +  src + ' 1024w,  '  + 'http://dreamsimages.bmby.com/cdn-cgi/image/width=2000/new/dev/gindi/visual/' +  src + ' 2000w" alt=""></div>';
+                    slider_html += '<div class="slide"><img src="" data-image-name="' + src + '" alt=""></div>';
+                });
+                slider_html += '</div>';
+                slider_box.html(slider_html);
+                slider_box.find('.slider').slick({
+                    arrows: true,
+                });
+            } else {
+                var new_iframe_3d = '<iframe src="' +  flat.userData.int_360  +'"></iframe>';
+                if ( new_iframe_3d != $('.three_js .popup-3d .content .iframe-box').html()) {
+                    $('.three_js .popup-3d .content .iframe-box').html(new_iframe_3d);
+                }
+            }
+
+
         } else {
-            var new_iframe_3d = '<iframe src="' +  flat.userData.int_360  +'"></iframe>';
-            if ( new_iframe_3d != $('.three_js .popup-3d .content .iframe-box').html()) {
-                $('.three_js .popup-3d .content .iframe-box').html(new_iframe_3d);
+            $('.three_js .popup-3d .content .iframe-box').html('');
+        }
+        let status_text = (flat.userData.status_index !== 0) ? 'available' : 'unavailable';
+
+        let concessions_html = '';
+        if (flat.userData.crm_data.concessions) {
+            let concessions_array = flat.userData.crm_data.concessions;
+            if (concessions_array.length > 0) {
+                let concessions_title = flat.userData.crm_data.concessions[0].title;
+                if (concessions_title.length > 0) {
+                    concessions_html = `
+                    <div class="concessions">
+                        <div class="gift"></div>
+                        <div class="concessions-text"> ${ concessions_title } </div>
+                    </div>
+                `;
+                }
             }
         }
 
+        let apt_name_he =  'דירה ' + flat_name_number;
+        let apt_name_current = `Apt. ${ flat_name_number }`;
 
+        let from_word = 'from';
+        let form_word_he = 'החל מ-';
+        let form_word_current = from_word;
+
+        let price_html = get_price_html(flat_price, 'common');
+
+        let more_info_word = 'show info';
+        let more_info_word_he ='עוד מידע';
+        let more_info_word_current = more_info_word;
+
+        let hide_word = 'hide';
+        let hide_word_he = 'לסגור';
+        let hide_word_current = hide_word;
+
+        let floor_word = 'floor';
+        let floor_word_he ='קומה';
+        let floor_word_current = floor_word;
+
+        let badrooms_word = 'rooms';
+        let badrooms_word_he ='חדרים';
+        let badrooms_word_current = badrooms_word;
+
+        let bathrooms_word = 'bathrooms';
+        let bathrooms_word_he ='חדרי רחצה';
+        let bathrooms_word_current = bathrooms_word;
+
+        let balcony_word = 'balcony size';
+        let balcony_word_he ='גודל מרפסת';
+        let balcony_word_current = balcony_word;
+
+        let area_word = 'area';
+        let area_word_he ='אזור';
+        let area_word_current = area_word;
+
+        let exposure_word = 'exposure';
+        let exposure_word_he ='כיווני אוויר';
+        let exposure_word_current = exposure_word;
+
+        // let apply_now_word = 'Apply now';
+        // let apply_now_word_he ='פרטים נוספים';
+        // let apply_now_word_current = apply_now_word;
+
+        let facing_word = facing_string_en;
+        let facing_word_he = facing_string_he;
+        let facing_word_en = facing_string_en;
+
+        if ($('body').hasClass('he') == true) {
+            apt_name_current = apt_name_he;
+            form_word_current = form_word_he;
+            more_info_word_current = more_info_word_he;
+            floor_word_current = floor_word_he;
+            badrooms_word_current = badrooms_word_he;
+            bathrooms_word_current = bathrooms_word_he;
+            balcony_word_current = balcony_word_he;
+            area_word_current = area_word_he;
+            exposure_word_current = exposure_word_he;
+            // apply_now_word_current = apply_now_word_he;
+            facing_word = facing_word_he;
+            flat_type = flat_type_he;
+            hide_word_current = hide_word_he;
+        }
+
+        let apply_now_html =  `<div class="apply-now scroll_to_contacts language-string" data-dictionary="Apply now">${get_lang('Apply now')}</div>`;
+        if ($('body').hasClass('page-template-only-model')) {
+            apply_now_html =  `<a class="apply-now language-string" href="/contact-us/?app_id=' + flat_name_number + '" data-dictionary="Apply now">${get_lang('Apply now')}</a>`;
+        }
+        if (!window.showApplyNow) {
+            apply_now_html = '';
+        }
+
+
+        let flatOptions = globalFunctions.cardsInfoHTML.getPopupCardOptionsHtml(globalSettings.cardsInfoSettings.PopupCardOptions, flat.userData.crm_data);
+        let html = `
+            <div class="flat-info ${ (flat.userData.status_index !== 0) ? 'available' : 'unavailable' }">
+                <div class="title">
+                    <div class="title-box">
+                        <h2 class="language-string" data-he="${apt_name_he}" data-en="Apt. ${ flat_name_number }">${apt_name_current}</h2>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="price">
+                        <p class="text language-string" data-he="${form_word_he}" data-en="${from_word}">${form_word_current}</p>
+                        <div class="price-num">${price_html}</div>
+                    </div>
+                </div>
+                <div class="status">
+                    <p class="circle" style="background-color: #${flat.userData.status_color}"></p>
+                    <p class="text" style="color: #${flat.userData.status_color}">${flat.userData.status_name}</p>
+                </div>
+                ${ concessions_html }
+            <div class="more-info">
+                <div class="top-part">
+                    <p class="title more-info-tgl-btn-title">${more_info_word_current}</p>
+                    <p class="title more-info-tgl-btn-title active">${hide_word_current}</p>
+                    <div class="tgl-btn"></div>
+                </div>
+                <div class="bottom-part">
+                <div class="info-loop">
+                    ${flatOptions}
+                </div>
+                ${apply_now_html}
+            </div>
+            </div>
+            </div>`;
+
+        box.prepend(html);
+        // bind_price_box_btn (box.find('.price-box.common'), ['.number', '.price-text']);
+        $('.scroll_to_contacts').click(function(){
+            $('.btn-new.default.contact').trigger('click');
+        });
     } else {
-        $('.three_js .popup-3d .content .iframe-box').html('');
-    }
-    let status_text = 'available';
-    if (flat.userData.status_index == 0) {
-        status_text = 'unavailable';
-    }
-    let concessions_html = '';
-    let concessions_array = flat.userData.crm_data.concessions;
-    if (flat.userData.crm_data.concessions) {
-        if (concessions_array.length > 0) {
-            let concessions_title = flat.userData.crm_data.concessions[0].title;
-            if (concessions_title.length > 0) {
-                concessions_html = `
-                <div class="concessions">
-                    <div class="gift"></div>
-                    <div class="concessions-text"> ${ concessions_title } </div>
-                </div>
-            `;
-            }
-        }
+
+        // TODO add info-points to popup (roof, spa, lobby)
+        flat = scene.getObjectById(scene.userData.lastCustomSelectionId);
+        let title = flat.userData.title;
+        let data = {
+            info_points: flat.userData.info_points,
+            icons: flat.userData.icons,
+        };
+        add_html_to_non_flat(box, title, data);
 
     }
-
-    let apt_name_he =  'דירה ' + flat_name_number;
-    let apt_name_current = `Apt. ${ flat_name_number }`;
-
-    let from_word = 'from';
-    let form_word_he = 'החל מ-';
-    let form_word_current = from_word;
-
-    let price_html = get_price_html(flat_price, 'common');
-
-    let more_info_word = 'show info';
-    let more_info_word_he ='עוד מידע';
-    let more_info_word_current = more_info_word;
-
-    let hide_word = 'hide';
-    let hide_word_he = 'לסגור';
-    let hide_word_current = hide_word;
-
-    let floor_word = 'floor';
-    let floor_word_he ='קומה';
-    let floor_word_current = floor_word;
-
-    let badrooms_word = 'rooms';
-    let badrooms_word_he ='חדרים';
-    let badrooms_word_current = badrooms_word;
-
-    let bathrooms_word = 'bathrooms';
-    let bathrooms_word_he ='חדרי רחצה';
-    let bathrooms_word_current = bathrooms_word;
-
-    let balcony_word = 'balcony size';
-    let balcony_word_he ='גודל מרפסת';
-    let balcony_word_current = balcony_word;
-
-    let area_word = 'area';
-    let area_word_he ='אזור';
-    let area_word_current = area_word;
-
-    let exposure_word = 'exposure';
-    let exposure_word_he ='כיווני אוויר';
-    let exposure_word_current = exposure_word;
-
-    let apply_now_word = 'Apply now';
-    let apply_now_word_he ='פרטים נוספים';
-    let apply_now_word_current = apply_now_word;
-
-    let facing_word = facing_string_en;
-    let facing_word_he = facing_string_he;
-    let facing_word_en = facing_string_en;
-
-    if ($('body').hasClass('he') == true) {
-        apt_name_current = apt_name_he;
-        form_word_current = form_word_he;
-        more_info_word_current = more_info_word_he;
-        floor_word_current = floor_word_he;
-        badrooms_word_current = badrooms_word_he;
-        bathrooms_word_current = bathrooms_word_he;
-        balcony_word_current = balcony_word_he;
-        area_word_current = area_word_he;
-        exposure_word_current = exposure_word_he;
-        apply_now_word_current = apply_now_word_he;
-        facing_word = facing_word_he;
-        flat_type = flat_type_he;
-        hide_word_current = hide_word_he;
-    }
-
-    let apply_now_html =  `<div class="apply-now scroll_to_contacts language-string" data-he="${apply_now_word_he}" data-en="${apply_now_word}">${apply_now_word_current}</div>`;
-    if ($('body').hasClass('page-template-only-model')) {
-        apply_now_html =  '<a class="apply-now" href="/contact-us/?app_id=' + flat_name_number + '">Apply now!</a>';
-    }
-    if (!window.showApplyNow) {
-        apply_now_html = '';
-    }
-    let flatOptions = globalFunctions.cardsInfoHTML.getPopupCardOptionsHtml(globalSettings.cardsInfoSettings.PopupCardOptions, flat.userData.crm_data);
-    let html = `
-        <div class="flat-info ${ status_text }">
-            <div class="title">
-                <div class="title-box">
-                    <h2 class="language-string" data-he="${apt_name_he}" data-en="Apt. ${ flat_name_number }">${apt_name_current}</h2>
-                </div>
-                <div class="sep"></div>
-                <div class="price">
-                    <p class="text language-string" data-he="${form_word_he}" data-en="${from_word}">${form_word_current}</p>
-                    <div class="price-num">${price_html}</div>
-                </div>
-            </div>
-            <div class="status">
-                <p class="circle" style="background-color: #${flat.userData.status_color}"></p>
-                <p class="text" style="color: #${flat.userData.status_color}">${flat.userData.status_name}</p>
-            </div>
-            ${ concessions_html }
-        <div class="more-info">
-            <div class="top-part">
-                <p class="title more-info-tgl-btn-title">${more_info_word_current}</p>
-                <p class="title more-info-tgl-btn-title active">${hide_word_current}</p>
-                <div class="tgl-btn"></div>
-            </div>
-            <div class="bottom-part">
-            <div class="info-loop">
-                ${flatOptions}
-            </div>
-            ${apply_now_html}
-        </div>
-        </div>
-        </div>`;
-
-    box.prepend(html);
-    bind_price_box_btn (box.find('.price-box.common'), ['.number', '.price-text']);
-    $('.scroll_to_contacts').click(function(){
-        $('.btn-new.default.contact').trigger('click');
-    });
     return flat;
 }
+
+function add_html_to_non_flat (box, name, data) {
+    let html = '';
+    let isArray =  Array.isArray(data.info_points);
+    if (isArray) {
+         get_html_from_data (name, data);
+    } else {
+        if (!document.querySelector('.floor-info-row')) {
+            html += '<div class="floor-info-row">';
+        }
+        Object.keys(data.info_points).forEach(function(key) {
+            let name = data.info_points[key].title;
+            let newData = {
+                info_points: data.info_points[key].info_points,
+                icons: data.icons[key].icons,
+            };
+            get_html_from_data (name, newData);
+        });
+        if (!document.querySelector('.floor-info-row')) {
+            html += '</div>';
+        }
+    }
+    function get_html_from_data (name, data) {
+        let show_data_text = data.info_points.map((data) => {return `<span data-dictionary="${data}">${get_lang(data)}</span>`});
+        let show_data_img = data.icons.map((data) => {return `<img src="./img/uninhabited-floor-icons/${data}.svg">`});
+
+        let content = ``;
+
+        for (let i = 0; i < show_data_text.length; i++) {
+            content += `<div class="uninhabited-info_item">
+            ${show_data_img[i]}
+            ${show_data_text[i]}
+        </div>`
+        }
+
+        let returnHtml = `
+            <div class="floor-info flat-info">
+                <div class="title">
+                    <div class="title-box">
+                        <h2 class="language-string" data-dictionary="${name}">${get_lang(name)}</h2>
+                    </div>
+                    <div class="sep"></div>
+                </div>
+                <div class="more-info uninhabited-info">  
+                       ${content}
+                </div>
+            </div>`;
+        html += returnHtml;
+
+    };
+
+    box.prepend(html);
+}
+
+function add_data_to_info_points_roof_n_lobby(box, data) {
+    let show_data_text = data.info_points.map((data) => {return `<span class="language-string" data-dictionary="${data}">${get_lang(data)}</span>`});
+    let show_data_img = data.icons.map((data) => {return `<img src="./img/uninhabited-floor-icons/${data}.svg">`});
+
+    let content = ``;
+
+    for (let i = 0; i < show_data_text.length; i++) {
+        content += `<div class="uninhabited-info_item unit_info-points_items">
+            ${show_data_img[i]}
+            ${show_data_text[i]}
+        </div>`
+    }
+
+    let html = `<div class="uninhabited-info unit_info-points">${content}</div>`;
+    box.after(html);
+}
+
+
 function line_from_point_to_point (point_1, point_2, options) {
     let line_class = options.line_class;
     let point_1_class = options.point_1_class;
@@ -1602,11 +1717,41 @@ function change_flat_color (type, flat) {
         let color = flat_statuses[flat.userData.status_index].active;
         flat.material.color.setHex('0x' + color);
         flat.userData.current_color = 'active';
+        if (globalSettings.selectionBoxes) {
+            if (globalSettings.selectionBoxes.depthTest) {
+                flat.material.depthTest = false;
+                if (!destroyedMode) {
+                    let flatBubble3d = scene.getObjectByName('flatBubble3d');
+                    if (flatBubble3d) {
+                        let p = flat.children[0].getWorldPosition(new global_three.Vector3());
+                        flatBubble3d.position.set(p.x, p.y, p.z);
+                        flatBubble3d.visible = true;
+                        flatBubble3d.element.innerHTML = `
+                            <div class="flat-bubble-3d" style="color: white;">
+                                Apt. ${flat.userData.crm_data.propNum}
+                            </div>
+                        `
+                    }
+                } else {
+                    let flatBubble3d = scene.getObjectByName('flatBubble3d');
+                    if (flatBubble3d) {
+                        flatBubble3d.visible = false;
+                    }
+                }
+            }
+
+        }
     }
     if (type == 'base') {
         let color = flat_statuses[flat.userData.status_index].color;
         flat.material.color.setHex('0x' + color);
         flat.userData.current_color = 'color';
+        if (globalSettings.selectionBoxes) {
+            if (globalSettings.selectionBoxes.depthTest) {
+                flat.material.depthTest = true;
+
+            }
+        }
     }
 
 }
@@ -2061,34 +2206,22 @@ function popup_disappear_function (popup_btn, mouse_event) {
 
 
 function lobby_n_roof_click (mesh, event, clicked_object) {
-    window.roof.userData.color_locked = false;
-    window.lobby.userData.color_locked = false;
+
+    let lobby = scene.getObjectByName('lobbySelectionBox');
+    let roof = scene.getObjectByName('roofSelectionBox');
+    roof.userData.color_locked = false;
+    lobby.userData.color_locked = false;
     let popup_title = '';
-    if (mesh == window.lobby) {
-        appartment_hoverout(window.roof);
+    if (lobby) {
+        appartment_hoverout(roof);
         popup_title = 'Lobby';
-        $('.popup-info').removeClass('roof');
         current_floor = 0;
     } else {
-
         $('.popup-info').addClass('roof');
         popup_title = 'Roof';
-        appartment_hoverout(window.lobby);
+        appartment_hoverout( lobby);
     }
     mesh.userData.color_locked = true;
-    update_click_intersection();
-    update_line_position();
-    var popup_info = $('.popup-info');
-    popup_info.find('.page-title .text').html(popup_title);
-    popup_info.addClass('roof_n_looby');
-    popup_info.find('.non-flat-360').data('type', popup_title)
-    popup_info.addClass('show');
-    popup_info.removeClass('hide');
-
-    $('.point-1').fadeIn();
-    $('.point-2').fadeIn();
-    $('.points-line').removeClass('hide');
-    // popup_appear_function ($('.not-flat-360-btn'), event);
 }
 
 function open_lobby_n_roof_popup (mesh, event, clicked_object) {
@@ -2245,8 +2378,16 @@ function toggler_2d_click(clicked_object) {
     const imgBox = document.querySelector('.img-box');
     if (imgBox) {
         const content = document.querySelector('.popup-2d .content');
-        const dataSvg = last_clicked_flat.userData.svg_plan;
-        const modelName = last_clicked_flat.userData.crm_data.modelName;
+        let dataSvg;
+        let modelName;
+        if (scene.userData.lastCustomSelectionId) {
+            let customSelection = scene.getObjectById(scene.userData.lastCustomSelectionId);
+            dataSvg = customSelection.userData.svg_plan;
+            modelName = '';
+        } else {
+            dataSvg = last_clicked_flat.userData.svg_plan;
+            modelName = last_clicked_flat.userData.crm_data.modelName;
+        }
         const currentLang = c_lang();
 
         content.classList.add('loading');
@@ -2266,9 +2407,12 @@ function toggler_2d_click(clicked_object) {
 
         image.onload = () => {
             setTimeout(() => {
-                const img_viewer = new ImageViewer(image);
-                window.img_viewer = img_viewer;
-                img_viewer.refresh();
+                const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+                if (!isMobileApple) {
+                    const img_viewer = new ImageViewer(image);
+                    window.img_viewer = img_viewer;
+                    img_viewer.refresh();
+                }
                 removePreLoader();
             }, 1000);
         }
@@ -2415,16 +2559,8 @@ function progress_bar_update () {
 // }
 
 function set_camera_on_flat (appartment) {
-    let flat_center_position;
-    if (appartment.children.length > 0) {
-        let floor_index = appartment.userData.floor;
-        let floor_center = floors_height_positions[floor_index];
-        flat_center_position =  floor_center;
-        last_flat_intersection_point = floor_center;
-    } else {
-        flat_center_position =  appartment.getWorldPosition(window.vector_point);
-        last_flat_intersection_point = appartment.getWorldPosition(window.vector_point);
-    }
+    let flat_center_position = appartment.parent.getObjectByName('zagluha').userData.defaultWorldPosition;
+
     add_tween_animation ({
         'animation_obj' :  tween_animations,
         'start' : {  x : window.camera_target.position.x, y : window.camera_target.position.y, z : window.camera_target.position.z },
@@ -2809,7 +2945,7 @@ function addTrees(plane_mesh, scale, tree_mesh) {
 
     let objectsArray = [];
     const amount = 50;
-    const gap = 2;
+    const gap = 4;
     const date = Date.now();
     let i = 0;
     let vector;
@@ -2871,7 +3007,7 @@ function addTrees(plane_mesh, scale, tree_mesh) {
 
 }
 
-function add_instances_trees(tree, positions_array, scale, options) {
+function add_instances_trees(tree, positions_array, scale, options = {}) {
 
     let mesh = new global_three.InstancedMesh(tree.geometry, tree.material, positions_array.length);
    // mesh.receiveShadow = true;
@@ -2879,7 +3015,10 @@ function add_instances_trees(tree, positions_array, scale, options) {
     mesh.frustumCulled = false;
     mesh.position.set(0, 0, 0);
     mesh.scale.set(scale, scale, scale);
-
+    let baseRotation;
+    if (options.changeRotate === false) {
+        baseRotation = tree.rotation;
+    }
     // mesh.transparent = true;
 
     let i = 0;
@@ -2888,9 +3027,17 @@ function add_instances_trees(tree, positions_array, scale, options) {
         //compose ( new global_three.Vector3(0 , y * i , 0), mesh.rotation, new global_three.Vector3(1 , 1 , 1) );
         // Math.PI * 2 * Math.random()
         let rotation = new global_three.Euler( Math.PI / 2 * -1, 0 , 2 * Math.PI * Math.random(), 'XYZ' ) ;
+        if (options.changeRotate === false) {
+            rotation = baseRotation;
+        }
         let rotation_quat = new global_three.Quaternion().setFromEuler(rotation);
         let position = new global_three.Vector3(vector.x / scale , vector.y / scale, vector.z / scale);
-        let random_scale = 1 + 0.5 * Math.random();
+        let random_scale;
+        if (vector.scale) {
+            random_scale = vector.scale;
+        } else {
+            random_scale = 1 + 0.5 * Math.random();
+        }
         let scale_vec = new global_three.Vector3(random_scale, random_scale ,random_scale);
         // matrix.makeRotationFromEuler(rotation);
         // matrix.setPosition(vector.x / scale , vector.y / scale, vector.z / scale);
@@ -2901,8 +3048,16 @@ function add_instances_trees(tree, positions_array, scale, options) {
     });
     mesh.renderOrder = 1;
     mesh.name = 'instanceTree';
+
+    if (options.name) {
+        mesh.name = options.name;
+    }
     window.instance_tree = mesh;
-    scene.add(mesh);
+    if (options.group) {
+        options.group.add(mesh);
+    } else {
+        scene.add(mesh);
+    }
     window.positions_array = positions_array;
     return mesh;
 }
@@ -3026,6 +3181,13 @@ function rotation_to_flat () {
         normilize_camera_rotation_x ();
         //targetRotationX = window.camera_target.rotation.y;
         let flat_world_position = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+        let correctionPoint = last_clicked_flat.getObjectByName('correctionPoint');
+        if (correctionPoint) {
+            correctionPoint.updateWorldMatrix(true);
+            let vector3 = new global_three.Vector3(3424.1510821504353,   -11414.986462578001,   1.828);
+            last_clicked_flat.localToWorld(vector3);
+            flat_world_position = vector3;
+        }
         flat_world_position.y = 1;
         let camera_world_position = perspectiveCamera.getWorldPosition(new global_three.Vector3());
         camera_world_position.y = 1;

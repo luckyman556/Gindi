@@ -28,9 +28,7 @@ export function add_cars (texture_loader, loader, action) {
                     console.log(carNumber);
                     car.name = 'routeCar' + i;
                     let route = cars_routes[i];
-                    if (!detectMobile) {
-                        car.castShadow = true;
-                    }
+
                     car.position.set(route[0].position.x, route[0].position.y, route[0].position.z);
                     // car.rotation.y = initialCarsRotation[i];
 
@@ -76,7 +74,9 @@ function constructNewCar(carPack, cars, texture_loader) {
         carMesh.scale.set(car.scale.x, car.scale.y, car.scale.z);
         carMesh.position.set(car.position.x, car.position.y, car.position.z);
         carMesh.rotation.set(car.rotation.x, car.rotation.y, car.rotation.z);
-
+        //if (!detectMobile) {
+            carMesh.castShadow = true;
+        //}
         switch (car.name) {
             case 'CarTaxi': {
                 carMesh.material[4].map = texture_loader.load(car.map);

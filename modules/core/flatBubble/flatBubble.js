@@ -9,13 +9,37 @@ export const flatBubble = {
     },
     updateText : function (flat) {
         let flatBubbleEl = document.querySelector('.flat-bubble');
-        let crmData = flat.userData.crm_data;
-        flatBubbleHTML(crmData);
-        if (flat.userData.url_360_type === 'custom') {
-            flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
+        if (flat.userData.customSelection) {
+            let html = flat.userData.customSelectionBubbleHtml;            
+            flatBubbleHTML(all_appartments[0].userData.crm_data);
+            let textContainer = document.querySelector('.flat-bubble .text-container');
+            textContainer.classList.add('custom-selection');
+            textContainer.querySelector('.model-name').innerHTML = html;
+            let modelRooms = textContainer.querySelector('.model-rooms');
+            if (modelRooms) {                
+                modelRooms.style.display = 'none';
+            } 
+            if (flat.userData.url_360) {
+                flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
+            } else {
+                flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
+            }
         } else {
-            flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
+            let crmData = flat.userData.crm_data;
+            flatBubbleHTML(crmData);
+            let textContainer = document.querySelector('.flat-bubble .text-container');
+            textContainer.classList.remove('custom-selection');
+            let modelRooms = textContainer.querySelector('.model-rooms');
+            if (modelRooms) {                
+                modelRooms.style.display = 'flex';
+            }
+            if (flat.userData.url_360_type === 'custom') {
+                flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
+            } else {
+                flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
+            }
         }
+
 
         //flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
     },

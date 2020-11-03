@@ -10,8 +10,12 @@ export const cardsInfoHTML = {
             if (option.addToDictionary) {
                 addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
             }
+            let addClass = '';
+            if (option.addClassCallback) {
+                addClass = option.addClassCallback(crmData[ option.crmName ]);
+            }
             let optionHtml = `
-                    <div class="flat-option ${option.crmName}">
+                    <div class="flat-option ${option.crmName} ${addClass}">
                         <div class="top-part">
                             <div class="ic"><img src="${option.imgUrl}" alt="" class="ic-img"></div>
                             <div class="text-box"><div class="middle-text language-string" data-dictionary="${option.dictionary}">${get_lang(option.dictionary)}</div>${addToDictionary}</div>
@@ -27,6 +31,10 @@ export const cardsInfoHTML = {
         let htmlForReturn = ``;
         options.forEach(function(option){
             let crmDataHtml = crmData[ option.crmName ];
+            let addClass = '';
+            if (option.addClassCallback) {
+                addClass = option.addClassCallback(crmData[ option.crmName ]);
+            }
             if (option.callback) {
                 crmDataHtml = option.callback(crmData[ option.crmName ]);
             }
@@ -35,7 +43,7 @@ export const cardsInfoHTML = {
                 addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
             }
             let optionHtml = `
-                    <div class="option-item">
+                    <div class="option-item ${addClass}">
                         <div class="top">
                             <div class="ic">
                                 <img src="${option.imgUrl}" alt="">
@@ -69,8 +77,13 @@ export const cardsInfoHTML = {
                 if (option.addToDictionary) {
                     addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
                 }
+
+                let addClass = '';
+                if (option.addClassCallback) {
+                    addClass = option.addClassCallback(crmData[ option.crmName ]);
+                }
                 let optionHtml = `
-                    <div class="info-item">
+                    <div class="info-item ${addClass}">
                         <div class="row">
                         <div class="icon">
                             <img src="${option.imgUrl}" alt="">

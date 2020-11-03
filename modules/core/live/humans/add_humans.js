@@ -10,44 +10,59 @@ export function add_humans (loader, action) {
         human_routes.forEach(function(route,index){
             loader.load('resources/humans/Man_3_LOD2@Strut_Walking.fbx', function (human) {
               let animation_counter = 0;
-                let color = Math.random() * 0xffffff;
-                        let color_2 = Math.random() * 0xffffff;
-                        let man_mesh = human.getObjectByName( "Man_3_LOD2" );
+                let colorsSet = [
+                    {
+                        shirt : '0x423f2f',
+                        pens : '0x7e985f'
+                    },
+                    {
+                        shirt : '0x2f4233',
+                        pens : '0x5f7198'
+                    },
+                    {
+                        shirt : '0x42392f',
+                        pens : '0x98815f'
+                    },
+                ];
+                let randomNumber = Math.floor(colorsSet.length * Math.random());
+                let color = colorsSet[randomNumber].shirt;
+                let color_2 = colorsSet[randomNumber].pens;
+                let man_mesh = human.getObjectByName( "Man_3_LOD2" );
 
-                        let shirt = man_mesh.material[3];
-                        let pens = man_mesh.material[1];
-                        if (detectMobile) {
-                            man_mesh.material.forEach(function(material){
-                                material.lightMap =  new THREE.TextureLoader().load('./resources/common_textures/white-lightmap_v_3.jpg');
-                            });
-                        } else {
-                            man_mesh.castShadow = true;
-                        }
+                let shirt = man_mesh.material[3];
+                let pens = man_mesh.material[1];
+                if (detectMobile) {
+                    man_mesh.material.forEach(function(material){
+                        material.lightMap =  new THREE.TextureLoader().load('./resources/common_textures/white-lightmap_v_3.jpg');
+                    });
+                } else {
+                    man_mesh.castShadow = true;
+                }
 
-                        shirt.color.setHex(color);
-                        pens.color.setHex(color_2);
-                        let human_animation_points = route;
+                shirt.color.setHex(color);
+                pens.color.setHex(color_2);
+                let human_animation_points = route;
 
-                        let first_position = human_animation_points[0].position;
-                        human.position.set(first_position.x, first_position.y, first_position.z);
-                        console.log(human);
-                        human.scale.set(humansSettings.scale, humansSettings.scale, humansSettings.scale);
-                        human.name = `human-${index++}`;
+                let first_position = human_animation_points[0].position;
+                human.position.set(first_position.x, first_position.y, first_position.z);
+                console.log(human);
+                human.scale.set(humansSettings.scale, humansSettings.scale, humansSettings.scale);
+                human.name = `human-${index++}`;
 
-                        scene.add(human);
+                scene.add(human);
 
-                        humansArray.push(human);
-                        window.human = human;
-                        let mixer = new THREE.AnimationMixer(human);
-                        let walk_action = mixer.clipAction(human.animations[0]);
-                        walk_action.play();
-                        human_animation_array.push(mixer);
-                        if (get_url_param('human_speed')) {
-                            let humanSpeed = Number(get_url_param('human_speed'));
-                            console.log(humanSpeed);
-                            humansSettings.speed = humanSpeed;
-                        }
-                        live_element_animation(human,route,animation_counter,humansSettings.speed,1);
+                humansArray.push(human);
+                window.human = human;
+                let mixer = new THREE.AnimationMixer(human);
+                let walk_action = mixer.clipAction(human.animations[0]);
+                walk_action.play();
+                human_animation_array.push(mixer);
+                if (get_url_param('human_speed')) {
+                    let humanSpeed = Number(get_url_param('human_speed'));
+                    console.log(humanSpeed);
+                    humansSettings.speed = humanSpeed;
+                }
+                live_element_animation(human,route,animation_counter,humansSettings.speed,1);
 
             },onProgressCallback, onErrorCallback);
         });

@@ -1,3 +1,5 @@
+import {customSelectionClick} from "./customSelectionClick.js";
+
 export function add_mouse_n_touches () {
     let last_tap = Date.now();
     let last_tap_flat = last_clicked_flat;
@@ -185,10 +187,10 @@ export function add_mouse_n_touches () {
                 } else {
                     this_is_flat_click = false;
                 }
-                if (picked_object.userData.lobby_or_roof != undefined) {
-                    this_is_flat_click = 'roof_n_looby';
+                if (picked_object.userData.customSelection) {
+                    this_is_flat_click = 'customSelection';
                     let clicked_object = $('.click-point');
-                    lobby_n_roof_click(picked_object, e, clicked_object);
+                    customSelectionClick(picked_object);
                 }
 
             } else {
@@ -226,33 +228,96 @@ export function add_mouse_n_touches () {
             if(event.altKey) {
                 let raycaster =  new global_three.Raycaster();
                 raycaster.setFromCamera(mouse, perspectiveCamera);
-                let intersects = raycaster.intersectObjects(scene.children, true);
-                console.log(mouseMode);
-                if (mouseMode == 'Objects removing') {
-                    if (!window.removed_objects) {
-                        window.removed_objects = [];
+                let objectToRaycast = [];
+                addRaycastObject (scene);
+                function addRaycastObject (object) {
+                    if (object.visible) {
+                        objectToRaycast.push(object);
                     }
-                    window.removed_objects.push({
-                        'child' : intersects[0].object,
-                        'parent' : intersects[0].object.parent
+                    object.children.forEach(function(children){
+                        addRaycastObject(children);
                     });
-                    intersects[0].object.parent.remove(intersects[0].object);
                 }
+                let intersects = raycaster.intersectObjects(objectToRaycast, false);
+                let intersectObject = 'none';
+                intersects.forEach(function(intersect){
+                    let object = intersect.object;
+                    if (intersectObject === 'none') {
+                        if (object.visible) {
+                            if (object.type !== "TransformControlsPlane") {
+                                intersectObject = intersect;
+                            }
+                        }
+                    }
+                });
+                if (intersectObject !== 'none') {
+                    if (mouseMode == 'Objects removing') {
+                        if (!window.removed_objects) {
+                            window.removed_objects = [];
+                        }
+                        window.removed_objects.push({
+                            'child': intersectObject.object,
+                            'parent': intersectObject.object.parent
+                        });
+                        intersects[0].object.parent.remove(intersectObject.object);
+                    }
 
-                if (mouseMode == 'Objects info') {
-                    console.log(intersects[0].object.name);
-                    console.log(intersects[0].point);
-                    document.querySelector('body').dataset.clipboardText = intersects[0].object.name;
-                    $('body').click();
+                    if (mouseMode == 'Objects info') {
+                        console.log(intersectObject.object.name);
+                        console.log(intersectObject.point);
+                        document.querySelector('body').dataset.clipboardText = intersects[0].object.name;
+                        $('body').click();
+                    }
+                    if (mouseMode == 'Objects transform') {
+                        control.detach();
+                        setTimeout(function () {
+                            control.attach(intersects[0].object);
+                        }, 500);
+                    }
+
+                    if (mouseMode == 'addRandomBorders') {
+                        let geometry = new global_three.BoxGeometry(1, 5, 1);
+                        let material = new global_three.MeshBasicMaterial({color: 0x00ff00});
+                        let cube = new global_three.Mesh(geometry, material);
+                        let position = intersectObject.point;
+                        cube.position.set(position.x, position.y, position.z);
+                        if (!window.RandomBorders) {
+                            window.RandomBorders = [];
+                        }
+                        scene.add(cube);
+                        window.RandomBorders.push(cube);
+                    }
+
+
+                    if (mouseMode == 'cloneObject') {
+                        if (!window.objectToClone) {
+                            setObjectToClone();
+
+                            function setObjectToClone() {
+                                let name = prompt('Имя объекта для клонирования');
+                                let object = scene.getObjectByName(name);
+                                window.objectToClone = object;
+                                if (!object) {
+                                    let confirmBool = confirm('Такого объекта нет, ввести другое имя?');
+                                    if (confirmBool) {
+                                        setObjectToClone();
+                                    }
+                                }
+                            }
+                        } else {
+                            let object = window.objectToClone.clone();
+                            if (!window.objecsToCloneArray) {
+                                window.objecsToCloneArray = [];
+                            }
+                            window.objecsToCloneArray.push(object);
+                            let p = intersectObject.point;
+                            object.position.set(p.x, p.y, p.z);
+                            scene.add(object);
+                            control.attach(object);
+                        }
+
+                    }
                 }
-                if (mouseMode == 'Objects transform') {
-                    control.detach();
-                    setTimeout(function(){
-                        control.attach(intersects[0].object);
-                    }, 500);
-                }
-
-
             }
         }, false );
 
@@ -272,9 +337,25 @@ export function add_mouse_n_touches () {
                         window.removed_objects.push(intersects[0].object);
                         intersects[0].object.parent.remove(intersects[0].object);
                     }
+                    if (mouseMode == 'addRandomBorders') {
+                        if (window.RandomBorders.length > 0) {
+                            let object = window.RandomBorders[window.RandomBorders.length - 1];
+                            scene.remove(object);
+                            window.RandomBorders.pop();
+                        }
+                    }
+                    if (mouseMode == 'cloneObject') {
+                        if (window.objecsToCloneArray.length > 0) {
+                            let object = window.objecsToCloneArray[window.objecsToCloneArray.length - 1];
+                            control.detach();
+                            scene.remove(object);
+                            window.objecsToCloneArray.pop();
+                        }
+                    }
                 }
             }
         });
     }
 
 }
+

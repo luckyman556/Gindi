@@ -31,18 +31,11 @@ export function applyNow (parent) {
       name: 'Messenger',
       href: 'https://m.me/Gindi.Tel.Aviv'
     },
-    // {
-    //   name: 'Chat',
-    //   href: '#',
-    // },
     {
       name: 'Whatsapp',
       href: 'https://wa.me/972548620020'
     },
-    // {
-    //   name: 'E-mail',
-    //   href: '#'
-    // },
+
     {
       name: 'SMS',
       href: 'tel:972524037449'

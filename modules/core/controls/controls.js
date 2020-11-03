@@ -11,10 +11,13 @@ export function controls_init (camera, canvas, controls) {
                     camera_rotated = true;
                     var mouse_down_x = e.pageX;
                     var mouse_down_y = e.pageY;
+                    let mesh = scene.getObjectByName('cameraTargetParent');
+                    let p = mesh.position;
+                    var baseCameraTargetPosition = new global_three.Vector3(p.x, p.y, p.z);
+                    var baseCameraTargetRotation = window.camera_target.rotation;
                     var windowHalfX = document.getElementById('c').offsetWidth / 2;
                     var mouseXOnMouseDown = event.clientX - windowHalfX;
                     targetRotationOnMouseDownX = targetRotationX;
-                    let mesh = scene.getObjectByName('cameraTargetParent');
                     mesh.userData.position_z = mesh.position.z;
                     mesh.userData.position_x = mesh.position.x;
                     far_current_click_camera_x = window.camera_target.rotation.y;
@@ -36,8 +39,8 @@ export function controls_init (camera, canvas, controls) {
                             };
                             if (e.altKey) {
                                 if (get_url_param('dev') === "true") {
-                                    drag_focus_target_z(e);
-                                    drag_focus_target_x(e);
+                                    drag_focus_target(e, baseCameraTargetPosition, baseCameraTargetRotation);
+                                    //drag_focus_target_x(e, baseCameraTargetPosition, baseCameraTargetRotation);
                                 }
                             } else {
 
