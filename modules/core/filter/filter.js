@@ -71,7 +71,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             <div class="input-search">                
                 <input type="text" id="input-search" class="language-string"  placeholder="${get_lang('search')}"  data-dictionary="search" data-dictionary-param="placeholder">
                 <label class="ic" for="input-search">
-                    <img src="${img_path}search-input-ic.svg" alt="">
+                    <img class="search-icon" src="${img_path}search-input-ic.svg" alt="">
                 </label>
             </div>
         </div>
@@ -383,12 +383,32 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         function input_change (event) {
             let dom_input = $(event.target);
             let word = dom_input.val();
+            console.log(word)
+
+            const searchIcon = document.querySelector('.search-icon');
+
+            searchIcon.removeAttribute('src');
+            if (word) {
+                searchIcon.setAttribute('src', `${img_path}close-ic.svg`);
+            } else {
+                searchIcon.setAttribute('src', `${img_path}search-input-ic.svg`);
+            }
+
+            searchIcon.addEventListener('click', () => {
+                dom_input.val('');
+                word = '';
+                input_search_fn(word);
+                searchIcon.removeAttribute('src');
+                searchIcon.setAttribute('src', `${img_path}search-input-ic.svg`);
+            });
+
             input_search_fn(word);
-        };
+
+        }
         input_search.focusin(function(){
             $(this).parent().addClass('active');
             $('.filter-module-container .filter-controls').addClass('unactive');
-        });;
+        });
         input_search.focusout(function(){
             $(this).parent().removeClass('active');
             $('.filter-module-container .filter-controls').removeClass('unactive');
