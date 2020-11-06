@@ -21,6 +21,7 @@ import { ShaderPass } from './node_modules/three/examples/jsm/postprocessing/Sha
 import { OutlinePass } from './node_modules/three/examples/jsm/postprocessing/OutlinePass.js';
 import { FXAAShader } from './node_modules/three/examples/jsm/shaders/FXAAShader.js';
 import { applyNow} from './modules/core/apply-now/applyNow.js';
+import { applyNowContent } from './modules/individual/apply-now/applyNowContent.js';
 import { getApp } from './modules/core/getApp/getApp.js';
 
 import {cardsInfoHTML} from "./modules/core/cardsHtml/cardsInfo.js";
@@ -67,6 +68,15 @@ vector_to_world_position = new THREE.Vector3();
 box = new THREE.Box3();
 var openedPopup;
 window.showApplyNow = true;
+window.applyNow = applyNow;
+window.applyNowContent = applyNowContent;
+
+const mainContainer = document.querySelector('.three_js');
+mainContainer.addEventListener('touchstart', (e)=>{
+    if (e.touches.length === 2){
+            e.preventDefault();
+    }
+},true);
 
 
 function init() {
@@ -79,7 +89,6 @@ function init() {
         getApp('http://goqr.me/_Resources/Static/Packages/GoQrMe.Ui/Images/qr_default.png',
              'http://goqr.me/_Resources/Static/Packages/GoQrMe.Ui/Images/qr_default.png','Project name','#','#');
     }
-    applyNow(document.querySelector('.apply__main-container'));
 
     var renderer_params = {
         canvas,

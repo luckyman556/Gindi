@@ -410,7 +410,7 @@
   z-index: 99;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
   cursor: pointer; }
-  .filter-open .filter-module-open-btn:not(.close-btn):not(.apply-btn__close) {
+  .filter-open .filter-module-open-btn:not(.close-btn) {
     display: none; }
 
 .filter-module-container {
@@ -668,7 +668,7 @@
     .filter-module-container .flat-counter * {
       margin: auto 5px;
       font-weight: 700; }
-  .filter-module-container .close-btn, .filter-module-container .apply-btn__close {
+  .filter-module-container .close-btn {
     position: absolute;
     top: -76px;
     right: initial;
@@ -966,7 +966,7 @@ body.he .filter-module-container .reset-filter {
   right: initial;
   left: 0px; }
 
-body.he .filter-module-container .close-btn, body.he .filter-module-container .apply-btn__close {
+body.he .filter-module-container .close-btn {
   right: 0; }
 
 body.he .filter-module-container .input-search {
@@ -1408,15 +1408,31 @@ html[dir=rtl] .options__menu-label {
 .apply__main-container {
   font-family: Fragolino;
   color: #1A2F43;
+  transform: scale(1);
+  opacity: 1;
+  width: calc(100% - 150px);
+  height: calc(100% - 50px);
+  filter: drop-shadow(0px 8px 14px rgba(46, 70, 81, 0.15));
+  position: absolute;
+  z-index: 99999;
+  background-color: #fff;
   bottom: 25px;
   right: 75px;
   left: initial;
-  top: initial;
-  margin: 0 auto;
-  background: #fff; }
+  top: initial; }
 
-#applyMain {
-  border-radius: 0; }
+.apply__main-container__outer {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(32, 46, 65, 0.75);
+  opacity: 1;
+  transform-origin: left top;
+  transition: 0.5s;
+  z-index: 99999; }
 
 .apply__content__wrapper {
   max-width: 768px;
@@ -1487,10 +1503,28 @@ html[dir=rtl] .options__menu-label {
   font-weight: bold;
   font-size: 18px; }
 
+.apply-btn__close {
+  top: 12px;
+  right: -56px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../img/gindi-popup-close.svg);
+  background-size: 20px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  z-index: 99999; }
+
 .apply__social-icon__text[data-name="Video Chat"]::after {
   content: '*'; }
 
 @media screen and (max-width: 1024px) {
+  .apply__main-container {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0; }
   #applyCloseBtn.apply-btn__close {
     right: 10px;
     top: 10px;
@@ -2584,14 +2618,14 @@ body {
         animation-iteration-count: infinite;
         animation-duration: 2s;
         animation-timing-function: linear; }
-    .three_js .popup.popup-2d .content, .three_js .popup.popup-apply .content {
+    .three_js .popup.popup-2d .content {
       position: relative;
       padding: 0; }
-    .three_js .popup.popup-2d .img-box, .three_js .popup.popup-apply .img-box {
+    .three_js .popup.popup-2d .img-box {
       height: 100%;
       width: 100%;
       transition: none; }
-      .three_js .popup.popup-2d .img-box *, .three_js .popup.popup-apply .img-box * {
+      .three_js .popup.popup-2d .img-box * {
         transition: none; }
     .three_js .popup.not-flat-360 .content {
       border-radius: 8px;
@@ -2643,7 +2677,7 @@ body {
         margin-left: 7px;
         margin-right: 7px;
         background-color: #FFFFFF; }
-    .three_js .popup .popup-btn, .three_js .popup .apply-btn__close {
+    .three_js .popup .popup-btn {
       position: absolute;
       right: -40px;
       width: 32px;
@@ -2653,7 +2687,7 @@ body {
       background-repeat: no-repeat;
       background-size: contain;
       cursor: pointer; }
-    .three_js .popup .close-btn, .three_js .popup .apply-btn__close {
+    .three_js .popup .close-btn {
       top: 12px;
       right: -56px;
       background-image: url(../img/gindi-popup-close.svg);
@@ -3235,7 +3269,7 @@ body {
       transform: translate(0, -50%) scale(0); }
       .three_js .popup-info.show.hide .title-with-selector .page-title .text .title-text-row:after {
         width: 0%; }
-    .three_js .popup-info .close-btn, .three_js .popup-info .apply-btn__close {
+    .three_js .popup-info .close-btn {
       position: absolute;
       right: -48px;
       top: 12px;
@@ -5168,26 +5202,26 @@ body.on-white .three_js .new-floors-selector .new-floors-selector-wrap .floor-bt
 .street-name-block {
   color: #FFFFFF; }
 
-body.en .popup-2d > .content, body.en .popup-apply > .content,
+body.en .popup-2d > .content,
 body.en .popup-3d > .content,
 body.en .popup-360 > .content {
   order: 1; }
 
-body.en .popup-2d .flat-info, body.en .popup-apply .flat-info,
+body.en .popup-2d .flat-info,
 body.en .popup-3d .flat-info,
 body.en .popup-360 .flat-info {
   order: 5; }
-  body.en .popup-2d .flat-info > .title, body.en .popup-apply .flat-info > .title,
+  body.en .popup-2d .flat-info > .title,
   body.en .popup-3d .flat-info > .title,
   body.en .popup-360 .flat-info > .title {
     display: block; }
-    body.en .popup-2d .flat-info > .title .title-box::after, body.en .popup-apply .flat-info > .title .title-box::after,
+    body.en .popup-2d .flat-info > .title .title-box::after,
     body.en .popup-3d .flat-info > .title .title-box::after,
     body.en .popup-360 .flat-info > .title .title-box::after {
       right: initial;
       left: 0;
       width: 98px; }
-    body.en .popup-2d .flat-info > .title .price-text, body.en .popup-apply .flat-info > .title .price-text,
+    body.en .popup-2d .flat-info > .title .price-text,
     body.en .popup-3d .flat-info > .title .price-text,
     body.en .popup-360 .flat-info > .title .price-text {
       display: block;
@@ -5233,7 +5267,7 @@ body.en .three_js .btns-wrap.bedrooms-btns .search-filter-btn.round:first-child 
 body.he .three_js .zoom-by-mousewheel .text {
   width: 130px; }
 
-body.he .three_js .popup-2d > .flat-info > .title .price-text, body.he .three_js .popup-apply > .flat-info > .title .price-text,
+body.he .three_js .popup-2d > .flat-info > .title .price-text,
 body.he .three_js .popup-3d > .flat-info > .title .price-text,
 body.he .three_js .popup-360 > .flat-info > .title .price-text {
   order: 2; }
