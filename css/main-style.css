@@ -626,16 +626,17 @@
       padding: 0  0  0 15px;
       width: calc(100% - 24px); }
     .filter-module-container .input-search .ic {
-      min-width: 24px;
-      width: 24px;
-      height: 24px;
+      min-width: 20px;
+      width: 20px;
+      height: 20px;
       margin: auto 0;
       margin-left: auto; }
       .filter-module-container .input-search .ic img {
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: contain; }
+        object-fit: contain;
+        cursor: pointer; }
   .filter-module-container .flat-counter {
     position: absolute;
     bottom: calc(100% + 34px);
