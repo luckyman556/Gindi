@@ -35,8 +35,8 @@ export function labelHtml (flat) {
                             <div class="price-row">
                                 <span class="pulse blue"></span>
                                 <span class="circle" style="background-color: #${flat.userData.status_color}"></span>
-                            </div>
-                            ${flat.userData.url_360_type === 'custom' ? icon_360 : empty}
+                                ${flat.userData.url_360_type === 'custom' ? icon_360 : empty}
+                            </div>                            
                         </div>`
     } else {
         inner_html = `

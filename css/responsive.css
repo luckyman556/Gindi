@@ -481,7 +481,7 @@ body {
     }
 
     body.en .three_js .flat-info {
-        padding-left: 32px;
+        padding-left: 0px;
         /* order: 0; */
     }
 
@@ -1010,6 +1010,8 @@ left: 16px;
     }
     .three_js .flat-info .more-info .bottom-part .info-loop {
         justify-content: initial;
+        padding-left: 16px;
+        padding-right: 16px;
     }
     body.he .three_js .popup .popups-togglers-box {
         bottom: 16px;
@@ -1020,6 +1022,7 @@ left: 16px;
         flex-direction: column;
         right: initial;
         direction: ltr;
+        width: 80px;
     }
 }
 
@@ -1081,6 +1084,17 @@ left: 16px;
     body.he .three_js .flat-option.floor,
     body.he .three_js .flat-option.area {
         width: 78px;
+    }
+    body.he .three_js .popup .apply-now {
+        left: initial;
+        right: 12px;
+        bottom: -18px;
+    }
+    .three_js .popup .apply-now {
+        
+left: 12px;
+        
+bottom: -22px;
     }
 }
 
@@ -1153,6 +1167,7 @@ left: 16px;
         height: auto;
         width: 100%;
         background-color: #fff !important;
+        padding-right: 0;
     }
 
     .three_js .flat-info .more-info .bottom-part .info-loop {
@@ -1193,13 +1208,13 @@ left: 16px;
     body.en .popup-2d > .flat-info > .title,
     body.en .popup-3d > .flat-info > .title,
     body.en .popup-360 > .flat-info > .title {
-        margin-left: 31px;
+        margin-left: 60px;
     }
 
     body.he .popup-2d > .flat-info > .title,
     body.he .popup-3d > .flat-info > .title,
     body.he .popup-360 > .flat-info > .title {
-        margin-right: 31px;
+        margin-right: 60px;
     }
 
     .three_js .popup .content {

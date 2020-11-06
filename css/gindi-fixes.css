@@ -8,3 +8,13 @@
 .custom-progress-bar .progress-line-active {
     position: static;
 }
+
+.flat_status_2d_css .flat-card-box > h3 {
+    text-shadow: 2px 2px rgba(0 , 0 , 0  , 0.5);
+}
+
+.flat_status_2d_css  .area-text {
+    text-shadow: 2px 2px rgba(0 , 0 , 0  , 0.5);
+    text-align: center;
+    margin: 2px auto;
+}

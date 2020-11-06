@@ -536,7 +536,13 @@ $(document).ready(function(){
 
     $('.print-btn').click(function(){
         const img_url = last_clicked_flat.userData.svg_plan.printA4[c_lang()];
-        printJS(img_url, 'image')
+       // printJS(img_url, 'image', {documentTitle : 'some title'})
+        let title = get_lang('Apt.') + ' ' + last_clicked_flat.userData.crm_data.propNum;
+        printJS({
+            printable : img_url,
+            type: 'image',
+            documentTitle : title
+        })
     });
 
 
@@ -667,38 +673,41 @@ $(document).ready(function(){
             if ($(event.target).hasClass('more-info-tgl-btn-title') == true) {
                 $(event.target).parents('.more-info').toggleClass('open');
             }
-            if ($(event.target).hasClass('apply-now') == true) {
-                if (window.showApplyNow){
-                    const applyContainer = document.querySelector('.apply__main-container');
-                    const printerBtn = document.querySelector('.print-btn');
-                    const popupCollection = document.querySelectorAll('.popup');
-                    popupCollection.forEach(popup =>{
-                        if (popup.classList.contains('open')){
-                            openedPopup = popup;
-                            popup.classList.remove('open');
-                            popup.style.display = 'none';
-                        }
-                    });
 
-                    printerBtn.style.display='none';
-                    applyContainer.classList.add('open');
-                }
+        }
+    });
+    document.addEventListener('click' ,function(event){
+        if ($(event.target).hasClass('apply-now') == true) {
+            if (window.showApplyNow){
+                const applyContainer = document.querySelector('.apply__main-container');
+                const printerBtn = document.querySelector('.print-btn');
+                const popupCollection = document.querySelectorAll('.popup');
+                popupCollection.forEach(popup =>{
+                    if (popup.classList.contains('open')){
+                        openedPopup = popup;
+                        popup.classList.remove('open');
+                        popup.style.display = 'none';
+                    }
+                });
 
-                // var text = $('.apply-now').data('text-to-option');
-                // var block = $('#get-demo-block');
-                // var option = block.find('.nice-select .option').eq(1);
-                // var true_option = block.find('select option').eq(1);
-                // true_option.html(text);
-                // true_option.attr('value',text);
-                // block.find('select').val(text);
-                // option.html(text);
-                // option.attr('data-value',text);
-                // option.click();
-                // var scroll_top = block.offset().top - (( $(window).height() - block.height()) / 2);
-                // $([document.documentElement, document.body]).animate({
-                //     scrollTop: scroll_top
-                // }, 500);
+                printerBtn.style.display='none';
+                applyContainer.classList.add('open');
             }
+
+            // var text = $('.apply-now').data('text-to-option');
+            // var block = $('#get-demo-block');
+            // var option = block.find('.nice-select .option').eq(1);
+            // var true_option = block.find('select option').eq(1);
+            // true_option.html(text);
+            // true_option.attr('value',text);
+            // block.find('select').val(text);
+            // option.html(text);
+            // option.attr('data-value',text);
+            // option.click();
+            // var scroll_top = block.offset().top - (( $(window).height() - block.height()) / 2);
+            // $([document.documentElement, document.body]).animate({
+            //     scrollTop: scroll_top
+            // }, 500);
         }
     });
 
@@ -741,7 +750,7 @@ $(document).ready(function(){
     });
     $('.popup-info .close-btn').click(function(){
 
-            if (scene.userData.lastCustomSelectionId) {
+    if (scene.userData.lastCustomSelectionId) {
         let flatCard = document.querySelector('.popup-info');
         flatCard.classList.remove('custom-selection');
         let object = scene.getObjectById(scene.userData.lastCustomSelectionId);

@@ -282,7 +282,11 @@ function update_click_intersection () {
 }
 
 function flat_click (appartment, without_card = false , disableAnyAnimation = false) {
-
+    if (get_url_param('dev')) {
+        new ClipboardJS('body');
+        document.querySelector('body').dataset.clipboardText = appartment.name;
+        $('body').click();
+    }
     if (scene.userData.lastCustomSelectionId) {
 
         let flatCard = document.querySelector('.popup-info');
@@ -1440,13 +1444,15 @@ function add_appartment_info_in_popup (box) {
                 <div class="info-loop">
                     ${flatOptions}
                 </div>
-                ${apply_now_html}
+                ${detectMobile ? '' : apply_now_html }
             </div>
             </div>
-            </div>`;
-
+            </div>            
+            ${detectMobile ? apply_now_html :  ''}
+            `;
+        box.find('.apply-now').remove();
         box.prepend(html);
-        // bind_price_box_btn (box.find('.price-box.common'), ['.number', '.price-text']);
+        bind_price_box_btn (box.find('.price-box.common'), ['.number', '.price-text']);
         $('.scroll_to_contacts').click(function(){
             $('.btn-new.default.contact').trigger('click');
         });

@@ -84,6 +84,8 @@ function init() {
     var renderer_params = {
         canvas,
         antialias: true,
+        logarithmicDepthBuffer: true,
+        sortObjects: true,
         //outputEncoding: THREE.sRGBEncoding,
         // sortObjects: true,
         // powerPreference: 'high-performance',

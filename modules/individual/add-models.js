@@ -1026,7 +1026,104 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         //console.log(building);
 
         function buildHighlights() {
-
+            let vantageKeys = {
+                "sw": {
+                    "22": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/sw/sw22/index.htm",
+                    "32": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/sw/sw32/index.htm",
+                    "42": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/sw/sw42/index.htm"
+                },
+                "se": {
+                    "7": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se7/index.htm",
+                    "12": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se12/index.htm",
+                    "17": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se17/index.htm",
+                    "22": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se22/index.htm",
+                    "32": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se32/index.htm",
+                    "42": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/se/se42/index.htm"
+                },
+                "s": {
+                    "7": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/s/s7/index.htm",
+                    "12": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/s/s12/index.htm",
+                    "17": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/s/s17/index.htm"
+                },
+                "ne": {
+                    "7": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/ne/ne7/index.htm",
+                    "12": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/ne/ne12/index.htm",
+                    "17": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/ne/ne17/index.htm"
+                },
+                "n": {
+                    "7": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n7/index.htm",
+                    "12": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n12/index.htm",
+                    "17": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n17/index.htm",
+                    "22": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n22/index.htm",
+                    "32": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n32/index.htm",
+                    "42": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/n/n42/index.htm"
+                },
+                "nw": {
+                    "7": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw7/index.htm",
+                    "12": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw12/index.htm",
+                    "17": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw17/index.htm",
+                    "22": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw22/index.htm",
+                    "32": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw32/index.htm",
+                    "42": "https://dreamseu.z6.web.core.windows.net/new/dev/gindi/panocontent/panoramas/nw/nw42/index.htm"
+                }
+            };
+            let vantageLinks = {
+                "APT_5-7_Int_4Re": {"link": "s,7"},
+                "APT_5-7_Int_2A_001": {"link": "sw,7"},
+                "APT_5-7_Int_2A": {"link": "sw,7"},
+                "APT_5-7_Int_4Rw": {"link": "nw,7"},
+                "APT_5-7_Int_4Rw_001": {"link": "nw,7"},
+                "APT_5-7_Int_2A_003": {"link": "n,7"},
+                "APT_5-7_Int_2A_002": {"link": "n,7"},
+                "APT_5-7_Int_4Re_001": {"link": "ne,7"},
+                "APT_5-7_Int_3Ra": {"link": "ne,7"},
+                "APT_5-7_Int_3Da_001": {"link": "se,7"},
+                "APT_5-7_Int_3Da": {"link": "se,7"},
+                "APT_5-7_Int_3Rs": {"link": "s,7"},
+                "APT_8-11_Int_4Re": {"link": "s,12"},
+                "APT_8-11_Int_2A": {"link": "sw,12"},
+                "APT_8-11_Int_2A_003": {"link": "sw,12"},
+                "APT_8-11_Int_4Rw_001": {"link": "nw,12"},
+                "APT_8-11_Int_4Rw": {"link": "nw,12"},
+                "APT_8-11_Int_2A_001": {"link": "n,12"},
+                "APT_8-11_Int_2A_002": {"link": "n,12"},
+                "APT_8-11_Int_4Re_001": {"link": "ne,12"},
+                "APT_8-11_Int_3Ra_001": {"link": "ne,12"},
+                "APT_8-11_Int_3Da": {"link": "se,12"},
+                "APT_8-11_Int_3Da_001": {"link": "se,12"},
+                "APT_8-11_Int_3Ra": {"link": "s,12"},
+                "APT_12-20_Int_3Re": {"link": "s,17"},
+                "APT_12-20_Int_3Ds": {"link": "sw,17"},
+                "APT_12-20_Int_3Ds_001": {"link": "sw,17"},
+                "APT_12-20_Int_3Rw": {"link": "nw,17"},
+                "APT_12-20_Int_4Rw": {"link": "nw,17"},
+                "APT_12-20_Int_4M": {"link": "n,17"},
+                "APT_12-20_Int_4Re": {"link": "ne,17"},
+                "APT_12-20_Int_3Ra_001": {"link": "ne,17"},
+                "APT_12-20_Int_3Da": {"link": "se,17"},
+                "APT_12-20_Int_3Da_001": {"link": "se,17"},
+                "APT_12-20_Int_3Ra": {"link": "s,17"},
+                "APT_21-43_Int_5P_001": {"link": "sw"},
+                "APT_21-43_Int_4P": {"link": "sw"},
+                "APT_21-43_Int_5R_001": {"link": "nw"},
+                "APT_21-43_Int_5R": {"link": "nw"},
+                "APT_21-43_Int_4P_001": {"link": "n"},
+                "APT_21-43_Int_5P": {"link": "n"},
+                "APT_21-43_Int_3M_001": {"link": "se"},
+                "APT_21-43_Int_3M": {"link": "se"},
+                "APT_21_43_Int_5Pwn_4345": {"link": "sw"},
+                "APT_21_43_Int_3M_4346": {"link": "sw"},
+                "APT_21_43_Int_3M_4347": {"link": "sw"},
+                "APT_21_43_Int_5MPws_4348": {"link": "nw"},
+                "APT_21_43_Int_6ws_4349": {"link": "n"},
+                "APT_21_43_Int_6wn_4344": {"link": "se"},
+                "APT_21_43_Int_6E_4381": {"link": "sw"},
+                "APT_21_43_Int_6E_4382": {"link": "nw"},
+                "APT_21_43_Int_6ws_4383": {"link": "n"},
+                "APT_21_43_Int_6wn_4380": {"link": "se"},
+                "APT_21_43_Int_6P_4385": {"link": "n"},
+                "APT_21_43_Int_6P_4384": {"link": "se"}
+            };
             building.forEach(function (element, floor_index) {
                 if (element.name === 'Roof') {
                     window.roof = element;
@@ -1085,16 +1182,35 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                             var flat_name_letter = flat.name.replace('APT_', '').replace('_F_', '').replace(floor_index, '');
                             user_data.letter = flat_name_letter;
                             user_data.crm_data = sorted_json[4001];
-        
-                            if (floor_index < 17) {
-                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/5_22floor/index.htm';
+
+                            if (floor_index < 20) {
+                                let link = getVantageToFlat (flat.name, null);
+                                flat.userData.url_360 = link;
                                 flat.userData.url_360_type = 'default';
                             } else if (floor_index < 27) {
-                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/22_32floor/index.htm';
+                                let link = getVantageToFlat (flat.name, 32);
+                                flat.userData.url_360 = link;
                                 flat.userData.url_360_type = 'default';
                             } else if (floor_index < 48) {
-                                flat.userData.url_360 = 'https://dreamsimages.bmby.com/new/dev/gindi/32_42floor/index.htm';
+                                let link = getVantageToFlat (flat.name, 42);
+                                flat.userData.url_360 = link;
                                 flat.userData.url_360_type = 'default';
+                            }
+                            function getVantageToFlat (name, floor) {
+                                let link;
+                                Object.keys(vantageLinks).forEach(function(key){
+                                    if (key == name) {
+                                        let string = vantageLinks[key]['link'];
+                                        if (floor == null) {
+                                            let stringArray = string.split(',');
+                                            link =  vantageKeys[stringArray[0]][stringArray[1]];
+                                        } else {
+                                            link = vantageKeys[vantageLinks[key]['link']][floor];
+                                        }
+
+                                    }
+                                });
+                                return link;
                             }
         
                             if (floor_index < 3) {
@@ -1547,6 +1663,10 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                         let defaultData = globalSettings.animations.defaultForeshortening;
                         globalFunctions.animateTo(defaultData.position, defaultData.rotation, defaultData.zoom, 2000, TWEEN.Easing.Sinusoidal.InOut, 600);
                         globalFunctions.flatBubble.init();
+                        let roads = scene.getObjectByName('roads');
+                        if (roads) {
+                            roads.position.y += -100;
+                        }
                     }, 1000);
                 }
             } else {

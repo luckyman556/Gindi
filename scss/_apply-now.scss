@@ -113,6 +113,15 @@
    z-index: 2;
    filter: invert(1);
  }
+   .apply__social-icons{
+    grid-template-rows: auto auto auto;
+    grid-gap: 28px 0;
+    display: flex;
+    justify-content: center;
+  }
+  li.apply__social-icon__item {
+    width: 50%;
+  }
 
 
 }
@@ -124,9 +133,6 @@
 }
 
 @media screen and (max-width: 550px) {
-  .apply__social-icons{
-    grid-template-rows: auto auto auto;
-    grid-gap: 28px 0;
-  }
+
 
 }

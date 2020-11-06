@@ -13,7 +13,15 @@ export const cardsInfoSettings = {
         {
             'crmName' : 'totalSpace',
             'imgUrl' : './img/gindi-ic-area.svg',
-            'dictionary' : 'area'
+            'dictionary' : 'area',
+            // 'addToDictionary' : ', ft<sup>2</sup>'
+            'callback' : function (data) {
+                 if (c_lang () == 'he') {
+                    return data +  ' מ"ר ';
+                } else {
+                    return data +  ' m<sup>2</sup>';
+                }
+            }
         },
         {
             'crmName' : 'roomNum',
@@ -28,6 +36,25 @@ export const cardsInfoSettings = {
             'dictionary' : 'apt. type'
         },
         {
+            'crmName' : 'roomNum',
+            'imgUrl' : './img/gindi-ic-rooms.svg',
+            'dictionary' : 'rooms',
+            'callback' : function (data) {
+                if (data == 0) {
+                    return get_lang('Studio')
+                } else {
+                    return data;
+                }
+            },
+            addClassCallback : function(data) {
+                if (data == 0) {
+                    return 'studio'
+                } else {
+                    return '';
+                }
+            }
+        },
+        {
             'crmName' : 'floorNum',
             'imgUrl' : './img/gindi-ic-floor.svg',
             'dictionary' : 'floor'
@@ -35,14 +62,30 @@ export const cardsInfoSettings = {
         {
             'crmName' : 'totalSpace',
             'imgUrl' : './img/gindi-ic-area.svg',
-            'dictionary' : 'area'
+            'dictionary' : 'area',
+            /*            'callback' : function (data) {
+                            return data +  ', ft<sup>2</sup>';
+                        },*/
+            'callback' : function (data) {
+                if (c_lang () == 'he') {
+                    return data +  ' מ"ר ';
+                } else {
+                    return data +  ' m<sup>2</sup>';
+                }
+
+            },
         },
         {
             'crmName' : 'facing',
             'imgUrl' : './img/ic_side.svg',
             'dictionary' : 'Exposure',
             'callback' : function (data) {
-                let facing_translates =  globalSettings.exposure.dictionary;
+                let facing_translates = {
+                    'צפון' :  'N',
+                    'מערב' :  'W',
+                    'מזרח' :  'E' ,
+                    'דרום' : 'S',
+                };
                 let facing_string_array = data.split(',');
                 let facing_string_en = '';
                 let facing_string_he = '';
@@ -52,7 +95,7 @@ export const cardsInfoSettings = {
                         sep = '';
                     }
                     facing_string_en += sep + facing_translates[facing_item];
-                    facing_string_he += sep + facing_item;
+                    facing_string_he += sep + facing_translates[facing_item];
                     // console.log(facing_string_);
                 });
                 let lang = document.querySelector('html').getAttribute('lang');
@@ -67,6 +110,15 @@ export const cardsInfoSettings = {
             'crmName' : 'balconySize',
             'imgUrl' : './img/balcony-ic.svg',
             'dictionary' : 'balcony size',
+            //'addToDictionary' : ', ft<sup>2</sup>',
+            'callback' : function (data) {
+                if (c_lang () == 'he') {
+                    return data +  ' מ"ר ';
+                } else {
+                    return data +  ' m<sup>2</sup>';
+                }
+            },
+            //'addToDictionary' : ', ft<sup>2</sup>',
             'boolCallback' : function (data) {
                 if (data > 0) {
                     return true;

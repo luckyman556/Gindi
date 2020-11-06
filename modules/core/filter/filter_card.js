@@ -66,8 +66,19 @@
 
             });
             card.find('.apt-plan').click(function(){
-                    setTimeout(function(){   
-                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click(); 
+                let this_el = this;
+                    setTimeout(function(){
+                        let flat_id = $(this_el).parents('.nfm-flat-card').attr('data-bmby-id');
+                        let target_flat = window.appartments_by_bmby_id[flat_id];
+                        all_appartments.forEach(function(item, index){
+                            if (item == target_flat) {
+                                $('body').attr('data-current-app-index', index);
+                            }
+                        });
+                        var popup_info = $('.popup-info');
+                        set_appartment_data_in_block (target_flat, popup_info);
+                        last_clicked_flat = target_flat;
+                        $('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d').click();
                     },100);
             });
         }

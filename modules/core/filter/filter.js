@@ -323,6 +323,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         $('.filter-module-open-btn').click(function(){
             $('.filter-module-container').toggleClass('open');
 
+
             if ($('.filter-module-container').hasClass('open')) {
                 if ($(window).width() <= 1024) {
                     if ($('.filter-module-container .filter-controls-tabs .controls-tab.active').length == 0) {
@@ -341,6 +342,9 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
                     document.querySelector('body').classList.add('filter-open');
             } else {
+                setTimeout(function(){
+                    new_floor_selector_obj.rebuild();
+                },1000);
                 document.querySelector('body').classList.remove('filter-open');
             }
         });
@@ -1103,13 +1107,13 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                     </div>
                      <div class="nfm-selected">
                         <div class="min-number-box number-box"> 
-                            <input type="number" class="range-input" name="range-input" type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            <input type="number" class="range-input" name="range-input"  pattern="[0-9]" min="${min_num_for_input}" max="${max_num_for_input}">
                             ${symbol_html}
                              <div class="nmf-min-text"></div>
                         </div>
                         <div class="middle"> - </div>
                         <div class="max-number-box  number-box">
-                            <input type="number" class="range-input" name="range-input"  type="number" min="${min_num_for_input}" max="${max_num_for_input}">
+                            <input type="number" class="range-input" name="range-input"  pattern="[0-9]" min="${min_num_for_input}" max="${max_num_for_input}">
                             ${symbol_html}
                             <div class="nmf-max-text"></div>
                         </div>

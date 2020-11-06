@@ -68,7 +68,7 @@ export function add_street_names (action) {
                 text.userData.base_position_z = street.position[2];
                 text.userData.add = street.add;
                 text.name = 'street';
-
+                text.renderOrder = -1;
                 street_names_objs.push(text);
                 street_names_objs.forEach(item => scene.add( item ));
 
