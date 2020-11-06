@@ -479,10 +479,18 @@ body {
         z-index: 2;
         order: 0;
     }
-
     body.en .three_js .flat-info {
         padding-left: 0px;
         /* order: 0; */
+        width: 100%;
+        min-width: initial;
+    }
+    .three_js .flat-info .more-info.uninhabited-info .uninhabited-info_item {
+        
+        margin-top: 10px;
+    }
+    .three_js .flat-info .more-info.uninhabited-info {
+        padding-bottom: 0px;
     }
 
     .three_js .flat-info > .title {
@@ -1086,16 +1094,42 @@ left: 16px;
         width: 78px;
     }
     body.he .three_js .popup .apply-now {
-        left: initial;
-        right: 12px;
-        bottom: -18px;
+        
+left: initial;
+        
+right: 12px;
+        
+bottom: -18px;
     }
     .three_js .popup .apply-now {
         
-left: 12px;
-        
-bottom: -22px;
+    left: 12px;
+
+    bottom: -22px;
     }
+    .he .three_js .popup .floor-info-row {
+        padding-right: 60px
+    }
+    .en .three_js .popup .floor-info-row {
+        padding-left: 60px
+    }
+    .three_js .popup .floor-info-row {
+        
+padding: 0 20px;
+        
+padding-top: 10px;
+        padding-bottom: 10px;
+width: 100%;
+        
+max-height: 225px;
+        
+overflow-y: auto;
+        
+min-height: initial;
+        
+order: 1;
+    }
+    
 }
 
 /*styles for togglers buttons in mini cards*/
@@ -1180,7 +1214,9 @@ bottom: -22px;
         min-width: 53px;
         margin-bottom: 16px;
     }
-
+    .three_js .popup-info.custom-selection .flat-plan {
+        height: auto!important;
+    }
     .three_js .popup-info .flat-plan {
         height: 207px !important;
         max-height: 207px !important;
