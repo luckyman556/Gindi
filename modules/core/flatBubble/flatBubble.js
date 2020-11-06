@@ -12,7 +12,6 @@ export const flatBubble = {
         if (!flatBubbleEl.lastFlat) {
             flatBubbleEl.lastFlat = 'none';
         }
-        if (flatBubbleEl.lastFlat !== flat.userData.crm_data.propNum) {
             if (flat.userData.customSelection) {
                 let html = flat.userData.customSelectionBubbleHtml;
                 flatBubbleHTML(all_appartments[0].userData.crm_data);
@@ -29,22 +28,26 @@ export const flatBubble = {
                     flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
                 }
             } else {
-                let crmData = flat.userData.crm_data;
-                flatBubbleHTML(crmData);
-                let textContainer = document.querySelector('.flat-bubble .text-container');
-                textContainer.classList.remove('custom-selection');
-                let modelRooms = textContainer.querySelector('.model-rooms');
-                if (modelRooms) {
-                    modelRooms.style.display = 'flex';
-                }
-                if (flat.userData.url_360_type === 'custom') {
-                    flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
-                } else {
-                    flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
+
+                if (flatBubbleEl.lastFlat !== flat.userData.crm_data.propNum) {
+                    let crmData = flat.userData.crm_data;
+                    flatBubbleHTML(crmData);
+                    let textContainer = document.querySelector('.flat-bubble .text-container');
+                    textContainer.classList.remove('custom-selection');
+                    let modelRooms = textContainer.querySelector('.model-rooms');
+                    if (modelRooms) {
+                        modelRooms.style.display = 'flex';
+                    }
+                    if (flat.userData.url_360_type === 'custom') {
+                        flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
+                    } else {
+                        flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
+                    }
+
+                    flatBubbleEl.lastFlat = flat.userData.crm_data.propNum;
+
                 }
             }
-        }
-        flatBubbleEl.lastFlat = flat.userData.crm_data.propNum;
         //flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
     },
     updatePosition : function (top,left) {

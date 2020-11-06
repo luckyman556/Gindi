@@ -339,4 +339,76 @@ export let dictionary_array = {
         'en': 'Wellness & studies',
         'he': 'need translate',
     },
+    'Saltwater pool': {
+        'en': 'Saltwater pool',
+        'he': 'need translate',
+    },
+    'Meditation room': {
+        'en': 'Meditation room',
+        'he': 'need translate',
+    },
+    'Steam room': {
+        'en': 'Steam room',
+        'he': 'need translate',
+    },
+    'Shopping area': {
+        'en': 'Shopping area',
+        'he': 'need translate',
+    },
+    'Massage room': {
+        'en': 'Massage room',
+        'he': 'need translate',
+    },
+    'Changing rooms': {
+        'en': 'Changing rooms',
+        'he': 'need translate',
+    },
+    'Fitness center': {
+        'en': 'Fitness center',
+        'he': 'need translate',
+    },
+    'Resident library': {
+        'en': 'Resident library',
+        'he': 'need translate',
+    },
+    'Fireplace': {
+        'en': 'Fireplace',
+        'he': 'need translate',
+    },
+    'Kids room': {
+        'en': 'Kids\' room',
+        'he': 'need translate',
+    },
+    'WELLNESS & STUDIES': {
+        'en': 'WELLNESS & STUDIES',
+        'he': 'need translate',
+    },
+    'Sun lounge': {
+        'en': 'Sun lounge',
+        'he': 'need translate',
+    },
+    'Fireplace lounge': {
+        'en': 'Fireplace lounge',
+        'he': 'need translate',
+    },
+    'Cabana kitchen': {
+        'en': 'Cabana kitchen',
+        'he': 'need translate',
+    },
+    'Dining park': {
+        'en': 'Dining park',
+        'he': 'need translate',
+    },
+    'Pizza oven': {
+        'en': 'Dining park',
+        'he': 'need translate',
+    },
+    'Grill': {
+        'en': 'Grill',
+        'he': 'need translate',
+    },
+    'Kitchen': {
+        'en': 'Kitchen',
+        'he': 'need translate',
+    },
 }
