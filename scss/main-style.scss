@@ -1218,7 +1218,29 @@ body {
 		* {
 			opacity: 0;
 		}
-
+        
+		.apply-now {
+			font-family: Fragolino;
+			margin-bottom: 32px;
+			height: 44px;
+			min-height: 44px;
+			width: 144px;
+			box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
+			background-color: $brand-color-2;
+			color: $white;
+			font-size: 18px;
+			font-weight: 400;
+			line-height: 23px;
+			text-align: center;
+			display: flex; 
+			flex-direction: column;
+			justify-content: center; 
+			cursor: pointer; 
+			//transition: 0.5s;
+			//&:hover {
+			//	transform: scale(1.2);
+			//}
+		}
 
 		.floor-info-row {
 			order: 2;
@@ -2505,6 +2527,7 @@ body {
 		flex-direction: column;
 		position: relative;
 		z-index: 2;
+
 		&.unavailable {
 			.info-item.bath-item {
 				display: none!important;
@@ -2705,28 +2728,7 @@ body {
 					margin-bottom: auto;
 					width: 100%;
 				}
-				.apply-now {
-					font-family: Fragolino;
-					margin-bottom: 32px;
-					height: 44px;
-					min-height: 44px;
-					width: 144px;
-					box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
-					background-color: $brand-color-2;
-					color: $white;
-					font-size: 18px;
-					font-weight: 400;
-					line-height: 23px;
-					text-align: center;
-					display: flex; 
-					flex-direction: column;
-					justify-content: center; 
-					cursor: pointer; 
-					//transition: 0.5s;
-					//&:hover {
-					//	transform: scale(1.2);
-					//}
-				}
+
 				.info-loop {
 					.info-item {
 						margin-bottom: 23px;

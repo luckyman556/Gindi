@@ -2460,6 +2460,23 @@ body {
     border-radius: 6px; }
     .three_js .popup * {
       opacity: 0; }
+    .three_js .popup .apply-now {
+      font-family: Fragolino;
+      margin-bottom: 32px;
+      height: 44px;
+      min-height: 44px;
+      width: 144px;
+      box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
+      background-color: #C1AC87;
+      color: #FFFFFF;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 23px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer; }
     .three_js .popup .floor-info-row {
       order: 2;
       min-height: 100%;
@@ -3562,23 +3579,6 @@ body {
         .three_js .flat-info .more-info .bottom-part .info-loop {
           margin-bottom: auto;
           width: 100%; }
-        .three_js .flat-info .more-info .bottom-part .apply-now {
-          font-family: Fragolino;
-          margin-bottom: 32px;
-          height: 44px;
-          min-height: 44px;
-          width: 144px;
-          box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
-          background-color: #C1AC87;
-          color: #FFFFFF;
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 23px;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          cursor: pointer; }
         .three_js .flat-info .more-info .bottom-part .info-loop .info-item {
           margin-bottom: 23px; }
           .three_js .flat-info .more-info .bottom-part .info-loop .info-item.studio .text .top {

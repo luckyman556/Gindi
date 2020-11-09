@@ -1093,19 +1093,26 @@ left: 16px;
     body.he .three_js .flat-option.area {
         width: 78px;
     }
-    body.he .three_js .popup .apply-now {
-        
-left: initial;
-        
-right: 12px;
-        
-bottom: -18px;
+    body.he .three_js .popup .apply-now {        
+        left: initial;
+
+        right: 12px;
+
+        bottom: -18px;
     }
     .three_js .popup .apply-now {
+        left: 12px;
+        bottom: -22px;
+        position: absolute;
+        z-index: 10;
+    }
+    body.he .three_js .popup .apply-now {
         
-    left: 12px;
+        left: initial;
 
-    bottom: -22px;
+        right: 12px;
+
+        bottom: -18px;
     }
     .he .three_js .popup .floor-info-row {
         padding-right: 60px
