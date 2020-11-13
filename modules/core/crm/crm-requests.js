@@ -33,7 +33,7 @@ export const crmRequests = {
     getBuildingProps (building_index) {
         var request = new XMLHttpRequest();
         let building_number = buildings_info[building_index].build_id;
-        request.open('GET',  crm_server + 'api/dreamsv2/props?buildingEngineId=' + building_number, true);
+        request.open('GET',  'https://mbeat.bmby.com/api/dreams/props?houseId=' + building_number, true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.setRequestHeader('Authorization', 'Bearer ' +  window['token_response']);
         request.send();

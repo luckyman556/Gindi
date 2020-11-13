@@ -1,0 +1,54 @@
+// new-ui-common
+.new-ui-direction-btn {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    cursor: pointer;
+    img {
+        margin: auto;
+    }
+
+}
+#building-switcher {
+    position: absolute;
+    height: 42px;
+    min-width: 343px;
+    bottom: 0;
+    left: 50%;
+    border-radius: 30px;
+    z-index: 99;
+    display: flex;
+    background-color: #1A2F43;
+    box-shadow: 0 0 15px black;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+    .buildings-list {
+        display: flex;
+        position: relative;
+        width: calc(100% - 84px);
+        text-align: center; 
+        color: white;
+        line-height: 42px;
+        .building-item { 
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: -42px;
+            left: 0px;
+            transition: 0.5s;
+            &.active {
+                display: block;
+                bottom: 0px;
+                z-index: 2;
+            }
+        }
+    }
+    .prev-btn {
+        width: 42px;
+        height: 42px;
+    }
+    .next-btn {        
+        width: 42px;
+        height: 42px;
+    }
+}

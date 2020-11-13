@@ -33,6 +33,7 @@ import * as flatLabels from "./modules/core/destroyedBuilding/flatLabels/flat-la
 // street names and position angle
 
 import {street_names_n_positions_angle} from './modules/core/street-names/names-angle.js';
+import { crmRequests } from './modules/core/crm/crm-requests.js';
 import {getCookie, setCookie} from "./modules/core/cookies/setAndGetCookies.js";
 
 
@@ -607,12 +608,28 @@ function animate() {
         $('.current-resolution .height .number').html($(window).height());
     }
     object_to_opacity.forEach(function (item) {
-        let obj_a = perspectiveCamera.getWorldPosition(new THREE.Vector3());
         if (item.userData.world_center == undefined) {
             item.userData.world_center = getCenterPoint(item);
         }
+        let camera_position = perspectiveCamera.getWorldPosition(new THREE.Vector3());
+        //console.log(camera_position);
+        let item_position = item.userData.world_center;
+        let camera_target_position = window.camera_target.position;
+        let center_cube = new THREE.Group();
+        center_cube.position.set(camera_target_position.x, 1 , camera_target_position.z);
+        let camera_cube = new THREE.Group();
+        camera_cube.position.set(camera_position.x, 1 , camera_position.z);
+        center_cube.attach(camera_cube);
+        let item_cube = new THREE.Group();
+        item_cube.position.set(item_position.x, 1 , item_position.z);
+        center_cube.attach(item_cube);
 
-        let obj_b = item.userData.world_center;
+        camera_position = camera_cube.position;
+        item_position = item_cube.position;
+
+
+        let obj_a = camera_position;
+        let obj_b = item_position;
         let angle_obj = get_angle_between(obj_a, obj_b)
 
         if (item.userData.base_opacity == undefined) {
@@ -634,6 +651,33 @@ function animate() {
             item.material.opacity = base_opacity;
             item.visible = true;
         }
+        // let obj_a = perspectiveCamera.getWorldPosition(new THREE.Vector3());
+        // if (item.userData.world_center == undefined) {
+        //     item.userData.world_center = getCenterPoint(item);
+        // }
+        //
+        // let obj_b = item.userData.world_center;
+        // let angle_obj = get_angle_between(obj_a, obj_b)
+        //
+        // if (item.userData.base_opacity == undefined) {
+        //     item.userData.base_opacity = item.material.opacity;
+        // }
+        // let base_opacity = item.userData.base_opacity;
+        // if (angle_obj.degs < 90) {
+        //     let opacity = (angle_obj.degs / 90) - 0.25;
+        //     if (opacity > 0.05) {
+        //         item.material.opacity = opacity;
+        //         item.visible = true;
+        //     } else {
+        //         // window.test_cube.material.opacity = opacity;
+        //         item.visible = false;
+        //
+        //     }
+        //
+        // } else {
+        //     item.material.opacity = base_opacity;
+        //     item.visible = true;
+        // }
     });
     // if (window.enviroment != undefined) {
     //     if (window.enviroment.children[12] != undefined) {
@@ -733,101 +777,120 @@ function animate() {
     requestAnimationFrame( animate );
 }
 
-if (!getCookie('access_token')) {
-    $.post(
-        "https://identity.bmby.com/connect/token", {
-            client_id: client_id,
-            client_secret: client_secret,
-            grant_type: grant_type,
-            scope: scope,
-        },
-
-        function (data) {
-            let token = data.access_token;
-            Object.entries(data).forEach(item => {
-                setCookie(item[0], item[1], {'max-age': 3600});
-            });
-            get_json(token, build_id);
-        });
-} else {
-    const token = getCookie('access_token');
-    get_json(token, build_id);
-}
-
-function get_json(token, build_id) {
-    // let res = 3700000;
-
-    // let myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-    // myHeaders.append('Authorization', 'Bearer ' + token);
-    //
-    // let envResponce = fetch('https://igorl.bmby.com/api/dreamsv2/register-app', {
-    //     method: 'GET',
-    //     headers: myHeaders,
-    //     mode: 'cors',
-    //     cache: 'default'
-    // }).then(response => {
-    //     return response;
-    // });
-    let is_mobile_safari = false;
-    {
-        const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        if (isSafari) {
-            if (isMobileApple) {
-                is_mobile_safari = true;
-            }
-        }
-    }
-    if (is_mobile_safari) {
-        $.ajax({
-            type: "GET",
-            url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
-            beforeSend: function (request) {
-                request.setRequestHeader('Content-Type', 'application/json');
-                request.setRequestHeader('Authorization', 'Bearer ' + token);
-                $('.preloader .percents').html('Update CRM data');
-                // progress_bar_update(1, 100, 'Update CRM data');
-            },
-
-            success: function (response) {
-                showContent(response);
-            },
-
-            ajaxComplete: function () {
-            }
-        });
+crmRequests.getToken();
+crmRequests.tokenCheck(function(){
+    buildings_info.forEach(function(building, index){
+        crmRequests.getBuildingProps(index);
+    });
+});
+add_crm_data ();
+function add_crm_data () {
+    if (buildings_info[0].crm_data) {
+        showContent(buildings_info[0].crm_data)
     } else {
-        const dataNow = Date.now();
-        let storeData = JSON.parse(localStorage.getItem('timeObjLoaded'));
-        let res = dataNow - storeData;
-        if (JSON.parse(localStorage.getItem('apartments')) && res < 3600000) {
-            showContent(JSON.parse(localStorage.getItem('apartments')));
-        } else {
-            $.ajax({
-                type: "GET",
-                url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
-                beforeSend: function (request) {
-                    request.setRequestHeader('Content-Type', 'application/json');
-                    request.setRequestHeader('Authorization', 'Bearer ' + token);
-                    $('.preloader .percents').html('Update CRM data');
-                    // progress_bar_update(1, 100, 'Update CRM data');
-                },
-
-                success: function (response) {
-                    // console.log('AJAX');
-                    localStorage.setItem('timeObjLoaded', JSON.stringify(Date.now()));
-                    localStorage.setItem('apartments', JSON.stringify(response));
-                    showContent(response);
-                },
-
-                ajaxComplete: function () {
-                }
-            });
-        }
+        setTimeout(function(){
+            add_crm_data ();
+        }, 100);
     }
-
 }
+
+
+
+// if (!getCookie('access_token')) {
+//     $.post(
+//         "https://identity.bmby.com/connect/token", {
+//             client_id: client_id,
+//             client_secret: client_secret,
+//             grant_type: grant_type,
+//             scope: scope,
+//         },
+//
+//         function (data) {
+//             let token = data.access_token;
+//             Object.entries(data).forEach(item => {
+//                 setCookie(item[0], item[1], {'max-age': 3600});
+//             });
+//             get_json(token, build_id);
+//         });
+// } else {
+//     const token = getCookie('access_token');
+//     get_json(token, build_id);
+// }
+
+// function get_json(token, build_id) {
+//     // let res = 3700000;
+//
+//     // let myHeaders = new Headers();
+//     // myHeaders.append('Content-Type', 'application/json');
+//     // myHeaders.append('Authorization', 'Bearer ' + token);
+//     //
+//     // let envResponce = fetch('https://igorl.bmby.com/api/dreamsv2/register-app', {
+//     //     method: 'GET',
+//     //     headers: myHeaders,
+//     //     mode: 'cors',
+//     //     cache: 'default'
+//     // }).then(response => {
+//     //     return response;
+//     // });
+//     let is_mobile_safari = false;
+//     {
+//         const isMobileApple = navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+//         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+//         if (isSafari) {
+//             if (isMobileApple) {
+//                 is_mobile_safari = true;
+//             }
+//         }
+//     }
+//     if (is_mobile_safari) {
+//         $.ajax({
+//             type: "GET",
+//             url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
+//             beforeSend: function (request) {
+//                 request.setRequestHeader('Content-Type', 'application/json');
+//                 request.setRequestHeader('Authorization', 'Bearer ' + token);
+//                 $('.preloader .percents').html('Update CRM data');
+//                 // progress_bar_update(1, 100, 'Update CRM data');
+//             },
+//
+//             success: function (response) {
+//                 showContent(response);
+//             },
+//
+//             ajaxComplete: function () {
+//             }
+//         });
+//     } else {
+//         const dataNow = Date.now();
+//         let storeData = JSON.parse(localStorage.getItem('timeObjLoaded'));
+//         let res = dataNow - storeData;
+//         if (JSON.parse(localStorage.getItem('apartments')) && res < 3600000) {
+//             showContent(JSON.parse(localStorage.getItem('apartments')));
+//         } else {
+//             $.ajax({
+//                 type: "GET",
+//                 url: "https://mbeat.bmby.com/api/dreams/props?houseId=" + build_id,
+//                 beforeSend: function (request) {
+//                     request.setRequestHeader('Content-Type', 'application/json');
+//                     request.setRequestHeader('Authorization', 'Bearer ' + token);
+//                     $('.preloader .percents').html('Update CRM data');
+//                     // progress_bar_update(1, 100, 'Update CRM data');
+//                 },
+//
+//                 success: function (response) {
+//                     // console.log('AJAX');
+//                     localStorage.setItem('timeObjLoaded', JSON.stringify(Date.now()));
+//                     localStorage.setItem('apartments', JSON.stringify(response));
+//                     showContent(response);
+//                 },
+//
+//                 ajaxComplete: function () {
+//                 }
+//             });
+//         }
+//     }
+//
+// }
 // {
 //     let xhr = new XMLHttpRequest();
 //     // xhr.open('GET', 'http://www.gindi_cms.bohdan-web.xyz/wp-admin/admin-ajax.php?action=get_actual_cms_data');

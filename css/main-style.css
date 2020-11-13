@@ -1539,6 +1539,52 @@ html[dir=rtl] .options__menu-label {
     grid-template-rows: auto auto auto;
     grid-gap: 28px 0; } }
 
+.new-ui-direction-btn {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  cursor: pointer; }
+  .new-ui-direction-btn img {
+    margin: auto; }
+
+#building-switcher {
+  position: absolute;
+  height: 42px;
+  min-width: 343px;
+  bottom: 0;
+  left: 50%;
+  border-radius: 30px;
+  z-index: 99;
+  display: flex;
+  background-color: #1A2F43;
+  box-shadow: 0 0 15px black;
+  transform: translate(-50%, -50%);
+  overflow: hidden; }
+  #building-switcher .buildings-list {
+    display: flex;
+    position: relative;
+    width: calc(100% - 84px);
+    text-align: center;
+    color: white;
+    line-height: 42px; }
+    #building-switcher .buildings-list .building-item {
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      bottom: -42px;
+      left: 0px;
+      transition: 0.5s; }
+      #building-switcher .buildings-list .building-item.active {
+        display: block;
+        bottom: 0px;
+        z-index: 2; }
+  #building-switcher .prev-btn {
+    width: 42px;
+    height: 42px; }
+  #building-switcher .next-btn {
+    width: 42px;
+    height: 42px; }
+
 body {
   font-family: 'almoni-tzar'; }
 

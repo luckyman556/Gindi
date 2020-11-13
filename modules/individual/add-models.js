@@ -12,6 +12,8 @@ import {optionsMenu} from "../core/navigation/optionsMenu.js";
 import {setCookie, getCookie} from "../core/cookies/setAndGetCookies.js";
 import {checkAll2Dplans} from "../../js/checlAll2DPlans.js";
 import {modelsFunctions} from "../core/models/models-functions.js";
+import {BuildingSwitch} from "../core/building-switch/building_switch.js";
+import { SelectionBoxes } from '../core/models/add-selection-boxes.js';
 
 
 
@@ -406,10 +408,22 @@ export function loadEnvironment(on_load_texture) {
                 }
             }
         });
+            let buildingsNamesArray;
+            let tower_3 = enviroment.getObjectByName('tower_03');
+            let temp_material = tower_3.material.clone();
+            temp_material.depthWrite = false;
 
-        let buildingsNamesArray = ['tower_03', 'tower_02', 'tower_01', 'tower_t', 'Nei_buildings03', 'Nei_buildings02', 'Nei_buildings01', 'Nei_buildings00', 'Nei_buildings04'];
-        let temp_material = enviroment.getObjectByName('tower_03').material.clone();
-        temp_material.depthWrite = false;
+            if (get_url_param('switcher')){
+                buildingsNamesArray = ['tower_02', 'tower_01', 'tower_t', 'Nei_buildings03', 'Nei_buildings02', 'Nei_buildings01', 'Nei_buildings00', 'Nei_buildings04'];
+                tower_3.visible = false;
+            } else {
+                buildingsNamesArray = ['tower_03','tower_02', 'tower_01', 'tower_t', 'Nei_buildings03', 'Nei_buildings02', 'Nei_buildings01', 'Nei_buildings00', 'Nei_buildings04'];
+            }
+
+
+        // let temp_material = enviroment.getObjectByName('tower_03').material.clone();
+        // temp_material.depthWrite = false;
+
         enviroment.children.forEach(building => {
             buildingsNamesArray.forEach(name => {
                 if (building.name === name) {
@@ -620,7 +634,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
 
         window.empty_model = empty_model;
         window.experimental_mesh = empty_model.children[0].children[0];
-
+        let first_building_instances = [];
         let instanced_floors_count = 5;
         let positions_array = {
             start_y: 6.536338065283683,
@@ -638,7 +652,8 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         };
 
         let floor_type_1_inst = empty_model.children[0].children[0];
-        add_instances_floor(floor_type_1_inst, positions_array);
+
+        let floor_5_7 = add_instances_floor(floor_type_1_inst, positions_array, first_building_instances , 5);
 
         let floor_type_2_inst = empty_model.children[1].children[0];
 
@@ -655,7 +670,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             },
             rotation: new THREE.Euler(-1.57, 0, (6.28 / 3 * 3), 'XYZ'),
         };
-        add_instances_floor(floor_type_2_inst, positions_array);
+        let floor_8_11 = add_instances_floor(floor_type_2_inst, positions_array, first_building_instances , 8);
         // control.attach(window.instance_mesh);
 
         positions_array = {
@@ -673,7 +688,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         };
 
         let floor_type_3_inst = empty_model.children[2].children[0];
-        add_instances_floor(floor_type_3_inst, positions_array);
+        let floor_12_20 = add_instances_floor(floor_type_3_inst, positions_array, first_building_instances, 12);
 
         // add_instances_floor(floor_type_3_inst, positions_array);
         positions_array = {
@@ -691,12 +706,104 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
         };
 
         let floor_type_4_inst = empty_model.children[3].children[0];
-        window.instance_mesh =   add_instances_floor(floor_type_4_inst, positions_array);
+        // window.instance_mesh =   add_instances_floor(floor_type_4_inst, positions_array);
+        let floor_21_48 =   add_instances_floor(floor_type_4_inst, positions_array, first_building_instances , 21);
+        instanced_floors = first_building_instances;
+        instanced_floors_switch.push(first_building_instances);
+
+        buildings_info[0].objects_to_opacity.push(floor_5_7, floor_8_11, floor_12_20, floor_21_48);
+
         // control.attach(window.instance_mesh);
 
-        function add_instances_floor(floor, positions_array) {
+        // add instances for second tower
+        if (get_url_param('switcher')){
+            {
+                let second_building_instances = [];
+                let instanced_floors_count = 5;
+                let positions_array = {
+                    start_y: 6.536338065283683,
+                    start_x: -6.546790795014282 + second_tower_position_mode.x,
+                    start_z: 11.51030694187112 + second_tower_position_mode.z,
+                    y_diff_y: 325.3,
+                    count: 3,
+                    scale: {
+                        x: 0.01,
+                        y:0.01,
+                        z:0.01,
+                    },
+                    rotation: new THREE.Euler(-1.57, 0, 0, 'XYZ'),
+                    hidden : false,
+                };
+                console.log(empty_model);
+                let floor_type_1_inst = empty_model.getObjectByName('5-7').children[0];
+                let floor_5_7 = add_instances_floor(floor_type_1_inst, positions_array, second_building_instances , 5);
+
+                let floor_type_2_inst = empty_model.children[1].children[0];
+
+                positions_array = {
+                    start_y: 19.58,
+                    start_x: -0.41682418821129374 + second_tower_position_mode.x,
+                    start_z: 1.0911659408024355 + second_tower_position_mode.z,
+                    y_diff_y: 3380 / 10,
+                    count: 4,
+                    scale: {
+                        x:0.001 * 10,
+                        y:0.001 * 10,
+                        z:0.001 * 10,
+                    },
+                    rotation: new THREE.Euler(-1.57, 0, (6.28 / 3 * 3), 'XYZ'),
+                };
+                let floor_8_11 = add_instances_floor(floor_type_2_inst, positions_array, second_building_instances , 8);
+                // control.attach(window.instance_mesh);
+
+                positions_array = {
+                    start_y: 29.6177 + 3.38,
+                    start_x: 0.05166733742336849 + second_tower_position_mode.x,
+                    start_z: 0.26898858317867 + second_tower_position_mode.z,
+                    y_diff_y: 3380 / 10,
+                    count: 9, // 9
+                    scale: {
+                        x:0.001 * 10,
+                        y:0.001 * 10,
+                        z:0.001 * 10,
+                    },
+                    rotation: new THREE.Euler(-1.57, 0, (6.28 / 3 * -0), 'XYZ'),
+                };
+                console.log(empty_model);
+                let floor_type_3_inst = empty_model.children[2].children[0].clone();
+                let floor_12_20 =  add_instances_floor(floor_type_3_inst, positions_array, second_building_instances , 12);
+
+                // add_instances_floor(floor_type_3_inst, positions_array);
+                positions_array = {
+                    start_y: 63.138337887465404,
+                    start_x: 0.5506211603088724 + second_tower_position_mode.x,
+                    start_z: -0.6854284331415981 + second_tower_position_mode.z,
+                    y_diff_y: 3540 / 10,
+                    count: 28,
+                    scale: {
+                        x:0.001 * 10,
+                        y:0.001 * 10,
+                        z:0.001 * 10,
+                    },
+                    rotation: new THREE.Euler(-1.57, 0, (6.28 / 3 * -0), 'XYZ'),
+                };
+
+                let floor_type_4_inst = empty_model.children[3].children[0];
+                let floor_21_48 = add_instances_floor(floor_type_4_inst, positions_array, second_building_instances , 20);
+                instanced_floors_switch.push(second_building_instances);
+                buildings_info[1].objects_to_opacity.push(floor_5_7, floor_8_11, floor_12_20, floor_21_48);
+            }
+        }
+
+
+
+
+
+
+        function add_instances_floor(floor, positions_array,array, instances_count) {
             let count = positions_array.count;
-            let mesh = new THREE.InstancedMesh(floor.geometry, floor.material, count);
+            let mesh = new THREE.InstancedMesh(floor.geometry, floor.material.clone(), count);
+            // mesh.material.transparent = true;
             mesh.position.set(positions_array.start_x, positions_array.start_y, positions_array.start_z);
             let scale = positions_array.scale;
             mesh.scale.set(scale.x, scale.y, scale.z);
@@ -707,19 +814,15 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                 matrix.makeRotationFromEuler(positions_array.rotation);
                 matrix.setPosition(0, positions_array.y_diff_y * i, 0);
                 mesh.setMatrixAt(i, matrix);
-                instanced_floors[instanced_floors_count] = {
+                array[instances_count] = {
                     'mesh': mesh,
                     'count': i,
                     'position': [0, positions_array.y_diff_y * i, 0],
                     'rotation': positions_array.rotation,
-                    'diff': {
-                        x : 0,
-                        y : positions_array.y_diff_y,
-                        z : 0,
-                    },
+                    'y_diff': positions_array.y_diff_y,
                     'matrix': matrix
                 };
-                instanced_floors_count++;
+                instances_count++;
                 i++;
             };
             mesh.renderOrder = 1;
@@ -844,6 +947,15 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             lobby.scale.set(zoom_i, zoom_i, zoom_i);
             lobby.position.set(0, 0, -4.7);
             scene.add(lobby);
+
+            // add second lobby
+            if (get_url_param('switcher')){
+                let lobby_2 = elements_array.lobby.clone();
+                lobby_2.scale.set(zoom_i, zoom_i, zoom_i);
+                lobby_2.position.set( second_tower_position_mode.x, 0, -4.7 +  second_tower_position_mode.z);
+                scene.add(lobby_2);
+            }
+
             let floor_type_5_7_center_geometry = new THREE.BoxBufferGeometry( 1, 1, 1 );
             var floor_type_5_7_center_material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
             var floor_type_5_7_center_mesh = new THREE.Mesh( floor_type_5_7_center_geometry, floor_type_5_7_center_material );
@@ -906,109 +1018,218 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
             elements_array.roof.scale.set(zoom_i, zoom_i, zoom_i);
             window.control = control;
 
-            // {x: -0.2149444299569776, y: -10.381874117366038, z: 0.0369304158114625}
-            let start_i = 5;
-            let target_y;
-            let start_y = -10.381874117366038;
-            let i = 0;
-            let floor_1;
-            while (start_i <= 7) {
-                let object_to_clone = elements_array.floor_type_5_7;
-                floor_1 = object_to_clone.clone();
-                target_y = start_y + (11.189571354476431 - 7.936338065283678) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
+            SelectionBoxes.addOnScene([
+                {
+                    start_position : {
+                        x : 0,
+                        y : -10.381874117366038,
+                        z : 0,
+                    },
+                    y_diff : 3.253233289192753,
+                    count : 3,
+                    floor_group : elements_array.floor_type_5_7,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : -8,
+                        z : 0,
+                    },
+                    y_diff : 3.3802478990749307,
+                    count : 4,
+                    floor_group : elements_array.floor_type_8_11,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : 2.134,
+                        z : 0,
+                    },
+                    y_diff : 3.3802478990749307,
+                    count : 9,
+                    floor_group : elements_array.floor_type_12_20,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : 28.996500626545846,
+                        z : 0,
+                    },
+                    y_diff : 3.5402478990749415,
+                    count : 20,
+                    floor_group : elements_array.floor_type_21_40,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : 99.83429315821958,
+                        z : 0,
+                    },
+                    y_diff : 3.5402478990749415,
+                    count : 6,
+                    floor_group : elements_array.floor_type_41_46,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : 118.03553265359426,
+                        z : 0,
+                    },
+                    y_diff : 3.5402478990749415,
+                    count : 1,
+                    floor_group : elements_array.floor_type_47,
+                    array_to_push : building_array,
+                },
+                {
+                    start_position : {
+                        x : 0,
+                        y : 117.61602845174409,
+                        z : 0,
+                    },
+                    y_diff : 3.5402478990749415,
+                    count : 1,
+                    floor_group : elements_array.floor_type_48,
+                    array_to_push : building_array,
+                }
+            ]);
+
+            if (get_url_param('switcher')){
+                SelectionBoxes.towerTwoSelectionsAdd(set_mesh_base_color,getCenterPoint,find_n_clone_material);
             }
 
-            i = 0;
-            start_i = 8;
-            start_y = -8;
-            while (start_i <= 11) {
-                floor_1 = elements_array.floor_type_8_11.clone();
-                target_y = start_y + (21.103525837646536 - 17.723277938571606 ) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
+            let i =0;
+            let roof_1;
+            roof_1 = elements_array.roof.clone();
+            roof_1.position.set(0, 164.73474142266286, -4.7);
+            scene.add(roof_1);
+            buildings_info[0].objects_to_opacity.push(roof_1.children[0]);
+
+            // add second tower roof
+            if (get_url_param('switcher')){
+                {
+                    let roof_2 = elements_array.roof.clone();
+                    roof_2.name = 'Roof-tower3';
+                    find_n_clone_material(roof_2.children[0], elements_array.roof.children[0]);
+                    roof_2.position.set( second_tower_position_mode.x, 164.73474142266286, -4.7 + second_tower_position_mode.z);
+                    scene.add(roof_2);
+                    roof_2.children[0].material.transparent = true;
+                    buildings_info[1].objects_to_opacity.push(roof_2.children[0]);
+                }
             }
 
-            // 32.68426953487138
-            i = 0;
-            start_i = 12;
-            start_y = 2.134;
-            while (start_i <= 20) {
-                floor_1 = elements_array.floor_type_12_20.clone();
-                target_y = start_y + (21.103525837646536 - 17.723277938571606) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
-
-            }
-            i = 0;
-            start_i = 21;
-            start_y = 28.996500626545846;
-            while (start_i <= 40) {
-                floor_1 = elements_array.floor_type_21_40.clone();
-                target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
-            }
-
-            i = 0;
-            start_i = 41;
-            start_y = 99.83429315821958;
-            while (start_i <= 46) {
-                floor_1 = elements_array.floor_type_41_46.clone();
-                target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
-            }
-
-            i = 0;
-            start_i = 47;
-            start_y = 121.5757805526692 - (22.06352583764656 - 18.523277938571617);
-            while (start_i <= 47) {
-                floor_1 = elements_array.floor_type_47.clone();
-                target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
-            }
-
-            i = 0;
-            start_i = 48;
-            while (start_i <= 48) {
-                floor_1 = elements_array.floor_type_48.clone();
-                target_y = 117.61602845174409;
-                floor_1.position.set(0, target_y, 0);
-                scene.add(floor_1);
-                building_array.push(floor_1);
-                start_i++;
-                i++;
-            }
-
-            i = 0;
-            floor_1 = elements_array.roof.clone();
-            floor_1.position.set(0, 164.73474142266286, -4.7);
-            scene.add(floor_1);
-            building_array.push(floor_1);
+            building_array.push(roof_1);
             building_array.push(lobby);
-            start_i++;
             i++;
+
+
+            // {x: -0.2149444299569776, y: -10.381874117366038, z: 0.0369304158114625}
+            // let start_i = 5;
+            // let target_y;
+            // let start_y = -10.381874117366038;
+            // let i = 0;
+            // let floor_1;
+            // while (start_i <= 7) {
+            //     let object_to_clone = elements_array.floor_type_5_7;
+            //     floor_1 = object_to_clone.clone();
+            //     target_y = start_y + (11.189571354476431 - 7.936338065283678) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // i = 0;
+            // start_i = 8;
+            // start_y = -8;
+            // while (start_i <= 11) {
+            //     floor_1 = elements_array.floor_type_8_11.clone();
+            //     target_y = start_y + (21.103525837646536 - 17.723277938571606 ) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // // 32.68426953487138
+            // i = 0;
+            // start_i = 12;
+            // start_y = 2.134;
+            // while (start_i <= 20) {
+            //     floor_1 = elements_array.floor_type_12_20.clone();
+            //     target_y = start_y + (21.103525837646536 - 17.723277938571606) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            //
+            // }
+            // i = 0;
+            // start_i = 21;
+            // start_y = 28.996500626545846;
+            // while (start_i <= 40) {
+            //     floor_1 = elements_array.floor_type_21_40.clone();
+            //     target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // i = 0;
+            // start_i = 41;
+            // start_y = 99.83429315821958;
+            // while (start_i <= 46) {
+            //     floor_1 = elements_array.floor_type_41_46.clone();
+            //     target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // i = 0;
+            // start_i = 47;
+            // start_y = 121.5757805526692 - (22.06352583764656 - 18.523277938571617);
+            // while (start_i <= 47) {
+            //     floor_1 = elements_array.floor_type_47.clone();
+            //     target_y = start_y + (22.06352583764656 - 18.523277938571617) * i;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // i = 0;
+            // start_i = 48;
+            // while (start_i <= 48) {
+            //     floor_1 = elements_array.floor_type_48.clone();
+            //     target_y = 117.61602845174409;
+            //     floor_1.position.set(0, target_y, 0);
+            //     scene.add(floor_1);
+            //     building_array.push(floor_1);
+            //     start_i++;
+            //     i++;
+            // }
+            //
+            // i = 0;
+            // floor_1 = elements_array.roof.clone();
+            // floor_1.position.set(0, 164.73474142266286, -4.7);
+            // scene.add(floor_1);
+            // building_array.push(floor_1);
+            // building_array.push(lobby);
+            // start_i++;
+            // i++;
         }
 
         // add_building(elements_array_big, building);
@@ -1600,6 +1821,8 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                     floor_obj_length++;
                 }
             });
+            window.floor_obj_tower4 = floor_obj;
+            window.all_appartments_tower4 = all_appartments;
         }
 
         function set_mesh_base_color(mesh) {
@@ -1646,7 +1869,9 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                         setTimeout(function(){
                             $('.preloader').hide();
                         },550);
-                        add_cylinder_floor_numbers();
+                        if (!get_url_param('switcher')){
+                            add_cylinder_floor_numbers();
+                        }
                         floors_height_positions = [];
                         window.floor_obj.forEach(function (floor) {
                             let center_position = floor[0].parent.getObjectByName('floor_center');
@@ -1659,6 +1884,21 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                         }
 
                         $('.language.he').trigger('click');
+                        if (get_url_param('switcher')) {
+                            let data = [];
+                            buildings_info.forEach(function(building, i){
+                                data[i] = {
+                                    name :  building.name,
+                                    camera_position :  building.camera_position
+                                }
+                            });
+                            BuildingSwitch.set_data(data);
+                            BuildingSwitch.add(document.querySelector('.main-wrap'));
+                            BuildingSwitch.change_building_to(0);
+                        }
+
+
+
                         globalFunctions.setAllDefaultWorldPositions(scene);
                         let defaultData = globalSettings.animations.defaultForeshortening;
                         globalFunctions.animateTo(defaultData.position, defaultData.rotation, defaultData.zoom, 2000, TWEEN.Easing.Sinusoidal.InOut, 600);
