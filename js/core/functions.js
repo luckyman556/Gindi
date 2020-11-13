@@ -94,6 +94,7 @@ var gama_factor = 1;
 var all_appartments = [];
 var customSelections = [];
 var instanced_floors = {};
+var instanced_floors_switch = [];
 
 var flat_labels_group = [];
 var textures_counter = 0;
@@ -787,9 +788,9 @@ function add_floor (floor,base_delay , floor_delay = 0, last_floor = false) {
         scale : 1,
     };
     let target_position = {
-        x :  instanced_floors[floor_key].position[0] + instanced_floors[floor_key].diff.x *  (50 * (floor_of_mesh - floor_index )),
-        y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].diff.y *  (50 * (floor_of_mesh - floor_index )),
-        z :   instanced_floors[floor_key].position[2] + instanced_floors[floor_key].diff.z *  (50 * (floor_of_mesh - floor_index )),
+        x :  instanced_floors[floor_key].position[0],
+        y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (50 * (floor_of_mesh - floor_index )),
+        z :   instanced_floors[floor_key].position[2],
         scale : 0,
     };
     instanced_floors[floor_key].hidden = false;
@@ -1040,9 +1041,9 @@ function destroy_building (current_floor_var , flat = null) {
             scale : 1,
         };
         let target_position = {
-            x :   instanced_floors[floor_key].position[0] + instanced_floors[floor_key].diff.x *  (38 + (user_data_floor - current_floor_var)),
-            y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].diff.y *  (38 + (user_data_floor - current_floor_var)),
-            z :   instanced_floors[floor_key].position[2] + instanced_floors[floor_key].diff.z *  (38 + (user_data_floor - current_floor_var)),
+            x :   instanced_floors[floor_key].position[0],
+            y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (38 + (user_data_floor - current_floor_var)),
+            z :   instanced_floors[floor_key].position[2],
             scale : 0,
         };
         let matrix =  instanced_floors[floor_key].matrix;
