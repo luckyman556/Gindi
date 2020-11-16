@@ -960,6 +960,7 @@ function checkIntersection() {
 }
 
 function destroy_building (current_floor_var , flat = null) {
+    enableSwitcherBtns(false);
     tween_animations = [];
     // window.roof.visible = false;
     window.roof.visible = false;

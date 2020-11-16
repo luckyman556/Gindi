@@ -1543,9 +1543,14 @@ html[dir=rtl] .options__menu-label {
   width: 42px;
   height: 42px;
   display: flex;
-  cursor: pointer; }
+  cursor: pointer;
+  background-color: transparent;
+  border-style: none;
+  outline: none; }
   .new-ui-direction-btn img {
     margin: auto; }
+  .new-ui-direction-btn:disabled {
+    filter: contrast(0); }
 
 #building-switcher {
   position: absolute;

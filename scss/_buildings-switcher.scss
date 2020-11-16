@@ -4,8 +4,14 @@
     height: 42px;
     display: flex;
     cursor: pointer;
+    background-color: transparent;
+    border-style: none;
+    outline: none;
     img {
         margin: auto;
+    }
+    &:disabled{
+        filter: contrast(0);
     }
 
 }

@@ -11,13 +11,13 @@ export var BuildingSwitch = {
             buildings_list_html += `<div class="building-item" data-index="${i}">${building.name}</div>`;
         });
         container.insertAdjacentHTML('beforeend', `<div id="building-switcher" class="non-canvas">
-            <div class="prev-btn new-ui-direction-btn">
+            <button class="prev-btn new-ui-direction-btn">
                 <img src="img/building-switcher/left.svg" alt="">
-            </div>
+            </button>
             <div class="buildings-list">${buildings_list_html}</div>
-            <div class="next-btn new-ui-direction-btn">
+            <button class="next-btn new-ui-direction-btn">
                 <img src="img/building-switcher/right.svg" alt="">
-            </div>
+            </button>
         </div>`);
         document.querySelector('#building-switcher .building-item').classList.add("active");
         let nav_btns = document.querySelectorAll('#building-switcher .new-ui-direction-btn');
@@ -52,6 +52,8 @@ export var BuildingSwitch = {
         });
     },
     change_building_to  : function (building_index  ) {
+        let btn;
+        let popup;
         let buildings_array = BuildingSwitch.data;
         if (document.getElementById('building-switcher')) {
             let items_list = document.querySelectorAll('#building-switcher .building-item');
@@ -82,6 +84,9 @@ export var BuildingSwitch = {
 
             switch (building_index) {
                 case 0:
+                    hidePopupBeforeSwitch();
+                    globalSettings.animations.defaultForeshortening.position.x = buildings_info[0].camera_position.x;
+                    globalSettings.animations.defaultForeshortening.position.z = buildings_info[0].camera_position.z;
                     window.all_appartments = window.all_appartments_tower4;
                     objects_to_intersection = all_appartments.concat(flooring_obj);
                     instanced_floors = instanced_floors_switch[0];
@@ -91,6 +96,9 @@ export var BuildingSwitch = {
                     rebuildCylinderFloorNumber();
                     break;
                 case 1:
+                    hidePopupBeforeSwitch();
+                    globalSettings.animations.defaultForeshortening.position.x = buildings_info[1].camera_position.x;
+                    globalSettings.animations.defaultForeshortening.position.z = buildings_info[1].camera_position.z;
                     objects_to_intersection = window.tower3Selection.concat(flooring_obj_2);
                     window.all_appartments = window.tower3Selection;
                     instanced_floors = instanced_floors_switch[1];
@@ -137,6 +145,13 @@ export var BuildingSwitch = {
                 scene.remove(obj);
             }
             add_cylinder_floor_numbers();
+        }
+
+        function hidePopupBeforeSwitch () {
+            popup = document.querySelector('.popup-info');
+            if (popup && !popup.classList.contains('hide')){
+                popup.classList.add('hide');
+            }
         }
     }
 

@@ -35,6 +35,7 @@ $(document).ready(function(){
 
 
     $('.bomb-btn').click(function(){
+        enableSwitcherBtns(true);
         // TWEEN.removeAll();
         if ($(this).hasClass('active')) {
             destroyedMode = false;
@@ -774,6 +775,7 @@ $(document).ready(function(){
     });
 
     $('.floor-plan-toggler').click(function(){
+        enableSwitcherBtns(true);
         if (floor_plan_btn_last_click + 1050 < Date.now()) {
             $(this).toggleClass('active');
           //  $('.flat-bubble').removeClass('show');
@@ -1187,4 +1189,18 @@ function flat_popup_prepare (data) {
             popup.find('.toggler-3d').css('display' , 'none');
         }
     }
+}
+
+function enableSwitcherBtns (action) {
+    let nav_btns = document.querySelectorAll('#building-switcher .new-ui-direction-btn');
+    if (nav_btns.length>0){
+        nav_btns.forEach(switcherBtn =>{
+            if (action){
+                switcherBtn.removeAttribute('disabled');
+            } else {
+                switcherBtn.setAttribute('disabled','true');
+            }
+        });
+    }
+
 }

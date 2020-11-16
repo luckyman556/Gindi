@@ -108,6 +108,22 @@ export var SelectionBoxes = {
                                 }
 
                                 let flat_model_name = elem.userData.crm_data.modelName;
+
+                                elem.userData.svg_plan = {
+                                    horizontal: {
+                                        en: `${svg_plans_url}/horizontal/en/${flat_model_name}.png`,
+                                        he: `${svg_plans_url}/horizontal/he/${flat_model_name}.png`
+                                    },
+                                    vertical: {
+                                        en: `${svg_plans_url}/vertical/en/${flat_model_name}.png`,
+                                        he: `${svg_plans_url}/vertical/he/${flat_model_name}.png`
+                                    },
+                                    printA4: {
+                                        en: `${svg_plans_url}/print/en/${flat_model_name}.png`,
+                                        he: `${svg_plans_url}/print/he/${flat_model_name}.png`
+                                    }
+                                };
+
                                 set_mesh_base_color(elem);
                                 elem.userData.base_position = {x: elem.position.x, y: elem.position.y, z: elem.position.z};
                                 elem.userData.change_color = true;
@@ -117,7 +133,6 @@ export var SelectionBoxes = {
                                 elem.userData.floor = floor_index;
                                 elem.userData.flat_i = flat_number;
                                 elem.userData.flat_counter = flat_count;
-                                elem.userData.svg_plan = svg_plans_url + flat_model_name + '.jpg';
                                 elem.userData.status_index = status_index;
                                 elem.userData.status_color = flat_statuses[status_index]['color'];
 
