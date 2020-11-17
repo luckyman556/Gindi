@@ -130,12 +130,29 @@ export function live_element_animation (mesh, route, animation_counter,speed,sec
   animation.start();
 }
 
+// function live_element_animation_rotation (mesh,targetRotation, duration) {
+//   let start = {rotation :  mesh.rotation.y};
+//   let target = {rotation : targetRotation};
+//   let callback = (e) => {
+//     mesh.rotation.y = e.rotation;
+//   };
+//   let easing = TWEEN.Easing.Sinusoidal.InOut;
+//   let delay = 0;
+//
+//   let animation = new TWEEN.Tween(start).to(target, duration );
+//   TWEEN.add(animation);
+//   animation.delay(delay);
+//   animation.onUpdate(callback);
+//   // animation.onComplete(on_complete_callback);
+//   animation.easing(easing);
+//   animation.start();
+// }
+
 function live_element_animation_rotation (mesh,targetRotation, duration) {
   let start = {rotation :  mesh.rotation.y};
   let target = {rotation : targetRotation};
   let diff = Math.abs(start.rotation - target.rotation);
   if (diff > Math.PI) {
-    console.log("дохрена")
     if (start.rotation < target.rotation) {
       start.rotation  += Math.PI * 2;
     } else {

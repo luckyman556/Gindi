@@ -22,6 +22,7 @@ export function  customSelectionClick (picked_object) {
     } else {
         var popup_info = $('.popup-info');
         set_appartment_data_in_block (all_appartments[0], popup_info);
+        last_clicked_flat = picked_object;
     }
 
     setTimeout(function(){
@@ -29,11 +30,27 @@ export function  customSelectionClick (picked_object) {
     }, 150);
     picked_object.userData.color_locked = true;
     let flatCard = document.querySelector('.popup-info');
+
     flatCard.classList.add('show');
     flatCard.classList.remove('hide');
     flatCard.classList.add('custom-selection');
-    let domTitle = flatCard.querySelector('.title-with-selector .title-text-row');
-    domTitle.innerHTML = picked_object.userData.customSelectionTitleHtml;
+
+    const domTitle = flatCard.querySelector('.title-with-selector .title-text-row');
+    const btn360 = flatCard.querySelector('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d');
+
+    btn360.removeAttribute('data-dictionary');
+    btn360.setAttribute('data-dictionary', `${picked_object.name} plan`);
+
+    if (picked_object.userData.url_360) {
+        btn360.classList.add('icon-360');
+    } else if (!picked_object.userData.url_360 && btn360.classList.contains('icon-360')) {
+        btn360.classList.remove('icon-360');
+    }
+
+    last_clicked_flat = picked_object;
+
+    domTitle.innerHTML = `<span class="title-text language-string" data-dictionary="${picked_object.name}" data-clipboard-text=${picked_object.name}>${get_lang(picked_object.name)}</span>`;
+    domTitle.setAttribute('data-language', picked_object.name);
     flatCard.querySelector('.flat-plan').classList.remove('unavailable');
     if (destroyedMode) {
         $('.bomb-btn').trigger('click');
@@ -46,7 +63,4 @@ export function  customSelectionClick (picked_object) {
         icons: picked_object.userData.unitCardIcons,
     };
     add_data_to_info_points_roof_n_lobby(box, data);
-
-
-
 }

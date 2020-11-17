@@ -109,8 +109,8 @@ export function animate_cylinder_floor_numbers (modifier = 0) {
 }
 export function add_cylinder_floor_numbers () {
     var fontloader = new THREE.FontLoader();
-    fontloader.load( 'resources/font/almoni-nue.json', function ( font ) {
-        fontloader.load( 'resources/font/almoni-nue-bold.json', function ( font_bold ) {
+    fontloader.load( 'fonts/almoni/almoni-nue.json', function ( font ) {
+        fontloader.load( 'fonts/almoni//almoni-nue-bold.json', function ( font_bold ) {
             if (window.floor_obj.length > 0) {
                 window.text_groups = [] ;
                 window.floor_obj.forEach(function(floor , i){
@@ -174,8 +174,9 @@ export function add_cylinder_floor_numbers () {
 
                         let text_group = new THREE.Group();
                         text_group.name = 'text_group';
-                        let floor_center = floor[0].parent.getObjectByName( "floor_center");
-                        if (floor_center) {
+                        // let floor_center = floor[0].parent.getObjectByName( "zagluha");
+                        let floor_center = floor.filter(obj => obj.name === "zagluha");
+                        if (floor_center.length !== 0) {
                             let floor_position = floor_center.getWorldPosition(new THREE.Vector3());
                             text_group.position.set(0, floor_position.y, 0);
                             text_group.add(text);

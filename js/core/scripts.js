@@ -1,3 +1,16 @@
+// import {floor_numbers_visibility_by_zoom} from "../../modules/core/cylinder-floor-numbers/add-cylinder-floor-numbers";
+
+function changeVisibleObject(value) {
+    objects_to_intersection.forEach(item => {
+        if (item.name === "Roof") {
+            item.visible = value;
+            item.position.y = (!value) ? 1000000 : item.userData.base_position.y;
+        } else if (item.name === "Spa") {
+            item.visible = value;
+            item.position.y = (!value) ? 1000000 : item.userData.base_position.y;
+        }
+    });
+}
 
 tween_animations.length = 0;
 $(document).ready(function(){
@@ -36,8 +49,12 @@ $(document).ready(function(){
 
     $('.bomb-btn').click(function(){
         // TWEEN.removeAll();
+
+        objects_to_intersection.forEach(item => item.userData.apartment_locked = false);
+        $('.bomb-btn').click
         if ($(this).hasClass('active')) {
             destroyedMode = false;
+            buildingDestroyed = false;
             hide_all_labels();
             setPositionButtonLanguage('restore');
 
@@ -52,7 +69,6 @@ $(document).ready(function(){
                 this_el.addClass('hide');
             }, 500);
 
-            // window.roof.visible = true;
             setTimeout(function(){
                 object_appear(window.roof);
             }, 1000);
@@ -95,7 +111,7 @@ $(document).ready(function(){
 
             }*/
             let add_delay = 1000 / (window.floor_obj.length - current_floor);
-             window.floor_obj.forEach(function(element, floor_index){
+             window.floor_obj.forEach( (element, floor_index) => {
                 if (element[0].userData.floor > current_floor) {
                     let floor_delay = 0 + add_delay * i;
                     add_floor(element, 0, floor_delay);
@@ -161,14 +177,16 @@ $(document).ready(function(){
             setTimeout(function(){
                 rotation_animated = false;
             }, 1050);
-           // last_clicked_flat.userData.apartment_locked = true;
-            //last_clicked_flat.userData.apartment_locked = true;
+
+            last_clicked_flat.userData.apartment_locked = true;
+
             set_floor_status_color([current_floor]);
             if (document.querySelector('.main-wrap').filter_active === true) {
                 document.querySelector('.main-wrap').update_cards_btns_visibility();
             }
         } else {
-
+            buildingDestroyed = true;
+            changeVisibleObject(false);
             destroyedMode = true;
             destroy_building(current_floor);
            // set_camera_on_flat (last_clicked_flat);
@@ -403,6 +421,7 @@ $(document).ready(function(){
         set_click_point_coords(event);
 
         if ($(this).hasClass('active') !== true) {
+            console.log('toggler 2D click')
             toggler_2d_click ($(this));
         }
     });
@@ -443,11 +462,11 @@ $(document).ready(function(){
                 let imgs_loaded = true;
                 $('.three_js .popup-3d .content .slider .slide').each(function(item){
                     let img = $(this).find('img');
-                    if (img.hasClass('loaded') !=  true) {
+                    if (!img.hasClass('loaded')) {
                         imgs_loaded = false;
                     }
                 });
-                if (imgs_loaded == true) {
+                if (imgs_loaded) {
                     $('.three_js .popup-3d .content .slider').slick( 'refresh' );
                     $('.three_js .popup-3d .content').removeClass('loading');
                 } else {
@@ -471,6 +490,8 @@ $(document).ready(function(){
         toggler_non_flat_360_click ($('.click-point'));
     });
 
+    //TODO 360 open window
+
     $('.toggler-360').click(function(event) {
         set_click_point_coords(event);
         if ($(this).hasClass('active') !== true) {
@@ -489,8 +510,23 @@ $(document).ready(function(){
                     popup_appear(data, event);
                 }
             } else {
-                let url = $('.popup-360').find('iframe').attr('src');
-                window.open(url,'_blank');
+                if (last_clicked_flat.userData.url_360_zagluha) {
+                    let data = {};
+                    data.popup = 'popup-360';
+                    flat_popup_prepare(data);
+                    data = set_flat_popup_data (event, data.popup, $(this));
+                    var popup_visible = $('.popup.open').length;
+                    if (popup_visible > 0) {
+                        $('.popup').hide();
+                        toggle_popup (data);
+                    } else {
+                        $('.popup').hide();
+                        popup_appear(data, event);
+                    }
+                } else {
+                    let url = $('.popup-360').find('iframe').attr('src');
+                    window.open(url,'_blank');
+                }
             }
         }
     });
@@ -528,12 +564,11 @@ $(document).ready(function(){
         data.target_bottom = popup_container.height() - (data.clicked_object.offset().top - popup_container.offset().top) - half_height_of_clicked_object;
         data.overlay = $('.three_js .popup-outer');
         popup_disappear(data, event);
-
         // popup_disappear_function($(this),event);
     });
 
 
-
+    //TODO Print 2D plans
     $('.print-btn').click(function(){
         const img_url = last_clicked_flat.userData.svg_plan.printA4[c_lang()];
        // printJS(img_url, 'image', {documentTitle : 'some title'})
@@ -684,6 +719,14 @@ $(document).ready(function(){
         }
     });
 
+    if (window.innerWidth < 415) {
+        const printerBtn = document.querySelector('.print-btn');
+        printerBtn.style.display='none';
+    } else {
+        const printerBtn = document.querySelector('.print-btn');
+        printerBtn.style.display='block';
+    }
+
     $('.three_js .clear-search-filter').click(function(){
         clear_all_filters ();
     });
@@ -722,24 +765,19 @@ $(document).ready(function(){
         });
     });
     $('.popup-info .close-btn').click(function(){
-
-    if (scene.userData.lastCustomSelectionId) {
-        let flatCard = document.querySelector('.popup-info');
-        flatCard.classList.remove('custom-selection');
-        let object = scene.getObjectById(scene.userData.lastCustomSelectionId);
-        if (document.querySelector('.unit_info-points')) $('.unit_info-points').remove();
-        if (object) {
-            object.userData.color_locked = false;
-            appartment_hoverout(object)
-            setTimeout(function(){
-                scene.userData.lastCustomSelectionId = null;
-            }, 100);
+        if (document.querySelector('.apply-now-mobile')) {
+            document.querySelector('.apply-now-mobile').remove();
         }
-    }
+        const floorPlanToggler = document.querySelector('.floor-plan-toggler');
+
+        if (floorPlanToggler.classList.contains('hide')) {
+            floorPlanToggler.classList.remove('hide');
+        }
 
         $('body').removeClass('mini-card-open');
         new_floor_selector_obj.rebuild();
         $('.popup-info').addClass('hide');
+
         if (!lock_mouse_rotation_x) {
             last_clicked_flat.material.opacity = 0;
         }
@@ -766,7 +804,23 @@ $(document).ready(function(){
             flatBubble3d.visible = false;
         }
 
+        if (scene.userData.lastCustomSelectionId) {
+
+            let flatCard = document.querySelector('.popup-info');
+            let object = scene.getObjectById(scene.userData.lastCustomSelectionId);
+
+            if (object) {
+                object.userData.color_locked = false;
+                appartment_hoverout(object)
+                setTimeout(function(){
+                    if (document.querySelector('.unit_info-points')) $('.unit_info-points').remove();
+                    flatCard.classList.remove('custom-selection');
+                    scene.userData.lastCustomSelectionId = null;
+                }, 300);
+            }
+        }
     });
+
     document.getElementById('c').addEventListener('mousedown', mouse_down_on_three_js_element);
     document.querySelector('.left-corner-block').addEventListener('mousedown', mouse_down_on_three_js_element);
     document.querySelectorAll('.non-canvas').forEach(function(element){
@@ -795,31 +849,6 @@ $(document).ready(function(){
         //$('.preloader').fadeOut();
     });
     $('.preloader').addClass(building_name);
-/*    requestAnimationFrame(get_prices);
-    function get_prices () {
-        if (all_appartments.length > 0) {
-        let min_price = 99999999;
-        let max_price = 0;
-        all_appartments.forEach(function(item){
-            const price = Math.floor(item.userData.crm_data.salePrice);
-            if (min_price > price) {
-                min_price = price;
-            }
-            if (max_price < price) {
-                max_price = price;
-            }
-        });
-        let range_object = $('.price-range');
-        range_object.attr('data-min', min_price);
-        range_object.attr('data-max', max_price);
-            range_init (range_object);
-            var floors_range = $('.floors-range');
-            range_init (floors_range);
-        } else {
-            requestAnimationFrame(get_prices) ;
-        }
-    }*/
-
 
     {
         var object = $('.rotation-controller');
@@ -1153,6 +1182,15 @@ function flat_popup_prepare (data) {
         console.log(popup_class);
         if (flat.userData.url_360) {
             var url_360 = flat.userData.url_360;
+            //
+            // var iframe_html = '';
+            //
+            // if (flat.userData.url_360_zagluha === 'zagluha360') {
+            //     iframe_html = `<div class="zagluha360__wrapper"><div class="zagluha360"><img class="zagluha360__img" src="${flat.userData.url_360}" alt="360"><h2 class="zagluha360__description" data-dictionary="360-tour coming soon">${get_lang('360-tour coming soon')}</h2></div></div>`;
+            // } else {
+            //     iframe_html = '<iframe src="' + url_360 + '"></iframe>';
+            // }
+
             var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
             $('.popup-360 .iframe-box').html(iframe_html);
             popup.find('.toggler-360').css('display' , 'flex');
@@ -1163,6 +1201,7 @@ function flat_popup_prepare (data) {
 
         if (document.body.classList.contains('en')) {
             if (flat.userData.url_360_type === 'default') {
+                // popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
                 popup.find('.toggler-360').html('vantage');
             } else {
                 popup.find('.toggler-360').html('360');
@@ -1170,6 +1209,7 @@ function flat_popup_prepare (data) {
         } else {
             if (flat.userData.url_360_type === 'default') {
                 popup.find('.toggler-360').html('תצפית');
+                // popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
             } else {
                 popup.find('.toggler-360').html('360');
             }
@@ -1180,7 +1220,12 @@ function flat_popup_prepare (data) {
         //     popup.find('.toggler-360').html('360');
         // }
 
-
+        //TODO disable gallery btn
+        // if (flat.userData.int_360) {
+        //     popup.find('.toggler-3d').css('display' , 'none');
+        // } else {
+        //     popup.find('.toggler-3d').css('display' , 'none');
+        // }
         if (flat.userData.int_360) {
             popup.find('.toggler-3d').css('display' , 'flex');
         } else {

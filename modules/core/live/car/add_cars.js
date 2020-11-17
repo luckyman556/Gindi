@@ -21,11 +21,9 @@ export function add_cars (texture_loader, loader, action) {
                 if (carNumber ===  allCars.length) {
                     carNumber = 0;
                 }
-                console.log(allCars);
                 if (allCars[carNumber]) {
                     let car = allCars[carNumber].clone();
                    // car.children[0].castShadow = true;
-                    console.log(carNumber);
                     car.name = 'routeCar' + i;
                     let route = cars_routes[i];
 

@@ -15,6 +15,10 @@ function creatHtmlElement(parent, elementName, elementTag, elementClass) {
 }
 
 export function applyNow (parent,contentObject,useSubstrate = true, hideElementsArr =[]) {
+  if (document.querySelector('.apply__main-container__outer')) {
+    return;
+  }
+
   let mainContainerOuter;
   let mainContainer;
 
@@ -25,13 +29,14 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
     mainContainer = creatHtmlElement(parent,'','div',['apply__main-container']);
   }
 
+  console.log(contentObject);
   const contentWrapper = creatHtmlElement(mainContainer,'','div',['apply__content__wrapper']);
   const closeBtn = creatHtmlElement(mainContainer,'','div',['apply-btn__close']);
   closeBtn.setAttribute('id','applyCloseBtn');
   const titleContainer = creatHtmlElement(contentWrapper,'','div',['apply__title-container']);
-  const title = creatHtmlElement(titleContainer,`${contentObject.title.text}`,'h2',['apply__title','language-string']);
+  const title = creatHtmlElement(titleContainer,`${get_lang(contentObject.title.dic)}`,'h2',['apply__title','language-string']);
   title.dataset.dictionary = contentObject.title.dic;
-  const span = creatHtmlElement(titleContainer,contentObject.subTitle.text,'span',['apply__sub-title','language-string']);
+  const span = creatHtmlElement(titleContainer, get_lang(contentObject.subTitle.dic),'span',['apply__sub-title','language-string']);
   span.dataset.dictionary = contentObject.subTitle.dic;
 
   //Icons
@@ -40,11 +45,13 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
     const socialIconItem = creatHtmlElement(socialIcons,'','li',['apply__social-icon__item']);
     const href = creatHtmlElement(socialIconItem,'','a',['apply__social-href']);
     href.href = icon.href;
+    (icon.target) ? href.setAttribute('target', icon.target) : '';
     const socialImg = creatHtmlElement(href,'','img',['apply__social-icon__img']);
     socialImg.src = `./img/social-icons/${icon.name.toLowerCase()}.svg`;
-    socialImg.alt = icon.name;
-    const socialIconText = creatHtmlElement(href,icon.name,'span',['apply__social-icon__text']);
+    socialImg.alt = get_lang(icon.name);
+    const socialIconText = creatHtmlElement(href, get_lang(icon.name),'span',['apply__social-icon__text', 'language-string']);
     socialIconText.dataset.name= icon.name;
+    socialIconText.dataset.dictionary = icon.name;
   });
 
   //separator
@@ -87,9 +94,12 @@ function showElements (elementsArr) {
 }
 
 function closeBtnHandler () {
+  const applyContainer = document.querySelector('.apply__main-container');
+
   const applyContainerOuter = document.querySelector('.apply__main-container__outer');
   if (applyContainerOuter){
     applyContainerOuter.remove();
+    applyContainer.remove();
   }else {
     const applyContainer = document.querySelector('.apply__main-container');
     applyContainer.remove();

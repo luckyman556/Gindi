@@ -61,7 +61,6 @@ export function update (dynamic = false) {
         if (lock_mouse_rotation_x == true) {
             window.floor_obj[current_floor].forEach(function(flat, index){
                 if (flat.name.search('floor_center') == -1) {
-
                     let inner_html = '';
                     let price = Math.floor(flat.userData.crm_data.salePrice);
                     let flat_status = flat.userData.crm_data.status;
@@ -98,6 +97,13 @@ export function update (dynamic = false) {
                     if (flat.userData.world_position == undefined) {
                         flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
                     }
+
+                    //TODO center point flat-labels
+                    // let p = flat.userData.center_point;
+                    // let vect = new global_three.Vector3(p.x, p.y, p.z);
+                    // flat.localToWorld(vect);
+                    // p = vect;
+
                     let p;
                     if (dynamic == true) {
                         p = flat.children[0].getWorldPosition(new global_three.Vector3());
@@ -106,6 +112,7 @@ export function update (dynamic = false) {
                     }
 
                     flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
+                    // flat_labels_group[index].position.set(p.x , p.y, p.z );
                     flat_labels_group[index].element.innerHTML = inner_html;
                     flat_labels_group[index].visible = true;
                     setTimeout(function(){
@@ -114,7 +121,9 @@ export function update (dynamic = false) {
                 } else {
                     let floor_text = 'Floor';
                     let floor_number;
-                    let floorCenter = flat.parent.getObjectByName('floor_center');
+                    // let floorCenter = flat.parent.children.getObjectByName('floor_center');
+                    let floorCenter = flat;
+
                     if (flat.parent.children[0].name.search('zagluha') == -1) {
                         floor_number = flat.parent.children[0].userData.crm_data.floorNum;
                     } else {
@@ -124,14 +133,13 @@ export function update (dynamic = false) {
                     if ($('body').hasClass('he') == true) {
                         floor_text = 'קומה';
                     }
+
                     let inner_html = `
                         <div class="floor-center-text">
-                            <div class="text language-string" data-dictionary="floor-upper">${floor_text}</div>
                             <div class="number">${floor_number}</div>
+                            <div class="text language-string" data-dictionary="floor-upper">${floor_text}</div>
                          </div>
                     `;
-
-
 
                     let p;
                     p = floorCenter.userData.defaultWorldPosition;
@@ -139,11 +147,8 @@ export function update (dynamic = false) {
                     flat_labels_group[flat_labels_group.length - 1].position.set(p.x , p.y + globalSettings.destroyedBuilding.flatLabels.centerLabelTop , p.z );
                     flat_labels_group[flat_labels_group.length - 1].element.innerHTML = inner_html;
                     flat_labels_group[flat_labels_group.length - 1].visible = true;
-
                 }
             });
-        } else {
-
         }
     }
 }

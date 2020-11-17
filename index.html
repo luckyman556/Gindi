@@ -69,6 +69,10 @@
                 },
                 flatLabels : {
                     centerLabelTop : 3,
+                    amount: 22,
+                    position_correction_floor: {x: 0, y: 8, z: 0},
+                    position_correction: {x: 0, y: 5, z: 0},
+                    label_timeOut: 100,
                 }
             },
             'floorCylinderNumbers' : {
@@ -159,6 +163,9 @@
         var standard_flat_opacity = 0.6;
         var hover_flat_opacity = 0.8;
         var available_status = ['Available'];
+        var objectToDisappear = [];
+        var buildingDestroyed = false;
+        var roadsNames = ["Roads", "Main_building_env", 'map'];
         var flat_statuses = {
             0 : {
                 name : 'Unavailable',
@@ -193,7 +200,8 @@
     <script src="js/core/scripts.js?ver=202011041445"></script>
     <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
-<body class="on-white">
+<!--<body class="on-white">-->
+<body class="on-white" oncontextmenu="return false;">
 <div class="preloader">
     <div class="center-logo">
     </div>

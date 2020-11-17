@@ -33,7 +33,7 @@ export function add_humans (loader, action) {
                 let pens = man_mesh.material[1];
                 if (detectMobile) {
                     man_mesh.material.forEach(function(material){
-                        material.lightMap =  new THREE.TextureLoader().load('./resources/common_textures/white-lightmap_v_3.jpg');
+                        material.lightMap =  new THREE.TextureLoader().load('./resources/textures/white-lightmap.jpg');
                     });
                 } else {
                     man_mesh.castShadow = true;
@@ -45,7 +45,6 @@ export function add_humans (loader, action) {
 
                 let first_position = human_animation_points[0].position;
                 human.position.set(first_position.x, first_position.y, first_position.z);
-                console.log(human);
                 human.scale.set(humansSettings.scale, humansSettings.scale, humansSettings.scale);
                 human.name = `human-${index++}`;
 

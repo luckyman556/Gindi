@@ -73,7 +73,10 @@ export function add_route_points () {
                 mouse.y = - ( (y - $('#c')[0].getBoundingClientRect().top) / document.querySelector('#c').offsetHeight ) * 2 + 1;
                 let raycaster = new global_three.Raycaster();
                 raycaster.setFromCamera(mouse, perspectiveCamera);
-                let intersect_objects = raycaster.intersectObjects([scene.getObjectByName('roads')], true);
+
+                const roadsMeshArray = roadsNames.map(name => scene.getObjectByName(name));
+                let intersect_objects = raycaster.intersectObjects(roadsMeshArray, true);
+                // let intersect_objects = raycaster.intersectObjects(scene.children, true);
                 if (intersect_objects.length > 0) {
                     let clicked_object = intersect_objects[0];
                     let clicked_point = clicked_object.point;
@@ -187,6 +190,6 @@ function getArrayPointsForRoute() {
     });
     localStorage.setItem('routeC', JSON.stringify(car_route_points_array));
     localStorage.setItem('routeP', JSON.stringify(human_route));
-    console.log(car_route_points_array);
-    console.log(human_route);
+    console.log('car_route_points_array', car_route_points_array);
+    console.log('human_route', human_route);
 }

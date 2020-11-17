@@ -98,16 +98,19 @@
                 status_class = 'available';
             }
         });
-        let price_html = '';
-        if (status_class == 'available') {
-            price_html = `
-            <div class="price">${get_price_html(flat.salePrice, '', true)}</div>
-            `;
-        } else {
-            price_html = `
-            <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
-            `;
-        };
+        let price_html = get_price_html(flat.salePrice);
+        // if (status_class == 'available') {
+        //     price_html = `
+        //     <div class="price">${get_price_html(flat.salePrice, '', true)}</div>
+        //     `;
+        // } else {
+        //     price_html = `
+        //     <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
+        //     `;
+        // }
+
+
+
         let floor_plan_ic = 'floor-plan-white';
         let flat_3d_object;
         flat_3d_object = all_appartments.find(function(element){

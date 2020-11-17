@@ -1,10 +1,14 @@
 export function getCookie(name) {
+    name = `${name}_${projectName}`;
+
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 export function setCookie(name, value, options= {}) {
+    name = `${name}_${projectName}`;
+
     options = {
         path: '/',
         ...options

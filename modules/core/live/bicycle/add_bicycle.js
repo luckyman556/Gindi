@@ -8,7 +8,8 @@ window.bicyclistRoutes = bicycle_routes;
 export function add_bicycle (loader, action) {
     const bicyclistOptions = {
         amount: bicycle_routes.length,
-        scale: 0.009,
+        // scale: 0.009,
+        scale: globalSettings.live.bicycles.scale,
     };
 
     if (action === 'add' && bicyclistArray.length === 0) {

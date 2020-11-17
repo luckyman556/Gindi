@@ -147,7 +147,7 @@ $.fn.floors_selector = function() {
                 setTimeout(function () {
                     if (globalSettings.flat_focus) {
                         let target_position =  flat.userData.defaultWorldPosition;
-                        console.log(target_position);
+                        // console.log(target_position);
                         globalFunctions.animateTo(target_position,null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                         last_clicked_flat = flat;
                         flat_click(flat, false, true);
@@ -277,12 +277,12 @@ $.fn.floors_selector = function() {
             let move_difference = start_y - current_y - 1;
             let target_top = ((start_top - move_difference) > offset) ? offset : start_top - move_difference;
 
-            console.log(container);
-            console.log('btn_height: ', btn_height);
-            console.log('offset: ', offset);
-            console.log('max_top: ', max_top);
-            console.log('move_difference: ', move_difference);
-            console.log('target_top: ', target_top);
+            // console.log(container);
+            // console.log('btn_height: ', btn_height);
+            // console.log('offset: ', offset);
+            // console.log('max_top: ', max_top);
+            // console.log('move_difference: ', move_difference);
+            // console.log('target_top: ', target_top);
 
             let position_sing = (target_top > 0) ? '+' : '-';
 
@@ -297,10 +297,10 @@ $.fn.floors_selector = function() {
             let current_position = Math.floor((positive_current_top + offset) / btn_height) + 1;
             let target_floor_index = container.btns.length - current_position;
 
-            console.log('position_sing: ', position_sing);
-            console.log('positive_current_top: ', positive_current_top);
-            console.log('current_position: ', current_position);
-            console.log('target_floor_index: ', target_floor_index);
+            // console.log('position_sing: ', position_sing);
+            // console.log('positive_current_top: ', positive_current_top);
+            // console.log('current_position: ', current_position);
+            // console.log('target_floor_index: ', target_floor_index);
 
             target_floor_index = (position_sing === '+') ? btnLength - (((container.cells_count - 1) / 2) -  Math.floor(positive_current_top / btn_height)) - 1 : target_floor_index;
             set_current_floor (target_floor_index);
@@ -315,11 +315,11 @@ $.fn.floors_selector = function() {
             let move_difference = start_y - current_y - 1;
             let target_top = start_top - move_difference;
 
-            console.log('btn_height: ', btn_height);
-            console.log('offset: ', offset);
-            console.log('max_top: ', max_top);
-            console.log('move_difference: ', move_difference);
-            console.log('target_top: ', target_top);
+            // console.log('btn_height: ', btn_height);
+            // console.log('offset: ', offset);
+            // console.log('max_top: ', max_top);
+            // console.log('move_difference: ', move_difference);
+            // console.log('target_top: ', target_top);
 
             let position_sing = (target_top > 0) ? '+' : '-';
 
@@ -337,10 +337,10 @@ $.fn.floors_selector = function() {
             let current_position = Math.floor((positive_current_top + offset) / btn_height) + 1;
             let target_floor_index = container.btns.length - current_position;
 
-            console.log('position_sing: ', position_sing);
-            console.log('positive_current_top: ', positive_current_top);
-            console.log('current_position: ', current_position);
-            console.log('target_floor_index: ', target_floor_index);
+            // console.log('position_sing: ', position_sing);
+            // console.log('positive_current_top: ', positive_current_top);
+            // console.log('current_position: ', current_position);
+            // console.log('target_floor_index: ', target_floor_index);
 
             if (position_sing == '-') {
                 set_current_floor (target_floor_index);

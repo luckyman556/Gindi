@@ -5,7 +5,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].filter_active = true;
     let animate_scroll_bool = true;
     let filter_btn = ` 
-            <div class="filter-module-open-btn new-ui-circle-btn  m-dark"> 
+            <div class="filter-module-open-btn new-ui-circle-btn  m-dark non-canvas"> 
                 <div class="ic-img">
                     <img src="${img_path}search-ic.svg" alt="">
                 </div>
@@ -71,7 +71,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             <div class="input-search">                
                 <input type="text" id="input-search" class="language-string"  placeholder="${get_lang('search')}"  data-dictionary="search" data-dictionary-param="placeholder">
                 <label class="ic" for="input-search">
-                    <img src="${img_path}search-input-ic.svg" alt="">
+                    <img class="search-icon" src="${img_path}search-input-ic.svg" alt="">
                 </label>
             </div>
         </div>
@@ -322,6 +322,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         });
         $('.filter-module-open-btn').click(function(){
             $('.filter-module-container').toggleClass('open');
+            $('.compass').removeClass('flat-cards-open');
 
 
             if ($('.filter-module-container').hasClass('open')) {
@@ -339,7 +340,11 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                         $('.main-wrap')[0].filter_update();
                     }, 600);
                 }
-
+                    if (document.querySelector('.filter-module-container').classList.contains('filter-open')) {
+                        document.querySelector('.compass').classList.add('filter-open');
+                    } else if (document.querySelector('.filter-module-container').classList.contains('flat-cards-open')) {
+                        document.querySelector('.compass').classList.add('flat-cards-open');
+                    }
                     document.querySelector('body').classList.add('filter-open');
             } else {
                 setTimeout(function(){
@@ -387,12 +392,32 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
         function input_change (event) {
             let dom_input = $(event.target);
             let word = dom_input.val();
+            console.log(word)
+
+            const searchIcon = document.querySelector('.search-icon');
+
+            searchIcon.removeAttribute('src');
+            if (word) {
+                searchIcon.setAttribute('src', `${img_path}close-ic.svg`);
+            } else {
+                searchIcon.setAttribute('src', `${img_path}search-input-ic.svg`);
+            }
+
+            searchIcon.addEventListener('click', () => {
+                dom_input.val('');
+                word = '';
+                input_search_fn(word);
+                searchIcon.removeAttribute('src');
+                searchIcon.setAttribute('src', `${img_path}search-input-ic.svg`);
+            });
+
             input_search_fn(word);
-        };
+
+        }
         input_search.focusin(function(){
             $(this).parent().addClass('active');
             $('.filter-module-container .filter-controls').addClass('unactive');
-        });;
+        });
         input_search.focusout(function(){
             $(this).parent().removeClass('active');
             $('.filter-module-container .filter-controls').removeClass('unactive');
@@ -592,7 +617,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
                 <div class="toggler-btn language-string" data-dictionary="${dictionary[item.name]}" data-val="${item.name}">
                     ${get_lang(dictionary[item.name])}
                 </div>
-            `;}
+            `;
+            }
             togglers_html += toggler_html;
         };
         return togglers_html;
@@ -692,6 +718,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
     container[0].set_scroll_on_card = set_scroll_on_card;
     container[0].get_card_for_screen = get_card_for_screen;
     container[0].get_card_for_screen_width = get_card_for_screen_width;
+    container[0].replace_filters_n_cards = replace_filters_n_cards;
     container[0].update_cards_btns_visibility = card_fns.update_cards_btns_visibility;
 
     function set_scroll_on_card (card_id) {
@@ -1581,7 +1608,8 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
 
                 document.querySelector('body').classList.add('filter-open');
                 $('.lang-container').hide();
-                resize_function ();        
+                $('.header').hide();
+                resize_function ();
                 setTimeout(function(){                
                     resize_function (); 
                 }, 500);        
@@ -1605,6 +1633,7 @@ export function  add_filter (container, img_path = 'img/filter-module/') {
             document.querySelector('.filter-module-container .filter-controls').scrollTop = 0;
             $('.controls-tab').eq(0).click();
             $('.lang-container').show();
+            $('.header').show();
             resize_function ();
 
         });

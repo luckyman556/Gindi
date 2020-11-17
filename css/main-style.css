@@ -528,6 +528,16 @@
           transform-origin: center; }
         .filter-module-container .flat-cards .nfm-flat-card .flat-card-box.unavailable .btns-row .apt-plan {
           display: none; }
+      .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price-box {
+        display: flex; }
+        .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price-box .number {
+          order: 1; }
+        .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price-box .price-text {
+          order: 2;
+          margin-right: 2px;
+          margin-left: 2px; }
+        .filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price-box .get-price-btn {
+          display: none; }
       .filter-module-container .flat-cards .nfm-flat-card.active, .filter-module-container .flat-cards .nfm-flat-card:hover {
         opacity: 1;
         transform-origin: center;
@@ -596,6 +606,9 @@
               font-weight: 300; }
             .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom .text {
               color: #6E767E;
+              font-weight: 300; }
+            .filter-module-container .flat-cards .nfm-flat-card .options .option-item .bottom .middle-text {
+              display: flex;
               font-weight: 300; }
       .filter-module-container .flat-cards .nfm-flat-card .btns-row {
         display: flex;
@@ -1961,6 +1974,7 @@ body {
             top: -3px;
             font-size: 10px; }
       .three_js .flat-option .top-part .middle-text {
+        display: flex;
         font-size: 14px;
         line-height: 18px;
         color: #5c646b;
@@ -3463,7 +3477,7 @@ body {
         display: none; }
       .three_js .flat-info > .title .price {
         display: flex;
-        margin-top: -4px; }
+        margin-top: 1px; }
         .three_js .flat-info > .title .price .text {
           font-family: Fragolino;
           font-size: 16px;
@@ -5326,19 +5340,6 @@ body.en .middle-text span[data-dictionary=m2]:after {
 .bottom.size {
   position: relative; }
 
-body.en .bottom.size:after,
-body.en .bottom.area:after {
-  content: '2';
-  position: absolute;
-  font-size: 75%;
-  height: 8px;
-  width: 8px;
-  left: 32px;
-  top: -2px;
-  line-height: 18px;
-  order: 2;
-  font-family: Fragolino; }
-
 .bottom.size:after {
   left: 25px; }
 
@@ -5358,5 +5359,25 @@ body.en .bottom.area:after {
     align-items: center; }
     .three_js .flat-info .more-info.uninhabited-info .uninhabited-info_item img {
       margin: 0; }
+
+@media (max-width: 414px) {
+  .three_js .popup .apply-now-mobile {
+    font-family: Fragolino;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 23px;
+    padding: 10.5px 18.5px;
+    position: absolute;
+    left: 12px;
+    bottom: 16px;
+    color: #FFFFFF;
+    background-color: #C1AC87;
+    box-shadow: 0 5px 9px rgba(46, 70, 81, 0.15);
+    cursor: pointer;
+    z-index: 5; }
+  html[dir=rtl] .apply-now-mobile {
+    left: initial;
+    right: 12px; } }
 
 /*# sourceMappingURL=main-style.css.map */

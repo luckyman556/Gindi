@@ -1721,7 +1721,7 @@ function getCenterPoint(mesh) {
     window.sprite_2 = sprite_2;
     window.sprite_2 = sprite_2;
 }*/
-function loadTrees() {
+export function loadTrees() {
     const loader = new FBXLoader();
     const texture_loader = new THREE.TextureLoader();
     let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg', function(){
@@ -1804,7 +1804,7 @@ function sceneGlobus() {
 
     const loader = new THREE.TextureLoader();
     const texture_day = loader.load(
-        'resources/material/textures/360.jpg',
+        'resources/material/textures/360_sexy.jpg',
     );
 
     texture_day.magFilter = THREE.LinearFilter;

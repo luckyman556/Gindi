@@ -3,18 +3,21 @@ import { add_street_names } from "../street-names/add-street-names.js";
 import { SwipeScript } from "../../../js/swipe.js";
 import { loadEnvironment } from "../../individual/add-models.js";
 import { setCookie, getCookie } from "../cookies/setAndGetCookies.js";
+import { loadTrees } from "../../individual/add-models.js";
 
 
 let environmentShow = true;
 
-if (getCookie(projectName + '_environmentBool')) {
-    environmentShow = (getCookie(projectName + '_environmentBool') === 'true') ? true : false;
+if (getCookie('environmentBool')) {
+    environmentShow = (getCookie('environmentBool') === 'true') ? true : false;
 }
 
-export const optionsMenu = (optionsObject) => {
-    const containerLeft = createElements('div', 'left-nav-bar', document.body);
-    const options = createElements('button', 'button-options', containerLeft);
-    const containerMenu = createElements('div', 'options__menu', document.body);
+
+export const optionsMenu = (optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads) => {
+    const containerLeft = createElements('div', ['left-nav-bar', 'non-canvas'], document.body);
+    const options = createElements('button', ['button-options'], containerLeft);
+    const containerMenu = createElements('div', ['options__menu', 'non-canvas'], document.body);
+
     const zoomControls = document.querySelector('.zoom-controls');
     const compass = document.querySelector('.compass');
     const searchBtn = document.querySelector('.filter-module-open-btn');
@@ -43,7 +46,7 @@ export const optionsMenu = (optionsObject) => {
         if (btn.getAttribute('data-type') === 'options') {
             loadHTML(containerMenu, optionsObject);
             showAndSetStatusesButtons(optionsObject);
-            setInputListener(optionsObject);
+            setInputListener(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
             document.body.setAttribute('data-swipe-ignore', 'true');
 
             containerMenu.classList.add('open');
@@ -114,9 +117,11 @@ function setOrRemoveClass(className, action, ...elements) {
     }
 }
 
-function createElements(tag, className, parent) {
+function createElements(tag, classNames, parent) {
     const element = document.createElement(tag);
-    element.classList.add(className);
+
+    classNames.forEach(classItem => element.classList.add(classItem));
+    // element.classList.add(className);
 
     if (tag === 'button') {
         element.setAttribute('type', 'button');
@@ -178,7 +183,7 @@ function showAndSetStatusesButtons(optionsObject) {
     }
 }
 
-function setInputListener(optionsObject) {
+function setInputListener(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads) {
     const inputSwitch = document.getElementById('optionsSwitch');
     const buttonsContainer = document.querySelector('.options__menu-buttons');
 
@@ -189,46 +194,50 @@ function setInputListener(optionsObject) {
          const targetInput = event.target.getAttribute('data-input');
 
          if (targetInput === 'optionsSwitch') {
-             turnOffAllEnvironment(optionsObject);
+             optionsObject.forEach(option => option.active = !option.active);
+             turnOffAllEnvironment(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
+             // liveToggler(optionsObject);
          } else {
              optionsObject.forEach(option => {
                 if (option.type === targetInput) {
                     option.active = !option.active;
                 }
              });
-            liveToggler(optionsObject);
+             console.log(optionsObject);
          }
+         setTimeout(liveToggler, 1000, optionsObject);
+        // liveToggler(optionsObject);
         showAndSetStatusesButtons(optionsObject);
      }
 }
 
-function turnOffAllEnvironment(optionsObject) {
+function turnOffAllEnvironment(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads) {
     environmentShow = !environmentShow;
     low_performance_mode = !low_performance_mode;
+    const officeBuilding = scene.getObjectByName('Office_Building');
+    const env = scene.getObjectByName('environment');
+    const instaTree1 = scene.getObjectByName('instanceTree_6_tree');
+    const instaTree2 = scene.getObjectByName('instanceTree_2_tree');
 
     if (environmentShow) {
-        loadEnvironment(on_load_texture);
+        loadEnvironment(loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
+        loadTrees(lightMap);
+        object_to_opacity.forEach(obj => obj.userData.object_disabled = false);
+        officeBuilding.visible = true;
+        officeBuilding.userData.object_disabled = false;
 
-        function on_load_texture() {
-            loaded_texture_counter++;
-        }
     } else if (!environmentShow) {
         optionsObject.map(item => item.active = false);
-    }
-
-    const env = scene.getObjectByName('environment');
-    const instaTree = scene.getObjectByName('instanceTree');
-    scene.remove(env);
-    scene.remove(instaTree);
-
-    const environmentGroup = scene.getObjectByName('environmentGroup');
-    if (environmentGroup) {
-        scene.remove(environmentGroup);
+        scene.remove(env);
+        scene.remove(instaTree1);
+        scene.remove(instaTree2);
+        officeBuilding.visible = false;
+        officeBuilding.userData.object_disabled = true;
     }
 
     liveToggler(optionsObject);
-    add_street_names(environmentShow);
+    // add_street_names(environmentShow);
 
-    setCookie(projectName + '_environmentBool', environmentShow, {'max-age': 999999});
-    setCookie(projectName + '_envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
+    setCookie('environmentBool', environmentShow, {'max-age': 999999});
+    setCookie('envOptions', JSON.stringify(optionsObject), {'max-age': 999999});
 }

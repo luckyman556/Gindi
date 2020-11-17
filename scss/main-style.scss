@@ -577,6 +577,7 @@ body {
 				}
 			}
 			.middle-text {
+				display: flex;
 				font-size: 14px;
 				line-height: 18px;
 				color: #5c646b;
@@ -2584,7 +2585,7 @@ body {
 			}
 			.price {
 				display: flex;
-				margin-top: -4px;
+				margin-top: 1px;
 				.text {
 					font-family: Fragolino;
 					font-size: 16px;
@@ -4969,19 +4970,19 @@ body.en .middle-text span[data-dictionary=m2]:after {
 	position: relative;
 }
 
-body.en .bottom.size:after,
-body.en .bottom.area:after {
-	content: '2';
-	position: absolute;
-	font-size: 75%;
-	height: 8px;
-	width: 8px;
-	left: 32px;
-	top: -2px;
-	line-height: 18px;
-	order: 2;
-	font-family: Fragolino;
-}
+//body.en .bottom.size:after,
+//body.en .bottom.area:after {
+//	content: '2';
+//	position: absolute;
+//	font-size: 75%;
+//	height: 8px;
+//	width: 8px;
+//	left: 32px;
+//	top: -2px;
+//	line-height: 18px;
+//	order: 2;
+//	font-family: Fragolino;
+//}
 
 .bottom.size:after {
 	left: 25px;
@@ -5007,6 +5008,33 @@ body.en .bottom.area:after {
 
 		img {
 			margin: 0;
+		}
+	}
+}
+
+@media (max-width: 414px) {
+	.three_js .popup .apply-now-mobile {
+		font-family: Fragolino;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 23px;
+		padding: 10.5px 18.5px;
+		position: absolute;
+		left: 12px;
+		bottom: 16px;
+		color: $white;
+		background-color: $brand-color-2;
+		box-shadow: 0 5px 9px rgba(46, 70, 81, 0.15);
+		cursor: pointer;
+		z-index: 5;
+	}
+
+	html[dir=rtl] {
+		& .apply-now-mobile {
+			left: initial;
+			right: 12px;
+			//bottom: 16px;
 		}
 	}
 }

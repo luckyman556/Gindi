@@ -1,4 +1,5 @@
 import {flatBubbleHTML} from "../../individual/flatBubble/flatBubble.js";
+
 export const flatBubble = {
     init : function () {
         let flatBubbleEl = document.querySelector('.flat-bubble');
@@ -28,16 +29,17 @@ export const flatBubble = {
                     flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'none';
                 }
             } else {
-
                 if (flatBubbleEl.lastFlat !== flat.userData.crm_data.propNum) {
                     let crmData = flat.userData.crm_data;
                     flatBubbleHTML(crmData);
                     let textContainer = document.querySelector('.flat-bubble .text-container');
                     textContainer.classList.remove('custom-selection');
                     let modelRooms = textContainer.querySelector('.model-rooms');
+
                     if (modelRooms) {
                         modelRooms.style.display = 'flex';
                     }
+
                     if (flat.userData.url_360_type === 'custom') {
                         flatBubbleEl.querySelector('.flat-bubble > img').style.display = 'block';
                     } else {

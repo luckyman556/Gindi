@@ -164,6 +164,23 @@
                         display: none;
                     }         
                 }
+                .price-box {
+                    display: flex;
+
+                    .number {
+                        order: 1;
+                    }
+
+                    .price-text {
+                        order: 2;
+                        margin-right: 2px;
+                        margin-left: 2px;
+                    }
+
+                    .get-price-btn {
+                        display: none;
+                    }
+                }
             }
             &.active,
             &:hover {
@@ -256,6 +273,11 @@
                         .text {
                             color: $gray-middle;
                             font-weight: 300;
+                        }
+                        .middle-text {
+                            display: flex;
+                            font-weight: 300;
+
                         }
                     }
                 }

@@ -21,7 +21,7 @@ export let dictionary_array = {
     },
     'Exposure' : {
         'he' : 'כיווני אוויר',
-        'en' : 'Exposure'
+        'en' : 'exposure'
     },
     'Available only' : {
         'he' : 'הצג דירות זמינות בלבד',
@@ -327,6 +327,22 @@ export let dictionary_array = {
         'en': 'Bar',
         'he': 'בר'
     },
+    'E-mail': {
+        'en': 'E-mail',
+        'he': 'אימייל'
+    },
+    'Phone': {
+        'en': 'Phone',
+        'he': 'טלפון'
+    },
+    'Messenger': {
+        'en': 'Messenger',
+        'he': 'Messenger'
+    },
+    '360-tour coming soon': {
+        'en': '360-tour coming soon',
+        'he': '360-tour coming soon'
+    },
     'No price': {
         'en': 'No price',
         'he': 'מחיר לא ידוע'
@@ -410,5 +426,13 @@ export let dictionary_array = {
     'Kitchen': {
         'en': 'Kitchen',
         'he': 'need translate',
+    },
+    'SMS': {
+        'he': 'SMS',
+        'en': 'SMS'
+    },
+    'Whatsapp': {
+        'he': 'Whatsapp',
+        'en': 'Whatsapp'
     },
 }

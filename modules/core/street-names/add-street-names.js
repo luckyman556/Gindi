@@ -21,7 +21,7 @@ export function add_street_names (action) {
     });
     street_names_objs = [];
 
-    fontloader.load( 'resources/font/almoni-nue.json', font => {
+    fontloader.load( 'fonts/almoni/almoni-nue.json', font => {
 
         if (names_n_positions.length > 0) {
             names_n_positions.forEach(street => {

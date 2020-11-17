@@ -14,6 +14,7 @@ export const cardsInfoSettings = {
             'crmName' : 'totalSpace',
             'imgUrl' : './img/gindi-ic-area.svg',
             'dictionary' : 'area',
+            'metrics' : 'm2',
             // 'addToDictionary' : ', ft<sup>2</sup>'
             'callback' : function (data) {
                  if (c_lang () == 'he') {
@@ -39,6 +40,7 @@ export const cardsInfoSettings = {
             'crmName' : 'roomNum',
             'imgUrl' : './img/gindi-ic-rooms.svg',
             'dictionary' : 'rooms',
+            'metrics' : 'm2',
             'callback' : function (data) {
                 if (data == 0) {
                     return get_lang('Studio')

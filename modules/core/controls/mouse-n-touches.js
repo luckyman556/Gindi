@@ -22,7 +22,7 @@ export function add_mouse_n_touches () {
         last_tap_flat = last_clicked_flat;
     }, false );
     function double_click_n_tap (e) {
-        if (this_is_flat_click == true) {
+        if (this_is_flat_click) {
             let popup_info = $('.popup-info');
             popup_info.removeClass('show');
             popup_info.addClass('hide');
@@ -117,6 +117,7 @@ export function add_mouse_n_touches () {
     }
 
     function flat_mouse_click (e) {
+        console.log('click')
         if (flatClickHandler) {
             if (e.changedTouches) {
                 if ($(e.target).parents('.non-canvas').length > 0) {
@@ -158,6 +159,12 @@ export function add_mouse_n_touches () {
                         if (filter_container.filter_active) {
                             if (document.querySelector('.filter-module-container.open')) {
                                 if ($('.filter-controls.on-back').length > 0) {
+                                    flatClickWithOpenFilter ()
+                                } else {
+                                    document.querySelector('.main-wrap').replace_filters_n_cards();
+                                    flatClickWithOpenFilter ();
+                                }
+                                function flatClickWithOpenFilter () {
                                     let card_id = picked_object.userData.crm_data.bmbyPropID;
                                     // $('.card-' + card_id).click();
                                     window.card_clicked = false;
@@ -173,8 +180,6 @@ export function add_mouse_n_touches () {
                                         }
                                     }
                                     $('.main-wrap')[0].set_scroll_on_card(card_id);
-                                } else {
-                                    flat_click(picked_object);
                                 }
                             } else {
                                 flat_click(picked_object);
