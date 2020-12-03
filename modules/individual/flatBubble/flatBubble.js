@@ -9,6 +9,5 @@ export function flatBubbleHTML (flat) {
         textContainer.querySelector('.prop-num').innerHTML = crmData.propNum;
         textContainer.querySelector('.model-name').innerHTML = crmData.modelName;
     }
-
     return html;
 }
