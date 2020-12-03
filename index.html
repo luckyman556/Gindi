@@ -28,6 +28,7 @@
         var propSrmLink = "https://mbeat.bmby.com/api/dreams/props?houseId=";
         var projectName = 'gindi';
         var allLoadingsSize = 8145005;
+        var compassCorrection = 300;
         var globalSettings = {
             'base_floor' : 5,
             'flat_focus' : false,
@@ -70,6 +71,7 @@
                 },
                 flatLabels : {
                     centerLabelTop : 3,
+                    otherLabelsTopCorrection : 1,
                     amount: 22,
                     position_correction_floor: {x: 0, y: 8, z: 0},
                     position_correction: {x: 0, y: 5, z: 0},
@@ -128,6 +130,11 @@
                     },
                     zoom : 300
                 }
+            } ,
+            floorAppearAnimation : {
+                durationBase : 700,
+                addPosition : 800,
+                axis : 'z',
             }
         };
 

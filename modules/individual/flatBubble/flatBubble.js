@@ -1,4 +1,5 @@
-export function flatBubbleHTML (crmData) {
+export function flatBubbleHTML (flat) {
+    let crmData = flat.userData.crm_data;
     let html;
     let textContainer = document.querySelector('.flat-bubble .text-container');
     if (textContainer.innerHTML.length == 0) {
@@ -8,6 +9,5 @@ export function flatBubbleHTML (crmData) {
         textContainer.querySelector('.prop-num').innerHTML = crmData.userData.crm_data.propNum;
         textContainer.querySelector('.model-name').innerHTML = crmData.userData.crm_data.modelName;
     }
-
     return html;
 }

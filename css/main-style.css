@@ -1134,21 +1134,49 @@ body.he .lang-button::before {
   left: 20px; }
 
 .lang-container {
-  display: flex; }
+  position: absolute;
+  top: 27px;
+  right: 50px;
+  z-index: 50;
+  transition: 0.35s cubic-bezier(0.785, 0.135, 0.15, 0.86); }
+  .lang-container.move {
+    right: 125px; }
 
 .lang-button {
-  margin-right: 16px; }
+  position: relative; }
+  .lang-button::before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 24px;
+    height: 24px;
+    background-image: url("../img/navigation/shevron/down.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: 0.3s; }
+  .lang-button.open::before {
+    transform: rotate(180deg); }
 
 .lang-button, .lang-list {
-  width: 24px;
-  height: 24px;
-  background-repeat: no-repeat;
-  background-position: center;
+  font-family: Arial, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #1A2F43;
   cursor: pointer; }
 
-@media (max-width: 1200px) {
-  .lang-button {
-    filter: grayscale(1); } }
+.lang-dropdown {
+  display: none; }
+  .lang-dropdown.active {
+    display: block; }
+
+@media (max-width: 1024px) {
+  .lang-container {
+    top: 28px;
+    right: 32px; }
+    .lang-container.move {
+      right: 75px; } }
 
 .new-ui-circle-btn {
   width: 42px;
