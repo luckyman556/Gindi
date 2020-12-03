@@ -1,0 +1,167 @@
+.three_js .flat-option.area {
+    width: 60px;
+}
+.price-box.common .get-price-btn {
+    display: none!important;
+}
+.price-box.common .number,
+.three_js .flat-plan .price .bottom-part .price-text,
+.three_js .flat-info > .title .price .price-num .price-text,
+.three_js .flat-info > .title .price .price-num .number {
+    display: flex!important;
+}
+.preloader {
+    /* background-image: url(../resources/preloader/preloader-bg.jpg); */
+    position: relative;
+    /* display:  none!important; */
+    position: absolute;
+    background-position: center;
+    background-color: white;
+}
+.preloader.loaded {
+    opacity: 0;
+    transition: 0.5s;
+}
+.preloader:after {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0 , 0.48);
+    z-index: 0;
+}
+.preloader .preloader-building-box {
+    position: relative;
+    z-index: 10;
+    display: none;
+}
+.preloader .percents {
+    color: black;
+}
+.preloader .center-logo {
+    display: flex;
+    background-image: url(../img/logo-full.svg);
+    width: 350px;
+    height: 210px;
+    margin-bottom: -60px;
+    max-width: 90%;
+}
+.preloader .preloader-building-box .cloud1 {
+}
+.custom-progress-bar .progress-line-active .custom-tooltip .text {
+    background-color: transparent;
+    color: #062e46;
+}
+.custom-progress-bar .progress-line-active .custom-tooltip .corner {
+    display: none;
+}
+.custom-progress-bar .progress-line {
+    background-color: #b5c1c8;
+    position: relative;
+    z-index: 2;
+    height: 2px;
+}
+.custom-progress-bar .progress-line-active {
+    background-color: #062e46;
+    border-radius: 2px;
+    position: static;
+    width: 0%;
+}
+.three_js .flat-option.totalSpace {
+    
+}
+.flat_status_2d_css .flat-card-box > h3 .flat-card-title_number {
+    font-weight: 400;
+    font-family: Fragolino;
+
+}
+.flat_status_2d_css .flat-card-box > h3 {
+    text-shadow: 2px 2px rgba(0 , 0 , 0  , 0.5);
+}
+
+.flat_status_2d_css  .area-text {
+    text-shadow: 2px 2px rgba(0 , 0 , 0  , 0.5);
+    text-align: center;
+    margin: 2px auto;
+}
+.flat_status_2d_css  .area-text  sup {
+    font-size: 12px;
+    position: relative;
+    top: -4px;
+}
+.filter-module-container .flat-cards .nfm-flat-card .price .text-only-price .simbol {
+    order: 0;
+}
+.filter-module-container .flat-cards .nfm-flat-card .price .text-only-price .number {
+    order: 1;
+}
+.dg .property-name {
+    white-space: pre;
+}
+.dg .c input[type=text] {
+    height: 20px;
+}
+.nmf-range-selector-box .nfm-selected .number-box .simbol,
+body.en .popup-2d > .flat-info > .title .price-text,
+.three_js .flat-plan .price .bottom-part .price-text {
+    order: 0;
+}
+/*
+.happy-live {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-image: url(../resources/happy-live.gif);
+}*/
+.three_js .compass  {
+    background-image: none;
+}
+.three_js .compass .ic {
+    transform: rotateZ(60deg);
+}
+.flat_status_2d_css .flat-card-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+.flat_status_2d_css .flat-card-box > h3 .flat-card-title_number {
+    white-space: pre;
+}
+.flat_status_2d_css.active .flat-card-box {
+    transform: translate(-50%, -50%) scale(1);
+}
+.filter-module-container .flat-cards .nfm-flat-card .options {
+    justify-content: flex-start;
+}
+
+.filter-module-container .flat-cards .nfm-flat-card .options .option-item {
+    margin-right: 15px;
+}
+.flat-bubble .model-name::before {
+    display: none;
+}
+.three_js .flat-bubble .text-container {
+    padding-right: 0;
+}
+.three_js .flat-info > .title .title-box:after {
+    right: initial;
+}
+.three_js .popup .floor-info-row {overflow-x: hidden;padding-bottom: 30px;}
+.three_js .popup .print-btn {
+    display: none;
+}
+.filter-module-container .flat-cards .nfm-flat-card .flat-card-box .price-box .price-text {
+    order: 0;
+}
+@media screen and (max-width: 1024px) {
+    .custom-progress-bar {
+        margin-top: 145px;
+    }
+}

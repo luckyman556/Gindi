@@ -3,7 +3,6 @@ import { add_street_names } from "../street-names/add-street-names.js";
 import { SwipeScript } from "../../../js/swipe.js";
 import { loadEnvironment } from "../../individual/add-models.js";
 import { setCookie, getCookie } from "../cookies/setAndGetCookies.js";
-import { loadTrees } from "../../individual/add-models.js";
 
 
 let environmentShow = true;
@@ -203,7 +202,7 @@ function setInputListener(optionsObject, loaderFBX, envTexture, lightMap, grassT
                     option.active = !option.active;
                 }
              });
-             console.log(optionsObject);
+             // console.log(optionsObject);
          }
          setTimeout(liveToggler, 1000, optionsObject);
         // liveToggler(optionsObject);
@@ -221,7 +220,7 @@ function turnOffAllEnvironment(optionsObject, loaderFBX, envTexture, lightMap, g
 
     if (environmentShow) {
         loadEnvironment(loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
-        loadTrees(lightMap);
+
         object_to_opacity.forEach(obj => obj.userData.object_disabled = false);
         officeBuilding.visible = true;
         officeBuilding.userData.object_disabled = false;

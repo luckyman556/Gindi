@@ -69,7 +69,7 @@ export class ScrollDrag  {
                 if (wrap.offsetWidth > container.offsetWidth) {
                     let delta = event.wheelDeltaY;
                     let startScroll = Number(this.scrollLeft);
-                    console.log(startScroll);
+                    // console.log(startScroll);
                     let direction = document.querySelector('html').getAttribute('dir');
                     let targetScroll;
                     if (direction) {

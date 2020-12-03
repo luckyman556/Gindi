@@ -1,5 +1,4 @@
  export let card_fns = {
-
     bind_flat_cards_events : function (card) {
         let card_html = card.html();
         card.unbind();
@@ -40,8 +39,6 @@
                                 // flat_click(target_flat);
                                 rotation_to_flat ();
                             }
-
-
                         }
                     }
                 }
@@ -53,6 +50,7 @@
                 }
             });
             card.find('.floor-plan-btn').click(function(){
+
                 if (floor_plan_btn_last_click + 1100 < Date.now()) {
                     document.querySelector('.floor-plan-toggler').classList.add('active');
                     let flat_id = $(this).parents('.nfm-flat-card').attr('data-bmby-id');
@@ -98,19 +96,19 @@
                 status_class = 'available';
             }
         });
-        let price_html = get_price_html(flat.salePrice);
-        // if (status_class == 'available') {
-        //     price_html = `
-        //     <div class="price">${get_price_html(flat.salePrice, '', true)}</div>
-        //     `;
-        // } else {
-        //     price_html = `
-        //     <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
-        //     `;
-        // }
+        let price_html = '';
 
+        // let price = (price_num !== 0) ? numberWithCommas(Math.floor(price_num)) : 'No price';
 
-
+        if (status_class == 'available') {
+            price_html = `
+                <div class="price">${get_price_html(flat.salePrice, '', true)}</div>
+            `;
+        } else {
+            price_html = `
+            <div class="price language-string" data-dictionary="Sold">${get_lang('Sold')}</div>
+            `;
+        };
         let floor_plan_ic = 'floor-plan-white';
         let flat_3d_object;
         flat_3d_object = all_appartments.find(function(element){
@@ -125,7 +123,19 @@
                 floor_plan_ic = 'popup-info-360';
             }
         }
+
+
         let flatOptions = globalFunctions.cardsInfoHTML.getSearchCardOptionsHtml(globalSettings.cardsInfoSettings.UnitCardOptions, flat);
+
+        let classBtnHide;
+        let containerclassBtnHide;
+        if (flat.status !== 'Available' && !this_is_flat_click) {
+            classBtnHide = 'hide';
+            containerclassBtnHide = 'btn-hide';
+        } else {
+
+        }
+
         let inner_html = `
         <div class="flat-card-box ${status_class}">
             <div class="name"><span class="flat-name language-string" data-dictionary="Apt.">${get_lang('Apt.')}</span> <span class="number">${flat.propNum}</span></div>
@@ -133,8 +143,8 @@
                 <div class="options">
                     ${flatOptions}
                 </div>            
-                <div class="btns-row">
-                    <div class="new-ui-btn apt-plan">
+                <div class="btns-row ${containerclassBtnHide}">
+                    <div class="new-ui-btn apt-plan ${classBtnHide}">
                         <div class="text language-string" data-dictionary="Floor plan">${get_lang('Floor plan')}</div>
                         <div class="new-ui-icon">
                             <img src="${img_path}${floor_plan_ic}.svg" alt="">

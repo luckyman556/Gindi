@@ -1,3 +1,5 @@
+import {multiPhoneSelector} from "../../individual/apply-now/multiphoneSelector.js";
+
 function creatHtmlElement(parent, elementName, elementTag, elementClass) {
   const el = document.createElement(elementTag);
   if (Array.isArray(elementClass)){
@@ -23,20 +25,21 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
   let mainContainer;
 
   if (useSubstrate){
-    mainContainerOuter = creatHtmlElement(parent,'','div',['apply__main-container__outer']);
-    mainContainer = creatHtmlElement(mainContainerOuter,'','div',['apply__main-container']);
+    mainContainerOuter = creatHtmlElement(parent,'','div',['apply__main-container__outer', 'non-canvas']);
+    mainContainer = creatHtmlElement(mainContainerOuter,'','div',['apply__main-container', 'non-canvas']);
   } else {
     mainContainer = creatHtmlElement(parent,'','div',['apply__main-container']);
   }
 
-  console.log(contentObject);
   const contentWrapper = creatHtmlElement(mainContainer,'','div',['apply__content__wrapper']);
+
   const closeBtn = creatHtmlElement(mainContainer,'','div',['apply-btn__close']);
   closeBtn.setAttribute('id','applyCloseBtn');
   const titleContainer = creatHtmlElement(contentWrapper,'','div',['apply__title-container']);
-  const title = creatHtmlElement(titleContainer,`${get_lang(contentObject.title.dic)}`,'h2',['apply__title','language-string']);
+  const title = creatHtmlElement(titleContainer,`${get_lang(contentObject.title.text)}`,'h2',['apply__title','language-string']);
   title.dataset.dictionary = contentObject.title.dic;
-  const span = creatHtmlElement(titleContainer, get_lang(contentObject.subTitle.dic),'span',['apply__sub-title','language-string']);
+  const span = creatHtmlElement(titleContainer, get_lang(contentObject.subTitle.text),'span',['apply__sub-title','language-string']);
+
   span.dataset.dictionary = contentObject.subTitle.dic;
 
   //Icons
@@ -56,6 +59,8 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
 
   //separator
   const separatorContainer = creatHtmlElement(contentWrapper,'','div',['apply__separator-container']);
+
+  // phoneSelector.insertAdjacentHTML('beforeend', `<>`);
   // creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
   // const separatorText = creatHtmlElement(separatorContainer,'or','span',['apply__separator-text']);
   // creatHtmlElement(separatorContainer,'','div',['apply__left-separator']);
@@ -68,6 +73,8 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
     closeBtnHandler();
     showElements(hideElementsArr);
   });
+
+  multiPhoneSelector(contentWrapper, mainContainer);
 
 }
 

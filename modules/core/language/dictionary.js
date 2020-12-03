@@ -23,6 +23,10 @@ export let dictionary_array = {
         'he' : 'כיווני אוויר',
         'en' : 'exposure'
     },
+    'exposure' : {
+        'he' : 'כיווני אוויר',
+        'en' : 'exposure'
+    },
     'Available only' : {
         'he' : 'הצג דירות זמינות בלבד',
         'en' : 'Available only'
@@ -36,11 +40,11 @@ export let dictionary_array = {
         'en' : 'price'
     },
     'apartments found' : {
-        'he' : 'דירות שנמצא:',
+        'he' : 'נמצאו דירות:',
         'en' : 'apartments found'
     },
     'search' : {
-        'he' : 'לחפש',
+        'he' : 'חיפוש',
         'en' : 'search'
     },
     'Sold' : {
@@ -60,7 +64,7 @@ export let dictionary_array = {
         'en' : 'Key plan'
     },
     'apt. type' : {
-        'he' : 'סוג הדירה',
+        'he' : 'סוג דירה',
         'en' : 'apt. type'
     },
     'floor' : {
@@ -104,7 +108,7 @@ export let dictionary_array = {
         'en' : 'More...'
     },
     'Sort&filter' : {
-        'he' : 'לְסַנֵן',
+        'he' : 'לסנן',
         'en' : 'Sort & filter'
     },
     'The search has not given any results' : {
@@ -136,7 +140,7 @@ export let dictionary_array = {
         'en': 'cars'
     },
     'Enable “Show available only” to turn on this option' : {
-        'he' : 'לורם איפסום הוא כינוי לטקסט חסר משמעות לחלוטין - הנקרא לפעמים גם דמי טקסט או',
+        'he' : 'אפשרות לבחור תקציב קיימת עובר דירות זמינות בלבד',
         'en' : 'Enable “Show available only” to turn on this option'
     },
     'area' : {
@@ -172,16 +176,52 @@ export let dictionary_array = {
         'en': 'bathrooms'
     },
     'balcony size' : {
-        'he': 'שטח מרפסת',
+        'he': 'שטח המרפסת',
         'en': 'balcony size'
     },
     'Get in touch today':{
         'he': 'צרו איתנו קשר עכשיו',
         'en': 'Get in touch today'
     },
-    'Our customer service':{
+    'Our customer service representatives are happy to help 24/7':{
         'he': 'נציגי שירות הלקוחות שלנו שמחים לעזור 24/7',
         'en':'Our customer service representatives are happy to help 24/7',
+    },
+    'For more information, please call us': {
+      he: 'למידע נוסף חייגו עכשיו',
+      en: 'For more information, please call us'
+    },
+    'or leave your details and we will get back to you shortly': {
+       en: 'or leave your details and we will get back to you shortly',
+       he: 'או השאירו פרטים ונחזור אליכם בהקדם'
+    },
+    'Availability': {
+        'en': 'Availability',
+        'he': 'זמינות',
+    },
+    'About': {
+        'en': 'About',
+        'he': 'אודות הפרויקט',
+    },
+    'The Developers': {
+        'en': 'The Developers',
+        'he': 'היזמים',
+    },
+    'Gallery': {
+        'en': 'Gallery',
+        'he': '',
+    },
+    'Contact us': {
+        'en': 'Contact us',
+        'he': 'צור קשר',
+    },
+    'Get app': {
+        'en': 'Get app',
+        'he': 'קבל אפליקציה',
+    },
+    '3D Model': {
+        'en': '3D Model',
+        'he': 'מודל תלת מימד',
     },
     '2D': {
       'he': '2D',
@@ -337,15 +377,15 @@ export let dictionary_array = {
     },
     'Messenger': {
         'en': 'Messenger',
-        'he': 'Messenger'
+        'he': 'מסנג׳ר'
     },
     '360-tour coming soon': {
         'en': '360-tour coming soon',
         'he': '360-tour coming soon'
     },
     'No price': {
-        'en': 'No price',
-        'he': 'מחיר לא ידוע'
+        'en': ' ',
+        'he': ' '
     },
     'Apply now': {
         'en': 'Apply now',
@@ -403,6 +443,22 @@ export let dictionary_array = {
         'en': 'Sun lounge',
         'he': 'need translate',
     },
+    'Roof plan': {
+        'he': 'תכנית גג',
+        'en': 'Floor plan'
+    },
+    'Spa plan': {
+        'he': 'תכנית ספא',
+        'en': 'Floor plan'
+    },
+    'Lobby plan': {
+        'he': 'תכנית לובי',
+        'en': 'Floor plan'
+    },
+    '3D': {
+        'he': '3D',
+        'en': '3D'
+    },
     'Fireplace lounge': {
         'en': 'Fireplace lounge',
         'he': 'need translate',
@@ -435,4 +491,6 @@ export let dictionary_array = {
         'he': 'Whatsapp',
         'en': 'Whatsapp'
     },
-}
+};
+
+

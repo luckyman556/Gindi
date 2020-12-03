@@ -17,61 +17,24 @@ body {
 
 .lang {
 	&-container {
-		position: absolute;
-		top: 27px;
-		right: 50px;
-		z-index: 50;
-		transition: .35s cubic-bezier(0.785, 0.135, 0.150, 0.860);
-
-		&.move {
-			right: 125px;
-		}
+		display: flex;
 	}
 	&-button {
-		position: relative;
-
-		&::before {
-			display: block;
-			position: absolute;
-			content: '';
-			width: 24px;
-			height: 24px;
-			background-image: url("../img/navigation/shevron/down.svg");
-			background-position: center;
-			background-size: cover;
-			background-repeat: no-repeat;
-			transition: 0.3s;
-		}
-		&.open::before {
-			transform: rotate(180deg);
-		}
+		margin-right: 16px;
 	}
 	&-button,
 	&-list {
-		font-family: Arial, sans-serif;
-		font-weight: 500;
-		font-size: 16px;
-		line-height: 25px;
-		color: $brand-color-1;
+		width: 24px;
+		height: 24px;
+		background-repeat: no-repeat;
+		background-position: center;
 		cursor: pointer;
 	}
-	&-dropdown {
-		display: none;
-
-		&.active {
-			display: block;
-		}
-	}
+	&-dropdown {}
 }
 
-@media (max-width: 1024px) {
-	.lang {
-		&-container {
-			top: 28px;
-			right: 32px;
-			&.move {
-				right: 75px;
-			}
-		}
+@media (max-width: 1200px) {
+	.lang-button {
+		filter: grayscale(1);
 	}
 }

@@ -18,7 +18,7 @@ export const crmRequests = {
         request.onload = function() {
             let parsedResponce = JSON.parse(request.response);
             window['token_response'] = parsedResponce['access_token'];
-            setCookie(projectName + '_access_token', parsedResponce['access_token'], {'max-age': 3600});
+            setCookie('access_token', parsedResponce['access_token'], {'max-age': 3600});
         };
     },
     tokenCheck (callback) {
@@ -33,11 +33,11 @@ export const crmRequests = {
     getBuildingProps (building_index) {
         var request = new XMLHttpRequest();
         let building_number = buildings_info[building_index].build_id;
-        request.open('GET',  'https://mbeat.bmby.com/api/dreams/props?houseId=' + building_number, true);
+        request.open('GET',  propSrmLink + building_number, true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.setRequestHeader('Authorization', 'Bearer ' +  window['token_response']);
         request.send();
-        request.onload = function() { 
+        request.onload = function() {
             let crm_data = JSON.parse(request.response);
             buildings_info[building_index].crm_data = crm_data;
         };

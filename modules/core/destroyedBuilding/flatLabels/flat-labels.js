@@ -57,8 +57,8 @@ export function update (dynamic = false) {
         $(item.element).removeClass('active');
 
     });
-    if (last_clicked_flat != undefined) {
-        if (lock_mouse_rotation_x == true) {
+    if (last_clicked_flat) {
+        if (lock_mouse_rotation_x) {
             window.floor_obj[current_floor].forEach(function(flat, index){
                 if (flat.name.search('floor_center') == -1) {
                     let inner_html = '';
@@ -99,17 +99,17 @@ export function update (dynamic = false) {
                     }
 
                     //TODO center point flat-labels
-                    // let p = flat.userData.center_point;
-                    // let vect = new global_three.Vector3(p.x, p.y, p.z);
-                    // flat.localToWorld(vect);
-                    // p = vect;
+                    let p = flat.userData.center_point;
+                    let vect = new global_three.Vector3(p.x, p.y, p.z);
+                    flat.localToWorld(vect);
+                    p = vect;
 
-                    let p;
-                    if (dynamic == true) {
-                        p = flat.children[0].getWorldPosition(new global_three.Vector3());
-                    } else {
-                        p = flat.children[0].userData.defaultWorldPosition;
-                    }
+
+                    // if (dynamic == true) {
+                    //     p = flat.children[0].getWorldPosition(new global_three.Vector3());
+                    // } else {
+                    //     p = flat.children[0].userData.defaultWorldPosition;
+                    // }
 
                     flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
                     // flat_labels_group[index].position.set(p.x , p.y, p.z );
@@ -123,7 +123,6 @@ export function update (dynamic = false) {
                     let floor_number;
                     // let floorCenter = flat.parent.children.getObjectByName('floor_center');
                     let floorCenter = flat;
-
                     if (flat.parent.children[0].name.search('zagluha') == -1) {
                         floor_number = flat.parent.children[0].userData.crm_data.floorNum;
                     } else {

@@ -1,0 +1,33 @@
+.compass {
+	position: absolute;
+	width: 42px;
+	height: 42px;
+	left: 32px;
+	bottom: 32px;
+	border-radius: 50%;
+	background-color: #fff;
+	cursor: pointer;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+	& .ic {
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-image: url(../img/compas_new.svg);
+		z-index: 9;
+	}
+
+	.filter-open &{
+		bottom: 284px;
+	}
+
+	&.flat-cards-open {
+		bottom: 325px;
+	}
+
+	&.not-default {
+		bottom: 50px;
+	}
+}

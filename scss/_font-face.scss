@@ -114,14 +114,52 @@
 	font-display: swap;
 }
 
+//Assistant
+
 @font-face {
-	font-family: 'Ubuntu-medium';
-	src: url('../fonts/ubuntu/Ubuntu-Medium.eot');
-	src: url('../fonts/ubuntu/Ubuntu-Medium.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/ubuntu/Ubuntu-Medium.woff2') format('woff2'),
-	url('../fonts/ubuntu/Ubuntu-Medium.woff') format('woff'),
-	url('../fonts/ubuntu/Ubuntu-Medium.ttf') format('truetype');
-	font-weight: 500;
+	font-family: 'Assistant';
+	font-weight: 200;
 	font-style: normal;
-	font-display: swap;
+	src: url("../fonts/assistant/Assistant-ExtraLight.eot");
+	src: url("../fonts/assistant/Assistant-ExtraLight.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-ExtraLight.woff2") format("woff2"), url("../fonts/assistant/Assistant-ExtraLight.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Assistant';
+	font-weight: 300;
+	font-style: normal;
+	src: url("../fonts/assistant/Assistant-Light.eot");
+	src: url("../fonts/assistant/Assistant-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-Light.woff2") format("woff2"), url("../fonts/assistant/Assistant-Light.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Assistant';
+	font-weight: 400;
+	font-style: normal;
+	src: url("../fonts/assistant/Assistant-Regular.eot");
+	src: url("../fonts/assistant/Assistant-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-Regular.woff2") format("woff2"), url("../fonts/assistant/Assistant-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Assistant';
+	font-weight: 600;
+	font-style: normal;
+	src: url("../fonts/assistant/Assistant-SemiBold.eot");
+	src: url("../fonts/assistant/Assistant-SemiBold.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-SemiBold.woff2") format("woff2"), url("../fonts/assistant/Assistant-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Assistant';
+	font-weight: 700;
+	font-style: normal;
+	src: url("../fonts/assistant/Assistant-Bold.eot");
+	src: url("../fonts/assistant/Assistant-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-Bold.woff2") format("woff2"), url("../fonts/assistant/Assistant-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: 'Assistant';
+	font-weight: 800;
+	font-style: normal;
+	src: url("../fonts/assistant/Assistant-ExtraBold.eot");
+	src: url("../fonts/assistant/Assistant-ExtraBold.eot?#iefix") format("embedded-opentype"), url("../fonts/assistant/Assistant-ExtraBold.woff2") format("woff2"), url("../fonts/assistant/Assistant-ExtraBold.ttf") format("truetype");
 }

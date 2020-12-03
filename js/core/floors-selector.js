@@ -150,7 +150,7 @@ $.fn.floors_selector = function() {
                         // console.log(target_position);
                         globalFunctions.animateTo(target_position,null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
                         last_clicked_flat = flat;
-                        flat_click(flat, false, true);
+                        flat_click(flat, true, true);
                     } else {
                         let target_position = flat_parent.getObjectByName('zagluha').userData.defaultWorldPosition;
                         globalFunctions.animateTo(target_position, null, null, 1000, TWEEN.Easing.Sinusoidal.InOut);
@@ -397,7 +397,7 @@ $.fn.floors_selector = function() {
 
                 function set_css_prop (max_cells_count, cell_height) {
                     container.css({
-                        'height' : max_cells_count * cell_height,
+                        // 'height' : max_cells_count * cell_height,
                         'transition-duration' : '0.5s',
                         'margin-top' : 'auto',
                         'margin-bottom' : 'auto',

@@ -1,0 +1,192 @@
+.apply__content__phone-selector {
+	position: relative;
+	width: 100%;
+	max-width: 240px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+.phone-selector {
+	&__list {
+		//transform: scale(0);
+		opacity: 0;
+		visibility: hidden;
+		position: absolute;
+		top: 25px;
+		//top: 0;
+		left: 0;
+		right: 0;
+		padding-left: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		font-weight: 400;
+		font-size: 18px;
+		text-transform: capitalize;
+		line-height: 16px;
+		letter-spacing: -0.21px;
+		color: #03233A;
+		background-color: #fff;
+		z-index: 9;
+		transition: all 0.4s ease;
+
+		&.open {
+			//transform: scale(1);
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+
+	&__item {
+		cursor: pointer;
+		padding-bottom: 7px;
+		padding-left: 36px;
+		&[data-country] {
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				width: 24px;
+				height: 24px;
+				border-radius: 50%;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
+		}
+
+
+		&:last-child {
+			padding-top: 10px;
+		}
+
+
+		&[data-country="ukraine"]::before {
+			top: 1px;
+			background-image: url("../img/flags/ukraine.svg");
+		}
+		&[data-country="israel"]::before {
+			top: 3px;
+			background-image: url("../img/flags/Israel.svg");
+		}
+	}
+
+	&__active {
+		position: relative;
+		border-bottom: 1px solid #C0C0C0;
+		padding-bottom: 6px;
+		margin-bottom: 35px;
+		cursor: pointer;
+
+		&::after {
+			position: absolute;
+			content: '';
+			top: -2px;
+			right: 0;
+			width: 24px;
+			height: 24px;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-image: url("../img/navigation/shevron/down.svg");
+			z-index: 10;
+		}
+
+		&-phone {
+			display: block;
+			position: relative;
+			width: 100%;
+			padding: 13px 37.5px 13px 68.5px;
+			background-color: #1A2F43;
+			box-shadow: 0 5px 9px rgba(46, 70, 81, 0.15);
+			border-radius: 6px;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 18px;
+			text-decoration: none;
+			color: #FFFFFF;
+
+			//& > a {
+			//  display: block;
+			//  width: 100%;
+			//  font-weight: 500;
+			//  font-size: 16px;
+			//  line-height: 18px;
+			//  text-decoration: none;
+			//  color: #FFFFFF;
+			//}
+
+			&::before {
+				position: absolute;
+				content: '';
+				width: 24px;
+				height: 24px;
+				top: 50%;
+				left: 32.5px;
+				transform: translateY(-50%);
+				background-image: url("../img/call.svg");
+			}
+		}
+
+		& > span {
+			position: relative;
+			padding-left: 36px;
+			font-weight: 400;
+			font-size: 18px;
+			text-transform: capitalize;
+			line-height: 16px;
+			letter-spacing: -0.21px;
+			color: #03233A;
+
+			&[data-country] {
+				&::before {
+					content: '';
+					position: absolute;
+					top: -4px;
+					left: 0;
+					width: 24px;
+					height: 24px;
+					border-radius: 50%;
+					background-repeat: no-repeat;
+					background-position: center;
+					background-size: cover;
+				}
+			}
+			&[data-country="ukraine"]::before {
+				background-image: url("../img/flags/ukraine.svg");
+			}
+			&[data-country="israel"]::before {
+				background-image: url("../img/flags/Israel.svg");
+			}
+		}
+	}
+}
+
+html[dir=rtl] {
+	& .phone-selector {
+		&__active {
+			display: flex;
+			justify-content: flex-end;
+		}
+	}
+
+	& .phone-selector {
+		&__list {
+			//display: flex;
+			//flex-direction: column;
+			//align-items: flex-end;
+			//width: 100%;
+		}
+		&__item {
+			width: 100%;
+			text-align: left;
+		}
+	}
+
+	& .apply__social-icon__item {
+		&:not(:last-child) {
+			margin-right: initial;
+			margin-left: 35px;
+		}
+	}
+}

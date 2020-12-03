@@ -176,7 +176,7 @@ export function add_cylinder_floor_numbers () {
                         text_group.name = 'text_group';
                         // let floor_center = floor[0].parent.getObjectByName( "zagluha");
                         let floor_center = floor.filter(obj => obj.name === "zagluha");
-                        if (floor_center.length !== 0) {
+                        if (floor_center) {
                             let floor_position = floor_center.getWorldPosition(new THREE.Vector3());
                             text_group.position.set(0, floor_position.y, 0);
                             text_group.add(text);

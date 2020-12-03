@@ -14,7 +14,7 @@ export function add_mouse_n_touches () {
     document.addEventListener('dblclick', double_click_n_tap);
     document.querySelector('.three_js').addEventListener( 'touchstart', function (e) {
         if (Date.now() - 200 < last_tap) {
-            if (last_tap_flat = last_clicked_flat) {
+            if (last_tap_flat === last_clicked_flat) {
                 double_click_n_tap (e);
             }
         }
@@ -22,8 +22,8 @@ export function add_mouse_n_touches () {
         last_tap_flat = last_clicked_flat;
     }, false );
     function double_click_n_tap (e) {
+        let popup_info = $('.popup-info');
         if (this_is_flat_click) {
-            let popup_info = $('.popup-info');
             popup_info.removeClass('show');
             popup_info.addClass('hide');
             $('.point-1').hide();
@@ -41,7 +41,6 @@ export function add_mouse_n_touches () {
             }, 500);
         }
         if (this_is_flat_click == 'roof_n_looby') {
-            let popup_info = $('.popup-info');
             popup_info.removeClass('show');
             popup_info.addClass('hide');
             $('.point-1').hide();
@@ -81,8 +80,7 @@ export function add_mouse_n_touches () {
         }
     }
 
-    function onDocumentMouseDown( event )
-    {
+    function onDocumentMouseDown( event ) {
         var x, y;
         if ( event.changedTouches ) {
             x = event.changedTouches[0].pageX;
@@ -96,6 +94,7 @@ export function add_mouse_n_touches () {
         mouse.x = ( (x - $('#c').offset().left) / document.querySelector('#c').offsetWidth ) * 2 - 1;
         mouse.y = - ( (y - $('#c')[0].getBoundingClientRect().top) / document.querySelector('#c').offsetHeight ) * 2 + 1;
         model_autorotate = false;
+        window.autoRotateDefaultPositionIteration = 0;
         last_interaction = Date.now();
         if ($(event.target).parents('.non-canvas').length == 0) {
             if (event.type == 'mousedown') {
@@ -117,7 +116,6 @@ export function add_mouse_n_touches () {
     }
 
     function flat_mouse_click (e) {
-        console.log('click')
         if (flatClickHandler) {
             if (e.changedTouches) {
                 if ($(e.target).parents('.non-canvas').length > 0) {
@@ -130,13 +128,13 @@ export function add_mouse_n_touches () {
             checkIntersection();
             intersection_on = false;
             set_click_point_coords(e);
-            if (picked_object != undefined) {
-                if (picked_object.userData.crm_data != undefined) {
+            if (picked_object) {
+                if (picked_object.userData.crm_data) {
                     last_clicked_flat = picked_object;
-                    if (last_clicked_flat.userData.crm_data.status == 'Available') {
+                    if (last_clicked_flat.userData.crm_data.status === 'Available') {
                         this_is_flat_click = true;
                     } else {
-                        this_is_flat_click = true;
+                        this_is_flat_click = globalSettings.doubleClickToUnavailable;
                     }
                     if (drag_move != true) {
                         if (e.type == 'mouseup') {
@@ -158,28 +156,34 @@ export function add_mouse_n_touches () {
                         let filter_container = document.querySelector('.main-wrap');
                         if (filter_container.filter_active) {
                             if (document.querySelector('.filter-module-container.open')) {
-                                if ($('.filter-controls.on-back').length > 0) {
-                                    flatClickWithOpenFilter ()
-                                } else {
-                                    document.querySelector('.main-wrap').replace_filters_n_cards();
-                                    flatClickWithOpenFilter ();
-                                }
-                                function flatClickWithOpenFilter () {
-                                    let card_id = picked_object.userData.crm_data.bmbyPropID;
-                                    // $('.card-' + card_id).click();
-                                    window.card_clicked = false;
-                                    var popup_info = $('.popup-info');
-                                    set_appartment_data_in_block (picked_object, popup_info);
-                                    trigger_card_click ();
-                                    function trigger_card_click () {
-                                        $('.card-' + card_id).click();
-                                        if (!window.card_clicked) {
-                                            setTimeout(function(){
-                                                trigger_card_click ();
-                                            },100);
+                                if (document.querySelector('.flat-cards .nfm-flat-card')){
+                                        if ($('.filter-controls.on-back').length > 0) {
+                                            flatClickWithOpenFilter();
+                                        } else {
+                                            document.querySelector('.main-wrap').replace_filters_n_cards();
+                                            flatClickWithOpenFilter();
                                         }
+
+                                    function flatClickWithOpenFilter() {
+                                        let card_id = picked_object.userData.crm_data.bmbyPropID;
+                                        // $('.card-' + card_id).click();
+                                        window.card_clicked = false;
+                                        var popup_info = $('.popup-info');
+                                        set_appartment_data_in_block(picked_object, popup_info);
+                                        trigger_card_click();
+
+                                        function trigger_card_click() {
+                                            $('.card-' + card_id).click();
+                                            if (!window.card_clicked) {
+                                                setTimeout(function () {
+                                                    trigger_card_click();
+                                                }, 100);
+                                            }
+                                        }
+                                        $('.main-wrap')[0].set_scroll_on_card(card_id);
                                     }
-                                    $('.main-wrap')[0].set_scroll_on_card(card_id);
+                                } else {
+                                    flat_click(picked_object);
                                 }
                             } else {
                                 flat_click(picked_object);
@@ -322,6 +326,41 @@ export function add_mouse_n_touches () {
                         }
 
                     }
+
+
+                }
+                if (mouseMode == 'correctionPoints') {
+                    let appartment = last_clicked_flat;
+                    if (appartment.getObjectByName('correctionPoint')) {
+                      appartment.userData.correction_point = control.object.position;
+                      let itemFromLocalStorage = JSON.parse(localStorage.getItem('correntionPoint'));
+                      if (itemFromLocalStorage){
+                          itemFromLocalStorage[appartment.name] = control.object.getWorldPosition(control.object.position);
+                      } else {
+                          itemFromLocalStorage = {};
+                          itemFromLocalStorage[appartment.name] = control.object.getWorldPosition(control.object.position);
+                      }
+                      localStorage.setItem('correntionPoint',JSON.stringify(itemFromLocalStorage));
+                      control.detach();
+                      appartment.remove(appartment.getObjectByName('correctionPoint'));
+
+                    } else {
+                        const geometry = new global_three.SphereGeometry( 5, 32, 32 );
+                        const material = new global_three.MeshBasicMaterial( {color: 0xffff00} );
+                        const sphere = new global_three.Mesh( geometry, material );
+                        sphere.name = 'correctionPoint';
+                        let position = new global_three.Vector3(0, 0, 0);
+                        if (appartment.userData.correction_point) {
+                            let point = appartment.userData.correction_point;
+                            position = new global_three.Vector3(point.x, point.y, point.z);
+                            appartment.worldToLocal( position );
+                        }
+                        sphere.position.set(position.x, position.y, position.z);
+                        appartment.add(sphere);
+                        control.attach(sphere);
+                    }
+
+
                 }
             }
         }, false );

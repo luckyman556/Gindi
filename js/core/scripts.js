@@ -1,13 +1,19 @@
 // import {floor_numbers_visibility_by_zoom} from "../../modules/core/cylinder-floor-numbers/add-cylinder-floor-numbers";
 
 function changeVisibleObject(value) {
-    objects_to_intersection.forEach(item => {
-        if (item.name === "Roof") {
-            item.visible = value;
-            item.position.y = (!value) ? 1000000 : item.userData.base_position.y;
-        } else if (item.name === "Spa") {
-            item.visible = value;
-            item.position.y = (!value) ? 1000000 : item.userData.base_position.y;
+    customSelections.forEach(function(item){
+        if (!item.userData.base_position) {
+            item.userData.base_position = {
+                x : item.position.x,
+                y : item.position.y,
+                z : item.position.z,
+            };
+        }
+        item.visible = value;
+        if (!value) {
+            item.position.y = 1000000;
+        } else {
+            item.position.y = item.userData.base_position.y;
         }
     });
 }
@@ -52,7 +58,7 @@ $(document).ready(function(){
         // TWEEN.removeAll();
 
         objects_to_intersection.forEach(item => item.userData.apartment_locked = false);
-        $('.bomb-btn').click
+
         if ($(this).hasClass('active')) {
             destroyedMode = false;
             buildingDestroyed = false;
@@ -60,7 +66,6 @@ $(document).ready(function(){
             setPositionButtonLanguage('restore');
 
             $('.floors-selector-n-back').removeClass('show');
-            //$('.popup-info .close-btn').click();
             $('.floor-plan-toggler').removeClass('active');
             $(this).addClass('rotate');
             var this_el = $(this);
@@ -71,30 +76,29 @@ $(document).ready(function(){
             }, 500);
 
             setTimeout(function(){
-                object_appear(window.roof);
+                 objectToDisappear.forEach(obj => object_appear(obj));
+                objectToDisappear.forEach(obj => {
+                    add_tween_animation ({
+                        'animation_obj' :  tween_animations,
+                        'start' : { z :  obj.position.z , opacity : 0},
+                        'target' : { z : obj.userData.base_position_z , opacity : 1},
+                        'duration' : 1000,
+                        'easing' : TWEEN.Easing.Quintic.In,
+                        'delay' : 0
+                    }, function (e) {
+                        window.change_plan_animation = true;
+                        window.building_destroing = true;
+                        obj.position.z = e.z;
+                        var metarial_i = 0;
+                    }, function (e) {
+                        window.change_plan_animation = false;
+                        window.building_destroing = false;
+                    });
+                    obj.visible = true;
+                    changeVisibleObject(true);
+                });
             }, 1000);
-            add_tween_animation ({
-                'animation_obj' :  tween_animations,
-                'start' : { z :  window.roof.position.z , opacity : 0},
-                'target' : { z : window.roof.userData.base_position_z , opacity : 1},
-                'duration' : 1000,
-                'easing' : TWEEN.Easing.Quintic.In,
-                'delay' : 0
-            }, function (e) {
-                window.change_plan_animation = true;
-                window.building_destroing = true;
-                window.roof.position.z = e.z;
-                var metarial_i = 0;
-                // fast_change
-/*                while (metarial_i < window.roof.material.length) {
-                    window.roof.material[metarial_i].transparent = true;
-                    window.roof.material[metarial_i].opacity = e.opacity;
-                    metarial_i++;
-                }*/
-            }, function (e) {
-                window.change_plan_animation = false;
-                window.building_destroing = false;
-            });
+
             lock_mouse_rotation_x = false;
             lock_flat_angle_rotation = false;
             update_flat_labels();
@@ -235,8 +239,8 @@ $(document).ready(function(){
                 }
                 floors_counter++
             }
-            window.roof.visible = true;
-            object_appear(window.roof);
+
+            objectToDisappear.forEach(obj => object_appear(obj));
             var compas_btn_start = { deg : document.querySelector('.compass-btn').dataset.deg };
             var compas_btn_target = { deg : 0 };
             compas_btn = new TWEEN.Tween(compas_btn_start).to(compas_btn_target, 1000);
@@ -419,16 +423,18 @@ $(document).ready(function(){
     });
 //Open 2D
     $('.toggler-2d').click(function(event){
+
         set_click_point_coords(event);
 
         if ($(this).hasClass('active') !== true) {
-            console.log('toggler 2D click')
+            // console.log('toggler 2D click')
             toggler_2d_click ($(this));
         }
     });
 
 
     $('.toggler-3d').click(function(event){
+
         set_click_point_coords(event);
         if ($(this).hasClass('active') != true) {
             let data = {};
@@ -444,6 +450,11 @@ $(document).ready(function(){
                 popup_appear(data, event);
             }
             // popup_appear_function ($(this), event);
+            const iframeBox = document.querySelector('.three_js .popup-3d .content .iframe-box');
+            const sliderBox = document.querySelector('.three_js .popup-3d .content .slider-box');
+            iframeBox.innerHTML = `<iframe src=${last_clicked_flat.userData.int_360}></iframe>`;
+            sliderBox.classList.add('hide');
+
             $('.three_js .popup-3d .content').addClass('loading');
             $('.three_js .popup-3d .content .slider .slide').each(function(item){
                 let img = $(this).find('img');
@@ -485,7 +496,6 @@ $(document).ready(function(){
         } else if (type == 'lobby') {
             mesh =  window.lobby;
         }
-
         lobby_n_roof_click (mesh, event, $(this));
         set_click_point_coords(event);
         toggler_non_flat_360_click ($('.click-point'));
@@ -604,7 +614,7 @@ $(document).ready(function(){
 
     $('.three_js .compass').click(function(){
         normilize_camera_rotation_x ();
-        let camera_target = global_three.Math.degToRad( 300 );
+        let camera_target = global_three.Math.degToRad( compassCorrection );
         targetRotationX = camera_target;
     });
 
@@ -638,53 +648,6 @@ $(document).ready(function(){
             }
         }
     });
-/*    let elem =  $('.three_js .popup.popup-360 .content')[0];
-    if (elem.requestFullscreen) {
-
-    } else if (elem.mozRequestFullScreen) {
-
-    } else if (elem.webkitRequestFullscreen) {
-        $('.three_js .popup.popup-360  .fullscreen-btn').hide();
-    } else if (elem.msRequestFullscreen) {
-        $('.three_js .popup.popup-360   .fullscreen-btn').hide();
-    }*/
-
-/*    $('.three_js .popup.popup-360 .content .fullscreen-btn').click(function(){
-        if ($(this).hasClass('active') == true) {
-            $(this).removeClass('active');
-            // document.exitFullscreen();
-            let elem =  document;
-            if (elem.requestFullscreen) {
-                elem.exitFullscreen();
-            } else if (elem.mozRequestFullScreen) { /!* Firefox *!/
-                elem.mozExitFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /!* Chrome, Safari & Opera *!/
-                elem.webkitExitFullscreen();
-            } else if (elem.msRequestFullscreen) { /!* IE/Edge *!/
-                elem.msExitFullscreen();
-            }
-        } else {
-            let elem =  $('.three_js .popup.popup-360 .content')[0];
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /!* Firefox *!/
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /!* Chrome, Safari & Opera *!/
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /!* IE/Edge *!/
-                elem.msRequestFullscreen();
-            }
-            $('.three_js .popup.popup-360 .content')[0].addEventListener('fullscreenchange', function(event){
-               if (document.fullscreenElement != undefined) {
-                   console.log('fullscreen');
-               } else {
-                   $('.three_js .popup.popup-360 .content .fullscreen-btn').removeClass('active');
-               }
-            });
-            $(this).addClass('active');
-        }
-    });*/
-
 
     $('.flat-img').click(function(){
         $('.toggler-2d').trigger('click');
@@ -709,7 +672,6 @@ $(document).ready(function(){
             if ($(event.target).hasClass('more-info-tgl-btn-title') == true) {
                 $(event.target).parents('.more-info').toggleClass('open');
             }
-
         }
     });
     document.addEventListener('click' ,function(event){
@@ -735,7 +697,6 @@ $(document).ready(function(){
 
     $('#tooltip-toggler').change(function(){
         allways_show_tooltip = document.getElementById('tooltip-toggler').checked;
-
     });
     var popup_info = $('.popup-info');
     popup_info.css('top',  226 + 'px');
@@ -770,6 +731,8 @@ $(document).ready(function(){
             document.querySelector('.apply-now-mobile').remove();
         }
         const floorPlanToggler = document.querySelector('.floor-plan-toggler');
+        const zoomControllers = document.querySelector('.zoom-controls');
+        zoomControllers.classList.remove('hide');
 
         if (floorPlanToggler.classList.contains('hide')) {
             floorPlanToggler.classList.remove('hide');
@@ -1181,19 +1144,19 @@ function flat_popup_prepare (data) {
     popup.find('.' + popup.data('toggler')).addClass('active');
     if (popup_class !== 'not-flat-360') {
         var flat = add_appartment_info_in_popup(popup);
-        console.log(popup_class);
+        // console.log(popup_class);
         if (flat.userData.url_360) {
             var url_360 = flat.userData.url_360;
-            //
-            // var iframe_html = '';
-            //
-            // if (flat.userData.url_360_zagluha === 'zagluha360') {
-            //     iframe_html = `<div class="zagluha360__wrapper"><div class="zagluha360"><img class="zagluha360__img" src="${flat.userData.url_360}" alt="360"><h2 class="zagluha360__description" data-dictionary="360-tour coming soon">${get_lang('360-tour coming soon')}</h2></div></div>`;
-            // } else {
-            //     iframe_html = '<iframe src="' + url_360 + '"></iframe>';
-            // }
 
-            var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
+            var iframe_html = '';
+
+            if (flat.userData.url_360_zagluha === 'zagluha360') {
+                iframe_html = `<div class="zagluha360__wrapper"><div class="zagluha360"><img class="zagluha360__img" src="${flat.userData.url_360}" alt="360"><h2 class="zagluha360__description" data-dictionary="360-tour coming soon">${get_lang('360-tour coming soon')}</h2></div></div>`;
+            } else {
+                iframe_html = '<iframe src="' + url_360 + '"></iframe>';
+            }
+
+            // var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
             $('.popup-360 .iframe-box').html(iframe_html);
             popup.find('.toggler-360').css('display' , 'flex');
 
@@ -1203,15 +1166,13 @@ function flat_popup_prepare (data) {
 
         if (document.body.classList.contains('en')) {
             if (flat.userData.url_360_type === 'default') {
-                // popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
-                popup.find('.toggler-360').html('vantage');
+                popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
             } else {
                 popup.find('.toggler-360').html('360');
             }
         } else {
             if (flat.userData.url_360_type === 'default') {
-                popup.find('.toggler-360').html('תצפית');
-                // popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
+                popup.find('.toggler-360').html(`<span class="vantage-icon"></span>`);
             } else {
                 popup.find('.toggler-360').html('360');
             }
@@ -1223,11 +1184,6 @@ function flat_popup_prepare (data) {
         // }
 
         //TODO disable gallery btn
-        // if (flat.userData.int_360) {
-        //     popup.find('.toggler-3d').css('display' , 'none');
-        // } else {
-        //     popup.find('.toggler-3d').css('display' , 'none');
-        // }
         if (flat.userData.int_360) {
             popup.find('.toggler-3d').css('display' , 'flex');
         } else {
@@ -1248,4 +1204,11 @@ function enableSwitcherBtns (action) {
         });
     }
 
+}
+document.addEventListener('keydown', logKey);
+function logKey(e) {
+    if (e.code == "Tab") {
+        e.preventDefault();
+        return false;
+    }
 }

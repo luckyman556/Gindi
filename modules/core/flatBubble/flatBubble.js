@@ -5,7 +5,7 @@ export const flatBubble = {
         let flatBubbleEl = document.querySelector('.flat-bubble');
         flatBubbleEl.innerHTML = `
             <div class="text-container"></div>
-            <img src="./img/bubble-360.svg" alt="icon-360" wigth="24" height="24"></div>
+            <img class="flat-bubble-360" src="./img/bubble-360.svg" alt="icon-360" wigth="24" height="24"></div>
         `;
     },
     updateText : function (flat) {
@@ -14,11 +14,10 @@ export const flatBubble = {
             flatBubbleEl.lastFlat = 'none';
         }
             if (flat.userData.customSelection) {
-                let html = flat.userData.customSelectionBubbleHtml;
-                flatBubbleHTML(all_appartments[0].userData.crm_data);
+                flatBubbleHTML(flat);
                 let textContainer = document.querySelector('.flat-bubble .text-container');
                 textContainer.classList.add('custom-selection');
-                textContainer.querySelector('.model-name').innerHTML = html;
+
                 let modelRooms = textContainer.querySelector('.model-rooms');
                 if (modelRooms) {
                     modelRooms.style.display = 'none';
@@ -30,8 +29,7 @@ export const flatBubble = {
                 }
             } else {
                 if (flatBubbleEl.lastFlat !== flat.userData.crm_data.propNum) {
-                    let crmData = flat.userData.crm_data;
-                    flatBubbleHTML(crmData);
+                    flatBubbleHTML(flat);
                     let textContainer = document.querySelector('.flat-bubble .text-container');
                     textContainer.classList.remove('custom-selection');
                     let modelRooms = textContainer.querySelector('.model-rooms');
@@ -52,7 +50,7 @@ export const flatBubble = {
             }
         //flatBubble.updatePosition(current_mouse_position.y, current_mouse_position.x);
     },
-    updatePosition : function (top,left) {
+    updatePosition : function (top, left) {
         let flatBubbleEl = document.querySelector('.flat-bubble');
         flatBubbleEl.style.top = top + 'px';
         flatBubbleEl.style.left = left + 'px';

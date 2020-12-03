@@ -1,0 +1,102 @@
+.get-app__main-container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	background-color: #1a2f43;
+	z-index: 51;
+	position: absolute;
+	top:0;
+	left: 0;
+}
+
+.get-app__content-container{
+	background-color: #fff;
+	max-width: 702px;
+	max-height: 520px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	border-radius: 6px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.get-app__close-btn{
+	position: absolute;
+	top: 21px;
+	left: calc(100% + 21px);
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.get-app__qr-code__wrapper{
+	max-width: 200px;
+	max-height: 200px;
+	width: 100%;
+	height: 100%;
+}
+
+.get-app__title{
+	font-size: 30px;
+	font-family: 'Fragolino';
+	margin-bottom: 72px;
+}
+
+.get-app__btn-container{
+	margin-top: 48px;
+	display: flex;
+	justify-content: space-evenly;
+	width: 50%;
+	max-width: 350px;
+}
+
+.get-app__logo-wrapeer{
+	max-width: 64px;
+	max-height: 64px;
+	width: 100%;
+	height: 100%;
+}
+
+.get-app__project-name{
+	margin-top: 16px;
+	font-family: 'Fragolino';
+	font-size: 18px;
+}
+
+.get-app__logo-wrapeer, .get-app__project-name{
+	display: none;
+}
+
+.get-app__logo-img{
+	border-radius: 12px;
+}
+
+@media screen and (max-width: 768px){
+	.get-app__content-container{
+		background-color: inherit;
+		color: #fff;
+	}
+
+	.get-app__close-btn{
+		left: calc(100% - 50px);
+		top: -30px;
+	}
+
+	.get-app__qr-code__wrapper{
+		display: none;
+	}
+
+	.get-app__logo-wrapeer, .get-app__project-name{
+		display: block;
+	}
+
+	.get-app__btn-container{
+		margin-top: 24px;
+		width: 100%;
+	}
+}

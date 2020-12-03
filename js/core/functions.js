@@ -105,7 +105,7 @@ var intersection_on = false;
 var first_action = true;
 var floor_plan_btn_last_click = Date.now();
 var street_names_objs = [];
-var floors_height_positions = {};
+var floors_height_positions = [];
 var target_offset_stroke = 1200;
 var current_offset_stroke = 1200;
 var human_animation_array  = [];
@@ -135,6 +135,7 @@ if (get_url_param('forceMobile') == 'true') {
 var mouseMode = null;
 var globalGui;
 var globalGuiParams = [];
+var objectToDisappear = [];
 //
 function animate_obj_scale(target_scale, obj, duration = 1000, delay = 0, easing = TWEEN.Easing.Quintic.In) {
     add_tween_animation ({
@@ -166,16 +167,18 @@ function set_floor_n_appartment (floor_i, flat_i) {
         popup_info.addClass('hide');
     }
     // last_clicked_flat = appartment;
-    window.floor_obj[current_floor].forEach(function(flat, flat_index){
-        var flat_name_number = flat.userData.crm_data.propNum;
-        if  (flat_name_number < 10) {
-            flat_name_number =   '0' + String(flat_name_number);
+    window.floor_obj[current_floor].forEach((flat, flat_index) => {
+        if (flat.name !== 'zagluha') {
+            var flat_name_number = flat.userData.crm_data.propNum;
+            if  (flat_name_number < 10) {
+                flat_name_number =   '0' + String(flat_name_number);
+            }
+            var active_class = '';
+            if (flat_index == flat_i) {
+                active_class = 'active';
+            }
+            $('.title-with-selector .flat-selector').append('<div class="' + active_class +'" data-flat-count="' + flat_index + '">Flat ' + flat_name_number + '</div>');
         }
-        var active_class = '';
-        if (flat_index == flat_i) {
-            active_class = 'active';
-        }
-        $('.title-with-selector .flat-selector').append('<div class="' + active_class +'" data-flat-count="' + flat_index + '">Flat ' + flat_name_number + '</div>');
     });
     $('.title-with-selector .flat-selector div').click(title_selector_click);
     setTimeout(function(){
@@ -283,10 +286,23 @@ function update_click_intersection () {
 }
 
 function flat_click (appartment, without_card = false , disableAnyAnimation = false) {
+    const flatCard = document.querySelector('.popup-info');
+    const btn360 = flatCard.querySelector('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d');
+
+    if (this_is_flat_click) {
+        btn360.classList.remove('hide');
+    }
+
+    btn360.setAttribute('data-dictionary', `Floor plan`);
+    btn360.innerText = get_lang(`Floor plan`);
 
     const printBtn = document.querySelector('.print-btn');
     if (printBtn.classList.contains('hide')) {
         printBtn.classList.remove('hide');
+    }
+
+    if (appartment.userData.crm_data.status !== 'Available' && !this_is_flat_click) {
+        btn360.classList.add('hide');
     }
 
     last_clicked_flat = appartment;
@@ -301,8 +317,8 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
         item.userData.apartment_locked = false;
     });
     window.floor_obj.forEach(floor => floor[0].parent.userData.center_flat_index = last_clicked_flat.userData.flat_i);
-    if (scene.userData.lastCustomSelectionId) {
 
+    if (scene.userData.lastCustomSelectionId) {
         let flatCard = document.querySelector('.popup-info');
         flatCard.classList.remove('custom-selection');
         let object = scene.getObjectById(scene.userData.lastCustomSelectionId);
@@ -347,24 +363,6 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
                     destroy_building(current_floor);
                 }
             }
-
-            if (current_floor < appartment.userData.floor) {
-
-
-            } else {
-                colored_floors[1] = current_floor_before_minus;
-
-                set_floor_status_color (colored_floors);
-                if (current_floor != appartment.userData.floor) {
-                    current_floor = appartment.userData.floor;
-                    hide_all_labels();
-                    destroy_building(current_floor);
-                }
-
-
-                // animate_height_on_floor(appartment.userData.floor);
-            }
-
         }
         set_floor_n_appartment (appartment.userData.floor, appartment.userData.flat_i);
         // appartment.userData.apartment_locked = true;
@@ -393,7 +391,6 @@ function flat_click (appartment, without_card = false , disableAnyAnimation = fa
             }
             popup_info.removeClass('hide');
         } else {
-
             var popup_info = $('.popup-info');
             popup_info.addClass('show');
             popup_info.addClass('hide');
@@ -551,8 +548,6 @@ function appartment_hover (appartment) {
 
 function set_appartment_data_in_block (appartment, box) {
     if (appartment.userData.crm_data) {
-/*        box.find('.flat-plan-box').css('transition-duration', '0.1s');
-        box.find('.flat-plan-box').css('filter', 'blur(5px)');*/
         var flat_name_number = appartment.userData.flat_counter;
         if  (flat_name_number < 10) {
             flat_name_number =   '0' + String(flat_name_number);
@@ -584,23 +579,6 @@ function set_appartment_data_in_block (appartment, box) {
             }
         }
 
-        // let flat_price_text_sold_en = 'sold';
-        // let flat_price_text_sold = flat_price_text_sold_en;
-        // let flat_price_text_sold_he = 'נמכר';
-        //
-        // let flat_price_text_unavailable_en = 'unavailable';
-        // let flat_price_text_unavailable = flat_price_text_unavailable_en;
-        // let flat_price_text_unavailable_he = 'נמכר';
-        //
-        // if ($('body').hasClass('he')) {
-        //     flat_price_text_sold = flat_price_text_sold_he;
-        //     $('.bottom-part').addClass('he');
-        //     flat_price_text_sold = flat_price_text_sold_he;
-        //
-        //     flat_price_text_unavailable = flat_price_text_unavailable_he;
-        //     $('.bottom-part').addClass('he');
-        //     flat_price_text_unavailable = flat_price_text_unavailable_he;
-        // }
         if (appartment.userData.crm_data.status === "Sold") {
             $('.price').addClass('non-price');
             flat_price =`<span class="price-sold price-status language-string" data-dictionary="Sold">${get_lang('Sold')}</span>`;
@@ -612,16 +590,31 @@ function set_appartment_data_in_block (appartment, box) {
         }
         box.find('.title-with-selector .page-title .text').html(apt_title);
         box.find('.flat-plan .price .bottom-part').html(flat_price);
-        box.find('.flat-options').html(globalFunctions.cardsInfoHTML.getUnitCardOptionsHtml(globalSettings.cardsInfoSettings.UnitCardOptions, appartment.userData.crm_data))
+
+
+        // tag add Unit card options
+        let optionsLength = globalSettings.cardsInfoSettings.UnitCardOptions.length;
+        let optionsAddClass = '';
+        box.find('.flat-options').removeClass('three-elements');
+        box.find('.flat-options').removeClass('two-elements');
+        if (optionsLength === 3) {
+            optionsAddClass = 'three-elements';
+        }
+        if (optionsLength === 2) {
+            optionsAddClass = 'two-elements';
+        }
+        box.find('.flat-options').addClass(optionsAddClass);
+        box.find('.flat-options').html(globalFunctions.cardsInfoHTML.getUnitCardOptionsHtml(globalSettings.cardsInfoSettings.UnitCardOptions, appartment.userData.crm_data));
+
+        // add Unit card options end
         box.find('.flat-plan .flat-status .text').html(appartment.userData.status_name);
         box.find('.flat-plan .flat-status .circle').css('background-color', '#' + appartment.userData.status_color);
-        all_appartments.forEach(function(item, index){
-            if (item == appartment) {
-                $('body').attr('data-current-app-index', index)
-            }
-        });
+
+
+        $('body').attr('data-current-app-index', all_appartments.indexOf(appartment));
+
         const price_box = $('.three_js .flat-plan .price');
-        if (appartment.userData.status_index == 1) {
+        if (appartment.userData.status_index === 1) {
             price_box.show();
             $('.three_js .flat-plan').removeClass('unavailable');
             box.find('.flat-plan').removeClass('min');
@@ -638,12 +631,6 @@ function set_appartment_data_in_block (appartment, box) {
         } else {
             $('.toggler-2d').removeClass('icon-360');
         }
-/*        setTimeout(function(){
-            box.find('.flat-plan-box').css('filter', '');
-            box.find('.flat-plan-box').css('transition-duration', '0.1s');
-        }, 100)*/
-    } else {
-
     }
 }
 
@@ -807,9 +794,9 @@ function add_floor (floor, base_delay , floor_delay = 0, last_floor = false) {
         scale : 1,
     };
     let target_position = {
-        x :  instanced_floors[floor_key].position[0],
-        y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (50 * (floor_of_mesh - floor_index )),
-        z :   instanced_floors[floor_key].position[2],
+        x :  instanced_floors[floor_key].position[0] + instanced_floors[floor_key].diff.x *  (50 * (floor_of_mesh - floor_index )),
+        y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].diff.y *  (50 * (floor_of_mesh - floor_index )),
+        z :   instanced_floors[floor_key].position[2] + instanced_floors[floor_key].diff.z *  (50 * (floor_of_mesh - floor_index )),
         scale : 0,
     };
     instanced_floors[floor_key].hidden = false;
@@ -981,10 +968,7 @@ function checkIntersection() {
 function destroy_building (current_floor_var , flat = null) {
     enableSwitcherBtns(false);
     tween_animations = [];
-    // window.roof.visible = false;
-    window.roof.visible = false;
-    object_disappear(window.roof);
-    // x : -0.46 ,
+    objectToDisappear.forEach(obj => object_disappear(obj, 1, 0));
     update_line_position_enabled = true;
 
     if (!lock_mouse_rotation_x) {
@@ -1004,16 +988,8 @@ function destroy_building (current_floor_var , flat = null) {
                 defaultZoom = globalSettings.destroyedBuilding.cameraPosition.mobile_zoom;
             }
             globalFunctions.animateTo(target_position, {x : globalSettings.animations.destroyBuilding.rotation.x}, defaultZoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
-
-
-
         }
-
-
-
-
     }
-    // animate_height_on_floor(current_floor);
 
     update_line_position_enabled = true;
     setTimeout(function(){ update_line_position_enabled = false;}, 4000);
@@ -1033,7 +1009,6 @@ function destroy_building (current_floor_var , flat = null) {
             if (user_data_floor != current_floor_var) {
                 window.floor_obj[floor_index][0].parent.visible = false;
                  window.floor_obj[floor_index][0].parent.scale.set(0,0,0);
-            //debugger;
         }
 
         let start_position = {
@@ -1043,9 +1018,9 @@ function destroy_building (current_floor_var , flat = null) {
             scale : 1,
         };
         let target_position = {
-            x :   instanced_floors[floor_key].position[0],
-            y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].y_diff *  (38 + (user_data_floor - current_floor_var)),
-            z :   instanced_floors[floor_key].position[2],
+            x :   instanced_floors[floor_key].position[0] + instanced_floors[floor_key].diff.x *  (38 + (user_data_floor - current_floor_var)),
+            y :   instanced_floors[floor_key].position[1] + instanced_floors[floor_key].diff.y *  (38 + (user_data_floor - current_floor_var)),
+            z :   instanced_floors[floor_key].position[2] + instanced_floors[floor_key].diff.z *  (38 + (user_data_floor - current_floor_var)),
             scale : 0,
         };
         let matrix =  instanced_floors[floor_key].matrix;
@@ -1299,10 +1274,8 @@ function add_appartment_info_in_popup (box) {
         flat_type = flat_type_en;
         var engine_id = flat.userData.crm_data.modelName;
         var floor = flat.userData.floor;
-        if (flat.userData.int_360 != undefined) {
-
-            if (flat.userData.int_360.length > 0) {
-
+        if (flat.userData.int_360) {
+            if ((typeof flat.userData.int_360) !== 'string') {
                 let slider_box = $('.three_js .popup-3d .content .slider-box');
                 slider_box.empty();
                 let array_360 = flat.userData.int_360;
@@ -1317,9 +1290,10 @@ function add_appartment_info_in_popup (box) {
                     arrows: true,
                 });
             } else {
-                var new_iframe_3d = '<iframe src="' +  flat.userData.int_360  +'"></iframe>';
+                const new_iframe_3d = '<iframe src="' +  flat.userData.int_360  +'"></iframe>';
                 if ( new_iframe_3d != $('.three_js .popup-3d .content .iframe-box').html()) {
                     $('.three_js .popup-3d .content .iframe-box').html(new_iframe_3d);
+                    $('.slider-box').hide();
                 }
             }
 
@@ -1327,9 +1301,11 @@ function add_appartment_info_in_popup (box) {
         } else {
             $('.three_js .popup-3d .content .iframe-box').html('');
         }
+
         let status_text = (flat.userData.status_index !== 0) ? 'available' : 'unavailable';
 
         let concessions_html = '';
+
         if (flat.userData.crm_data.concessions) {
             let concessions_array = flat.userData.crm_data.concessions;
             if (concessions_array.length > 0) {
@@ -1410,8 +1386,6 @@ function add_appartment_info_in_popup (box) {
             hide_word_current = hide_word_he;
         }
 
-
-
         let apply_now_html = '';
 
         if (window.showApplyNow) {
@@ -1424,10 +1398,7 @@ function add_appartment_info_in_popup (box) {
             }
 
             if (window.innerWidth < 415) {
-                // if (document.querySelector('.apply-now-mobile')) {
-                //     document.querySelector('.apply-now-mobile').remove();
-                // }
-                    mobileBtnsContainer.insertAdjacentHTML('beforeend', `${apply_now_html}`);
+                mobileBtnsContainer.insertAdjacentHTML('beforeend', `${apply_now_html}`);
             }
         }
 
@@ -1741,6 +1712,7 @@ function change_flat_color (type, flat) {
     if (flat.name === "zagluha") {
         return;
     }
+
     if (type == 'active') {
         let color = flat_statuses[flat.userData.status_index].active;
         flat.material.color.setHex('0x' + color);
@@ -2113,9 +2085,9 @@ function popup_appear_function (popup_btn, mouse_event) {
             popup.find('.toggler-360').css('display' , 'none');
 
         }
-        if (flat.userData.int_360 != undefined) {
+        if (flat.userData.int_360) {
             //TODO disable gallery btn
-            popup.find('.toggler-3d').css('display' , 'none');
+            popup.find('.toggler-3d').css('display' , 'flex');
         } else {
             popup.find('.toggler-3d').css('display' , 'none');
         }
@@ -2273,13 +2245,18 @@ function lobby_n_roof_click (mesh, event, clicked_object) {
 }
 
 function open_lobby_n_roof_popup (mesh, event, clicked_object) {
+
     var url_360 = mesh.userData.url_360;
     var iframe_html = '<iframe src="' + url_360 + '"></iframe>';
     $('.not-flat-360 .iframe-box').html(iframe_html);
 
+    var int_360 = mesh.userData.int_360;
+    var iframe_html3D = '<iframe src="' + int_360 + '"></iframe>';
+    $('.not-flat-360 .iframe-box').html(iframe_html3D);
+
     let data = {};
     data.popup = 'not-flat-360';
-    flat_popup_prepare (data);
+    flat_popup_prepare(data);
     data =  set_flat_popup_data (event, data.popup, clicked_object);
     $('.popup').hide();
     popup_appear(data, event);
@@ -2384,6 +2361,7 @@ function popup_appear(data, mouse_event) {
 
 function set_flat_popup_data (event, popup_class, clicked_object) {
     let data = {};
+    data.mesh = last_clicked_flat;
     data.popup = $('.' + popup_class);
     let popup_container = $('.three_js');
     let half_height_of_clicked_object = clicked_object.height() / 2;
@@ -2461,7 +2439,7 @@ function toggler_2d_click(clicked_object) {
                 window.img_viewer = img_viewer;
                 img_viewer.refresh();
                 removePreLoader();
-            }, 1000);
+            }, 500);
         }
 
         function removePreLoader() {
@@ -2802,12 +2780,12 @@ function get_price_html (price_num, add_class = '', text_only = false) {
     let price = (price_num !== 0) ? numberWithCommas(Math.floor(price_num)) : 'No price';
 
     let price_html;
-    if (text_only) {
+    if (text_only && price_num !== 0) {
          price_html = `
             <div class="text-only-price"><span class="number">${price}</span><span class="simbol language-string" data-dictionary="${globalSettings.currency.word}" >${get_lang(globalSettings.currency.word)}</span></div>
         `;
     } else {
-        if (price === "No price") {
+        if (price_num === 0) {
             price_html = `
             <div class="price-box ${add_class}">
             <div class="number language-string" data-dictionary="No price"> ${get_lang('No price')}</div>
@@ -2816,7 +2794,7 @@ function get_price_html (price_num, add_class = '', text_only = false) {
         } else {
             price_html = `
             <div class="price-box ${add_class}">
-               <div class="get-price-btn language-string" data-dictionary="show price" >${get_lang('show price')}</div>
+                 <div class="get-price-btn language-string" data-dictionary="show price" >${get_lang('show price')}</div>
                 <div class="price-text  language-string" data-dictionary="${globalSettings.currency.word}" >${(price_num !== 0) ? get_lang(globalSettings.currency.word) : ''}</div>
             <div class="number"> ${price}</div>
             </div>
@@ -2844,8 +2822,8 @@ function get_angle_to_camera() {
 function floor_appear_animation () {
     window.floor_obj[current_floor].forEach(function(flat, index){
         if (flat.name !== 'zagluha') {
-            let add_position = 1000;
-            let base_position = flat.userData.base_position.z;
+            let add_position = globalSettings.floorAppearAnimation.addPosition;
+            let base_position = flat.userData.base_position[globalSettings.floorAppearAnimation.axis];
             flat.material.opacity = 0;
             if (flat.userData.world_position == undefined) {
                 flat.userData.world_position = flat.children[0].getWorldPosition(new global_three.Vector3());
@@ -2853,7 +2831,7 @@ function floor_appear_animation () {
             // flat.position.z = base_position + add_position;
             let start =  {
                 opacity : 0,
-                add_position : add_position + 1000 * index,
+                add_position : add_position + add_position * index,
                 number : 0,
             };
             let target = {
@@ -2866,12 +2844,12 @@ function floor_appear_animation () {
                 'animation_obj' :  tween_animations,
                 'start' : start,
                 'target' : target,
-                'duration' : 100 + 50 * index,
+                'duration' : globalSettings.floorAppearAnimation.durationBase + (globalSettings.floorAppearAnimation.durationBase * 0.1) * index,
                 'easing' : TWEEN.Easing.Quadratic.InOut,
                 'delay' : 0
             }, function (e) {
                 flat.material.opacity = e.opacity;
-                flat.position.z = base_position + e.add_position;
+                flat.position[globalSettings.floorAppearAnimation.axis] = base_position + e.add_position;
                 if (e.number > 1.5) {
                     if (!labels_appear) {
                         setTimeout(update_flat_labels, globalSettings.destroyedBuilding.flatLabels.label_timeOut, false);
@@ -3140,6 +3118,21 @@ function get_all_params_values (array, key) {
     return array_for_return;
 }
 
+function setDefaultZoomPosition(){
+    let defaultData = globalSettings.animations.defaultForeshortening;
+    let rotation = {
+        x:defaultData.rotation.x,
+        y:null,
+        z:null,
+    };
+    let position = {
+        x: window.camera_target.position.x,
+        y: defaultData.position.y,
+        z: window.camera_target.position.z
+    }
+    globalFunctions.animateTo(position, rotation, defaultData.zoom, 1000, TWEEN.Easing.Sinusoidal.InOut);
+}
+
 function set_default_camera_position () {
     let zoom_coef = 1;
 /*    perspectiveCamera.position.x = 0;
@@ -3216,6 +3209,7 @@ function rotation_to_flat () {
             flat_world_position = new global_three.Vector3(corPoint.x, 1, corPoint.z);
         } else {
             flat_world_position  = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+            flat_world_position.y = 1;
         }
 
         let start_target_rotation = targetRotationX;
@@ -3281,6 +3275,7 @@ function rotation_to_flat () {
                     flat_world_position = new global_three.Vector3(corPoint.x, 1, corPoint.z);
                 } else {
                     flat_world_position  = last_clicked_flat.getWorldPosition(new global_three.Vector3());
+                    flat_world_position.y = 1;
                 }
 
                 let current_distance = flat_world_position.distanceTo(camera_world_position);

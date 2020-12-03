@@ -1,0 +1,32 @@
+.vantage-icon {
+	margin-top: -3px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 24px;
+	height: 24px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("../img/icons/vantage.svg");
+}
+
+.toggler-360 {
+	&:hover .vantage-icon {
+		transition: 0.5s;
+		background-image: url("../img/icons/vantage_white.svg");
+	}
+	&.active .vantage-icon {
+		background-image: url("../img/icons/vantage_white.svg");
+	}
+}
+
+@media (max-width: 414px) {
+	.toggler-360 {
+		&:hover .vantage-icon {
+			background-image: url("../img/icons/vantage.svg");
+		}
+		&.active .vantage-icon {
+			background-image: url("../img/icons/vantage.svg");
+		}
+	}
+}

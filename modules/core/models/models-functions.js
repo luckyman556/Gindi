@@ -61,10 +61,10 @@ export const modelsFunctions = {
         totalPercent = Math.floor(currentSize / allLoadingsSize * 100);
     },
     getSizeOfAllLoadings : function (type = '') {
-        console.log(type);
+        // console.log(type);
         let size = 0;
         Object.entries(loading_object).forEach(([key,value],index)=>{
-            console.log(value.type);
+            // console.log(value.type);
             if (type == '') {
                 size += value.size;
             } else {
@@ -250,7 +250,6 @@ export const modelsFunctions = {
         objectsArray.forEach(function(item){
             item.scale =  1 + 0.5 * Math.random();
         });
-        console.log
             $.post( "write-file.php",
                 {
                     json : JSON.stringify(objectsArray)

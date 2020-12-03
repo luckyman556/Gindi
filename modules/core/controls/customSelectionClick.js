@@ -29,17 +29,27 @@ export function  customSelectionClick (picked_object) {
         scene.userData.lastCustomSelectionId = picked_object.id;
     }, 150);
     picked_object.userData.color_locked = true;
-    let flatCard = document.querySelector('.popup-info');
+    const flatCard = document.querySelector('.popup-info');
+    const zoomControllers = document.querySelector('.zoom-controls');
+
+
 
     flatCard.classList.add('show');
     flatCard.classList.remove('hide');
     flatCard.classList.add('custom-selection');
+    if (window.innerWidth < 420) {
+        zoomControllers.classList.add('hide');
+    }
 
     const domTitle = flatCard.querySelector('.title-with-selector .title-text-row');
     const btn360 = flatCard.querySelector('.three_js .popup-info .flat-plan .popups-togglers-box div.toggler-2d');
 
-    btn360.removeAttribute('data-dictionary');
     btn360.setAttribute('data-dictionary', `${picked_object.name} plan`);
+    btn360.innerText = get_lang(`${picked_object.name} plan`);
+
+    if (this_is_flat_click) {
+        btn360.classList.remove('hide');
+    }
 
     if (picked_object.userData.url_360) {
         btn360.classList.add('icon-360');
