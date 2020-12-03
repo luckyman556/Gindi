@@ -111,7 +111,7 @@ export function update (dynamic = false) {
                     //     p = flat.children[0].userData.defaultWorldPosition;
                     // }
 
-                    flat_labels_group[index].position.set(p.x , p.y + 3, p.z );
+                    flat_labels_group[index].position.set(p.x , p.y + globalSettings.destroyedBuilding.flatLabels.otherLabelsTopCorrection, p.z );
                     // flat_labels_group[index].position.set(p.x , p.y, p.z );
                     flat_labels_group[index].element.innerHTML = inner_html;
                     flat_labels_group[index].visible = true;
