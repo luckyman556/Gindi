@@ -819,7 +819,11 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                     'count': i,
                     'position': [0, positions_array.y_diff_y * i, 0],
                     'rotation': positions_array.rotation,
-                    'y_diff': positions_array.y_diff_y,
+                    'diff': {
+                      x : 0,
+                      y : positions_array.y_diff_y,
+                      z : 0,
+                    },
                     'matrix': matrix
                 };
                 instances_count++;
@@ -1350,6 +1354,7 @@ function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflectio
                     window.roof = element;
                     var user_data = window.roof.userData;
                     user_data.base_position_z = window.roof.position.z;
+                    objectToDisappear.push(window.roof);
                     var flat_clone = element.clone();
         
                     find_n_clone_material(element, flat_clone);
