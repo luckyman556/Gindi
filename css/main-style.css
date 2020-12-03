@@ -356,7 +356,6 @@
     z-index: 99999999999;
     width: 150px;
     height: 150px;
-    background-image: url(../img/preloader/logo2020.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -548,7 +547,7 @@
         text-align: center;
         justify-content: center;
         background-color: #FFFFFF;
-        width: calc(100%);
+        width: 100%;
         height: 198px;
         border-radius: 6px;
         font-size: 30px;
@@ -688,9 +687,9 @@
       padding: 0  0  0 15px;
       width: calc(100% - 24px); }
     .filter-module-container .input-search .ic {
-      min-width: 24px;
-      width: 24px;
-      height: 24px;
+      min-width: 20px;
+      width: 20px;
+      height: 20px;
       margin: auto 0;
       margin-left: auto; }
       .filter-module-container .input-search .ic img {
@@ -951,10 +950,8 @@
             -moz-appearance: textfield; }
           .nmf-range-selector-box .nfm-selected .number-box.input input::-webkit-outer-spin-button, .nmf-range-selector-box .nfm-selected .number-box.input input::-webkit-inner-spin-button {
             -webkit-appearance: none; }
-        .nmf-range-selector-box .nfm-selected .number-box.input .nmf-min-text {
-          display: none; }
       .nmf-range-selector-box .nfm-selected .number-box .simbol {
-        order: 2;
+        order: 0;
         margin: 0 5px; }
       .nmf-range-selector-box .nfm-selected .number-box input {
         display: none; }
@@ -1067,7 +1064,7 @@ body.he .nmf-range-selector-box .nfm-selected {
 
 body.he .nmf-range-selector-box .nfm-selected .number-box .nmf-max-text,
 body.he .nmf-range-selector-box .nfm-selected .number-box .nmf-min-text {
-  order: 2; }
+  order: 0; }
 
 body.he .nfm-first-line .icon-box {
   margin-left: 19px;
@@ -1091,9 +1088,10 @@ body.he .filter-module-container .flat-cards .nfm-flat-card .price .text-only-pr
   display: flex; }
 
 body.he .filter-module-container .true-false-toggler {
-  flex: 0 1 170px;
+  flex: 0 1 100%;
   padding-right: 20px;
-  padding-left: 20px; }
+  padding-left: 20px;
+  min-width: 170px; }
   body.he .filter-module-container .true-false-toggler .title {
     white-space: pre-wrap; }
 
@@ -1787,15 +1785,18 @@ html[dir=rtl] .apply__social-icon__item:not(:last-child) {
   height: 42px;
   left: 32px;
   bottom: 32px;
-  transform: rotateZ(-180deg);
-  background-color: #fff;
-  background-repeat: no-repeat;
-  background-position: center;
   border-radius: 50%;
-  background-image: url(../img/compas_new.svg);
-  z-index: 9;
+  background-color: #fff;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
+  .compass .ic {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../img/compas_new.svg);
+    z-index: 9; }
   .filter-open .compass {
     bottom: 284px; }
   .compass.flat-cards-open {
@@ -2411,7 +2412,69 @@ body {
   /* Internet Explorer/Edge */
   user-select: none;
   /* Non-prefixed version, currently */
-  height: 100%; }
+  height: 100%;
+  /*	.flat-bubble {
+		position: absolute;
+		min-height: 30px;
+		font-size: 12px;
+  		font-weight: normal;
+		display: flex;
+		align-items: center;
+		padding: 2px;
+		z-index: 23;
+		transform: translate(0, -20px) scale(0);
+		font-size: 15px;
+		color: black;
+		//transition: 0.4s;
+		transition-property: opacity, transform, left, top;
+		opacity: 0;
+		background-color: $white;
+		border-radius: 3px;
+		box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5);
+		.text-container {
+			display: flex;
+	        line-height: 24px;
+	        background-color: white;
+	        &.custom-selection {
+	            font-size: 0px;
+	            .model-name {
+	            	font-size: 16px;
+	            }
+	        }
+		}
+		.model-rooms {
+			display: flex;
+			&.studio {
+				.ic {
+					display: none;
+				}
+			}
+			.ic {
+				width: 16px;
+				height: 16px;
+				margin: auto 5px auto 0;
+			}
+			.room-num-html {
+				padding: 0 5px;
+			}
+		}
+		&.show {
+			opacity: 1;
+			transform: translate(15px, 10px) scale(1);
+		}
+		& .model-name {
+			margin: 0 5px;
+		}
+
+		& .prop-num {
+			margin: 0 5px;
+			font-weight: bold;
+		}
+
+		& img {
+			// margin: 0 10px;
+		}
+	}*/ }
   .three_js .zoom-by-mousewheel {
     display: flex;
     position: absolute;
@@ -2750,8 +2813,6 @@ body {
     display: flex;
     max-width: 72px;
     margin: 0 0; }
-    .three_js .flat-option:first-child .top-part {
-      justify-content: flex-start; }
     .three_js .flat-option.studio .top-part .text-box .middle-text {
       color: white;
       position: relative; }
@@ -3323,29 +3384,6 @@ body {
     border-radius: 6px; }
     .three_js .popup * {
       opacity: 0; }
-    .three_js .popup .apply-now {
-      font-family: Fragolino;
-      margin-bottom: 32px;
-      height: 44px;
-      min-height: 44px;
-      width: 144px;
-      box-shadow: 0px 5px 9px rgba(46, 70, 81, 0.15);
-      background-color: #C1AC87;
-      color: #FFFFFF;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: 23px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      cursor: pointer; }
-    .three_js .popup .floor-info-row {
-      order: 2;
-      min-height: 100%;
-      background-color: #f7f7f7;
-      overflow-y: auto;
-      min-width: 208px; }
     .three_js .popup:after {
       position: absolute;
       width: 100%;
@@ -3375,8 +3413,7 @@ body {
       width: 100%;
       padding: 0;
       overflow: hidden;
-      background-color: #FFFFFF;
-      width: calc(100% - 208px); }
+      background-color: #FFFFFF; }
       .three_js .popup .content .iframe-box {
         width: 100%;
         height: calc(100% + 1px); }
@@ -4634,49 +4671,6 @@ body {
       opacity: 1; }
     .three_js .points-line.reverse:after {
       opacity: 0; }
-  .three_js .flat-bubble {
-    position: absolute;
-    min-height: 30px;
-    font-size: 12px;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    padding: 2px;
-    z-index: 23;
-    transform: translate(0, -20px) scale(0);
-    font-size: 15px;
-    color: black;
-    transition-property: opacity, transform, left, top;
-    opacity: 0;
-    background-color: #FFFFFF;
-    border-radius: 3px;
-    box-shadow: -3px 3px 2px rgba(0, 0, 0, 0.5); }
-    .three_js .flat-bubble .text-container {
-      display: flex;
-      line-height: 24px;
-      background-color: white; }
-      .three_js .flat-bubble .text-container.custom-selection {
-        font-size: 0px; }
-        .three_js .flat-bubble .text-container.custom-selection .model-name {
-          font-size: 16px; }
-    .three_js .flat-bubble .model-rooms {
-      display: flex; }
-      .three_js .flat-bubble .model-rooms.studio .ic {
-        display: none; }
-      .three_js .flat-bubble .model-rooms .ic {
-        width: 16px;
-        height: 16px;
-        margin: auto 5px auto 0; }
-      .three_js .flat-bubble .model-rooms .room-num-html {
-        padding: 0 5px; }
-    .three_js .flat-bubble.show {
-      opacity: 1;
-      transform: translate(15px, 10px) scale(1); }
-    .three_js .flat-bubble .model-name {
-      margin: 0 5px; }
-    .three_js .flat-bubble .prop-num {
-      margin: 0 5px;
-      font-weight: bold; }
   .three_js .search-filter-title {
     width: 100%;
     color: #000000;
@@ -4894,8 +4888,6 @@ body {
     user-select: none;
     z-index: 30;
     display: flex; }
-    .filter-open .three_js .rotation-controller {
-      display: none; }
     .three_js .rotation-controller .line {
       width: 100%;
       height: 2px;
@@ -4951,8 +4943,6 @@ body {
     z-index: 30;
     display: flex;
     justify-content: space-between; }
-    .filter-open .three_js .zoom-controls {
-      display: none; }
     .three_js .zoom-controls .sep {
       width: 80%;
       height: 1px;
@@ -5341,40 +5331,6 @@ body {
         height: 20px;
         color: #FFFFFF;
         background-color: black; }
-  .three_js .compass {
-    position: absolute;
-    width: 42px;
-    height: 42px;
-    left: 32px;
-    bottom: 32px;
-    transform: rotateZ(-180deg);
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 50%;
-    z-index: 9;
-    cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    transition: 1s;
-    transition-property: bottom;
-    transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
-    transition-delay: 0s; }
-    .three_js .compass .ic {
-      width: 100%;
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-image: url(../img/compas_new.svg); }
-    .filter-open .three_js .compass {
-      /* display: none; */
-      bottom: 270px;
-      left: 34px;
-      transition-timing-function: cubic-bezier(0.92, -0.01, 0.07, 1);
-      transition-delay: 0.13s; }
-      .filter-open .three_js .compass.flat-cards-open {
-        bottom: 330px; }
-    .three_js .compass.not-default {
-      bottom: 50px; }
 
 #about-us .my-container {
   padding: 0;
@@ -6303,6 +6259,9 @@ body.en .bottom.area:after {
 html[dir=rtl] .apply-now-mobile {
   left: initial;
   right: 12px; }
+
+html[dir=rtl] .three_js .flat-plan .price .bottom-part .price-text {
+  order: 2; }
 
 .slider-box.hide {
   display: none; }
