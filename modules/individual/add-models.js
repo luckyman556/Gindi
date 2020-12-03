@@ -167,6 +167,7 @@ export function add_models( scene, all_appartments) {
             envAttrOptionsArray.forEach(item => item.active = false);
         }
 
+        console.log(envAttrOptionsArray);
         optionsMenu(envAttrOptionsArray);
     }
     {

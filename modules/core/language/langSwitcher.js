@@ -81,15 +81,15 @@ function setActiveLanguage(button, dropdown, currentLang, languages) {
         add_street_names(true);
     }
     changeContentText(currentLang);
-    setCookie(projectName + '_language', currentLang, {'max-age': 9999999});
+    setCookie('language', currentLang, {'max-age': 9999999});
 }
 function languageUserdetector(button, dropdown, currentLang, languages) {
 
-    if (!getCookie(projectName + '_language')) {
+    if (!getCookie('language')) {
         let userLang = window.navigator.language.toUpperCase();
         languages.forEach(lang => (userLang === lang) ? currentLang = userLang : currentLang);
     } else {
-        currentLang = getCookie(projectName + '_language');
+        currentLang = getCookie('language');
     }
 
     setActiveLanguage(button, dropdown, currentLang, languages);

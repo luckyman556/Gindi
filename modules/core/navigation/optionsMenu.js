@@ -210,7 +210,8 @@ function setInputListener(optionsObject, loaderFBX, envTexture, lightMap, grassT
      }
 }
 
-function turnOffAllEnvironment(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads) {
+function turnOffAllEnvironment(...dataArguments) {
+    const [optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads, loadingProgress] = dataArguments;
     environmentShow = !environmentShow;
     low_performance_mode = !low_performance_mode;
     const officeBuilding = scene.getObjectByName('Office_Building');
@@ -219,19 +220,27 @@ function turnOffAllEnvironment(optionsObject, loaderFBX, envTexture, lightMap, g
     const instaTree2 = scene.getObjectByName('instanceTree_2_tree');
 
     if (environmentShow) {
-        loadEnvironment(loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
+        if (dataArguments[1]) {
+            loadEnvironment(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
+        } else {
+            loadEnvironment(on_load_texture);
+        }
+
+        function on_load_texture() {
+            loaded_texture_counter++;
+        }
 
         object_to_opacity.forEach(obj => obj.userData.object_disabled = false);
-        officeBuilding.visible = true;
-        officeBuilding.userData.object_disabled = false;
+        if (officeBuilding) officeBuilding.visible = true;
+        if (officeBuilding) officeBuilding.userData.object_disabled = false;
 
     } else if (!environmentShow) {
         optionsObject.map(item => item.active = false);
         scene.remove(env);
         scene.remove(instaTree1);
         scene.remove(instaTree2);
-        officeBuilding.visible = false;
-        officeBuilding.userData.object_disabled = true;
+        if (officeBuilding) officeBuilding.visible = false;
+        if (officeBuilding) officeBuilding.userData.object_disabled = true;
     }
 
     liveToggler(optionsObject);
