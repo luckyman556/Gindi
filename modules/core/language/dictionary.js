@@ -40,7 +40,7 @@ export let dictionary_array = {
         'en' : 'price'
     },
     'apartments found' : {
-        'he' : 'נמצאו דירות:',
+        'he' : 'נמצאו דירות',
         'en' : 'apartments found'
     },
     'search' : {

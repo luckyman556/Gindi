@@ -1286,6 +1286,7 @@ body {
 					.slick-list {
 						height: 100%;
 						.slick-track {
+							transition: none;
 							height: 100%;
 						}
 						.slide {
