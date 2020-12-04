@@ -190,7 +190,6 @@ export function add_models( scene, all_appartments) {
     if (!low_performance_mode) {
         loadEnvironment(on_load_texture);
         liveToggler(envAttrOptionsArray);
-        loadTrees();
     } else {
         allLoadingsSize = 5679784;
     }
@@ -230,6 +229,7 @@ function find_n_clone_material (object_to_work, object_from_clone) {
 }
 
 export function loadEnvironment(on_load_texture) {
+
     setTimeout(() => {
         const loader = new FBXLoader();
         const texture_loader = new THREE.TextureLoader();
@@ -446,6 +446,50 @@ export function loadEnvironment(on_load_texture) {
         modelsFunctions.setLoadingPercent();
         }, modelsFunctions.loadingProgress , onErrorCallback);
     },1000);
+    loadTrees();
+    function loadTrees() {
+        const loader = new FBXLoader();
+        const texture_loader = new THREE.TextureLoader();
+        let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg', function(){
+            modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap-2.jpg');
+            modelsFunctions.setLoadingPercent();
+        });
+
+        loader.load('resources/trees/tree.fbx', function(tree){
+            // _6_tree,  _2_tree
+            let tree_mesh = tree.children[0];
+            tree_mesh.position.set(0,0,0);
+            tree_mesh.scale.set(0.1,0.1,0.1);
+            let three_map = texture_loader.load('resources/trees/2321.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/trees/2321.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            // scene.add(tree_mesh);
+            // control.attach(tree_mesh);
+            window.tree_mesh = tree_mesh;
+            let treesGroup = new THREE.Group();
+            treesGroup.name = 'treesGroup';
+            let options = {
+                material_map : three_map,
+                lightMap : white_lightmap_2,
+                group : treesGroup
+            }
+            tree_mesh.material.map = three_map;
+            tree_mesh.material.lightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', function(){
+                modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap.jpg');
+                modelsFunctions.setLoadingPercent();
+            });
+            // scene.add(tree_mesh);
+            {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                trees_position.map(pos => pos.y = -6);
+                add_instances_trees(tree_mesh, trees_position, 0.0008, options);
+                scene.add(treesGroup);
+            }
+        }, onProgressCallback, onErrorCallback);
+    }
+
 
 }
 function loadBoxes(loader, texture_loader, empty_model, beton_texture, reflection_material, new_merged_glass_map, on_load_texture, white_lightmap) {
@@ -1967,44 +2011,7 @@ function getCenterPoint(mesh) {
     window.sprite_2 = sprite_2;
     window.sprite_2 = sprite_2;
 }*/
-export function loadTrees() {
-    const loader = new FBXLoader();
-    const texture_loader = new THREE.TextureLoader();
-    let white_lightmap_2 = texture_loader.load('resources/2020/04/white-lightmap-2.jpg', function(){
-        modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap-2.jpg');
-        modelsFunctions.setLoadingPercent();
-    });
 
-    loader.load('resources/trees/tree.fbx', function(tree){
-        // _6_tree,  _2_tree
-        let tree_mesh = tree.children[0];
-        tree_mesh.position.set(0,0,0);
-        tree_mesh.scale.set(0.1,0.1,0.1);
-        let three_map = texture_loader.load('resources/trees/2321.jpg', function(){
-            modelsFunctions.writeImgLoadingProgress( 'resources/trees/2321.jpg');
-            modelsFunctions.setLoadingPercent();
-        });
-        // scene.add(tree_mesh);
-        // control.attach(tree_mesh);
-        window.tree_mesh = tree_mesh;
-        let options = {
-            material_map : three_map,
-            lightMap : white_lightmap_2,
-        }
-        tree_mesh.material.map = three_map;
-        tree_mesh.material.lightMap = texture_loader.load('resources/2020/04/white-lightmap.jpg', function(){
-            modelsFunctions.writeImgLoadingProgress( 'resources/2020/04/white-lightmap.jpg');
-            modelsFunctions.setLoadingPercent();
-        });
-        // scene.add(tree_mesh);
-        {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            trees_position.map(pos => pos.y = -6);
-            add_instances_trees(tree_mesh, trees_position, 0.0008, options);
-        }
-    }, onProgressCallback, onErrorCallback);
-}
 
 export function liveToggler(environmentSettings) {
     const loader = new FBXLoader();
