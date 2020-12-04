@@ -216,9 +216,7 @@ function turnOffAllEnvironment(...dataArguments) {
     low_performance_mode = !low_performance_mode;
     const officeBuilding = scene.getObjectByName('Office_Building');
     const env = scene.getObjectByName('environment');
-    const instaTree1 = scene.getObjectByName('instanceTree_6_tree');
-    const instaTree2 = scene.getObjectByName('instanceTree_2_tree');
-
+    const treesGroup = scene.getObjectByName('treesGroup');
     if (environmentShow) {
         if (dataArguments[1]) {
             loadEnvironment(optionsObject, loaderFBX, envTexture, lightMap, grassTexture, sidewalkTexture, water_alpha, sandTexture, grassLightMap, lightMapGrass, lightMapMesh, lightMapObject, lightMapRoads);
@@ -237,8 +235,9 @@ function turnOffAllEnvironment(...dataArguments) {
     } else if (!environmentShow) {
         optionsObject.map(item => item.active = false);
         scene.remove(env);
-        scene.remove(instaTree1);
-        scene.remove(instaTree2);
+        if (treesGroup) {
+            scene.remove(treesGroup);
+        }
         if (officeBuilding) officeBuilding.visible = false;
         if (officeBuilding) officeBuilding.userData.object_disabled = true;
     }
