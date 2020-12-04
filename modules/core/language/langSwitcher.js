@@ -36,14 +36,14 @@ function changeContentText(currentLang) {
                 const param = item.getAttribute('data-dictionary-param');
                 item.setAttribute(param, get_lang (item.getAttribute('data-dictionary')));
             } else {
-                item.innerText = get_lang (item.getAttribute('data-dictionary'));
+                item.innerHTML = get_lang (item.getAttribute('data-dictionary'));
             }
 
         } else {
             if (currentLang === 'HE') {
-                item.innerText = item.getAttribute('data-he');
+                item.innerHTML = item.getAttribute('data-he');
             } else if (currentLang === 'EN') {
-                item.innerText = item.getAttribute('data-en');
+                item.innerHTML = item.getAttribute('data-en');
             // } else if (currentLang === 'RU') {
             //     item.innerText = item.getAttribute('data-ru');
             }

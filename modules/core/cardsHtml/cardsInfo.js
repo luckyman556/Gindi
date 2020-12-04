@@ -8,7 +8,7 @@ export const cardsInfoHTML = {
             }
             let addToDictionary = '';
             if (option.addToDictionary) {
-                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary(crmData[option.crmName]) }</div>`;
             }
             let addClass = '';
             if (option.addClassCallback) {
@@ -40,7 +40,7 @@ export const cardsInfoHTML = {
             }
             let addToDictionary = '';
             if (option.addToDictionary) {
-                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+                addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary(crmData[option.crmName]) }</div>`;
             }
             let optionHtml = `
                     <div class="option-item ${addClass}">
@@ -75,7 +75,7 @@ export const cardsInfoHTML = {
                 }
                 let addToDictionary = '';
                 if (option.addToDictionary) {
-                    addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary }</div>`;
+                    addToDictionary = `<div class="add-to-dictionary">${ option.addToDictionary(crmData[option.crmName]) }</div>`;
                 }
 
                 let addClass = '';

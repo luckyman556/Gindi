@@ -295,6 +295,10 @@ export let dictionary_array = {
         'en': 'm',
         'he': 'מ"ר'
     },
+    'mHtml' : {
+        'en': ', m<sup>2</sup>',
+        'he': ', מ"ר'
+    },
     'Pool': {
         'en': 'Pool',
         'he': 'בריכה'

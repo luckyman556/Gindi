@@ -15,13 +15,8 @@ export const cardsInfoSettings = {
             'imgUrl' : './img/gindi-ic-area.svg',
             'dictionary' : 'area',
             'metrics' : 'm2',
-            // 'addToDictionary' : ', ft<sup>2</sup>'
-            'callback' : function (data) {
-                 if (c_lang () == 'he') {
-                    return data +  ' מ"ר ';
-                } else {
-                    return data +  ' m<sup>2</sup>';
-                }
+            'addToDictionary' :  function () {
+                return '<span class="language-string" data-dictionary="mHtml">' + get_lang('mHtml') + '</span>';
             }
         },
         {
