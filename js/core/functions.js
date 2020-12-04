@@ -1389,7 +1389,7 @@ function add_appartment_info_in_popup (box) {
 
         let apply_now_html = '';
 
-        if (window.showApplyNow) {
+        if (window.showApplyNow && flat.userData.crm_data.status !== 'Sold' && flat.userData.crm_data.status !== 'Unavailable' ) {
             const mobileBtnsContainer = document.querySelector('.content');
 
             apply_now_html =  `<div class="apply-now scroll_to_contacts language-string ${window.innerWidth < 415 ? `apply-now-mobile` : ''}" data-dictionary="Apply now">${get_lang('Apply now')}</div>`;

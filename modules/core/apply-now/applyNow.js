@@ -1,5 +1,3 @@
-import {multiPhoneSelector} from "../../individual/apply-now/multiphoneSelector.js";
-
 function creatHtmlElement(parent, elementName, elementTag, elementClass) {
   const el = document.createElement(elementTag);
   if (Array.isArray(elementClass)){
@@ -74,7 +72,12 @@ export function applyNow (parent,contentObject,useSubstrate = true, hideElements
     showElements(hideElementsArr);
   });
 
-  multiPhoneSelector(contentWrapper, mainContainer);
+  if (multiPhoneSelectorBool) {
+    import("../../individual/apply-now/multiphoneSelector.js")
+        .then(function (obj) {
+          obj.multiPhoneSelector(contentWrapper, mainContainer);
+        });
+  }
 
 }
 
