@@ -3462,6 +3462,7 @@ body {
           .three_js .popup .content .slider-box .slider .slick-list {
             height: 100%; }
             .three_js .popup .content .slider-box .slider .slick-list .slick-track {
+              transition: none;
               height: 100%; }
             .three_js .popup .content .slider-box .slider .slick-list .slide img {
               width: 100%;

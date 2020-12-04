@@ -452,8 +452,11 @@ $(document).ready(function(){
             // popup_appear_function ($(this), event);
             const iframeBox = document.querySelector('.three_js .popup-3d .content .iframe-box');
             const sliderBox = document.querySelector('.three_js .popup-3d .content .slider-box');
-            iframeBox.innerHTML = `<iframe src=${last_clicked_flat.userData.int_360}></iframe>`;
-            sliderBox.classList.add('hide');
+            if (!Array.isArray(last_clicked_flat.userData.int_360)){
+                iframeBox.innerHTML = `<iframe src=${last_clicked_flat.userData.int_360}></iframe>`;
+                sliderBox.classList.add('hide');
+            }
+
 
             $('.three_js .popup-3d .content').addClass('loading');
             $('.three_js .popup-3d .content .slider .slide').each(function(item){

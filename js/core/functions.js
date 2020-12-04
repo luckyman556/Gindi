@@ -1288,6 +1288,7 @@ function add_appartment_info_in_popup (box) {
                 slider_box.html(slider_html);
                 slider_box.find('.slider').slick({
                     arrows: true,
+                    infinite: true,
                 });
             } else {
                 const new_iframe_3d = '<iframe src="' +  flat.userData.int_360  +'"></iframe>';
